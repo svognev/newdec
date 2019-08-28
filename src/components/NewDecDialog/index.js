@@ -89,7 +89,7 @@ class NewDecDialog extends React.Component {
                         <Button 
                             variant="contained"
                             color="default"
-                            onClick={() => {}}
+                            onClick={onClose}
                             className="paragraphDecorators-dialog_top-button"
                         >
                             Cancel
