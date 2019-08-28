@@ -18,6 +18,8 @@ const FramesSection = (props) => {
         changeBottomBorder,
         borderColor,
         changeBorderColor,
+        borderThickness,
+        changeBorderThickness,
      } = props;
 
      const correctColor = getCorrectColor(borderColor);
@@ -25,12 +27,15 @@ const FramesSection = (props) => {
          backgroundColor: `#${correctColor}`,
      };
      const previewBorderColor = correctColor !== "FFF" ? `#${correctColor}` : "#dc004e";
+     const previewBorderWidth = borderThickness && parseFloat(borderThickness) === parseFloat(borderThickness) && parseFloat(borderThickness) <= 15
+                                ? `${borderThickness}pt`
+                                : "1.3px";
 
      const previewStyle = {
-         borderLeft: `1px solid ${leftBorder ? previewBorderColor : "white"}`,
-         borderRight: `1px solid ${rightBorder ? previewBorderColor : "white"}`,
-         borderTop: `1px solid ${topBorder ? previewBorderColor : "white"}`,
-         borderBottom: `1px solid ${bottomBorder ? previewBorderColor : "white"}`,
+         borderLeft: `${previewBorderWidth} solid ${leftBorder ? previewBorderColor : "white"}`,
+         borderRight: `${previewBorderWidth} solid ${rightBorder ? previewBorderColor : "white"}`,
+         borderTop: `${previewBorderWidth} solid ${topBorder ? previewBorderColor : "white"}`,
+         borderBottom: `${previewBorderWidth} solid ${bottomBorder ? previewBorderColor : "white"}`,
      }
 
     return (
@@ -131,6 +136,8 @@ const FramesSection = (props) => {
                             variant="outlined" 
                             margin="dense" 
                             className="paragraphDecorators-dialog__number-input"
+                            value={borderThickness}
+                            onChange={changeBorderThickness}
                          />                                            
                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
                     </li>

@@ -49,6 +49,10 @@ class NewDecDialog extends React.Component {
         borderColor: "",
         fontColor: "",
         fillingColor: "",
+        borderThickness: "",
+        firstRowIndent: "",
+        otherRowsIndent: "",
+        lineSpacing: "",
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -80,6 +84,21 @@ class NewDecDialog extends React.Component {
         });
     }
 
+    setNumber = (propName) => (e) => {
+        let input = e.target.value || "";
+
+        const filteredInput = input.replace(",", ".").trim().match(/[0-9a-f]+/i) 
+                              ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
+                              : "" ;
+
+        if (filteredInput === this.state[propName]) {
+            return;
+        }
+        this.setState({
+            [propName]: filteredInput,
+        });
+    }
+
     render() {
         const { isOpen, onClose } = this.props;
         const { openedTab, 
@@ -95,6 +114,10 @@ class NewDecDialog extends React.Component {
                 borderColor,
                 fontColor,
                 fillingColor,
+                borderThickness,
+                firstRowIndent,
+                otherRowsIndent,
+                lineSpacing,
             } = this.state;
 
         const { setBulletField } = this;
@@ -110,6 +133,10 @@ class NewDecDialog extends React.Component {
         const changeBorderColor = this.setColor("borderColor");
         const changeFontColor = this.setColor("fontColor");
         const changeFillingColor = this.setColor("fillingColor");
+        const changeBorderThickness = this.setNumber("borderThickness");
+        const changeFirstRowIndent = this.setNumber("firstRowIndent");
+        const changeOtherRowsIndent = this.setNumber("otherRowsIndent");
+        const changeLineSpacing = this.setNumber("lineSpacing");
 
         const listSectionProps = { 
             isList, 
@@ -129,6 +156,15 @@ class NewDecDialog extends React.Component {
             changeFontColor,
         };
 
+        const distancesSectionProps = {
+            firstRowIndent,
+            otherRowsIndent,
+            lineSpacing,
+            changeFirstRowIndent,
+            changeOtherRowsIndent,
+            changeLineSpacing,
+        };
+
         const framesSectionProps = { 
             leftBorder, 
             rightBorder, 
@@ -140,6 +176,8 @@ class NewDecDialog extends React.Component {
             changeBottomBorder, 
             borderColor,
             changeBorderColor,
+            borderThickness,
+            changeBorderThickness,
         };
 
         const fillingSectionProps = { fillingColor, changeFillingColor };
@@ -210,7 +248,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
                         { openedTab === 4 && <ReferencingSection /> }
                         { openedTab === 5 && <TypographySection {...typographySectionProps} /> }
-                        { openedTab === 6 && <DistancesSection /> }
+                        { openedTab === 6 && <DistancesSection {...distancesSectionProps} /> }
                         { openedTab === 7 && <FramesSection {...framesSectionProps} /> }
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }

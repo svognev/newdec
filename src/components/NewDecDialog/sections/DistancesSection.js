@@ -6,6 +6,15 @@ import CustomInputShort from '../../common/CustomInputShort';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 const DistancesSection = (props) => {
+    const {
+        firstRowIndent,
+        otherRowsIndent,
+        lineSpacing,
+        changeFirstRowIndent,
+        changeOtherRowsIndent,
+        changeLineSpacing,
+    } = props;
+
     return (
         <form className="paragraphDecorators-dialog__form">
             <ul className="paragraphDecorators-dialog__field-list">
@@ -37,7 +46,9 @@ const DistancesSection = (props) => {
                     <TextField 
                         variant="outlined" 
                         margin="dense" 
-                        className="paragraphDecorators-dialog__number-input" 
+                        className="paragraphDecorators-dialog__number-input"
+                        value={firstRowIndent}
+                        onChange={changeFirstRowIndent} 
                      />                                            
                     <InputAdornment variant="filled" position="end">cm</InputAdornment>
                 </li>
@@ -46,6 +57,8 @@ const DistancesSection = (props) => {
                         variant="outlined" 
                         margin="dense" 
                         className="paragraphDecorators-dialog__number-input" 
+                        value={otherRowsIndent}
+                        onChange={changeOtherRowsIndent}
                      />                                            
                     <InputAdornment variant="filled" position="end">cm</InputAdornment>
                 </li>
@@ -53,7 +66,9 @@ const DistancesSection = (props) => {
                     <TextField 
                         variant="outlined" 
                         margin="dense" 
-                        className="paragraphDecorators-dialog__number-input" 
+                        className="paragraphDecorators-dialog__number-input"
+                        value={lineSpacing}
+                        onChange={changeLineSpacing} 
                      />                                            
                     <InputAdornment variant="filled" position="end">pt</InputAdornment>
                 </li>
