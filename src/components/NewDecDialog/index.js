@@ -36,7 +36,7 @@ const theme = createMuiTheme({
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 7,
+        openedTab: 0,
         isList: true,
         listType: "unordered",
         bulletField: "",
