@@ -3,7 +3,15 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-const FillingSection = (props) => {
+import { getCorrectColor } from '../../../utils';
+
+const FillingSection = ({ fillingColor, changeFillingColor }) => {
+
+    const correctColor = getCorrectColor(fillingColor);
+    const colorSampleStyle = {
+        backgroundColor: `#${correctColor}`,
+    };
+
     return (
         <form className="paragraphDecorators-dialog__form">
             <ul className="paragraphDecorators-dialog__field-list">
@@ -21,7 +29,10 @@ const FillingSection = (props) => {
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">#</InputAdornment>,
                               }}
-                         />                                            
+                            value={fillingColor}
+                            onChange={changeFillingColor}
+                         />     
+                        <div className="paragraphDecorators-dialog__color-sample" style={colorSampleStyle}></div>                                                                                   
                     </li>                
                 </div>
                 <div className="paragraphDecorators-dialog__col ">

@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
+import { getCorrectColor } from '../../../utils';
+
 const FramesSection = (props) => {
     const { 
         leftBorder, 
@@ -14,13 +16,21 @@ const FramesSection = (props) => {
         changeRightBorder,
         changeTopBorder,
         changeBottomBorder,
+        borderColor,
+        changeBorderColor,
      } = props;
 
+     const correctColor = getCorrectColor(borderColor);
+     const colorSampleStyle = {
+         backgroundColor: `#${correctColor}`,
+     };
+     const previewBorderColor = correctColor !== "FFF" ? `#${correctColor}` : "#dc004e";
+
      const previewStyle = {
-         borderLeft: leftBorder ? "1px solid #dc004e" : "1px solid white",
-         borderRight: rightBorder ? "1px solid #dc004e" : "1px solid white",
-         borderTop: topBorder ? "1px solid #dc004e" : "1px solid white",
-         borderBottom: bottomBorder ? "1px solid #dc004e" : "1px solid white",
+         borderLeft: `1px solid ${leftBorder ? previewBorderColor : "white"}`,
+         borderRight: `1px solid ${rightBorder ? previewBorderColor : "white"}`,
+         borderTop: `1px solid ${topBorder ? previewBorderColor : "white"}`,
+         borderBottom: `1px solid ${bottomBorder ? previewBorderColor : "white"}`,
      }
 
     return (
@@ -111,13 +121,16 @@ const FramesSection = (props) => {
                             InputProps={{
                                 startAdornment: <InputAdornment position="start">#</InputAdornment>,
                               }}
-                         />                                            
+                            value={borderColor}
+                            onChange={changeBorderColor}
+                         />
+                        <div className="paragraphDecorators-dialog__color-sample" style={colorSampleStyle}></div>                                            
                     </li>
                     <li>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
-                            className="paragraphDecorators-dialog__number-input" 
+                            className="paragraphDecorators-dialog__number-input"
                          />                                            
                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
                     </li>

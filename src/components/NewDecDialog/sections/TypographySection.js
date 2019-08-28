@@ -10,7 +10,24 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-const TypographySection = ({ verticalAlign, textTransform, changeVerticalAlign, changeTextTransform }) => {
+import { getCorrectColor } from '../../../utils';
+
+const TypographySection = (props) => {
+    const { 
+        verticalAlign, 
+        textTransform, 
+        changeVerticalAlign, 
+        changeTextTransform,
+        fontColor,
+        changeFontColor,
+    } = props;
+
+    const correctColor = getCorrectColor(fontColor);
+
+    const colorSampleStyle = {
+        backgroundColor: `#${correctColor}`,
+    };
+    
     return (
         <form className="paragraphDecorators-dialog__form">
             <ul className="paragraphDecorators-dialog__field-list">
@@ -51,7 +68,19 @@ const TypographySection = ({ verticalAlign, textTransform, changeVerticalAlign, 
                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
                     </li>
                     <li><TextField variant="outlined" margin="dense" /></li>
-                    <li><TextField variant="outlined" margin="dense" /></li>
+                    <li>
+                        <TextField 
+                            variant="outlined" 
+                            margin="dense" 
+                            className="paragraphDecorators-dialog__number-input" 
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">#</InputAdornment>,
+                              }}
+                            value={fontColor}
+                            onChange={changeFontColor}
+                         />
+                         <div className="paragraphDecorators-dialog__color-sample" style={colorSampleStyle}></div>                                            
+                    </li>
                     <li className="paragraphDecorators-dialog__fraction-title">
                         <div className="paragraphDecorators-dialog__labeled-checkbox">
                             <FormControlLabel

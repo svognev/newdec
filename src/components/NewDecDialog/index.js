@@ -46,6 +46,9 @@ class NewDecDialog extends React.Component {
         rightBorder: true,
         topBorder: true,
         bottomBorder: true,
+        borderColor: "",
+        fontColor: "",
+        fillingColor: "",
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -62,6 +65,21 @@ class NewDecDialog extends React.Component {
         this.setState({ bulletField: e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value });
     } 
 
+    setColor = (propName) => (e) => {
+        let input = e.target.value || "";
+        
+        const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
+                              ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
+                              : "" ;
+        
+        if (filteredInput === this.state[propName]) {
+            return;
+        }
+        this.setState({
+            [propName]: filteredInput,
+        });
+    }
+
     render() {
         const { isOpen, onClose } = this.props;
         const { openedTab, 
@@ -74,6 +92,9 @@ class NewDecDialog extends React.Component {
                 rightBorder,
                 topBorder,
                 bottomBorder, 
+                borderColor,
+                fontColor,
+                fillingColor,
             } = this.state;
 
         const { setBulletField } = this;
@@ -86,9 +107,43 @@ class NewDecDialog extends React.Component {
         const changeRightBorder = this.toggleStateProperty("rightBorder");
         const changeTopBorder = this.toggleStateProperty("topBorder");
         const changeBottomBorder = this.toggleStateProperty("bottomBorder");
+        const changeBorderColor = this.setColor("borderColor");
+        const changeFontColor = this.setColor("fontColor");
+        const changeFillingColor = this.setColor("fillingColor");
 
-        console.log(15, this.state.openedTab);
+        const listSectionProps = { 
+            isList, 
+            listType, 
+            changeIsList, 
+            changeListType, 
+            bulletField, 
+            setBulletField,
+        };
 
+        const typographySectionProps = { 
+            verticalAlign, 
+            textTransform, 
+            changeVerticalAlign, 
+            changeTextTransform,
+            fontColor,
+            changeFontColor,
+        };
+
+        const framesSectionProps = { 
+            leftBorder, 
+            rightBorder, 
+            topBorder, 
+            bottomBorder, 
+            changeLeftBorder, 
+            changeRightBorder, 
+            changeTopBorder, 
+            changeBottomBorder, 
+            borderColor,
+            changeBorderColor,
+        };
+
+        const fillingSectionProps = { fillingColor, changeFillingColor };
+        
         return (
             <ThemeProvider theme={theme}>
             <Dialog
@@ -152,12 +207,12 @@ class NewDecDialog extends React.Component {
                         { openedTab === 0 && <NamesSection /> }
                         { openedTab === 1 && <WordExportSection /> }
                         { openedTab === 2 && <PositioningSection /> }
-                        { openedTab === 3 && <ListSection {...{isList, listType, changeIsList, changeListType, bulletField, setBulletField }} />}
+                        { openedTab === 3 && <ListSection {...listSectionProps} />}
                         { openedTab === 4 && <ReferencingSection /> }
-                        { openedTab === 5 && <TypographySection {...{verticalAlign, textTransform, changeVerticalAlign, changeTextTransform}} /> }
+                        { openedTab === 5 && <TypographySection {...typographySectionProps} /> }
                         { openedTab === 6 && <DistancesSection /> }
-                        { openedTab === 7 && <FramesSection {...{leftBorder, rightBorder, topBorder, bottomBorder, changeLeftBorder, changeRightBorder, changeTopBorder, changeBottomBorder}} /> }
-                        { openedTab === 8 && <FillingSection /> }
+                        { openedTab === 7 && <FramesSection {...framesSectionProps} /> }
+                        { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
                         { openedTab === 11 && <QuickSelectSection /> }
