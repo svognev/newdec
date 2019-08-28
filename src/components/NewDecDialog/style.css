@@ -150,3 +150,88 @@
     margin-top: 5px !important;
     margin-right: 1.5rem !important;
 }
+
+.paragraphDecorators-dialog__border-directions {
+    display: flex;
+    flex-flow: column;
+    padding: 15px 20px;
+    margin-top: 8px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.paragraphDecorators-dialog__border-directions .top-row, .center-row, .bottom-row {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.paragraphDecorators-dialog__border-directions .top-row {
+    margin-bottom: -10px;
+}
+
+.paragraphDecorators-dialog__border-directions .bottom-row {
+    margin-top: -10px;
+}
+
+.paragraphDecorators-dialog__border-directions .center-square {
+    display: flex;
+    width: 190px;
+    height: 190px;
+    flex-flow: row;
+    flex-wrap: wrap !important;
+    justify-content: space-between;
+}
+
+.paragraphDecorators-dialog__border-directions .center-cell {
+    min-width: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paragraphDecorators-dialog__border-directions .checkbox-top {
+    margin-bottom: -35px;
+}
+.paragraphDecorators-dialog__border-directions .checkbox-bottom {
+    margin-top: -35px;
+}
+.paragraphDecorators-dialog__border-directions .checkbox-left {
+    margin-right: -30px;
+}
+.paragraphDecorators-dialog__border-directions .checkbox-right {
+    margin-left: -30px;
+}
+
+.paragraphDecorators-dialog__direction-span {
+    font-size: 10pt;
+    color: dimgray;
+    user-select: none; 
+}
+
+.paragraphDecorators-dialog__top-direction-span {
+    margin-left: -9px;
+    margin-bottom: -25px; 
+}
+
+.paragraphDecorators-dialog__bottom-direction-span {
+    margin-left: -6px;
+    margin-top: -25px;
+}
+
+.paragraphDecorators-dialog__left-direction-span {
+    margin-right: -20px;
+}
+
+.paragraphDecorators-dialog__right-direction-span {
+    margin-left: -20px;
+}
+
+.paragraphDecorators-dialog__border-directions .preview {
+    padding: 3px 4px;
+    font-size: 12pt;
+    user-select: none; 
+}
+

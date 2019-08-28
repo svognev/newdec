@@ -36,12 +36,16 @@ const theme = createMuiTheme({
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 7,
         isList: true,
         listType: "unordered",
         bulletField: "",
         verticalAlign: "",
         textTransform: "",
+        leftBorder: true,
+        rightBorder: true,
+        topBorder: true,
+        bottomBorder: true,
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -60,14 +64,29 @@ class NewDecDialog extends React.Component {
 
     render() {
         const { isOpen, onClose } = this.props;
-        const { openedTab, isList, listType, bulletField, verticalAlign, textTransform } = this.state;
+        const { openedTab, 
+                isList, 
+                listType, 
+                bulletField, 
+                verticalAlign, 
+                textTransform,
+                leftBorder, 
+                rightBorder,
+                topBorder,
+                bottomBorder, 
+            } = this.state;
+
         const { setBulletField } = this;
         const changeOpenedTab = this.setStateProperty("openedTab");
         const changeIsList = this.toggleStateProperty("isList");
         const changeListType = this.setStateProperty("listType");
         const changeVerticalAlign = this.setStateProperty("verticalAlign");
         const changeTextTransform = this.setStateProperty("textTransform");
-      
+        const changeLeftBorder = this.toggleStateProperty("leftBorder");
+        const changeRightBorder = this.toggleStateProperty("rightBorder");
+        const changeTopBorder = this.toggleStateProperty("topBorder");
+        const changeBottomBorder = this.toggleStateProperty("bottomBorder");
+
         console.log(15, this.state.openedTab);
 
         return (
@@ -137,7 +156,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 4 && <ReferencingSection /> }
                         { openedTab === 5 && <TypographySection {...{verticalAlign, textTransform, changeVerticalAlign, changeTextTransform}} /> }
                         { openedTab === 6 && <DistancesSection /> }
-                        { openedTab === 7 && <FramesSection /> }
+                        { openedTab === 7 && <FramesSection {...{leftBorder, rightBorder, topBorder, bottomBorder, changeLeftBorder, changeRightBorder, changeTopBorder, changeBottomBorder}} /> }
                         { openedTab === 8 && <FillingSection /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
