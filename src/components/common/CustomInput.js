@@ -9,7 +9,7 @@ const CustomInput = withStyles(theme => ({
     },
     input: {
       borderRadius: 4,
-      width: '183px',
+      minWidth: '183px',
       position: 'relative',
       backgroundColor: theme.palette.background.paper,
       border: '1px solid #ced4da',

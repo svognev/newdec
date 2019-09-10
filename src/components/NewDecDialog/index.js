@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
@@ -22,12 +21,13 @@ import TestSection from './sections/TestSection';
 import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
+import CustomDialog from '../common/CustomDialog';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -175,14 +175,14 @@ class NewDecDialog extends React.Component {
         
         return (
             <ThemeProvider theme={theme}>
-            <Dialog
+            <CustomDialog
                 open={isOpen}
                 onClose={onClose}
                 aria-labelledby="form-dialog-title"
                 scroll="body"
                 className="paragraphDecorators-dialog"
                 fullWidth={true}
-                maxWidth="lg"
+                maxWidth={false}
             >
                 <div className="header">
                     <DialogTitle className="header-title">
@@ -247,7 +247,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 11 && <TestSection /> }
                     </div>
                 </DialogContent>
-            </Dialog>
+            </CustomDialog>
             </ThemeProvider>
         );
     }
