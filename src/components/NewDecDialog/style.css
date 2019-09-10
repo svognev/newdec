@@ -1,32 +1,18 @@
+.paragraphDecorators-dialog {
+    min-width: 1150px;
+}
+
 .paragraphDecorators-dialog .MuiDialog-paperScrollBody {
     vertical-align: baseline !important;
 }
 
-.paragraphDecorators-dialog__content {
-    min-width: 950px;
-    display: flex;
-    min-height: 450px;
-    padding-right: 0px !important;
-}
-
-.paragraphDecorators-dialog__left-side {
-    width: 200px;
-    background-color: white;
-}
-
-.paragraphDecorators-dialog__tabs {
-    display: flex;
-    width: 190px;
-    box-shadow:  1px 0px 0px 0px gainsboro;
-}
-
-.paragraphDecorators-dialog__header {
+.paragraphDecorators-dialog .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.paragraphDecorators-dialog__title {
+.paragraphDecorators-dialog .header-title {
     font-weight: bold;
     font-size: 22px;
     height: 3rem !important;
@@ -34,22 +20,47 @@
     align-items: center;
 }
 
-.paragraphDecorators-dialog__header-buttons {
+.paragraphDecorators-dialog .header-buttons {
     display: flex;
-    justify-content: flex-end;
 }
 
-.paragraphDecorators-dialog_top-button {
+.paragraphDecorators-dialog .topNavButton {
     margin-left: 1rem !important;
     height: 2rem;
     flex-wrap: nowrap;
 }
 
-.paragraphDecorators-dialog_top-button:last-child {
+.paragraphDecorators-dialog .topNavButton:last-child {
     margin-right: 1.5rem;
 }
 
-.paragraphDecorators-dialog__tab {
+
+.paragraphDecorators-dialog .content {
+    display: flex;
+    min-height: 450px;
+    padding-right: 0px !important;
+    width: 96%;
+}
+
+.paragraphDecorators-dialog .content-leftSide {
+    width: 235px;
+}
+
+.paragraphDecorators-dialog .content-rightSide {
+    margin: 0px 0px 30px 40px;
+    display: flex;
+    width: 100%;
+    padding: 0;
+    padding-right: 10px;
+}
+
+.paragraphDecorators-dialog .dialogTabs {
+    display: flex;
+    width: 190px;
+    box-shadow:  1px 0px 0px 0px gainsboro;
+}
+
+.paragraphDecorators-dialog .dialogTab {
     display: flex;
     flex-direction: column;
     align-items: flex-start !important;
@@ -58,25 +69,70 @@
     font-size: 14px !important;
 }
 
-.paragraphDecorators-dialog__right-side {
-    margin: 0px 0px 30px 40px;
-    display: flex;
-    padding: 0;
+.paragraphDecorators-dialog .dialogGrid {
+    width: 100%;
+    height: 100%;
+    background-color: beige;
+    display: grid;
+    grid-template-rows: repeat(2, minmax(3.5rem, min-content));
+    grid-auto-rows: minmax(3.5rem, min-content);
+    grid-gap: 0.1rem 1.5rem;
+    grid-auto-flow: row;
+    align-items: center;
 }
+
+.paragraphDecorators-dialog .dialogGrid_2cols {
+    grid-template-columns: auto 1fr; 
+}
+
+.paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {
+    text-align: right 
+}
+
+.paragraphDecorators-dialog .textButton {
+    margin-left: 1rem !important;
+}
+
+
+
+.grid-item {
+    background-color: lightsalmon;
+    display: flex;
+    align-items: center;
+    width: 10px;
+    height: 100%;
+}
+
+.grid-item2 {
+    background-color: lightseagreen;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 4rem;
+}
+
+
+
+
 
 .paragraphDecorators-dialog__form {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
 .paragraphDecorators-dialog__col {
+    height: 100%;
     margin-right: 1.5rem;
 }
 
 .paragraphDecorators-dialog__col:last-child {
     margin-right: 0;
+}
+
+.paragraphDecorators-dialog_long-text-field {
+    min-width: 575px !important;
+    width: 100%;
 }
 
 .paragraphDecorators-dialog__col:first-child span {
@@ -86,6 +142,7 @@
 .paragraphDecorators-dialog__field-list {
     display: flex;
     width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
 }
@@ -95,6 +152,9 @@
       display: flex;
       align-items: center;
 }
+.paragraphDecorators-dialog__col_growing {
+    flex-grow: 1;
+}
 
 .paragraphDecorators-dialog__col_right-aligned li {
     justify-content: flex-end !important;
@@ -102,6 +162,10 @@
 
 .paragraphDecorators-dialog__subtitle {
     justify-content: center;
+}
+
+.paragraphDecorators-dialog__subtitle h4 {
+    margin-bottom: -5px;
 }
 
 .paragraphDecorators-dialog__fraction-title {

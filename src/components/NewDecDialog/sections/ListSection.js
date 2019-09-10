@@ -10,8 +10,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { listStyleType } from '../../../constants'
 
 const ListSection = ({ isList, listType, changeIsList, changeListType, bulletField, setBulletField }) => {
-    console.log(bulletField, 55);
-
     return (
         <form className="paragraphDecorators-dialog__form">
             <ul className="paragraphDecorators-dialog__field-list">

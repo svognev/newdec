@@ -3,16 +3,8 @@ import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Button from '@material-ui/core/Button';
-
-import "./style.css";
-
-import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import blue from '@material-ui/core/colors/blue';
-import pink from '@material-ui/core/colors/pink';
 
 import NamesSection from './sections/NamesSection';
 import WordExportSection from './sections/WordExportSection';
@@ -25,18 +17,17 @@ import FramesSection from './sections/FramesSection';
 import FillingSection from './sections/FillingSection';
 import TocSection from './sections/TocSection';
 import ShortCutsSection from './sections/ShortCutsSection';
-import QuickSelectSection from './sections/QuickSelectSection';
+import TestSection from './sections/TestSection';
 
-const theme = createMuiTheme({
-    palette: {
-      primary: blue,
-      secondary: pink,
-    },
-});
+import theme from '../../theme';
+import CustomTab from '../common/CustomTab';
+import CustomTabs from '../common/CustomTabs';
+
+import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -189,20 +180,20 @@ class NewDecDialog extends React.Component {
                 onClose={onClose}
                 aria-labelledby="form-dialog-title"
                 scroll="body"
-                maxWidth={false}
                 className="paragraphDecorators-dialog"
-                style={{ verticalAlign: "200px" }}                
+                fullWidth={true}
+                maxWidth="lg"
             >
-                <div className="paragraphDecorators-dialog__header">
-                    <DialogTitle className="paragraphDecorators-dialog__title">
+                <div className="header">
+                    <DialogTitle className="header-title">
                         <p>Create new paragraph decorator</p>
                     </DialogTitle>
-                    <div className="paragraphDecorators-dialog__header-buttons">
+                    <div className="header-buttons">
                         <Button 
                             variant="contained"
                             color="default"
                             onClick={onClose}
-                            className="paragraphDecorators-dialog_top-button"
+                            className="topNavButton"
                         >
                             Cancel
                         </Button>
@@ -210,38 +201,38 @@ class NewDecDialog extends React.Component {
                             variant="contained"
                             color="primary"
                             onClick={() => {}}
-                            className="paragraphDecorators-dialog_top-button"
+                            className="topNavButton"
                         >
                             Create
                         </Button>
                     </div>
                 </div>
                     
-                <DialogContent className="paragraphDecorators-dialog__content">
-                    <div className="paragraphDecorators-dialog__left-side">
-                        <Tabs 
-                            className="paragraphDecorators-dialog__tabs"
+                <DialogContent className="content">
+                    <div className="content-leftSide">
+                        <CustomTabs 
+                            className="dialogTabs"
                             value={openedTab} 
                             onChange={changeOpenedTab} 
                             orientation="vertical"
                             color="primary"
                             indicatorColor="primary"
                         >
-                            <Tab className="paragraphDecorators-dialog__tab" label="Names" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="WORD export" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Positioning" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="List" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Referencing" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Typography" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Distances" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Frames" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Filling" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="ToC" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Short cuts" />
-                            <Tab className="paragraphDecorators-dialog__tab" label="Quick select" />
-                        </Tabs>
+                            <CustomTab className="dialogTab" label="Names" />
+                            <CustomTab className="dialogTab" label="WORD export" />
+                            <CustomTab className="dialogTab" label="Positioning" />
+                            <CustomTab className="dialogTab" label="List" />
+                            <CustomTab className="dialogTab" label="Referencing" />
+                            <CustomTab className="dialogTab" label="Typography" />
+                            <CustomTab className="dialogTab" label="Distances" />
+                            <CustomTab className="dialogTab" label="Frames" />
+                            <CustomTab className="dialogTab" label="Filling" />
+                            <CustomTab className="dialogTab" label="ToC" />
+                            <CustomTab className="dialogTab" label="Short cuts" />
+                            <CustomTab className="dialogTab" label="Test" />
+                        </CustomTabs>
                     </div>
-                    <div className="paragraphDecorators-dialog__right-side">
+                    <div className="content-rightSide">
                         { openedTab === 0 && <NamesSection /> }
                         { openedTab === 1 && <WordExportSection /> }
                         { openedTab === 2 && <PositioningSection /> }
@@ -253,7 +244,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <QuickSelectSection /> }
+                        { openedTab === 11 && <TestSection /> }
                     </div>
                 </DialogContent>
             </Dialog>

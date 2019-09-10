@@ -27,7 +27,7 @@ const FramesSection = (props) => {
          backgroundColor: `#${correctColor}`,
      };
      const previewBorderColor = correctColor !== "FFF" ? `#${correctColor}` : "#dc004e";
-     const previewBorderWidth = borderThickness && parseFloat(borderThickness) === parseFloat(borderThickness) && parseFloat(borderThickness) <= 15
+     const previewBorderWidth = borderThickness && !isNaN(parseFloat(borderThickness)) && parseFloat(borderThickness) <= 15
                                 ? `${borderThickness}pt`
                                 : "1.3px";
 

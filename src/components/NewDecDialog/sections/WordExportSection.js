@@ -11,11 +11,9 @@ const WordExportSection = (props) => {
                     <li><span>Style name in WORD</span></li>
                     <li><span>Soft return</span></li>
                 </div>
-                <div className="paragraphDecorators-dialog__col">
-                    <li><TextField variant="outlined" margin="dense" /></li>
+                <div className="paragraphDecorators-dialog__col paragraphDecorators-dialog__col_growing">
+                    <li><TextField className="paragraphDecorators-dialog_long-text-field" variant="outlined" margin="dense" /></li>
                     <li><Checkbox color="primary" /></li>
-                </div>
-                <div className="paragraphDecorators-dialog__col ">
                 </div>
             </ul>
                 
