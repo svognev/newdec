@@ -27,7 +27,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 0,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -47,7 +47,9 @@ class NewDecDialog extends React.Component {
     };
 
     toggleStateProperty = (propName) => (e) => {
-        this.setState({ [propName]: e.target.checked });
+        this.setState({
+            [propName]: e.target.checked
+        });
     }
 
     setStateProperty = (propName) => (e, newValue) => {
@@ -57,7 +59,9 @@ class NewDecDialog extends React.Component {
     }
 
     setBulletField = (e) => {
-        this.setState({ bulletField: e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value });
+        this.setState({
+            bulletField: e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value 
+        });
     } 
 
     setColor = (propName) => (e) => {

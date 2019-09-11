@@ -1,6 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import { flexbox } from '@material-ui/system';
 
 const CustomDialog = withStyles(theme => ({
     root: {
