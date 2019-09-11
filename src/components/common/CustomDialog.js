@@ -6,7 +6,6 @@ const CustomDialog = withStyles(theme => ({
         minWidth: "1150px",
         minHeight: "1100px !important",
         height: "100%",
-        border: "1px solid red",
     },
     container: {
         height: "100vh",
@@ -23,7 +22,6 @@ const CustomDialog = withStyles(theme => ({
         minHeight: '550px',
         width: 'calc(100% - 96px)',
         height: 'calc(100% - 96px)',
-        border: '2px dotted gold',
         display: 'inline-flex',
         flexDirection: 'column',
         border: 'none',

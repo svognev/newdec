@@ -25,23 +25,26 @@ class NewGroupDialog extends React.Component {
     };
 
     onSaveButtonClick = () => {
-        const { onSave, onClose } = this.props;
+        const { onSave, onClose, changeGroupSelect } = this.props;
         if (this.state.nameEN.trim().length) {
-            onSave(this.state.nameEN.trim());
-            this.setState({
-                nameEN: "",
-                nameDE: "",
-                nameRU: "",
-                nameFR: "",
-            });
+            onSave(
+                {
+                    nameEN: this.state.nameEN.trim(),
+                    nameDE: this.state.nameDE.trim(),
+                    nameRU: this.state.nameRU.trim(),
+                    nameFR: this.state.nameFR.trim(),
+                });
+            changeGroupSelect(this.state.nameEN.trim());
             onClose();
         }
     }
 
     render() {
-        const { isOpen, onClose } = this.props;
+        const { isOpen, onClose, isEditMode } = this.props;
         const { onInputChange, onSaveButtonClick } = this;
-        
+        const titleText = `${isEditMode ? "Edit" : "Create"} new group`
+        const buttonText = isEditMode ? "Save" : "Create";
+
         return (
             <Dialog
                 className="paragraphDecorators-dialog"
@@ -50,32 +53,36 @@ class NewGroupDialog extends React.Component {
                 fullWidth={true}
                 maxWidth="md"
             >
-                <DialogTitle>Create new group</DialogTitle>
+                <DialogTitle>{titleText}</DialogTitle>
                 <DialogContent>
                     <div className="dialogGrid dialogGrid_2cols">
                         <span>Name EN</span>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
-                            onChange={onInputChange("nameEN")} 
+                            onChange={onInputChange("nameEN")}
+                            value={this.state.nameEN}
                         />
                         <span>Name DE</span>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
                             onChange={onInputChange("nameDE")} 
+                            value={this.state.nameDE}
                         />                        
                         <span>Name RU</span>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
                             onChange={onInputChange("nameRU")} 
+                            value={this.state.nameRU}
                         />                        
                         <span>Name FR</span>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
                             onChange={onInputChange("nameFR")} 
+                            value={this.state.nameFR}
                         />                    
                     </div>
                 </DialogContent>
@@ -84,7 +91,7 @@ class NewGroupDialog extends React.Component {
                         Cancel
                     </Button>
                     <Button onClick={onSaveButtonClick} color="primary">
-                        Create
+                        {buttonText}
                     </Button>
                 </DialogActions>
             </Dialog>

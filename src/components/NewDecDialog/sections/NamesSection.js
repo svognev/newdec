@@ -10,7 +10,8 @@ import NewGroupDialog from '../NewGroupDialog';
 class NamesSection extends React.Component {
     state = {
         isOpen: false,
-        newGroups: [],
+        groupSelect: "",
+        newGroup: {},
     }
     
     handleClick = () => {
@@ -22,20 +23,18 @@ class NamesSection extends React.Component {
     }
 
     onSave = newGroup => {
-        this.setState({ 
-            newGroups: [newGroup, ...this.state.newGroups] 
+        this.setState({ newGroup });
+    }
+
+    changeGroupSelect = (newValue) => {
+        this.setState({
+            groupSelect: newValue,
         });
     }
     
     render() {
-        const { newGroups } = this.state;
-        const options = newGroups.map(group => {
-            return (
-                <option value={group} key={group}>
-                    {group}
-                </option>
-            );
-        });
+        const newGroup = this.state.newGroup.nameEN;
+        const isEditMode = !!newGroup;
 
         return (
             <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
@@ -44,14 +43,22 @@ class NamesSection extends React.Component {
     
                 <span>Group</span>
                 <div>
-                    <NativeSelect input={ <CustomInput /> } value={newGroups[0] || null} >
-                        <option value={null}>...</option>
-                        {options.length > 0 && options}
+                    <NativeSelect 
+                        input={ <CustomInput /> } 
+                        value={this.state.groupSelect} 
+                        onChange={(e) => {
+                            this.changeGroupSelect(e.target.value)
+                        }} 
+                    >
+                        <option value="">...</option>
+                        { isEditMode && <option className="newGroupOption" value={newGroup}>{newGroup}</option> }
                         <option value="0">Text</option>
                         <option value="1">Heading</option>
                         <option value="2">Heading Heading Heading Heading</option>
                     </NativeSelect>
-                    <Button color="primary" className="textButton" onClick={this.handleClick}>+New</Button>
+                    <Button color="primary" className="textButton" onClick={this.handleClick}>
+                        { isEditMode ? "Edit new group" : "+New" }
+                    </Button>
                 </div>
     
                 <span>Active</span>
@@ -76,6 +83,9 @@ class NamesSection extends React.Component {
                         this.setState({ isOpen: false });
                     }}
                     onSave={this.onSave}
+                    isEditMode={isEditMode}
+                    currentGroup={this.state.newGroup}
+                    changeGroupSelect={this.changeGroupSelect}
                 />
             </div>
         );

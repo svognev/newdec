@@ -162,6 +162,10 @@
     margin-bottom: 10px;
 }
 
+.paragraphDecorators-dialog .newGroupOption {
+    font-weight: bold;
+}
+
 
 .grid-item {
     background-color: lightsalmon;

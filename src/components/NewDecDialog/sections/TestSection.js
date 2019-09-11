@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Checkbox from '@material-ui/core/Checkbox';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import CustomInput from '../../common/CustomInput';
 import CustomInputShort from '../../common/CustomInputShort';
