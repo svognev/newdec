@@ -24,8 +24,14 @@ class NewGroupDialog extends React.Component {
         });
     };
 
-    onSaveButtonClick = () => {
-        const { onSave, onClose, changeGroupSelect } = this.props;
+    onClose = () => {
+        const {currentGroup, hideDialog } = this.props;
+        this.setState({ ...currentGroup });
+        hideDialog()
+    };
+
+    onSave = () => {
+        const { onSave, changeGroupSelect, hideDialog } = this.props;
         if (this.state.nameEN.trim().length) {
             onSave(
                 {
@@ -35,13 +41,13 @@ class NewGroupDialog extends React.Component {
                     nameFR: this.state.nameFR.trim(),
                 });
             changeGroupSelect(this.state.nameEN.trim());
-            onClose();
+            hideDialog();
         }
-    }
+    };
 
     render() {
-        const { isOpen, onClose, isEditMode } = this.props;
-        const { onInputChange, onSaveButtonClick } = this;
+        const { isOpen, isEditMode } = this.props;
+        const { onInputChange, onSave, onClose } = this;
         const titleText = `${isEditMode ? "Edit" : "Create"} new group`
         const buttonText = isEditMode ? "Save" : "Create";
 
@@ -90,7 +96,7 @@ class NewGroupDialog extends React.Component {
                     <Button onClick={onClose} color="default">
                         Cancel
                     </Button>
-                    <Button onClick={onSaveButtonClick} color="primary">
+                    <Button onClick={onSave} color="primary">
                         {buttonText}
                     </Button>
                 </DialogActions>

@@ -79,7 +79,7 @@ class NamesSection extends React.Component {
     
                 <NewGroupDialog 
                     isOpen={this.state.isOpen}
-                    onClose={() => {
+                    hideDialog={() => {
                         this.setState({ isOpen: false });
                     }}
                     onSave={this.onSave}
