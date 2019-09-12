@@ -84,62 +84,62 @@
 }
 
 .paragraphDecorators-dialog .dialogGrid_positioning {
-    grid-template-areas: "span1 select1"
-                         "title1 title1"
-                         "span2 select2"
-                         "span3 select3"
-                         "title2 title2"
-                         "span4 select4"
-                         "span5 select5";
+    grid-template-areas: "r1c1 r1c2"
+                         "r2 r2"
+                         "r3c1 r3c2"
+                         "r4c1 r4c2"
+                         "r5 r5"
+                         "r6c1 r6c2"
+                         "r7c1 r7c2";
     grid-template-columns: min-content min-content;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #span1 {
-    grid-area: span1;
+.paragraphDecorators-dialog .dialogGrid_positioning #r1c1 {
+    grid-area: r1c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #span2 {
-    grid-area: span2;
+.paragraphDecorators-dialog .dialogGrid_positioning #r1c2 {
+    grid-area: r1c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #span3 {
-    grid-area: span3;
+.paragraphDecorators-dialog .dialogGrid_positioning #r2 {
+    grid-area: r2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #span4 {
-    grid-area: span4;
+.paragraphDecorators-dialog .dialogGrid_positioning #r3c1 {
+    grid-area: r3c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #span5 {
-    grid-area: span5;
+.paragraphDecorators-dialog .dialogGrid_positioning #r3c2 {
+    grid-area: r3c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #select1 {
-    grid-area: select1;
+.paragraphDecorators-dialog .dialogGrid_positioning #r4c1 {
+    grid-area: r4c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #select2 {
-    grid-area: select2;
+.paragraphDecorators-dialog .dialogGrid_positioning #r4c2 {
+    grid-area: r4c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #select3 {
-    grid-area: select3;    
+.paragraphDecorators-dialog .dialogGrid_positioning #r5 {
+    grid-area: r5;    
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #select4 {
-    grid-area: select4;
+.paragraphDecorators-dialog .dialogGrid_positioning #r6c1 {
+    grid-area: r6c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #select5 {
-    grid-area: select5;
+.paragraphDecorators-dialog .dialogGrid_positioning #r6c2 {
+    grid-area: r6c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #title1 {
-    grid-area: title1;         
+.paragraphDecorators-dialog .dialogGrid_positioning #r7c1 {
+    grid-area: r7c1;         
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #title2 {
-    grid-area: title2;
+.paragraphDecorators-dialog .dialogGrid_positioning #r7c2 {
+    grid-area: r7c2;
 }
 
 .paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {

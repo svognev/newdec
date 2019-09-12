@@ -9,8 +9,8 @@ import { backSpaceActions, returnOnEmptySectionActions, decoratorsList } from '.
 const TestSection = (props) => {
     return (
         <div className="dialogGrid dialogGrid_positioning">
-            <span id="span1">Identational level</span>
-            <NativeSelect input={ <CustomInputShort /> } id="select1">
+            <span id="r1c1">Identational level</span>
+            <NativeSelect id="r1c2" input={ <CustomInputShort /> }>
                 <option value={null}>...</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -20,31 +20,31 @@ const TestSection = (props) => {
                 <option value="5">5</option>
             </NativeSelect>
             
-            <div id="title1" className="sectionTitle">
+            <div id="r2" className="sectionTitle">
                 <span>BACKSPACE</span>
             </div>
-            <span id="span2">At the beginning of a section with content</span>
-            <NativeSelect input={ <CustomInput /> } id="select2">
+            <span id="r3c1">At the beginning of a section with content</span>
+            <NativeSelect id="r3c2" input={ <CustomInput /> }>
                 {backSpaceActions.map(action => (
                     <option value={action.key} key={`backSpace ${action.key}`}>{action.value}</option>
                 ))}
             </NativeSelect>
-            <span id="span3">At the beginning of a section WITHOUT content</span>
-            <NativeSelect input={ <CustomInput /> } id="select3">
+            <span id="r4c1">At the beginning of a section WITHOUT content</span>
+            <NativeSelect id="r4c2" input={ <CustomInput /> }>
                 {returnOnEmptySectionActions.map(action => (
                     <option value={action.key} key={`backSpace ${action.key}`}>{action.value}</option>
                 ))}
             </NativeSelect>
 
-            <div className="sectionTitle" id="title2">
+            <div id="r5" className="sectionTitle">
                 <span>RETURN</span>
             </div>
-            <span id="span4">Style of next section</span>
-            <NativeSelect input={ <CustomInput /> } id="select4">
+            <span id="r6c1">Style of next section</span>
+            <NativeSelect id="r6c2" input={ <CustomInput /> }>
                 { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
             </NativeSelect>
-            <span id="span5">In empty section change current style to</span>
-            <NativeSelect input={ <CustomInput /> } id="select5">
+            <span id="r7c1">In empty section change current style to</span>
+            <NativeSelect  id="r7c2" input={ <CustomInput /> }>
                 { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
             </NativeSelect>
         </div>

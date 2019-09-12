@@ -35,6 +35,7 @@ class NamesSection extends React.Component {
     render() {
         const newGroup = this.state.newGroup.nameEN;
         const isEditMode = !!newGroup;
+        const { groupSelect } = this.state;
 
         return (
             <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
@@ -45,7 +46,7 @@ class NamesSection extends React.Component {
                 <div>
                     <NativeSelect 
                         input={ <CustomInput /> } 
-                        value={this.state.groupSelect} 
+                        value={groupSelect} 
                         onChange={(e) => {
                             this.changeGroupSelect(e.target.value)
                         }} 
@@ -56,9 +57,12 @@ class NamesSection extends React.Component {
                         <option value="1">Heading</option>
                         <option value="2">Heading Heading Heading Heading</option>
                     </NativeSelect>
-                    <Button color="primary" className="textButton" onClick={this.handleClick}>
-                        { isEditMode ? "Edit new group" : "+New" }
-                    </Button>
+                    {
+                        !(isEditMode && groupSelect !== newGroup) &&
+                        <Button color="primary" className="textButton" onClick={this.handleClick}>
+                            { isEditMode ? "Edit new group" : "+New" }
+                        </Button>
+                     }
                 </div>
     
                 <span>Active</span>
