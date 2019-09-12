@@ -1,12 +1,15 @@
 import React from 'react';
 
 import NativeSelect from '@material-ui/core/NativeSelect';
-import CustomInput from '../../common/CustomInput';
-import CustomInputShort from '../../common/CustomInputShort';
 
-import { backSpaceActions, returnOnEmptySectionActions, decoratorsList } from '../../../constants'
+import CustomInput from 'components/common/CustomInput';
+import CustomInputShort from 'components/common/CustomInputShort';
 
-const TestSection = (props) => {
+import { backSpaceActions, returnOnEmptySectionActions, decoratorsList } from 'constants.js'
+
+import './style.css';
+
+const PositioningSection = (props) => {
     return (
         <div className="dialogGrid dialogGrid_positioning">
             <span id="r1c1">Identational level</span>
@@ -63,4 +66,4 @@ const TestSection = (props) => {
     );
 }
 
-export default TestSection;
+export default PositioningSection;

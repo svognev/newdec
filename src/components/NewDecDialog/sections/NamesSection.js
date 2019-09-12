@@ -52,7 +52,7 @@ class NamesSection extends React.Component {
                         }} 
                     >
                         <option value="">...</option>
-                        { isEditMode && <option className="newGroupOption" value={newGroup}>{newGroup}</option> }
+                        { isEditMode && <option className="highlightedOption" value={newGroup}>{newGroup}</option> }
                         <option value="0">Text</option>
                         <option value="1">Heading</option>
                         <option value="2">Heading Heading Heading Heading</option>
