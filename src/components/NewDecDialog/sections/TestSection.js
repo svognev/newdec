@@ -41,11 +41,13 @@ const TestSection = (props) => {
             </div>
             <span id="r6c1">Style of next section</span>
             <NativeSelect id="r6c2" input={ <CustomInput /> }>
-                { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
+                { decoratorsList.slice(1).map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
+                <option value={null}>...</option>
             </NativeSelect>
             <span id="r7c1">In empty section change current style to</span>
             <NativeSelect  id="r7c2" input={ <CustomInput /> }>
-                { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
+                { decoratorsList.slice(1).map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
+                <option value={null}>...</option>
             </NativeSelect>
 
             <div id="r8" className="sectionTitle">

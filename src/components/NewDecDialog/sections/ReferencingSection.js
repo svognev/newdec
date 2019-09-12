@@ -4,30 +4,48 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import CustomInput from '../../common/CustomInput';
 import Button from '@material-ui/core/Button';
 
+import NewGroupDialog from '../../common/NewGroupDialog';
+import withNewGroupControl from "../../common/withNewGroupControl";
+
 const ReferencingSection = (props) => {
+    const newGroupName = props.newGroup.nameEN;
+    const isEditMode = !!newGroupName;
+    const { groupSelect, newGroup, isOpen, hideDialog, handleClick, onSave, changeGroupSelect } = props;
+
     return (
-        <form className="paragraphDecorators-dialog__form">
-            <ul className="paragraphDecorators-dialog__field-list">
-                <div className="paragraphDecorators-dialog__col">
-                    <li><span>Reference group</span></li>
-                </div>
-                <div className="paragraphDecorators-dialog__col">
-                    <li>
-                        <NativeSelect input={ <CustomInput /> }>
-                            <option value={null}>none</option>
-                            <option value="0">Reference group 1</option>
-                            <option value="1">Reference group 2</option>
-                        </NativeSelect>
-                        <Button color="primary" className="paragraphDecorators-dialog__text-button">+New</Button>
-                    </li>
-                    <li></li>
-                </div>
-                <div className="paragraphDecorators-dialog__col ">
-                </div>
-            </ul>
-                
-        </form>
+        <div className="dialogGrid dialogGrid_2cols">
+            <span>Reference group</span>
+            <div>
+                <NativeSelect 
+                    input={ <CustomInput /> } 
+                    value={groupSelect} 
+                    onChange={(e) => {
+                        changeGroupSelect(e.target.value)
+                    }} 
+                >
+                    { isEditMode && <option className="highlightedOption" value={newGroupName}>{newGroupName}</option> }
+                    <option value="">none</option>
+                    <option value="0">Reference group 1</option>
+                    <option value="1">Reference group 2</option>
+                </NativeSelect>
+                {
+                    !(isEditMode && groupSelect !== newGroupName) &&
+                    <Button color="primary" className="textButton" onClick={handleClick}>
+                        { isEditMode ? "Edit new group" : "+New" }
+                    </Button>
+                 }
+            </div>
+            <NewGroupDialog 
+                isOpen={isOpen}
+                hideDialog={hideDialog}
+                onSave={onSave}
+                isEditMode={isEditMode}
+                currentGroup={newGroup}
+                changeGroupSelect={changeGroupSelect}
+                groupType="xref"
+            />
+        </div>
     );
 }
 
-export default ReferencingSection;
+export default withNewGroupControl(ReferencingSection);

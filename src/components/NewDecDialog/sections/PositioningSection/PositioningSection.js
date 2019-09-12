@@ -44,10 +44,12 @@ const PositioningSection = (props) => {
             </div>
             <span id="r6c1">Style of next section</span>
             <NativeSelect id="r6c2" input={ <CustomInput /> }>
+                <option value="default">Global Fallback Style</option>
                 { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
             </NativeSelect>
             <span id="r7c1">In empty section change current style to</span>
             <NativeSelect  id="r7c2" input={ <CustomInput /> }>
+                <option value="default">Global Fallback Style</option>
                 { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
             </NativeSelect>
 

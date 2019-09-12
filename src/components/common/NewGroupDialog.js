@@ -7,16 +7,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import "./style.css";
-
 class NewGroupDialog extends React.Component {
 
-    state = {
-        nameEN: "",
-        nameDE: "",
-        nameRU: "",
-        nameFR: "",
-    };
+    state = this.props.groupType !== "xref" 
+          ? { nameEN: "", nameDE: "", nameRU: "", nameFR: "" }
+          : { nameEN: "", nameDE: "", nameRU: "", nameFR: "", groupKey: "" };
     
     onInputChange = inputName => e => {
         this.setState({ 
@@ -31,15 +26,18 @@ class NewGroupDialog extends React.Component {
     };
 
     onSave = () => {
-        const { onSave, changeGroupSelect, hideDialog } = this.props;
-        if (this.state.nameEN.trim().length) {
-            onSave(
-                {
-                    nameEN: this.state.nameEN.trim(),
-                    nameDE: this.state.nameDE.trim(),
-                    nameRU: this.state.nameRU.trim(),
-                    nameFR: this.state.nameFR.trim(),
-                });
+        const { onSave, changeGroupSelect, hideDialog, groupType } = this.props;
+        if (this.state.nameEN.trim().length && (groupType !== "xref" || this.state.groupKey.trim().length)) {
+            const groupToSave = {
+                nameEN: this.state.nameEN.trim(),
+                nameDE: this.state.nameDE.trim(),
+                nameRU: this.state.nameRU.trim(),
+                nameFR: this.state.nameFR.trim(),
+            };
+            if (groupType === "xref") {
+                groupToSave.groupKey = this.state.groupKey.trim();
+            }
+            onSave(groupToSave);
             changeGroupSelect(this.state.nameEN.trim());
             hideDialog();
         }
@@ -48,7 +46,7 @@ class NewGroupDialog extends React.Component {
     render() {
         const { isOpen, isEditMode } = this.props;
         const { onInputChange, onSave, onClose } = this;
-        const titleText = `${isEditMode ? "Edit" : "Create"} new group`
+        const titleText = `${isEditMode ? "Edit" : "Create"} new ${this.props.groupType === "xref" ? "reference " : ""}group`
         const buttonText = isEditMode ? "Save" : "Create";
 
         return (
@@ -62,6 +60,19 @@ class NewGroupDialog extends React.Component {
                 <DialogTitle>{titleText}</DialogTitle>
                 <DialogContent>
                     <div className="dialogGrid dialogGrid_2cols">
+                        {
+                            this.props.groupType === "xref" 
+                            &&
+                            <>
+                                <span>Group Key</span>
+                                <TextField 
+                                    variant="outlined" 
+                                    margin="dense" 
+                                    onChange={onInputChange("groupKey")}
+                                    value={this.state.groupKey}
+                                />
+                            </>
+                        }
                         <span>Name EN</span>
                         <TextField 
                             variant="outlined" 
