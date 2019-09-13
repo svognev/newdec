@@ -27,7 +27,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -37,6 +37,7 @@ class NewDecDialog extends React.Component {
         rightBorder: true,
         topBorder: true,
         bottomBorder: true,
+        borderType: "solid",
         borderColor: "",
         fontColor: "",
         fillingColor: "",
@@ -106,6 +107,7 @@ class NewDecDialog extends React.Component {
                 rightBorder,
                 topBorder,
                 bottomBorder, 
+                borderType,
                 borderColor,
                 fontColor,
                 fillingColor,
@@ -125,6 +127,7 @@ class NewDecDialog extends React.Component {
         const changeRightBorder = this.toggleStateProperty("rightBorder");
         const changeTopBorder = this.toggleStateProperty("topBorder");
         const changeBottomBorder = this.toggleStateProperty("bottomBorder");
+        const changeBorderType = this.setStateProperty("borderType");
         const changeBorderColor = this.setColor("borderColor");
         const changeFontColor = this.setColor("fontColor");
         const changeFillingColor = this.setColor("fillingColor");
@@ -173,6 +176,8 @@ class NewDecDialog extends React.Component {
             changeBorderColor,
             borderThickness,
             changeBorderThickness,
+            borderType,
+            changeBorderType,
         };
 
         const fillingSectionProps = { fillingColor, changeFillingColor };
@@ -248,7 +253,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <TestSection /> }
+                        { openedTab === 11 && <TestSection {...framesSectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>

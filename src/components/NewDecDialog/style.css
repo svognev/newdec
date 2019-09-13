@@ -72,7 +72,7 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: repeat(2, minmax(3.5rem, min-content));
+    grid-template-rows: minmax(3.5rem, min-content);
     grid-auto-rows: minmax(3.5rem, min-content);
     grid-gap: 1px 1.5rem;
     grid-auto-flow: row;
@@ -95,8 +95,99 @@
     font-weight: bold;
 }
 
+.paragraphDecorators-dialog .inputWithAdornment {
+    display: flex;
+    align-items: center;
+}
+
+.paragraphDecorators-dialog .numberInput {
+    width: 110px;
+}
+
+.paragraphDecorators-dialog .colorSample {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+    margin-left: 0.75rem;
+}
+
+.paragraphDecorators-dialog .colorField {
+    display: flex;
+    align-items: center;
+}
 
 
+
+
+
+
+
+.paragraphDecorators-dialog .directionControlsContainer {
+    width: 245px;
+    height: 210px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -5px;
+}
+
+.paragraphDecorators-dialog .directionsControls {
+    padding: 15px;
+    display: inline-grid;
+    grid-template-columns: repeat(3, auto);
+    align-items: center;
+    border: 2pt solid red;
+}
+
+.paragraphDecorators-dialog .centralColumn {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.paragraphDecorators-dialog .crossGrid {
+    display: grid;
+    grid-template-rows: repeat(3, min-content);
+    grid-template-columns: repeat(3, min-content);
+    grid-template-areas: "r1 r1 r1"
+                         "r2c1 r2c2 r2c3"
+                         "r3 r3 r3";
+    justify-items: center;
+    align-items: center;
+}
+
+.paragraphDecorators-dialog #r1 {
+    grid-area: r1;
+}
+
+.paragraphDecorators-dialog #r2c1 {
+    grid-area: r2c1;
+}
+
+.paragraphDecorators-dialog #r2c2 {
+    grid-area: r2c2;
+}
+
+.paragraphDecorators-dialog #r2c3 {
+    grid-area: r2c3;
+}
+
+.paragraphDecorators-dialog #r3 {
+    grid-area: r3;
+}
+
+.paragraphDecorators-dialog .checkboxesKit {
+    margin: 10px;
+}
+
+.paragraphDecorators-dialog .gridCell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
@@ -310,4 +401,5 @@
     height: 1.5rem;
     border-radius: 100%;
     margin-left: 0.75rem;
+    display: inline-block;
 }
