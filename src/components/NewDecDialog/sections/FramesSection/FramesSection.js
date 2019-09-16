@@ -5,8 +5,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-import CustomInputShort from '../../common/CustomInputShort';
-import { getCorrectColor, selectAllOnClick } from '../../../utils';
+import CustomInputShort from 'components/common/CustomInputShort';
+import { getCorrectColor, selectAllOnClick } from 'utils.js';
+
+import "./style.css";
 
 const FramesSection = (props) => {
     const { 
