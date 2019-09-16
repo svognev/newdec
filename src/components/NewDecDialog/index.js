@@ -33,15 +33,16 @@ class NewDecDialog extends React.Component {
         bulletField: "",
         verticalAlign: "",
         textTransform: "",
-        leftBorder: true,
-        rightBorder: true,
-        topBorder: true,
-        bottomBorder: true,
+        leftBorder: false,
+        rightBorder: false,
+        topBorder: false,
+        bottomBorder: false,
         borderType: "solid",
-        borderColor: "",
+        borderColor: "f00",
+        borderColorName: "Red",
+        borderThickness: "2",
         fontColor: "",
         fillingColor: "",
-        borderThickness: "",
         firstRowIndent: "",
         otherRowsIndent: "",
         lineSpacing: "",
@@ -83,7 +84,7 @@ class NewDecDialog extends React.Component {
     setNumber = (propName) => (e) => {
         let input = e.target.value || "";
 
-        const filteredInput = input.replace(",", ".").trim().match(/[0-9a-f]+/i) 
+        const filteredInput = input.replace(",", ".").trim().match(/[0-9]+/i) 
                               ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
                               : "" ;
 
@@ -109,6 +110,7 @@ class NewDecDialog extends React.Component {
                 bottomBorder, 
                 borderType,
                 borderColor,
+                borderColorName,
                 fontColor,
                 fillingColor,
                 borderThickness,
@@ -135,6 +137,7 @@ class NewDecDialog extends React.Component {
         const changeFirstRowIndent = this.setNumber("firstRowIndent");
         const changeOtherRowsIndent = this.setNumber("otherRowsIndent");
         const changeLineSpacing = this.setNumber("lineSpacing");
+        const changeBorderColorName = this.setStateProperty("borderColorName");
 
         const listSectionProps = { 
             isList, 
@@ -178,6 +181,8 @@ class NewDecDialog extends React.Component {
             changeBorderThickness,
             borderType,
             changeBorderType,
+            borderColorName,
+            changeBorderColorName,
         };
 
         const fillingSectionProps = { fillingColor, changeFillingColor };

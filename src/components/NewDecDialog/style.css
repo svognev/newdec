@@ -189,6 +189,10 @@
     justify-content: center;
 }
 
+.paragraphDecorators-dialog .frameTypeInput {
+    width: 110px;
+}
+
 
 
 .grid-item {

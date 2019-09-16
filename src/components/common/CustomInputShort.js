@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 
-const CustomInput = withStyles(theme => ({
+const CustomInputShort = withStyles(theme => ({
     root: {
       'label + &': {
         marginTop: theme.spacing(3),
@@ -33,4 +33,4 @@ const CustomInput = withStyles(theme => ({
     },
   }))(InputBase);
   
-  export default CustomInput;
+  export default CustomInputShort;

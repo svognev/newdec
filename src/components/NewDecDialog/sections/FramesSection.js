@@ -5,8 +5,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-import CustomInput from '../../common/CustomInput';
-import { getCorrectColor } from '../../../utils';
+import CustomInputShort from '../../common/CustomInputShort';
+import { getCorrectColor, selectAllOnClick } from '../../../utils';
 
 const FramesSection = (props) => {
     const { 
@@ -24,25 +24,26 @@ const FramesSection = (props) => {
         changeBorderThickness,
         borderType,
         changeBorderType,
+        borderColorName,
+        changeBorderColorName,
      } = props;
 
      const correctColor = getCorrectColor(borderColor);
      const colorSampleStyle = {
          backgroundColor: `#${correctColor}`,
      };
-     const previewBorderColor = correctColor !== "FFF" ? `#${correctColor}` : "red";
-     const previewBorderWidth = borderThickness && !isNaN(parseFloat(borderThickness)) && parseFloat(borderThickness) <= 15
-                                ? `${borderThickness}pt`
-                                : "2pt";
+     const previewBorderWidth = borderThickness && !isNaN(parseFloat(borderThickness))
+                                ? `${borderThickness <= 15 ? borderThickness : 15}pt`
+                                : "0";
 
      const previewStyle = {
-         borderLeft: leftBorder ? `${previewBorderWidth} ${borderType} ${previewBorderColor}` : "none",
+         borderLeft: leftBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
          marginLeft: leftBorder ? "0" : previewBorderWidth, 
-         borderRight: rightBorder ? `${previewBorderWidth} ${borderType} ${previewBorderColor}` : "none",
+         borderRight: rightBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
          marginRight: rightBorder ? "0" : previewBorderWidth, 
-         borderTop: topBorder ? `${previewBorderWidth} ${borderType} ${previewBorderColor}` : "none",
+         borderTop: topBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
          marginTop: topBorder ? "0" : previewBorderWidth, 
-         borderBottom: bottomBorder ? `${previewBorderWidth} ${borderType} ${previewBorderColor}` : "none",
+         borderBottom: bottomBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
          marginBottom: bottomBorder ? "0" : previewBorderWidth, 
      }
 
@@ -92,7 +93,13 @@ const FramesSection = (props) => {
             </div>
             <div className="dialogGrid dialogGrid_2cols">
                 <span>Frame color name</span>
-                <TextField variant="outlined" margin="dense" />
+                <TextField 
+                    variant="outlined" 
+                    margin="dense" 
+                    value={borderColorName}
+                    onChange={changeBorderColorName}
+                    onClick={selectAllOnClick("Red")}
+                />
 
                 <span>Frame color HEX</span>
                 <div className="colorField">
@@ -105,6 +112,7 @@ const FramesSection = (props) => {
                         }}
                         value={borderColor}
                         onChange={changeBorderColor}
+                        onClick={selectAllOnClick("f00")}
                     />
                     <div className="colorSample" style={colorSampleStyle}></div>
                 </div>
@@ -118,21 +126,22 @@ const FramesSection = (props) => {
                         className="numberInput"
                         value={borderThickness}
                         onChange={changeBorderThickness}
+                        onClick={selectAllOnClick("2")}
                      />                                            
                     <InputAdornment variant="filled" position="end">pt</InputAdornment>
                 </div>                        
 
                 <span>Type of frame</span>
-                <div>
+                <div >
                     <NativeSelect 
-                        input={ <CustomInput /> } 
+                        input={ <CustomInputShort className="frameTypeInput" /> } 
                         value={borderType}
                         onChange={changeBorderType}
                     >
-                        <option value="solid">Solid</option>
-                        <option value="dotted">Dotted</option>
-                        <option value="dashed">Dashed</option>
-                        <option value="double">Double</option>
+                        <option value="solid" className="highlightedOption">──────</option>
+                        <option value="dotted">• • • • • • • </option>
+                        <option value="dashed" className="highlightedOption">– – – – –</option>
+                        <option value="double">══════</option>
                     </NativeSelect>
                 </div>
 
