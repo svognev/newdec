@@ -1,5 +1,5 @@
-export const getCorrectColor = (hex) => {
-    const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : "FFF";
+export const getCorrectColor = (hex, backgroundColor = "FFF") => {
+    const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : backgroundColor;
     return correctColor;
 }
 

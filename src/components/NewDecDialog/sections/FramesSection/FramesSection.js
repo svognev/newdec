@@ -5,9 +5,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { getCorrectColor, selectAllOnClick } from 'utils.js';
-import FrameTypeInput from 'components/common/FrameTypeInput';
 
+import { getCorrectColor, selectAllOnClick } from 'utils.js';
+import FrameTypeInput from 'components/NewDecDialog/sections/FramesSection/FrameTypeInput';
 
 import "./style.css";
 

@@ -1,18 +1,19 @@
 
 .paragraphDecorators-dialog .preview {
-
     background-color: whitesmoke;
     border-radius: 10px;
     padding: 20px;
     box-sizing: border-box;
+    width: 100%;
+    display: flex;
 }
 
 .paragraphDecorators-dialog .preview-content {
-    width: 210px;
-    height: 160px;
+    height: 235px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .paragraphDecorators-dialog .preview-title {

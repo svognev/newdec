@@ -2,6 +2,7 @@ import React from 'react';
 import "./style.css";
 
 const Preview = ({previewText, changePreviewText, previewStyle}) => {
+    console.log(previewText);
     const inputStyle = { ...previewStyle, backgroundColor: "none" };
     const spanStyle = { ...previewStyle, color: previewStyle.backgroundColor || "whitesmoke" };
     return (
@@ -17,7 +18,7 @@ const Preview = ({previewText, changePreviewText, previewStyle}) => {
                         style={inputStyle}
                     />
                     <span className="demonstrationElement-text" style={spanStyle}>
-                        {previewText.replace(/ /g, "-")}
+                        {(previewText).replace(/ /g, "-")}
                     </span>
                 </div>
             </div>

@@ -22,12 +22,13 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
+import { getCorrectColor } from 'utils.js';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 7,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -41,16 +42,16 @@ class NewDecDialog extends React.Component {
         borderColor: "f00",
         borderColorName: "Red",
         borderThickness: "2",
-        fontColor: "",
+        fontSize: "12",
+        fontColor: "000",
+        fontColorName: "Black",
+        alignment: "left",
+        font: "Roboto",
         fillingColor: "",
         firstRowIndent: "",
         otherRowsIndent: "",
         lineSpacing: "",
-        previewText: "Sample Text",
-        previewStyle: {
-            fontSize: "20pt",
-           // backgroundColor: "coral",
-        }
+        previewText: "Sample Text. You can change it",
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -61,7 +62,7 @@ class NewDecDialog extends React.Component {
 
     setStateProperty = (propName) => (e, newValue) => {
         this.setState({
-            [propName]: e.target.value ? e.target.value : newValue,
+            [propName]: e.target.value ? e.target.value : typeof newValue === "number" ? newValue : "",
         });
     }
 
@@ -123,7 +124,10 @@ class NewDecDialog extends React.Component {
                 otherRowsIndent,
                 lineSpacing,
                 previewText,
-                previewStyle,
+                fontSize,
+                fontColorName,
+                font,
+                alignment,
             } = this.state;
 
         const { setBulletField } = this;
@@ -146,6 +150,16 @@ class NewDecDialog extends React.Component {
         const changeLineSpacing = this.setNumber("lineSpacing");
         const changeBorderColorName = this.setStateProperty("borderColorName");
         const changePreviewText = this.setStateProperty("previewText");
+        const changeFontSize = this.setNumber("fontSize");
+        const changeFontColorName = this.setStateProperty("fontColorName");
+        const changeFont = this.setStateProperty("font");
+        const changeAlignment = this.setStateProperty("alignment");
+
+        const previewStyle = {
+            fontSize: fontSize ? fontSize + "pt" : "0",
+            color: `#${getCorrectColor(fontColor, "f5f5f5")}`,
+            fontFamily: font,
+        };
 
         const previewProps = { previewText, changePreviewText, previewStyle };
 
@@ -166,6 +180,13 @@ class NewDecDialog extends React.Component {
             fontColor,
             changeFontColor,
             previewProps,
+            fontSize,
+            changeFontSize,
+            fontColorName,
+            changeFontColorName,
+            font, 
+            changeFont,
+            alignment, changeAlignment,
         };
 
         const distancesSectionProps = {
