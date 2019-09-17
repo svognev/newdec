@@ -27,7 +27,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 7,
         isList: true,
         listType: "unordered",
         bulletField: "",
