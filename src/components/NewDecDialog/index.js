@@ -61,7 +61,7 @@ class NewDecDialog extends React.Component {
 
     setStateProperty = (propName) => (e, newValue) => {
         this.setState({
-            [propName]: newValue === undefined ? e.target.value : newValue,
+            [propName]: e.target.value ? e.target.value : newValue,
         });
     }
 

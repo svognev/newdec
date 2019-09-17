@@ -3,10 +3,11 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import NativeSelect from '@material-ui/core/NativeSelect';
-
-import FrameTypeInput from 'components/common/FrameTypeInput';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { getCorrectColor, selectAllOnClick } from 'utils.js';
+import FrameTypeInput from 'components/common/FrameTypeInput';
+
 
 import "./style.css";
 
@@ -135,16 +136,16 @@ const FramesSection = (props) => {
 
                 <span>Type of frame</span>
                 <div >
-                    <NativeSelect 
-                        input={ <FrameTypeInput /> } 
-                        value={borderType}
-                        onChange={changeBorderType}
-                    >
-                        <option value="solid" className="highlightedOption">──────</option>
-                        <option value="dotted">• • • • • • • </option>
-                        <option value="dashed" className="highlightedOption">– – – – –</option>
-                        <option value="double">══════</option>
-                    </NativeSelect>
+              <Select
+                input={<FrameTypeInput />}
+                value={borderType}
+                onChange={changeBorderType}
+              >
+                        <MenuItem value="solid"><b>──────</b></MenuItem>
+                        <MenuItem value="dotted">• • • • • • •</MenuItem>
+                        <MenuItem value="dashed"><b>– – – – –</b></MenuItem>
+                        <MenuItem value="double">══════</MenuItem>              
+                </Select>
                 </div>
 
                 <span>Connect to previous</span>

@@ -5,7 +5,7 @@ const TestSection = (props) => {
     const { previewProps } = props;
     return (
         <div className="dialogGrid dialogGrid_2cols">
-            <Preview {...previewProps} />
+            <Preview {...previewProps}></Preview>
         </div>
     );
 };
