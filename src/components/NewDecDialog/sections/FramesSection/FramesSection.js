@@ -141,7 +141,7 @@ const FramesSection = (props) => {
                 value={borderType}
                 onChange={changeBorderType}
               >
-                        <MenuItem value="solid"><b>⏤⏤⏤⏤</b></MenuItem>
+                        <MenuItem value="solid"><b>━━━━</b></MenuItem>
                         <MenuItem value="dotted">• • • • • • •</MenuItem>
                         <MenuItem value="dashed"><b>– – – – –</b></MenuItem>
                         <MenuItem value="double">══════</MenuItem>              
