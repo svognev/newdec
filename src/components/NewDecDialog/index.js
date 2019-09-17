@@ -27,7 +27,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -46,6 +46,11 @@ class NewDecDialog extends React.Component {
         firstRowIndent: "",
         otherRowsIndent: "",
         lineSpacing: "",
+        previewText: "Sample Text",
+        previewStyle: {
+            fontSize: "20pt",
+           // backgroundColor: "coral",
+        }
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -117,6 +122,8 @@ class NewDecDialog extends React.Component {
                 firstRowIndent,
                 otherRowsIndent,
                 lineSpacing,
+                previewText,
+                previewStyle,
             } = this.state;
 
         const { setBulletField } = this;
@@ -138,6 +145,9 @@ class NewDecDialog extends React.Component {
         const changeOtherRowsIndent = this.setNumber("otherRowsIndent");
         const changeLineSpacing = this.setNumber("lineSpacing");
         const changeBorderColorName = this.setStateProperty("borderColorName");
+        const changePreviewText = this.setStateProperty("previewText");
+
+        const previewProps = { previewText, changePreviewText, previewStyle };
 
         const listSectionProps = { 
             isList, 
@@ -155,6 +165,7 @@ class NewDecDialog extends React.Component {
             changeTextTransform,
             fontColor,
             changeFontColor,
+            previewProps,
         };
 
         const distancesSectionProps = {
@@ -258,7 +269,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <TestSection {...framesSectionProps} /> }
+                        { openedTab === 11 && <TestSection {...typographySectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>

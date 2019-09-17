@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-import CustomInputShort from 'components/common/CustomInputShort';
+import FrameTypeInput from 'components/common/FrameTypeInput';
 import { getCorrectColor, selectAllOnClick } from 'utils.js';
 
 import "./style.css";
@@ -136,7 +136,7 @@ const FramesSection = (props) => {
                 <span>Type of frame</span>
                 <div >
                     <NativeSelect 
-                        input={ <CustomInputShort className="frameTypeInput" /> } 
+                        input={ <FrameTypeInput /> } 
                         value={borderType}
                         onChange={changeBorderType}
                     >
