@@ -19,7 +19,11 @@ const TestSection = (props) => {
         changeFontColorName,
         font, 
         changeFont,
-        alignment, changeAlignment, } = props;
+        alignment, changeAlignment,
+        bold, changeBold,
+        italic, changeItalic,
+        underlined, changeUnderlined,
+        stroke, changeStroke, } = props;
 
         const correctColor = getCorrectColor(fontColor);
 
@@ -42,7 +46,11 @@ const TestSection = (props) => {
                 </NativeSelect>
 
                 <span>Alignment</span>
-                <NativeSelect input={ <CustomInput /> }>
+                <NativeSelect 
+                    input={ <CustomInput /> }
+                    value={alignment}
+                    onChange={changeAlignment}
+                >
                     <option value={"left"}>Left</option>
                     <option value={"center"}>Center</option>
                     <option value={"right"}>Right</option>
@@ -77,7 +85,7 @@ const TestSection = (props) => {
                         margin="dense" 
                         className="paragraphDecorators-dialog__number-input" 
                         InputProps={{
-                            startAdornment: <InputAdornment position="start">#</InputAdornment>,
+                            startAdornment: <InputAdornment position="start">#</InputAdornment>
                         }}
                         value={fontColor}
                         onChange={changeFontColor}
@@ -89,6 +97,45 @@ const TestSection = (props) => {
             <div className="previewSide">
                 <Preview {...previewProps} />
             </div>
+        </div>
+        <div className="dialogGrid dialogGrid_2cols dialogGrid_withIndent">
+            <span>Stylings</span>
+            <div className="checkBoxesSet">
+                <div className="labeledCheckbox">
+                    <FormControlLabel
+                        control={<Checkbox color="primary" />}
+                        label="Bold"
+                        labelPlacement="end"
+                        checked={bold}
+                        onChange={changeBold}
+                    />
+                </div>
+                <div className="labeledCheckbox">
+                    <FormControlLabel
+                        control={<Checkbox color="primary" />}
+                        label="Italic"
+                        labelPlacement="end"
+                    />
+                </div>
+                <div className="labeledCheckbox">
+                    <FormControlLabel
+                        control={<Checkbox color="primary" />}
+                        label="Underlined"
+                        labelPlacement="end"
+                    />
+                </div>
+                <div className="labeledCheckbox">
+                    <FormControlLabel
+                        control={<Checkbox color="primary" />}
+                        label="Stroke"
+                        labelPlacement="end"
+                    />
+                </div>
+            </div>
+
+            <span>Sub/Superscript</span>
+
+            <span>Text transform</span>
         </div>
         </>
     );

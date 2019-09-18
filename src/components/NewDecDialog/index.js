@@ -23,12 +23,13 @@ import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
 import { getCorrectColor } from 'utils.js';
+import { alignmentsMap } from 'constants.js';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 7,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -52,6 +53,10 @@ class NewDecDialog extends React.Component {
         otherRowsIndent: "",
         lineSpacing: "",
         previewText: "Sample Text. You can change it",
+        bold: true,
+        italic: false,
+        underlined: false,
+        stroke: false,
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -128,6 +133,10 @@ class NewDecDialog extends React.Component {
                 fontColorName,
                 font,
                 alignment,
+                bold,
+                italic,
+                underlined,
+                stroke,
             } = this.state;
 
         const { setBulletField } = this;
@@ -153,6 +162,10 @@ class NewDecDialog extends React.Component {
         const changeFontColorName = this.setStateProperty("fontColorName");
         const changeFont = this.setStateProperty("font");
         const changeAlignment = this.setStateProperty("alignment");
+        const changeBold = this.toggleStateProperty("bold");
+        const changeItalic = this.toggleStateProperty("italic");
+        const changeUnderlined = this.toggleStateProperty("underlined");
+        const changeStroke = this.toggleStateProperty("stroke");
         const changeBorderType = (e) => {
             this.setStateProperty("borderType")(e);
             if (e.target.value === "double" && borderThickness === "2") {
@@ -167,6 +180,7 @@ class NewDecDialog extends React.Component {
             fontSize: fontSize ? fontSize + "pt" : "0",
             color: `#${getCorrectColor(fontColor, "f5f5f5")}`,
             fontFamily: font,
+            alignItems: alignmentsMap[alignment],
         };
 
         const previewProps = { previewText, changePreviewText, previewStyle };
@@ -195,6 +209,10 @@ class NewDecDialog extends React.Component {
             font, 
             changeFont,
             alignment, changeAlignment,
+            bold, changeBold,
+            italic, changeItalic,
+            underlined, changeUnderlined,
+            stroke, changeStroke,
         };
 
         const distancesSectionProps = {

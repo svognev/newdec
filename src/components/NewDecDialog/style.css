@@ -86,6 +86,10 @@
     grid-template-columns: min-content min-content; 
 }
 
+.paragraphDecorators-dialog .dialogGrid_withIndent {
+    margin-top: 15px;
+}
+
 .paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {
     text-align: right 
 }
@@ -126,6 +130,14 @@
     justify-content: flex-start; 
     padding-left: 35px;
     padding-right: 10px;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox {
+    margin-right: 1rem !important;
+}
+
+.paragraphDecorators-dialog .checkBoxesSet {
+    display: flex;
 }
 
 .grid-item {
