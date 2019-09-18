@@ -24,43 +24,15 @@
 
 .paragraphDecorators-dialog .demonstrationElement {
     width: 100%;
+    height: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.paragraphDecorators-dialog .demonstrationElement-input {
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: center;
-    font-size: 12pt;
-    z-index: 5;
+    border: 1px solid orange;
 }
 
 .paragraphDecorators-dialog .demonstrationElement-text {
-    position: absolute;
     font-size: 12pt;
-    align-self: center;
-    justify-self: center;
-    z-index: 0;
-    z-index: 4;
-    overflow: hidden;
-    max-width: 210px;
-}
-
-.paragraphDecorators-dialog .demonstrationElement input {
-    -moz-user-select: none !important; 
-    -ms-user-select: none !important; 
-    -o-user-select: none !important;
-    -webkit-user-select: none !important;
-    -webkit-appearance: none !important;
-}
-
-.paragraphDecorators-dialog .demonstrationElement input:active {
-    outline: none !important;
-}
-
-.paragraphDecorators-dialog .demonstrationElement input:focus {
-    outline: none !important;
+    max-width: 200px;
+    word-break: break-all;
 }

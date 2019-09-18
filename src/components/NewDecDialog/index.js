@@ -28,7 +28,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 7,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -140,7 +140,6 @@ class NewDecDialog extends React.Component {
         const changeRightBorder = this.toggleStateProperty("rightBorder");
         const changeTopBorder = this.toggleStateProperty("topBorder");
         const changeBottomBorder = this.toggleStateProperty("bottomBorder");
-        const changeBorderType = this.setStateProperty("borderType");
         const changeBorderColor = this.setColor("borderColor");
         const changeFontColor = this.setColor("fontColor");
         const changeFillingColor = this.setColor("fillingColor");
@@ -154,6 +153,15 @@ class NewDecDialog extends React.Component {
         const changeFontColorName = this.setStateProperty("fontColorName");
         const changeFont = this.setStateProperty("font");
         const changeAlignment = this.setStateProperty("alignment");
+        const changeBorderType = (e) => {
+            this.setStateProperty("borderType")(e);
+            if (e.target.value === "double" && borderThickness === "2") {
+                changeBorderThickness({ target: { value: "3"}});
+            }
+            if (e.target.value !== "double" && borderThickness === "3") {
+                changeBorderThickness({ target: { value: "2"}});
+            }
+         };
 
         const previewStyle = {
             fontSize: fontSize ? fontSize + "pt" : "0",

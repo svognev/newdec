@@ -48,7 +48,7 @@ const FramesSection = (props) => {
          marginTop: topBorder ? "0" : previewBorderWidth, 
          borderBottom: bottomBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
          marginBottom: bottomBorder ? "0" : previewBorderWidth, 
-     }
+     };
 
     return (
         <div className="dialogGrid dialogGrid_2cols">
