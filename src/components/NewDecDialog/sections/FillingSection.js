@@ -3,44 +3,50 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { getCorrectColor } from '../../../utils';
+import { getCorrectColor, selectAllOnClick } from 'utils.js';
+import Preview from "components/common/Preview";
 
-const FillingSection = ({ fillingColor, changeFillingColor }) => {
-
-    const correctColor = getCorrectColor(fillingColor);
-    const colorSampleStyle = {
-        backgroundColor: `#${correctColor}`,
-    };
+const  FillingSection = (props) => {
+    const { previewProps, fillingColor, changeFillingColor, fillingColorName, changeFillingColorName, } = props;
+        const correctColor = getCorrectColor(fillingColor);
+        const colorSampleStyle = {
+            backgroundColor: `#${correctColor}`,
+        };
 
     return (
-        <form className="paragraphDecorators-dialog__form">
-            <ul className="paragraphDecorators-dialog__field-list">
-                <div className="paragraphDecorators-dialog__col">
-                    <li><span>Background color name</span></li>
-                    <li><span>Background color HEX</span></li>
+        <div className="dialogGrid dialogGrid_2cols dialogGrid_flexStartAligned">
+            <div className="dialogGrid dialogGrid_2minCols">
+                <span>Filling color name</span>
+                <div>
+                    <TextField 
+                        variant="outlined" 
+                        margin="dense"
+                        className="middleSizeTextInput" 
+                        value={fillingColorName}
+                        onChange={changeFillingColorName}
+                    />
                 </div>
-                <div className="paragraphDecorators-dialog__col">
-                    <li><TextField variant="outlined" margin="dense" /></li>
-                    <li>
-                        <TextField 
-                            variant="outlined" 
-                            margin="dense" 
-                            className="paragraphDecorators-dialog__number-input" 
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start">#</InputAdornment>,
-                              }}
-                            value={fillingColor}
-                            onChange={changeFillingColor}
-                         />     
-                        <div className="paragraphDecorators-dialog__color-sample" style={colorSampleStyle}></div>                                                                                   
-                    </li>                
+                <span>Filling color HEX</span>
+                <div className="colorField">
+                    <TextField 
+                        variant="outlined" 
+                        margin="dense" 
+                        className="numberInput" 
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">#</InputAdornment>
+                        }}
+                        value={fillingColor}
+                        onChange={changeFillingColor}
+                        onClick={selectAllOnClick()}
+                    />
+                    <div className="colorSample" style={colorSampleStyle}></div>
                 </div>
-                <div className="paragraphDecorators-dialog__col ">
-                </div>
-            </ul>
-                
-        </form>
+            </div>
+            <div className="previewSide">
+                <Preview {...previewProps} />
+            </div>
+        </div>
     );
-}
+};
 
 export default FillingSection;

@@ -9,3 +9,10 @@ export const selectAllOnClick = defaultValue => e => {
         e.target.select();
     }
 }
+
+export const getOffset = (alignType, fontSize) => {
+    if (alignType === "baseline") {
+        return "0";
+    }
+    return (parseFloat(fontSize.slice()) / 2) * (alignType === "sub" ? 1 : -1).toFixed();
+};

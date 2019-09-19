@@ -29,12 +29,12 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 0,
         isList: true,
         listType: "unordered",
         bulletField: "",
-        verticalAlign: "",
-        textTransform: "",
+        verticalAlign: "baseline",
+        textTransform: "none",
         leftBorder: false,
         rightBorder: false,
         topBorder: false,
@@ -49,11 +49,12 @@ class NewDecDialog extends React.Component {
         alignment: "left",
         font: "Roboto",
         fillingColor: "",
+        fillingColorName: "",
         firstRowIndent: "",
         otherRowsIndent: "",
         lineSpacing: "",
-        previewText: "Sample Text. You can change it",
-        bold: true,
+        previewText: `<div>Sample Text.</div><div>You can change it</div>`,
+        bold: false,
         italic: false,
         underlined: false,
         stroke: false,
@@ -137,6 +138,7 @@ class NewDecDialog extends React.Component {
                 italic,
                 underlined,
                 stroke,
+                fillingColorName,
             } = this.state;
 
         const { setBulletField } = this;
@@ -157,7 +159,6 @@ class NewDecDialog extends React.Component {
         const changeOtherRowsIndent = this.setNumber("otherRowsIndent");
         const changeLineSpacing = this.setNumber("lineSpacing");
         const changeBorderColorName = this.setStateProperty("borderColorName");
-        const changePreviewText = this.setStateProperty("previewText");
         const changeFontSize = this.setNumber("fontSize");
         const changeFontColorName = this.setStateProperty("fontColorName");
         const changeFont = this.setStateProperty("font");
@@ -166,6 +167,16 @@ class NewDecDialog extends React.Component {
         const changeItalic = this.toggleStateProperty("italic");
         const changeUnderlined = this.toggleStateProperty("underlined");
         const changeStroke = this.toggleStateProperty("stroke");
+        const changeFillingColorName = this.setStateProperty("fillingColorName");
+
+        const changePreviewText = (e) => {
+            if (e.target.value && e.target.value !== "<div></div>" && e.target.value !== "<br>") {
+                this.setStateProperty("previewText")(e);
+            } else {
+                this.setStateProperty("previewText")({ target: { value: `<div><br></div>`}});
+            }
+        };
+
         const changeBorderType = (e) => {
             this.setStateProperty("borderType")(e);
             if (e.target.value === "double" && borderThickness === "2") {
@@ -177,10 +188,17 @@ class NewDecDialog extends React.Component {
          };
 
         const previewStyle = {
-            fontSize: fontSize ? fontSize + "pt" : "0",
+            fontSize: !fontSize ? "0" : `${fontSize <= 120 ? fontSize : 120}pt`,
             color: `#${getCorrectColor(fontColor, "f5f5f5")}`,
             fontFamily: font,
             alignItems: alignmentsMap[alignment],
+            fontWeight: bold ? "bold" : "normal",
+            fontStyle: italic ? "italic" : "normal",
+            textDecoration: `${underlined ? "underline" : ""}${stroke ? " line-through" : ""}`.trim() || "none",
+            verticalAlign,
+            textTransform: textTransform !== "small-caps" ? textTransform : "none",
+            fontVariant: textTransform === "small-caps" ? textTransform : "normal",
+            background: `content-box #${getCorrectColor(fillingColor, "f5f5f5")}`,
         };
 
         const previewProps = { previewText, changePreviewText, previewStyle };
@@ -243,7 +261,13 @@ class NewDecDialog extends React.Component {
             changeBorderColorName,
         };
 
-        const fillingSectionProps = { fillingColor, changeFillingColor };
+        const fillingSectionProps = { 
+            fillingColor, 
+            changeFillingColor,
+            fillingColorName,
+            changeFillingColorName,
+            previewProps,
+        };
         
         return (
             <ThemeProvider theme={theme}>
@@ -316,7 +340,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <TestSection {...typographySectionProps} /> }
+                        { openedTab === 11 && <TestSection {...fillingSectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>

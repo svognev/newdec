@@ -15,6 +15,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    cursor: pointer;
 }
 
 .paragraphDecorators-dialog .preview-title {
@@ -42,4 +43,11 @@
     margin-top: -20px;
     display: flex;
     flex-flow: column;
+    cursor: text;
+    background-image: linear-gradient(whitesmoke, whitesmoke) !important;
+}
+
+.paragraphDecorators-dialog .demonstrationElement-text div {
+    visibility: initial;
+    background-color: inherit;
 }

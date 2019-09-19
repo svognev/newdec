@@ -86,8 +86,12 @@
     grid-template-columns: min-content min-content; 
 }
 
-.paragraphDecorators-dialog .dialogGrid_withIndent {
-    margin-top: 15px;
+.paragraphDecorators-dialog .dialogGrid_flexStartAligned {
+    align-items: flex-start;
+}
+
+.paragraphDecorators-dialog .dialogGrid_indented {
+    margin-top: 12px;
 }
 
 .paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {
@@ -112,6 +116,10 @@
     width: 110px;
 }
 
+.paragraphDecorators-dialog .middleSizeTextInput {
+    width: 223px;
+}
+
 .paragraphDecorators-dialog .colorSample {
     width: 1.5rem;
     height: 1.5rem;
@@ -133,7 +141,39 @@
 }
 
 .paragraphDecorators-dialog .labeledCheckbox {
-    margin-right: 1rem !important;
+    margin-right: 1.3rem;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_indented {
+    margin-right: 0.9rem !important;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_bold span {
+    font-weight: bold;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_italic span {
+    font-style: italic;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_underlined span {
+    text-decoration: underline;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_stroke span {
+    text-decoration: line-through;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_uppercase span {
+    text-transform: uppercase;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_lowercase span {
+    text-transform: lowercase;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_smallCaps span {
+    font-variant: small-caps;
 }
 
 .paragraphDecorators-dialog .checkBoxesSet {
