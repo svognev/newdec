@@ -54,6 +54,7 @@ const TypographySection = (props) => {
                     <option value={"left"}>Left</option>
                     <option value={"center"}>Center</option>
                     <option value={"right"}>Right</option>
+                    <option value={"justify"}>Justified</option>
                 </NativeSelect>
 
                 <span>Font size</span>

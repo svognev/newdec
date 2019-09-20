@@ -69,4 +69,5 @@ export const alignmentsMap = {
   center: "center",
   left: "flex-start",
   right: "flex-end",
+  justify: "flex-start",
 };

@@ -45,9 +45,15 @@
     flex-flow: column;
     cursor: text;
     background-image: linear-gradient(whitesmoke, whitesmoke) !important;
+    text-align: left;
+    text-justify: inter-word;
 }
 
 .paragraphDecorators-dialog .demonstrationElement-text div {
     visibility: initial;
     background-color: inherit;
+}
+
+.paragraphDecorators-dialog .demonstrationElement-text span {
+    white-space: pre-wrap;
 }

@@ -29,7 +29,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 5,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -53,11 +53,12 @@ class NewDecDialog extends React.Component {
         firstRowIndent: "",
         otherRowsIndent: "",
         lineSpacing: "",
-        previewText: `<div>Sample Text.</div><div>You can change it</div>`,
+        previewText: `<div>Sample Text. You can change it.</div><div><br /></div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`,
         bold: false,
         italic: false,
         underlined: false,
         stroke: false,
+        connectToPrevious: false,
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -139,6 +140,7 @@ class NewDecDialog extends React.Component {
                 underlined,
                 stroke,
                 fillingColorName,
+                connectToPrevious,
             } = this.state;
 
         const { setBulletField } = this;
@@ -168,10 +170,15 @@ class NewDecDialog extends React.Component {
         const changeUnderlined = this.toggleStateProperty("underlined");
         const changeStroke = this.toggleStateProperty("stroke");
         const changeFillingColorName = this.setStateProperty("fillingColorName");
+        const changeConnectToPrevious = this.toggleStateProperty("connectToPrevious");
 
         const changePreviewText = (e) => {
             if (e.target.value && e.target.value !== "<div></div>" && e.target.value !== "<br>") {
-                this.setStateProperty("previewText")(e);
+                if (e.target.value[0] !== "<") {
+                    this.setStateProperty("previewText")({ target: { value: `<div>${e.target.value}</div>`}});
+                } else {
+                    this.setStateProperty("previewText")(e);
+                }
             } else {
                 this.setStateProperty("previewText")({ target: { value: `<div><br></div>`}});
             }
@@ -192,6 +199,7 @@ class NewDecDialog extends React.Component {
             color: `#${getCorrectColor(fontColor, "f5f5f5")}`,
             fontFamily: font,
             alignItems: alignmentsMap[alignment],
+            textAlign: alignment,
             fontWeight: bold ? "bold" : "normal",
             fontStyle: italic ? "italic" : "normal",
             textDecoration: `${underlined ? "underline" : ""}${stroke ? " line-through" : ""}`.trim() || "none",
@@ -267,6 +275,8 @@ class NewDecDialog extends React.Component {
             fillingColorName,
             changeFillingColorName,
             previewProps,
+            connectToPrevious,
+            changeConnectToPrevious,
         };
         
         return (
