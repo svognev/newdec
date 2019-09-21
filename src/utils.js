@@ -16,3 +16,8 @@ export const getOffset = (alignType, fontSize) => {
     }
     return (parseFloat(fontSize.slice()) / 2) * (alignType === "sub" ? 1 : -1).toFixed();
 };
+
+export const getUnstyledText = styledText => {
+    const unstyledText = styledText.replace(/<\/(.*?)>/gm, "</div>").replace(/(?!(?:<\/(.*?)>|<br(.*?)>)$)<(.*?)>/gm, "<div>");
+    return unstyledText[0] !== "<" ? `<div>${unstyledText}</div>` : unstyledText;
+} 

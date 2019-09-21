@@ -57,3 +57,23 @@
 .paragraphDecorators-dialog .demonstrationElement-text span {
     white-space: pre-wrap;
 }
+
+.aria {
+    resize: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 20%;
+    padding-bottom: 20%;
+
+}
+
+.ariabox {
+    display: table-cell;
+     vertical-align: middle;
+     width: 100%;
+     height: 100%;
+}

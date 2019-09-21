@@ -22,14 +22,14 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
-import { getCorrectColor } from 'utils.js';
+import { getCorrectColor, getUnstyledText } from 'utils.js';
 import { alignmentsMap } from 'constants.js';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 5,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -173,12 +173,9 @@ class NewDecDialog extends React.Component {
         const changeConnectToPrevious = this.toggleStateProperty("connectToPrevious");
 
         const changePreviewText = (e) => {
-            if (e.target.value && e.target.value !== "<div></div>" && e.target.value !== "<br>") {
-                if (e.target.value[0] !== "<") {
-                    this.setStateProperty("previewText")({ target: { value: `<div>${e.target.value}</div>`}});
-                } else {
-                    this.setStateProperty("previewText")(e);
-                }
+            const { value } = e.target;
+            if (value && value !== "<div></div>" && value !== "<br>") {
+                this.setStateProperty("previewText")({ target: { value: getUnstyledText(value)}});
             } else {
                 this.setStateProperty("previewText")({ target: { value: `<div><br></div>`}});
             }

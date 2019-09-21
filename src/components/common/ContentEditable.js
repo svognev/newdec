@@ -7,9 +7,9 @@ var __rest = (this && this.__rest) || function (s, e) {
   for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
       t[p] = s[p];
   if (s != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-              t[p[i]] = s[p[i]];
+      for (var i = 0, q = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+          if (e.indexOf(q[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, q[i]))
+              t[q[i]] = s[q[i]];
       }
   return t;
 };
@@ -104,7 +104,7 @@ export default class ContentEditable extends React.Component {
       if (!el)
           return;
       // Perhaps React (whose VDOM gets outdated because we often prevent
-      // rerendering) did not update the DOM. So we update it manually now.
+      // rerendering) did not update the DOM. So we update it manually now.(?!(?:<br \/>|<br>|<br\/>)$)<(.*?)>
       if (this.props.html !== el.innerHTML) {
           el.innerHTML = this.lastHtml = this.props.html;
       }
