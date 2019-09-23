@@ -44,7 +44,6 @@
     display: flex;
     flex-flow: column;
     cursor: text;
-    background-image: linear-gradient(whitesmoke, whitesmoke) !important;
     text-align: left;
     text-justify: inter-word;
 }

@@ -3,6 +3,7 @@ import InputBase from '@material-ui/core/InputBase';
 
 const CustomInputShort = withStyles(theme => ({
     root: {
+      minWidth: "110px",
       'label + &': {
         marginTop: theme.spacing(3),
       },

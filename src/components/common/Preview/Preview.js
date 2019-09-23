@@ -11,6 +11,8 @@ const Preview = ({previewText, changePreviewText, previewStyle}) => {
         marginTop: `${getOffset(verticalAlign, fontSize)}pt`,
     };
 
+    console.log(editableContentStyle);
+
     const demonstrationElementClassName = "demonstrationElement";
     const selectAllPreviewContent = e => {
         if (e.target.className === demonstrationElementClassName) {
