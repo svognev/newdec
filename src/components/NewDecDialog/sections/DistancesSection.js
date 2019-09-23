@@ -2,83 +2,128 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import CustomInputShort from '../../common/CustomInputShort';
 import InputAdornment from '@material-ui/core/InputAdornment';
+
+import { selectAllOnClick } from "utils.js";
+import CustomInputShort from '../../common/CustomInputShort';
+import Preview from "components/common/Preview";
 
 const DistancesSection = (props) => {
     const {
+        previewProps,
         firstRowIndent,
         otherRowsIndent,
         lineSpacing,
         changeFirstRowIndent,
         changeOtherRowsIndent,
         changeLineSpacing,
+        marginTop, changeMarginTop,
+        marginBottom, changeMarginBottom,
+        wordSpacing, changeWordSpacing,
+        customLineSpacing, changeCustomLineSpacing,
     } = props;
-
+    
     return (
-        <form className="paragraphDecorators-dialog__form">
-            <ul className="paragraphDecorators-dialog__field-list">
-                <div className="paragraphDecorators-dialog__col">
-                    <li><span>Margin top</span></li>
-                    <li><span>Margin bottom</span></li>
-                    <li><span>1st row indent</span></li>
-                    <li><span>Other rows indent</span></li>
-                    <li><span>Line spacing</span></li>
-                </div>
-                <div className="paragraphDecorators-dialog__col">
-                <li>
-                    <NativeSelect input={ <CustomInputShort /> }>
-                        <option value={"6"}>6</option>
-                        <option value={"8"}>8</option>
-                        <option value={"10"}>10</option>
-                    </NativeSelect>
-                    <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                </li>
-                <li>
-                    <NativeSelect input={ <CustomInputShort /> }>
-                        <option value={"6"}>6</option>
-                        <option value={"8"}>8</option>
-                        <option value={"10"}>10</option>
-                    </NativeSelect>
-                    <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                </li>
-                <li>
+        <div className="dialogGrid dialogGrid_2cols dialogGrid_flexStartAligned">
+            <div className="dialogGrid dialogGrid_2minCols">
+                <span>Margin top</span>
+                <div className="inputWithAdornment">
                     <TextField 
                         variant="outlined" 
                         margin="dense" 
-                        className="paragraphDecorators-dialog__number-input"
+                        className="numberInput"
+                        value={marginTop}
+                        onChange={changeMarginTop}
+                        onClick={selectAllOnClick("6")}
+                    />                                            
+                    <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                </div> 
+
+                <span>Margin bottom</span>
+                <div className="inputWithAdornment">
+                    <TextField 
+                        variant="outlined" 
+                        margin="dense" 
+                        className="numberInput"
+                        value={marginBottom}
+                        onChange={changeMarginBottom}
+                        onClick={selectAllOnClick("6")}
+                    />                                            
+                    <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                </div> 
+
+                <span>1st row indent</span>
+                <div className="inputWithAdornment">
+                    <TextField 
+                        variant="outlined" 
+                        margin="dense" 
+                        className="numberInput"
                         value={firstRowIndent}
-                        onChange={changeFirstRowIndent} 
-                     />                                            
+                        onChange={changeFirstRowIndent}
+                    />                                            
                     <InputAdornment variant="filled" position="end">cm</InputAdornment>
-                </li>
-                <li>
+                </div>
+
+                <span>Other rows indent</span>
+                <div className="inputWithAdornment">
                     <TextField 
                         variant="outlined" 
                         margin="dense" 
-                        className="paragraphDecorators-dialog__number-input" 
+                        className="numberInput"
                         value={otherRowsIndent}
                         onChange={changeOtherRowsIndent}
-                     />                                            
+                    />                                            
                     <InputAdornment variant="filled" position="end">cm</InputAdornment>
-                </li>
-                <li>
+                </div>
+
+                <span>Line spacing</span>
+                <div>
+                    <NativeSelect 
+                        input={ <CustomInputShort /> } 
+                        value={lineSpacing} 
+                        onChange={changeLineSpacing} 
+                    >
+                        <option value="1.0">1.0</option>
+                        <option className="highlightedOption" value="1.15">1.15</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="custom">Custom</option>
+                    </NativeSelect> 
+                    {
+                    lineSpacing === "custom" && 
+                    (
+                        <TextField 
+                            variant="outlined" 
+                            margin="dense" 
+                            className="numberInput"
+                            value={customLineSpacing}
+                            onChange={changeCustomLineSpacing}
+                        />                                            
+                    )
+                }
+                </div>
+                   
+                    
+                <span>Word spacing</span>
+                <div className="inputWithAdornment">
                     <TextField 
                         variant="outlined" 
                         margin="dense" 
-                        className="paragraphDecorators-dialog__number-input"
-                        value={lineSpacing}
-                        onChange={changeLineSpacing} 
-                     />                                            
+                        className="numberInput"
+                        value={wordSpacing}
+                        onChange={changeWordSpacing}
+                        onClick={selectAllOnClick("0")}
+                    />                                            
                     <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                </li>
-                </div>
-                <div className="paragraphDecorators-dialog__col ">
-                </div>
-            </ul>
-                
-        </form>
+                </div> 
+            </div>
+            <div className="previewSide">
+                <Preview {...previewProps} />
+            </div>
+        </div>
     );
-}
+};
 
 export default DistancesSection;

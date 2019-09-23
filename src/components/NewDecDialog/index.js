@@ -53,7 +53,8 @@ class NewDecDialog extends React.Component {
         firstRowIndent: "0",
         otherRowsIndent: "0",
         lineSpacing: "1.15",
-        previewText: `<div>Sample Text. You can change it.</div><div><br /></div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`,
+        customLineSpacing: "",
+        previewText: `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`,
         bold: false,
         italic: false,
         underlined: false,
@@ -61,7 +62,7 @@ class NewDecDialog extends React.Component {
         connectToPrevious: false,
         marginTop: "6",
         marginBottom: "6",
-        wordSpacing: "1",
+        wordSpacing: "0",   
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -133,6 +134,7 @@ class NewDecDialog extends React.Component {
                 firstRowIndent,
                 otherRowsIndent,
                 lineSpacing,
+                customLineSpacing,
                 previewText,
                 fontSize,
                 fontColorName,
@@ -146,7 +148,7 @@ class NewDecDialog extends React.Component {
                 connectToPrevious,
                 marginTop,
                 marginBottom,
-                wordSpacing
+                wordSpacing,
             } = this.state;
 
         const { setBulletField } = this;
@@ -166,6 +168,7 @@ class NewDecDialog extends React.Component {
         const changeFirstRowIndent = this.setNumber("firstRowIndent");
         const changeOtherRowsIndent = this.setNumber("otherRowsIndent");
         const changeLineSpacing = this.setStateProperty("lineSpacing");
+        const changeCustomLineSpacing = this.setNumber("customLineSpacing");
         const changeBorderColorName = this.setStateProperty("borderColorName");
         const changeFontSize = this.setNumber("fontSize");
         const changeFontColorName = this.setStateProperty("fontColorName");
@@ -200,13 +203,16 @@ class NewDecDialog extends React.Component {
             }
          };
 
-        const correctFontColor = getCorrectColor(fontColor, "f5f5f5");
-        const correctFillingColor = getCorrectColor(fillingColor, "f5f5f5");
-        const additionalFillingColor = connectToPrevious ? correctFillingColor : "f5f5f5";
+        const previewFontColor = getCorrectColor(fontColor, "f5f5f5");
+        const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
+        const previewAdditionalFillingColor = connectToPrevious ? previewFillingColor : "f5f5f5";
+        const indentsDifference = (firstRowIndent || 0) - (otherRowsIndent || 0);
+        const previewMarginLeft = otherRowsIndent ? `${otherRowsIndent >= 12 ? 12 : otherRowsIndent}cm` : 0;
+        const previewTextIndent = indentsDifference ? `${indentsDifference >= 12 ? 12 : indentsDifference}cm` : 0;
 
         const previewStyle = {
             fontSize: !fontSize ? "0" : `${fontSize <= 120 ? fontSize : 120}pt`,
-            color: `#${correctFontColor}`,
+            color: `#${previewFontColor}`,
             fontFamily: font,
             alignItems: alignmentsMap[alignment],
             textAlign: alignment,
@@ -216,8 +222,14 @@ class NewDecDialog extends React.Component {
             verticalAlign,
             textTransform: textTransform !== "small-caps" ? textTransform : "none",
             fontVariant: textTransform === "small-caps" ? textTransform : "normal",
-            backgroundColor: `#${correctFillingColor}`,
-            backgroundImage:  `linear-gradient(#${additionalFillingColor}, #${additionalFillingColor})`,
+            backgroundColor: `#${previewFillingColor}`,
+            backgroundImage:  `linear-gradient(#${previewAdditionalFillingColor}, #${previewAdditionalFillingColor})`,
+            marginLeft: previewMarginLeft,
+            textIndent: previewTextIndent,
+            wordSpacing: `${wordSpacing || 0}pt`,
+            lineHeight: (lineSpacing !== "custom" ? lineSpacing : (!customLineSpacing ? "1.15" : `${customLineSpacing || 0}`)),
+            marginBottom: `${marginBottom || 0}pt`,
+            marginTop: `${marginTop || 0}pt`,
         };
 
         const previewProps = { previewText, changePreviewText, previewStyle };
@@ -263,6 +275,7 @@ class NewDecDialog extends React.Component {
             marginTop, changeMarginTop,
             marginBottom, changeMarginBottom,
             wordSpacing, changeWordSpacing,
+            customLineSpacing, changeCustomLineSpacing,
         };
 
         const framesSectionProps = { 

@@ -6,8 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { selectAllOnClick } from "utils.js";
 import CustomInputShort from '../../common/CustomInputShort';
-import CustomInput from '../../common/CustomInput';
-
+import Preview from "components/common/Preview";
 
 const TestSection = (props) => {
     const {
@@ -21,6 +20,7 @@ const TestSection = (props) => {
         marginTop, changeMarginTop,
         marginBottom, changeMarginBottom,
         wordSpacing, changeWordSpacing,
+        customLineSpacing, changeCustomLineSpacing,
     } = props;
     
     return (
@@ -60,7 +60,6 @@ const TestSection = (props) => {
                         className="numberInput"
                         value={firstRowIndent}
                         onChange={changeFirstRowIndent}
-                        onClick={selectAllOnClick("0")}
                     />                                            
                     <InputAdornment variant="filled" position="end">cm</InputAdornment>
                 </div>
@@ -73,7 +72,6 @@ const TestSection = (props) => {
                         className="numberInput"
                         value={otherRowsIndent}
                         onChange={changeOtherRowsIndent}
-                        onClick={selectAllOnClick("0")}
                     />                                            
                     <InputAdornment variant="filled" position="end">cm</InputAdornment>
                 </div>
@@ -86,16 +84,43 @@ const TestSection = (props) => {
                         onChange={changeLineSpacing} 
                     >
                         <option value="1.0">1.0</option>
-                        <option value="1.15">1.15</option>
+                        <option className="highlightedOption" value="1.15">1.15</option>
                         <option value="1.5">1.5</option>
                         <option value="2.0">2.0</option>
                         <option value="2.5">2.5</option>
                         <option value="3.0">3.0</option>
+                        <option value="custom">Custom</option>
                     </NativeSelect> 
+                    {
+                    lineSpacing === "custom" && 
+                    (
+                        <TextField 
+                            variant="outlined" 
+                            margin="dense" 
+                            className="numberInput"
+                            value={customLineSpacing}
+                            onChange={changeCustomLineSpacing}
+                        />                                            
+                    )
+                }
                 </div>
                    
                     
                 <span>Word spacing</span>
+                <div className="inputWithAdornment">
+                    <TextField 
+                        variant="outlined" 
+                        margin="dense" 
+                        className="numberInput"
+                        value={wordSpacing}
+                        onChange={changeWordSpacing}
+                        onClick={selectAllOnClick("0")}
+                    />                                            
+                    <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                </div> 
+            </div>
+            <div className="previewSide">
+                <Preview {...previewProps} />
             </div>
         </div>
     );

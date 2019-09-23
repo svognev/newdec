@@ -12,9 +12,9 @@ export const selectAllOnClick = defaultValue => e => {
 
 export const getOffset = (alignType, fontSize) => {
     if (alignType === "baseline") {
-        return "0";
+        return 0;
     }
-    return (parseFloat(fontSize.slice()) / 2) * (alignType === "sub" ? 1 : -1).toFixed();
+    return (parseFloat(fontSize.slice()) / 2) * (alignType === "sub" ? 1 : -1);
 };
 
 export const getUnstyledText = styledText => {
