@@ -165,8 +165,9 @@
     min-width: 105px;
 }
 
-.listItemSelect select, .listItemSelect option {
-    text-align: center;
+.listItemSelect optgroup {
+    font-weight: bold;
+
 }
 
 .paragraphDecorators-dialog .optionIcon {

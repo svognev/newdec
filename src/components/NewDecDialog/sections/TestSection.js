@@ -137,19 +137,19 @@ const TestSection = (props) => {
                                     <NativeSelect 
                                         value={listItem} 
                                         onChange={changeListItem} 
-                                        input={ <CustomInput /> }
+                                        input={ <CustomInputShort /> }
                                     >
-                                        <option  value={"bulletpoint"}>• Bullet Point</option>
-                                        <option value={"dash"}>– Long Dash</option>
-                                        <option value={"star"}>🟎 Star</option>
-                                        <option value={"individual"}>Individual Unicode</option>
+                                        <option  value={"bulletpoint"}>•</option>
+                                        <option value={"dash"}>–</option>
+                                        <option value={"star"}>⋆</option>
+                                        <option value={"individual"}>Other</option>
                                     </NativeSelect>
                                 </div>
                             </div>
                             {   listItem === "individual" && (
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                     <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
-                                        <span>Number</span>
+                                        <span>Unicode number</span>
                                         <div>
                                             <TextField 
                                                 value={unicodeNumber}
