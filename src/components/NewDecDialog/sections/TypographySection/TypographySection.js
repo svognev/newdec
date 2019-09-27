@@ -12,6 +12,8 @@ import { getCorrectColor, selectAllOnClick } from "utils.js";
 import Preview from "components/common/Preview";
 import CustomInput from "components/common/CustomInput";
 
+import "./style.css";
+
 const TypographySection = (props) => {
     const { previewProps, fontSize, changeFontSize, fontColor, changeFontColor, fontColorName,
         changeFontColorName,
@@ -146,7 +148,7 @@ const TypographySection = (props) => {
                 onChange={changeTextTransform} 
                 row
             >
-                <div className="labeledCheckbox labeledCheckbox_indented">
+                <div className="labeledCheckbox labeledCheckbox_topIndented">
                     <FormControlLabel
                         value="none"
                         control={<Radio color="primary" />}

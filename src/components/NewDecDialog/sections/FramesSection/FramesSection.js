@@ -136,16 +136,16 @@ const FramesSection = (props) => {
 
                 <span>Type of frame</span>
                 <div >
-              <Select
-                input={<FrameTypeInput />}
-                value={borderType}
-                onChange={changeBorderType}
-              >
+                    <Select
+                      input={<FrameTypeInput />}
+                      value={borderType}
+                      onChange={changeBorderType}
+                    >
                         <MenuItem value="solid"><b>━━━━</b></MenuItem>
                         <MenuItem value="dotted">• • • • • • •</MenuItem>
                         <MenuItem value="dashed"><b>– – – – –</b></MenuItem>
                         <MenuItem value="double">══════</MenuItem>              
-                </Select>
+                    </Select>
                 </div>
 
                 <span>Connect to previous</span>

@@ -1,0 +1,31 @@
+.paragraphDecorators-dialog .labeledCheckbox_indented {
+    margin-right: 0.9rem !important;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_bold span {
+    font-weight: bold;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_italic span {
+    font-style: italic;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_underlined span {
+    text-decoration: underline;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_stroke span {
+    text-decoration: line-through;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_uppercase span {
+    text-transform: uppercase;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_lowercase span {
+    text-transform: lowercase;
+}
+
+.paragraphDecorators-dialog .labeledCheckbox_smallCaps span {
+    font-variant: small-caps;
+}

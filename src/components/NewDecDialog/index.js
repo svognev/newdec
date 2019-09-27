@@ -22,14 +22,14 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
-import { getCorrectColor, getUnstyledText } from 'utils.js';
+import { getCorrectColor, getUnstyledText, unicodeNumberToChar, unicodeCharToNumber } from 'utils.js';
 import { alignmentsMap } from 'constants.js';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         isList: true,
         listType: "unordered",
         bulletField: "",
@@ -63,25 +63,37 @@ class NewDecDialog extends React.Component {
         marginTop: "6",
         marginBottom: "6",
         wordSpacing: "0",   
+        listName: "",
+        prefix: "",
+        suffix: "",
+        orderLevel: "",
+        suffixDistance: "0.25",
+        magicTabs: false,
+        listItem: "individual",
+        unicodeNumber: "",
+        unicodeChar: "",
     };
 
     toggleStateProperty = (propName) => (e) => {
         this.setState({
             [propName]: e.target.checked
         });
-    }
+    };
 
-    setStateProperty = (propName) => (e, newValue) => {
+    setStateProperty = (propName) => (e, secondArg = "") => {
+        const newValue = (e && e.target.value !== "" && e.target.value !== undefined) ? e.target.value : secondArg;
         this.setState({
-            [propName]: e.target.value ? e.target.value : typeof newValue === "number" ? newValue : "",
+            [propName]: newValue,
         });
-    }
+    };
 
-    setBulletField = (e) => {
+    setBullet = (propName) => (e) => {
+        const newBullet = e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value;
         this.setState({
-            bulletField: e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value 
+            [propName]: newBullet,
         });
-    } 
+        return newBullet;
+    };
 
     setColor = (propName) => (e) => {
         let input = e.target.value || "";
@@ -90,13 +102,13 @@ class NewDecDialog extends React.Component {
                               ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
                               : "" ;
         
-        if (filteredInput === this.state[propName]) {
-            return;
+        if (filteredInput !== this.state[propName]) {
+            this.setState({
+                [propName]: filteredInput,
+            });
         }
-        this.setState({
-            [propName]: filteredInput,
-        });
-    }
+        return filteredInput;
+    };
 
     setNumber = (propName) => (e) => {
         let input = e.target.value || "";
@@ -105,20 +117,20 @@ class NewDecDialog extends React.Component {
                               ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
                               : "" ;
 
-        if (filteredInput === this.state[propName]) {
-            return;
+        if (filteredInput !== this.state[propName]) {
+          this.setState({
+              [propName]: filteredInput,
+          });
         }
-        this.setState({
-            [propName]: filteredInput,
-        });
-    }
+        return filteredInput;
+    };
 
     render() {
         const { isOpen, onClose } = this.props;
+        const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet } = this;
         const { openedTab, 
                 isList, 
                 listType, 
-                bulletField, 
                 verticalAlign, 
                 textTransform,
                 leftBorder, 
@@ -149,57 +161,84 @@ class NewDecDialog extends React.Component {
                 marginTop,
                 marginBottom,
                 wordSpacing,
+                listName,
+                prefix,
+                suffix,
+                orderLevel,
+                suffixDistance,
+                magicTabs,
+                listItem,
+                unicodeNumber,
+                unicodeChar,
             } = this.state;
 
-        const { setBulletField } = this;
-        const changeOpenedTab = this.setStateProperty("openedTab");
-        const changeIsList = this.toggleStateProperty("isList");
-        const changeListType = this.setStateProperty("listType");
-        const changeVerticalAlign = this.setStateProperty("verticalAlign");
-        const changeTextTransform = this.setStateProperty("textTransform");
-        const changeLeftBorder = this.toggleStateProperty("leftBorder");
-        const changeRightBorder = this.toggleStateProperty("rightBorder");
-        const changeTopBorder = this.toggleStateProperty("topBorder");
-        const changeBottomBorder = this.toggleStateProperty("bottomBorder");
-        const changeBorderColor = this.setColor("borderColor");
-        const changeFontColor = this.setColor("fontColor");
-        const changeFillingColor = this.setColor("fillingColor");
-        const changeBorderThickness = this.setNumber("borderThickness");
-        const changeFirstRowIndent = this.setNumber("firstRowIndent");
-        const changeOtherRowsIndent = this.setNumber("otherRowsIndent");
-        const changeLineSpacing = this.setStateProperty("lineSpacing");
-        const changeCustomLineSpacing = this.setNumber("customLineSpacing");
-        const changeBorderColorName = this.setStateProperty("borderColorName");
-        const changeFontSize = this.setNumber("fontSize");
-        const changeFontColorName = this.setStateProperty("fontColorName");
-        const changeFont = this.setStateProperty("font");
-        const changeAlignment = this.setStateProperty("alignment");
-        const changeBold = this.toggleStateProperty("bold");
-        const changeItalic = this.toggleStateProperty("italic");
-        const changeUnderlined = this.toggleStateProperty("underlined");
-        const changeStroke = this.toggleStateProperty("stroke");
-        const changeFillingColorName = this.setStateProperty("fillingColorName");
-        const changeConnectToPrevious = this.toggleStateProperty("connectToPrevious");
-        const changeMarginTop = this.setNumber("marginTop");
-        const changeMarginBottom = this.setNumber("marginBottom");
-        const changeWordSpacing = this.setNumber("wordSpacing");
+        const changeOpenedTab = setStateProperty("openedTab");
+        const changeIsList = toggleStateProperty("isList");
+        const changeListType = setStateProperty("listType");
+        const changeVerticalAlign = setStateProperty("verticalAlign");
+        const changeTextTransform = setStateProperty("textTransform");
+        const changeLeftBorder = toggleStateProperty("leftBorder");
+        const changeRightBorder = toggleStateProperty("rightBorder");
+        const changeTopBorder = toggleStateProperty("topBorder");
+        const changeBottomBorder = toggleStateProperty("bottomBorder");
+        const changeBorderColor = setColor("borderColor");
+        const changeFontColor = setColor("fontColor");
+        const changeFillingColor = setColor("fillingColor");
+        const changeBorderThickness = setNumber("borderThickness");
+        const changeFirstRowIndent = setNumber("firstRowIndent");
+        const changeOtherRowsIndent = setNumber("otherRowsIndent");
+        const changeLineSpacing = setStateProperty("lineSpacing");
+        const changeCustomLineSpacing = setNumber("customLineSpacing");
+        const changeBorderColorName = setStateProperty("borderColorName");
+        const changeFontSize = setNumber("fontSize");
+        const changeFontColorName = setStateProperty("fontColorName");
+        const changeFont = setStateProperty("font");
+        const changeAlignment = setStateProperty("alignment");
+        const changeBold = toggleStateProperty("bold");
+        const changeItalic = toggleStateProperty("italic");
+        const changeUnderlined = toggleStateProperty("underlined");
+        const changeStroke = toggleStateProperty("stroke");
+        const changeFillingColorName = setStateProperty("fillingColorName");
+        const changeConnectToPrevious = toggleStateProperty("connectToPrevious");
+        const changeMarginTop = setNumber("marginTop");
+        const changeMarginBottom = setNumber("marginBottom");
+        const changeWordSpacing = setNumber("wordSpacing");
+        const changeListName = setStateProperty("listName");
+        const changePrefix = setStateProperty("prefix");
+        const changeSuffix = setStateProperty("suffix");
+        const changeOrderLevel = setStateProperty("orderLevel");
+        const changeSuffixDistance = setStateProperty("suffixDistance");
+        const changeMagicTabs = toggleStateProperty("magicTabs");
+        const changeListItem = setStateProperty("listItem");
+        
+        const changeUnicodeChar = (e) => {
+            const newUnicodeChar = setBullet("unicodeChar")(e);
+            const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
+            setStateProperty("unicodeNumber")(null, newUnicodeNumber);
+        };
+
+        const changeUnicodeNumber = (e) => {
+            const newUnicodeNumber = setColor("unicodeNumber")(e);
+            const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
+            setStateProperty("unicodeChar")(null, newUnicodeChar);
+        };
 
         const changePreviewText = (e) => {
             const { value } = e.target;
             if (value && value !== "<div></div>" && value !== "<br>") {
-                this.setStateProperty("previewText")({ target: { value: getUnstyledText(value)}});
+                setStateProperty("previewText")(null, getUnstyledText(value));
             } else {
-                this.setStateProperty("previewText")({ target: { value: `<div><br></div>`}});
+                setStateProperty("previewText")(null, `<div><br></div>`);
             }
         };
 
         const changeBorderType = (e) => {
-            this.setStateProperty("borderType")(e);
+            setStateProperty("borderType")(e);
             if (e.target.value === "double" && borderThickness === "2") {
-                changeBorderThickness({ target: { value: "3"}});
+                setStateProperty("borderThickness")(null, "3");
             }
             if (e.target.value !== "double" && borderThickness === "3") {
-                changeBorderThickness({ target: { value: "2"}});
+                setStateProperty("borderThickness")(null, "2");
             }
          };
 
@@ -239,8 +278,15 @@ class NewDecDialog extends React.Component {
             listType, 
             changeIsList, 
             changeListType, 
-            bulletField, 
-            setBulletField,
+            listName, changeListName,
+            prefix, changePrefix,
+            suffix, changeSuffix,
+            orderLevel, changeOrderLevel,
+            suffixDistance, changeSuffixDistance,
+            magicTabs, changeMagicTabs,
+            listItem, changeListItem,
+            unicodeNumber, changeUnicodeNumber,
+            unicodeChar, changeUnicodeChar,
         };
 
         const typographySectionProps = { 
@@ -378,7 +424,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection /> }
                         { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <TestSection {...distancesSectionProps} /> }
+                        { openedTab === 11 && <TestSection {...listSectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>

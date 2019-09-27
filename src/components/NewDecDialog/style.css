@@ -35,7 +35,7 @@
     min-height: 450px;
     width: 100%;
     padding-right: 1.5rem;
-    padding-bottom: 2rem;
+    padding-bottom: 28px;
     box-sizing: border-box;
 }
 
@@ -73,7 +73,7 @@
     display: grid;
     grid-template-rows: minmax(3.5rem, min-content);
     grid-auto-rows: minmax(3.5rem, min-content);
-    grid-gap: 1px 1.5rem;
+    grid-gap: 0px 1.5rem;
     grid-auto-flow: row;
     align-items: center;
 }
@@ -90,8 +90,13 @@
     align-items: flex-start;
 }
 
-.paragraphDecorators-dialog .dialogGrid_indented {
+.paragraphDecorators-dialog .dialogGrid_topIndented {
     margin-top: 12px;
+}
+
+.paragraphDecorators-dialog .dialogGrid_leftIndented {
+    padding-left: 15px;
+    box-sizing: border-box;
 }
 
 .paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {
@@ -113,6 +118,15 @@
 
 .paragraphDecorators-dialog .numberInput {
     width: 110px;
+}
+
+.paragraphDecorators-dialog .unicodeInput {
+    width: 120px;
+}
+
+.paragraphDecorators-dialog .bulletInput {
+    min-width: 50px;
+    max-width: 50px;
 }
 
 .paragraphDecorators-dialog .middleSizeTextInput {
@@ -143,40 +157,23 @@
     margin-right: 1.3rem;
 }
 
-.paragraphDecorators-dialog .labeledCheckbox_indented {
-    margin-right: 0.9rem !important;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_bold span {
-    font-weight: bold;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_italic span {
-    font-style: italic;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_underlined span {
-    text-decoration: underline;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_stroke span {
-    text-decoration: line-through;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_uppercase span {
-    text-transform: uppercase;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_lowercase span {
-    text-transform: lowercase;
-}
-
-.paragraphDecorators-dialog .labeledCheckbox_smallCaps span {
-    font-variant: small-caps;
-}
-
 .paragraphDecorators-dialog .checkBoxesSet {
     display: flex;
+}
+
+.paragraphDecorators-dialog .listSection-firstSpan {
+    min-width: 105px;
+}
+
+.listItemSelect select, .listItemSelect option {
+    font-family: "Roboto mono", monospace;
+    text-align: center;
+}
+
+.paragraphDecorators-dialog .optionIcon {
+    min-width: 20px;
+    display: inline-block;
+    color: red;
 }
 
 .grid-item {

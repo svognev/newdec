@@ -20,4 +20,12 @@ export const getOffset = (alignType, fontSize) => {
 export const getUnstyledText = styledText => {
     const unstyledText = styledText.replace(/<\/(.*?)>/gm, "</div>").replace(/(?!(?:<\/(.*?)>|<br(.*?)>)$)<(.*?)>/gm, "<div>");
     return unstyledText[0] !== "<" ? `<div>${unstyledText}</div>` : unstyledText;
-} 
+};
+
+export const unicodeNumberToChar = unicodeNumber => {
+    return String.fromCharCode(parseInt(unicodeNumber, 16));
+}
+
+export const unicodeCharToNumber = unicodeChar => {
+    return unicodeChar.charCodeAt(0).toString(16);
+}

@@ -9,12 +9,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { listStyleType } from '../../../constants'
 
-const ListSection = ({ isList, listType, changeIsList, changeListType, bulletField, setBulletField }) => {
+const ListSection = ({ isList, listType, changeIsList, changeListType, bulletField, changeBulletField }) => {
     return (
         <form className="paragraphDecorators-dialog__form">
             <ul className="paragraphDecorators-dialog__field-list">
                 <div className="paragraphDecorators-dialog__col">
-                    <li><span>Is it a list?</span></li>
+                    <li><div className="listSection-firstSpan"><span>Is it a list?</span></div></li>
                     { isList && (
                         <React.Fragment>
                             <li><span>List name</span></li>
@@ -98,7 +98,7 @@ const ListSection = ({ isList, listType, changeIsList, changeListType, bulletFie
                                             variant="outlined" 
                                             margin="dense" 
                                             className="paragraphDecorators-dialog__bullet-input" 
-                                            onChange={setBulletField}
+                                            onChange={changeBulletField}
                                             value={bulletField}
                                          />                                            
                                         <span className="paragraphDecorators-dialog__grey-text">
