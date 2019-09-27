@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/newdec/static/css/main.c53e2257.chunk.css",
-    "main.js": "/newdec/static/js/main.a167a797.chunk.js",
-    "main.js.map": "/newdec/static/js/main.a167a797.chunk.js.map",
+    "main.js": "/newdec/static/js/main.76aca221.chunk.js",
+    "main.js.map": "/newdec/static/js/main.76aca221.chunk.js.map",
     "runtime~main.js": "/newdec/static/js/runtime~main.3c986089.js",
     "runtime~main.js.map": "/newdec/static/js/runtime~main.3c986089.js.map",
     "static/js/2.029e203e.chunk.js": "/newdec/static/js/2.029e203e.chunk.js",
     "static/js/2.029e203e.chunk.js.map": "/newdec/static/js/2.029e203e.chunk.js.map",
     "index.html": "/newdec/index.html",
-    "precache-manifest.24b395a1f39a24814b6985590a91466b.js": "/newdec/precache-manifest.24b395a1f39a24814b6985590a91466b.js",
+    "precache-manifest.014cf5e5e5e349eeee563496620fb5f9.js": "/newdec/precache-manifest.014cf5e5e5e349eeee563496620fb5f9.js",
     "service-worker.js": "/newdec/service-worker.js",
     "static/css/main.c53e2257.chunk.css.map": "/newdec/static/css/main.c53e2257.chunk.css.map"
   }
