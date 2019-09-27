@@ -166,7 +166,6 @@
 }
 
 .listItemSelect select, .listItemSelect option {
-    font-family: "Roboto mono", monospace;
     text-align: center;
 }
 

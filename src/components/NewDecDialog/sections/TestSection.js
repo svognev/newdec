@@ -141,8 +141,8 @@ const TestSection = (props) => {
                                     >
                                         <option  value={"bulletpoint"}>• Bullet Point</option>
                                         <option value={"dash"}>– Long Dash</option>
-                                        <option value={"star"}>* Star</option>
-                                        <option value={"individual"}>… Individual Unicode</option>
+                                        <option value={"star"}>🟎 Star</option>
+                                        <option value={"individual"}>Individual Unicode</option>
                                     </NativeSelect>
                                 </div>
                             </div>
