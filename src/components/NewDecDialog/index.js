@@ -69,7 +69,7 @@ class NewDecDialog extends React.Component {
         orderLevel: "",
         suffixDistance: "0.25",
         magicTabs: false,
-        listItem: "individual",
+        listItem: "bulletpoint",
         unicodeNumber: "",
         unicodeChar: "",
     };

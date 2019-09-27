@@ -140,9 +140,9 @@ const TestSection = (props) => {
                                         input={ <CustomInputShort /> }
                                     >
                                         <option  value={"bulletpoint"}>•</option>
-                                        <option value={"dash"}>–</option>
-                                        <option value={"star"}>⋆</option>
-                                        <option value={"individual"}>Other</option>
+                                        <option value={"dash"}>—</option>
+                                        <option value={"star"}>★</option>
+                                        <option value={"individual"}>Custom</option>
                                     </NativeSelect>
                                 </div>
                             </div>
