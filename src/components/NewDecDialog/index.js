@@ -65,13 +65,24 @@ class NewDecDialog extends React.Component {
         wordSpacing: "0",   
         listName: "",
         prefix: "",
-        suffix: "",
+        suffix: ".",
         orderLevel: "",
         suffixDistance: "0.25",
         magicTabs: false,
         listItem: "bulletpoint",
         unicodeNumber: "",
         unicodeChar: "",
+        numberingStyle: "decimal",
+        continueNumbering: true,
+        allowRestartNumbering: true,
+        includePreviousFrom: "",
+        sideNumberFont: "Roboto",
+        sideNumberAlignment: "left",
+        sideNumberFontSize: "12",
+        sideNumberFontColor: "FFF",
+        sideNumberFillingColor: "1E88E5",
+        sideNumberWidth: "12",
+        sideNumberRadius: "5",
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -170,6 +181,17 @@ class NewDecDialog extends React.Component {
                 listItem,
                 unicodeNumber,
                 unicodeChar,
+                numberingStyle,
+                continueNumbering,
+                allowRestartNumbering,
+                includePreviousFrom,
+                sideNumberFont,
+                sideNumberAlignment,
+                sideNumberFontSize,
+                sideNumberFontColor,
+                sideNumberFillingColor,
+                sideNumberWidth,
+                sideNumberRadius,
             } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
@@ -210,7 +232,18 @@ class NewDecDialog extends React.Component {
         const changeSuffixDistance = setStateProperty("suffixDistance");
         const changeMagicTabs = toggleStateProperty("magicTabs");
         const changeListItem = setStateProperty("listItem");
-        
+        const changeNumberingStyle = setStateProperty("numberingStyle");
+        const changeContinueNumbering = toggleStateProperty("continueNumbering");
+        const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
+        const changencludePreviousFrom = setStateProperty("includePreviousFrom");
+        const changeSideNumberFont = setStateProperty("sideNumberFont");
+        const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
+        const changeSideNumberFontSize = setNumber("sideNumberFontSize");
+        const changeSideNumberFontColor = setColor("sideNumberFontColor");
+        const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
+        const changeSideNumberWidth = setNumber("sideNumberWidth");
+        const changeSideNumberRadius = setNumber("sideNumberRadius");
+
         const changeUnicodeChar = (e) => {
             const newUnicodeChar = setBullet("unicodeChar")(e);
             const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
@@ -287,6 +320,17 @@ class NewDecDialog extends React.Component {
             listItem, changeListItem,
             unicodeNumber, changeUnicodeNumber,
             unicodeChar, changeUnicodeChar,
+            numberingStyle, changeNumberingStyle,
+            continueNumbering, changeContinueNumbering,
+            allowRestartNumbering, changeAllowRestartNumbering,
+            includePreviousFrom, changencludePreviousFrom,
+            sideNumberFont, changeSideNumberFont,
+            sideNumberAlignment, changeSideNumberAlignment,
+            sideNumberFontSize, changeSideNumberFontSize,
+            sideNumberFontColor, changeSideNumberFontColor,
+            sideNumberFillingColor, changeSideNumberFillingColor,
+            sideNumberWidth, changeSideNumberWidth,
+            sideNumberRadius, changeSideNumberRadius,
         };
 
         const typographySectionProps = { 
@@ -363,6 +407,7 @@ class NewDecDialog extends React.Component {
                 className="paragraphDecorators-dialog"
                 fullWidth={true}
                 maxWidth={false}
+                id="dialog"
             >
                 <div className="header">
                     <DialogTitle className="header-title">

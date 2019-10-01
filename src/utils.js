@@ -29,3 +29,13 @@ export const unicodeNumberToChar = unicodeNumber => {
 export const unicodeCharToNumber = unicodeChar => {
     return unicodeChar.charCodeAt(0).toString(16);
 }
+
+export const scrollToBottom = className => {
+    setTimeout(() => { document.getElementsByClassName(className)[0].scrollTo(0, Number.MAX_SAFE_INTEGER) }, 0);
+}
+
+export const selectAllEditableContent = className => e => {
+    if (e.target.className === className) {
+        window.getSelection().selectAllChildren(e.target.children[0]);
+    }
+}

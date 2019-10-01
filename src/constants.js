@@ -1,43 +1,23 @@
 export const listStyleType = [
   {
-    name: 'Decimal',
+    name: '1, 2, 3',
     value: 'decimal',
   },
   {
-    name: 'Decimal leading zero',
-    value: 'decimal-leading-zero',
-  },
-  {
-    name: 'Lower alpha',
-    value: 'lower-alpha',
-  },
-  {
-    name: 'Lower greek',
-    value: 'lower-greek',
-  },
-  {
-    name: 'Lower latin',
-    value: 'lower-latin',
-  },
-  {
-    name: 'Lower roman',
-    value: 'lower-roman',
-  },
-  {
-    name: 'Upper alpha',
+    name: 'A, B, C',
     value: 'upper-alpha',
   },
   {
-    name: 'Upper greek',
-    value: 'upper-greek',
+    name: 'a, b, c',
+    value: 'lower-alpha',
   },
   {
-    name: 'Upper latin',
-    value: 'upper-latin',
-  },
-  {
-    name: 'Upper roman',
+    name: 'I, II, III',
     value: 'upper-roman',
+  },
+  {
+    name: 'i, ii, iii',
+    value: 'lower-roman',
   },
 ];
 
@@ -70,4 +50,12 @@ export const alignmentsMap = {
   left: "flex-start",
   right: "flex-end",
   justify: "flex-start",
+};
+
+export const numberingSets = {
+  decimal: ["1", "2", "3", "4"],
+  ["upper-alpha"]: ["A", "B", "C", "D"],
+  ["lower-alpha"]: ["a", "b", "c", "d"],
+  ["upper-roman"]: ["I", "II", "III", "IV"],
+  ["lower-roman"]: ["i", "ii", "iii", "iv"],
 };
