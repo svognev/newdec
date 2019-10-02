@@ -1,14 +1,26 @@
-import React from 'react';
+import React from "react";
 import "./style.css";
 import { getOffset } from "utils.js";
-import { numberingSets } from "constants.js";
 
-const ListPreview = ({ listPreviewStyle, numberingStyle, prefix, suffix, }) => {
-
+const ListPreview = (props) => {
+    const { 
+        listPreviewStyle, 
+        listChars, 
+        prefix, 
+        suffix, 
+        suffixDistance, 
+        sideNumberStyle,
+    } = props;
     console.log(1);
 
-    const numberingChars = numberingSets[numberingStyle];
     const demonstrationElementClassName = "demonstrationElement";
+    const listItemsBeginnings = listChars.map(listChar => {
+        return (`${prefix}${listChar}${suffix}`);
+    });
+    const listItemBeginingStyle = {
+        marginRight: `${suffixDistance || 0}cm`,
+        ...sideNumberStyle,
+    };
 
     return (
         <div className="preview preview_list">
@@ -20,13 +32,25 @@ const ListPreview = ({ listPreviewStyle, numberingStyle, prefix, suffix, }) => {
                         style={listPreviewStyle}
                     >
                         <p>
-                            <span>{`${numberingChars[0]} The first item`}</span>
-                            <br />
-                            <span>{`${numberingChars[1]} The second item`}</span>
-                            <br />
-                            <span>{`${numberingChars[2]} The third item`}</span>
-                            <br />
-                            <span>{`${numberingChars[3]} The fourth item`}</span>
+                            <span><span 
+                                className="listItemBeginning"
+                                style={listItemBeginingStyle}
+                            >{`${listItemsBeginnings[0]}`}</span> The first list item</span>
+                            <br /><br />
+                            <span><span 
+                                className="listItemBeginning"
+                                style={listItemBeginingStyle}
+                            >{`${listItemsBeginnings[1]}`}</span> The second list item</span>
+                            <br /><br />
+                            <span><span 
+                                className="listItemBeginning"
+                                style={listItemBeginingStyle}
+                            >{`${listItemsBeginnings[2]}`}</span> The third list item</span>
+                            <br /><br />
+                            <span><span 
+                                className="listItemBeginning"
+                                style={listItemBeginingStyle}
+                            >{`${listItemsBeginnings[3]}`}</span> The fourth list item</span>
                         </p>
                     </div>
                 </div>

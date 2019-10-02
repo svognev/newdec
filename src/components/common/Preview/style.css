@@ -20,6 +20,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.paragraphDecorators-dialog .preview-content_withPointer {
     cursor: pointer;
 }
 
@@ -62,6 +65,10 @@
 
 .paragraphDecorators-dialog .demonstrationElement-text span {
     white-space: pre-wrap;
+}
+
+.paragraphDecorators-dialog .listItemBeginning {
+    display: inline-block;
 }
 
 .aria {

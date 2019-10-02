@@ -18,7 +18,10 @@ const Preview = ({previewText, changePreviewText, previewStyle}) => {
     return (
         <div className="preview">
             <span className="preview-title">Preview</span>
-            <div className="preview-content" onClick={selectAllEditableContent(demonstrationElementClassName)}>
+            <div 
+                className="preview-content preview-content_withPointer" 
+                onClick={selectAllEditableContent(demonstrationElementClassName)}
+            >
                 <div className={demonstrationElementClassName}>
                     <ContentEditable
                         className={`${demonstrationElementClassName}-text`}

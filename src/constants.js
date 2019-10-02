@@ -59,3 +59,9 @@ export const numberingSets = {
   ["upper-roman"]: ["I", "II", "III", "IV"],
   ["lower-roman"]: ["i", "ii", "iii", "iv"],
 };
+
+export const bulletNamesMap = {
+  bulletpoint: "•",
+  dash: "—",
+  star: "★",
+};

@@ -1,3 +1,5 @@
+import { numberingSets, bulletNamesMap } from "constants.js";
+
 export const getCorrectColor = (hex, backgroundColor = "FFF") => {
     const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : backgroundColor;
     return correctColor;
@@ -24,18 +26,29 @@ export const getUnstyledText = styledText => {
 
 export const unicodeNumberToChar = unicodeNumber => {
     return String.fromCharCode(parseInt(unicodeNumber, 16));
-}
+};
 
 export const unicodeCharToNumber = unicodeChar => {
     return unicodeChar.charCodeAt(0).toString(16);
-}
+};
 
 export const scrollToBottom = className => {
-    setTimeout(() => { document.getElementsByClassName(className)[0].scrollTo(0, Number.MAX_SAFE_INTEGER) }, 0);
-}
+    setTimeout(() => { document.getElementsByClassName(className)[0].scrollTo({
+        top: Number.MAX_SAFE_INTEGER,
+        behavior: "smooth",
+    })}, 0);
+};
 
 export const selectAllEditableContent = className => e => {
     if (e.target.className === className) {
         window.getSelection().selectAllChildren(e.target.children[0]);
     }
+};
+
+export const getListChars = ({ isOrderedList, numberingStyle, listItem, unicodeChar }) => {
+    if (isOrderedList) {
+        return numberingSets[numberingStyle];
+    }
+    const newBullet = bulletNamesMap[listItem] || unicodeChar;
+    return Array(4).fill(newBullet);
 }

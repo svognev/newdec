@@ -8,11 +8,12 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import ListPreview from 'components/common/Preview/ListPreview';
 import CustomInput from 'components/common/CustomInput';
 import CustomInputShort from 'components/common/CustomInputShort';
-import { listStyleType } from 'constants.js'
+import { listStyleType, bulletNamesMap } from 'constants.js'
 import { getCorrectColor, selectAllOnClick, scrollToBottom } from 'utils.js';
 
 const TestSection = (props) => {
     const {
+        listPreviewProps,
         isList, changeIsList, 
         listType, changeListType, 
         listName, changeListName,
@@ -28,12 +29,13 @@ const TestSection = (props) => {
         continueNumbering, changeContinueNumbering,
         allowRestartNumbering, changeAllowRestartNumbering,
         includePreviousFrom, changencludePreviousFrom,
+        sideNumber, changeSideNumber,
         sideNumberFont, changeSideNumberFont,
         sideNumberAlignment, changeSideNumberAlignment,
         sideNumberFontSize, changeSideNumberFontSize,
         sideNumberFontColor, changeSideNumberFontColor,
         sideNumberFillingColor, changeSideNumberFillingColor,
-        sideNumberWidth, changeSideNumberWidth,
+        sideNumberPadding, changeSideNumberPadding,
         sideNumberRadius, changeSideNumberRadius,
     } = props;
 
@@ -43,7 +45,7 @@ const TestSection = (props) => {
     };
 
     const onSideNumberChange = (...args) => {
-        changeContinueNumbering(...args);
+        changeSideNumber(...args);
         scrollToBottom("content-rightSide");
     };
 
@@ -120,6 +122,8 @@ const TestSection = (props) => {
                                     onChange={changeSuffixDistance} 
                                     input={ <CustomInputShort /> }
                                 >
+                                     <option value="0">0</option>
+                                     <option value="0.1">0.1</option>
                                     <option value="0.25">0.25</option>
                                     <option value="0.5">0.5</option>
                                     <option value="0.75">0.75</option>
@@ -155,7 +159,7 @@ const TestSection = (props) => {
                         </>
                     ) }
                 </div>
-                <ListPreview numberingStyle={numberingStyle} />
+                <ListPreview {...listPreviewProps} />
             </div>
 
             <div className="listSection-typeSettings">
@@ -169,9 +173,11 @@ const TestSection = (props) => {
                                     onChange={changeListItem} 
                                     input={ <CustomInputShort /> }
                                 >
-                                    <option  value={"bulletpoint"}>•</option>
-                                    <option value={"dash"}>—</option>
-                                    <option value={"star"}>★</option>
+                                    { 
+                                        Object.entries(bulletNamesMap).map(([key, value]) => {
+                                            return (<option key={key} value={key}>{value}</option>) 
+                                        })
+                                    }
                                     <option value={"individual"}>Custom</option>
                                 </NativeSelect>
                             </div>
@@ -264,7 +270,7 @@ const TestSection = (props) => {
                         <span>Side number</span>
                         <div>
                             <Checkbox
-                                checked={continueNumbering}
+                                checked={sideNumber}
                                 onChange={onSideNumberChange}
                                 color="primary" 
                             />
@@ -278,7 +284,7 @@ const TestSection = (props) => {
                     </div> 
                 ) }
 
-                { isList && listType === "ordered" && continueNumbering && (
+                { isList && listType === "ordered" && sideNumber && (
                     <div className="dialogGrid dialogGrid_2minCols listSection-typeSettings">
                         <span>Font</span>
                         <NativeSelect 
@@ -346,11 +352,11 @@ const TestSection = (props) => {
                             <div className="colorSample" style={fillingColorSampleStyle}></div>
                         </div>
 
-                        <span>Width</span>
+                        <span>Padding</span>
                         <div className="inputWithAdornment">
                             <TextField 
-                                value={sideNumberWidth}
-                                onChange={changeSideNumberWidth}
+                                value={sideNumberPadding}
+                                onChange={changeSideNumberPadding}
                                 onClick={selectAllOnClick("12")}
                                 variant="outlined" 
                                 margin="dense" 

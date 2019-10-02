@@ -22,7 +22,12 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
-import { getCorrectColor, getUnstyledText, unicodeNumberToChar, unicodeCharToNumber } from 'utils.js';
+import { 
+    getCorrectColor, 
+    getUnstyledText, 
+    unicodeNumberToChar, 
+    unicodeCharToNumber, 
+    getListChars } from 'utils.js';
 import { alignmentsMap } from 'constants.js';
 
 import "./style.css";
@@ -65,9 +70,9 @@ class NewDecDialog extends React.Component {
         wordSpacing: "0",   
         listName: "",
         prefix: "",
-        suffix: ".",
+        suffix: "",
         orderLevel: "",
-        suffixDistance: "0.25",
+        suffixDistance: "0",
         magicTabs: false,
         listItem: "bulletpoint",
         unicodeNumber: "",
@@ -76,13 +81,14 @@ class NewDecDialog extends React.Component {
         continueNumbering: true,
         allowRestartNumbering: true,
         includePreviousFrom: "",
+        sideNumber: false,
         sideNumberFont: "Roboto",
         sideNumberAlignment: "left",
         sideNumberFontSize: "12",
         sideNumberFontColor: "FFF",
         sideNumberFillingColor: "1E88E5",
-        sideNumberWidth: "12",
-        sideNumberRadius: "5",
+        sideNumberPadding: "5",
+        sideNumberRadius: "10",
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -185,18 +191,18 @@ class NewDecDialog extends React.Component {
                 continueNumbering,
                 allowRestartNumbering,
                 includePreviousFrom,
+                sideNumber,
                 sideNumberFont,
                 sideNumberAlignment,
                 sideNumberFontSize,
                 sideNumberFontColor,
                 sideNumberFillingColor,
-                sideNumberWidth,
+                sideNumberPadding,
                 sideNumberRadius,
             } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
         const changeIsList = toggleStateProperty("isList");
-        const changeListType = setStateProperty("listType");
         const changeVerticalAlign = setStateProperty("verticalAlign");
         const changeTextTransform = setStateProperty("textTransform");
         const changeLeftBorder = toggleStateProperty("leftBorder");
@@ -241,22 +247,38 @@ class NewDecDialog extends React.Component {
         const changeSideNumberFontSize = setNumber("sideNumberFontSize");
         const changeSideNumberFontColor = setColor("sideNumberFontColor");
         const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
-        const changeSideNumberWidth = setNumber("sideNumberWidth");
+        const changeSideNumberPadding = setNumber("sideNumberPadding");
         const changeSideNumberRadius = setNumber("sideNumberRadius");
 
-        const changeUnicodeChar = (e) => {
+        const changeListType = e => {
+            const { value } = e.target;
+            setStateProperty("listType")(null, value);
+            if (value === "ordered" && suffix === "") {
+                setStateProperty("suffix")(null, ".");
+            } else if (value === "unordered" && suffix === ".") {
+                setStateProperty("suffix")(null, "");
+            }
+        };
+
+        const changeSideNumber = e => {
+            toggleStateProperty("sideNumber")(e);
+            if (e.target.value && suffix === ".");
+            setStateProperty("suffix")(null, "");
+        } 
+        
+        const changeUnicodeChar = e => {
             const newUnicodeChar = setBullet("unicodeChar")(e);
             const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
             setStateProperty("unicodeNumber")(null, newUnicodeNumber);
         };
 
-        const changeUnicodeNumber = (e) => {
+        const changeUnicodeNumber = e => {
             const newUnicodeNumber = setColor("unicodeNumber")(e);
             const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
             setStateProperty("unicodeChar")(null, newUnicodeChar);
         };
 
-        const changePreviewText = (e) => {
+        const changePreviewText = e => {
             const { value } = e.target;
             if (value && value !== "<div></div>" && value !== "<br>") {
                 setStateProperty("previewText")(null, getUnstyledText(value));
@@ -265,7 +287,7 @@ class NewDecDialog extends React.Component {
             }
         };
 
-        const changeBorderType = (e) => {
+        const changeBorderType = e => {
             setStateProperty("borderType")(e);
             if (e.target.value === "double" && borderThickness === "2") {
                 setStateProperty("borderThickness")(null, "3");
@@ -306,11 +328,37 @@ class NewDecDialog extends React.Component {
 
         const previewProps = { previewText, changePreviewText, previewStyle };
 
+        const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "f5f5f5");
+        const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
+
+        const sideNumberStyle = !sideNumber ? {} : {
+                fontFamily: sideNumberFont,
+                textAlign: sideNumberAlignment,
+                fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
+                color: `#${previewSideNumberFontColor}`,
+                backgroundColor: `#${previewSideNumberFillingColor}`,
+                padding: `${sideNumberPadding/4}pt ${sideNumberPadding}pt`,
+                borderRadius: `${sideNumberRadius}pt`,
+        };
+
+        const listPreviewProps = { 
+            listChars: getListChars({
+                    isOrderedList: listType === "ordered", 
+                    numberingStyle, 
+                    listItem,
+                    unicodeChar,
+                }),
+            listPreviewStyle: previewStyle,
+            prefix, 
+            suffix, 
+            suffixDistance,
+            sideNumberStyle,
+         };
+
         const listSectionProps = { 
-            isList, 
-            listType, 
-            changeIsList, 
-            changeListType, 
+            listPreviewProps,
+            isList, changeIsList, 
+            listType, changeListType, 
             listName, changeListName,
             prefix, changePrefix,
             suffix, changeSuffix,
@@ -324,12 +372,13 @@ class NewDecDialog extends React.Component {
             continueNumbering, changeContinueNumbering,
             allowRestartNumbering, changeAllowRestartNumbering,
             includePreviousFrom, changencludePreviousFrom,
+            sideNumber, changeSideNumber,
             sideNumberFont, changeSideNumberFont,
             sideNumberAlignment, changeSideNumberAlignment,
             sideNumberFontSize, changeSideNumberFontSize,
             sideNumberFontColor, changeSideNumberFontColor,
             sideNumberFillingColor, changeSideNumberFillingColor,
-            sideNumberWidth, changeSideNumberWidth,
+            sideNumberPadding, changeSideNumberPadding,
             sideNumberRadius, changeSideNumberRadius,
         };
 
