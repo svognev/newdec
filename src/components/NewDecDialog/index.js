@@ -22,20 +22,15 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
-import { 
-    getCorrectColor, 
-    getUnstyledText, 
-    unicodeNumberToChar, 
-    unicodeCharToNumber, 
-    getListChars } from 'utils.js';
+import { getCorrectColor, getUnstyledText, unicodeNumberToChar, unicodeCharToNumber, getListChars } from 'utils.js';
 import { alignmentsMap } from 'constants.js';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
-        isList: true,
+        openedTab: 0,
+        isList: false,
         listType: "unordered",
         bulletField: "",
         verticalAlign: "baseline",
@@ -72,22 +67,22 @@ class NewDecDialog extends React.Component {
         prefix: "",
         suffix: "",
         orderLevel: "",
-        suffixDistance: "0",
+        suffixDistance: "0.25",
         magicTabs: false,
         listItem: "bulletpoint",
         unicodeNumber: "",
         unicodeChar: "",
         numberingStyle: "decimal",
-        continueNumbering: true,
-        allowRestartNumbering: true,
+        continueNumbering: false,
+        allowRestartNumbering: false,
         includePreviousFrom: "",
         sideNumber: false,
         sideNumberFont: "Roboto",
-        sideNumberAlignment: "left",
+        sideNumberAlignment: "center",
         sideNumberFontSize: "12",
         sideNumberFontColor: "FFF",
         sideNumberFillingColor: "1E88E5",
-        sideNumberPadding: "5",
+        sideNumberWidth: "20",
         sideNumberRadius: "10",
     };
 
@@ -197,7 +192,7 @@ class NewDecDialog extends React.Component {
                 sideNumberFontSize,
                 sideNumberFontColor,
                 sideNumberFillingColor,
-                sideNumberPadding,
+                sideNumberWidth,
                 sideNumberRadius,
             } = this.state;
 
@@ -247,7 +242,7 @@ class NewDecDialog extends React.Component {
         const changeSideNumberFontSize = setNumber("sideNumberFontSize");
         const changeSideNumberFontColor = setColor("sideNumberFontColor");
         const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
-        const changeSideNumberPadding = setNumber("sideNumberPadding");
+        const changeSideNumberWidth = setNumber("sideNumberWidth");
         const changeSideNumberRadius = setNumber("sideNumberRadius");
 
         const changeListType = e => {
@@ -262,8 +257,11 @@ class NewDecDialog extends React.Component {
 
         const changeSideNumber = e => {
             toggleStateProperty("sideNumber")(e);
-            if (e.target.value && suffix === ".");
-            setStateProperty("suffix")(null, "");
+            if (e.target.checked && suffix === ".") {
+                setStateProperty("suffix")(null, "");
+            } else if (!e.target.checked && suffix === "") {
+                setStateProperty("suffix")(null, ".");
+            }
         } 
         
         const changeUnicodeChar = e => {
@@ -331,14 +329,14 @@ class NewDecDialog extends React.Component {
         const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "f5f5f5");
         const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
 
-        const sideNumberStyle = !sideNumber ? {} : {
+        const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
                 fontFamily: sideNumberFont,
                 textAlign: sideNumberAlignment,
                 fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
                 color: `#${previewSideNumberFontColor}`,
                 backgroundColor: `#${previewSideNumberFillingColor}`,
-                padding: `${sideNumberPadding/4}pt ${sideNumberPadding}pt`,
-                borderRadius: `${sideNumberRadius}pt`,
+                minWidth: `${sideNumberWidth || 0}pt`,
+                borderRadius: `${sideNumberRadius || 0}pt`,
         };
 
         const listPreviewProps = { 
@@ -378,7 +376,7 @@ class NewDecDialog extends React.Component {
             sideNumberFontSize, changeSideNumberFontSize,
             sideNumberFontColor, changeSideNumberFontColor,
             sideNumberFillingColor, changeSideNumberFillingColor,
-            sideNumberPadding, changeSideNumberPadding,
+            sideNumberWidth, changeSideNumberWidth,
             sideNumberRadius, changeSideNumberRadius,
         };
 

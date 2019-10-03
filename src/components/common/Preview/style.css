@@ -12,6 +12,12 @@
 
 .paragraphDecorators-dialog .preview_list {
     min-width: 300px;
+    position: sticky;
+    top: 0;
+}
+
+.paragraphDecorators-dialog .listPreviewBox {
+    height: 100%;
 }
 
 .paragraphDecorators-dialog .preview-content {

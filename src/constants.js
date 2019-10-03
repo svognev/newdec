@@ -54,10 +54,10 @@ export const alignmentsMap = {
 
 export const numberingSets = {
   decimal: ["1", "2", "3", "4"],
-  ["upper-alpha"]: ["A", "B", "C", "D"],
-  ["lower-alpha"]: ["a", "b", "c", "d"],
-  ["upper-roman"]: ["I", "II", "III", "IV"],
-  ["lower-roman"]: ["i", "ii", "iii", "iv"],
+  "upper-alpha": ["A", "B", "C", "D"],
+  "lower-alpha": ["a", "b", "c", "d"],
+  "upper-roman": ["I", "II", "III", "IV"],
+  "lower-roman": ["i", "ii", "iii", "iv"],
 };
 
 export const bulletNamesMap = {

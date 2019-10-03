@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import NativeSelect from "@material-ui/core/NativeSelect";
 
-import ListPreview from 'components/common/Preview/ListPreview';
-import CustomInput from 'components/common/CustomInput';
-import CustomInputShort from 'components/common/CustomInputShort';
-import { listStyleType, bulletNamesMap } from 'constants.js'
-import { getCorrectColor, selectAllOnClick, scrollToBottom } from 'utils.js';
+import ListPreview from "components/common/Preview/ListPreview";
+import CustomInput from "components/common/CustomInput";
+import CustomInputShort from "components/common/CustomInputShort";
+import { listStyleType, bulletNamesMap } from "constants.js"
+import { getCorrectColor, selectAllOnClick, scrollToBottom } from "utils.js";
 
 const TestSection = (props) => {
     const {
@@ -35,7 +35,7 @@ const TestSection = (props) => {
         sideNumberFontSize, changeSideNumberFontSize,
         sideNumberFontColor, changeSideNumberFontColor,
         sideNumberFillingColor, changeSideNumberFillingColor,
-        sideNumberPadding, changeSideNumberPadding,
+        sideNumberWidth, changeSideNumberWidth,
         sideNumberRadius, changeSideNumberRadius,
     } = props;
 
@@ -60,7 +60,8 @@ const TestSection = (props) => {
     return (
         <>
             <div className="dialogGrid dialogGrid_2cols">
-                <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth">
+                <div>
+                    <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth">
                     <div className="listSection-firstSpan">
                         <span>Is it a list?</span>
                     </div>
@@ -122,8 +123,6 @@ const TestSection = (props) => {
                                     onChange={changeSuffixDistance} 
                                     input={ <CustomInputShort /> }
                                 >
-                                     <option value="0">0</option>
-                                     <option value="0.1">0.1</option>
                                     <option value="0.25">0.25</option>
                                     <option value="0.5">0.5</option>
                                     <option value="0.75">0.75</option>
@@ -159,11 +158,169 @@ const TestSection = (props) => {
                         </>
                     ) }
                 </div>
-                <ListPreview {...listPreviewProps} />
-            </div>
+                    { isList && listType === "ordered" && (
+                        <div className="listSection-typeSettings">
+                            <div className="dialogGrid dialogGrid_2cols">
+                                <span>Numbering style</span>
+                                <div>
+                                    <NativeSelect
+                                        value={numberingStyle}
+                                        onChange={changeNumberingStyle}
+                                        input={ <CustomInputShort /> }
+                                    >
+                                        {listStyleType.map(style => (
+                                          <option value={style.value} key={style.value}>{style.name}</option>
+                                        ))}                                    
+                                    </NativeSelect>
+                                </div>
+                                        
+                                <span>Continue numbering after interruption</span>
+                                <div>
+                                    <Checkbox
+                                        checked={continueNumbering}
+                                        onChange={changeContinueNumbering}
+                                        color="primary" 
+                                    />
+                                </div>
+                                        
+                                <span>Allow restart numbering</span>
+                                <div>
+                                    <Checkbox
+                                        checked={allowRestartNumbering} 
+                                        onChange={changeAllowRestartNumbering}
+                                        color="primary" 
+                                    />
+                                </div>
+                                        
+                                <span>Include previous levels from</span>
+                                <div>
+                                    <NativeSelect
+                                        value={includePreviousFrom} 
+                                        onChange={changencludePreviousFrom}
+                                        input={ <CustomInputShort /> }
+                                    >
+                                        <option value="">...</option>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </NativeSelect>
+                                </div>
+                                        
+                                <span>Side number</span>
+                                <div>
+                                    <Checkbox
+                                        checked={sideNumber}
+                                        onChange={onSideNumberChange}
+                                        color="primary" 
+                                    />
+                                </div>
+                            </div> 
 
-            <div className="listSection-typeSettings">
-                { isList && listType === "unordered" && (
+                            { sideNumber && (
+                                <div className="dialogGrid dialogGrid_2minCols listSection-typeSettings">
+                                    <span>Font</span>
+                                    <NativeSelect 
+                                        value={sideNumberFont}
+                                        onChange={changeSideNumberFont}
+                                        input={ <CustomInput /> }
+                                    >
+                                        <option value={"Roboto, slab-serif"}>Roboto</option>
+                                        <option value={"'Source Serif Pro', serif"}>Source Serif</option>
+                                    </NativeSelect>
+                            
+                                    <span>Alignment</span>
+                                    <NativeSelect 
+                                        value={sideNumberAlignment}
+                                        onChange={changeSideNumberAlignment}
+                                        input={ <CustomInput /> }
+                                    >
+                                        <option value={"left"}>Left</option>
+                                        <option value={"center"}>Center</option>
+                                        <option value={"right"}>Right</option>
+                                    </NativeSelect>
+                            
+                                    <span>Font size</span>
+                                    <div className="inputWithAdornment">
+                                        <TextField 
+                                            value={sideNumberFontSize}
+                                            onChange={changeSideNumberFontSize}
+                                            onClick={selectAllOnClick("12")}
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            className="numberInput"
+                                        />                                            
+                                        <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                                    </div>      
+                            
+                                    <span>Font color</span>
+                                    <div className="colorField">
+                                        <TextField 
+                                            value={sideNumberFontColor}
+                                            onChange={changeSideNumberFontColor}
+                                            onClick={selectAllOnClick("FFF")}
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            className="numberInput" 
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">#</InputAdornment>
+                                            }}
+                                        />
+                                        <div className="colorSample" style={fontColorSampleStyle}></div>
+                                    </div>
+                                        
+                                    <span>Filling color</span>
+                                    <div className="colorField">
+                                        <TextField 
+                                            value={sideNumberFillingColor}
+                                            onChange={changeSideNumberFillingColor}
+                                            onClick={selectAllOnClick("1E88E5")}
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            className="numberInput" 
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">#</InputAdornment>
+                                            }}
+                                        />
+                                        <div className="colorSample" style={fillingColorSampleStyle}></div>
+                                    </div>
+                                        
+                                    <span>Width</span>
+                                    <div className="inputWithAdornment">
+                                        <TextField 
+                                            value={sideNumberWidth}
+                                            onChange={changeSideNumberWidth}
+                                            onClick={selectAllOnClick("20")}
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            className="numberInput"
+                                        />                                            
+                                        <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                                    </div>    
+                                        
+                                    <span>Radius</span>
+                                    <div className="inputWithAdornment">
+                                        <TextField 
+                                            value={sideNumberRadius}
+                                            onChange={changeSideNumberRadius}
+                                            onClick={selectAllOnClick("10")}
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            className="numberInput"
+                                        />                                            
+                                        <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                                    </div>    
+                                </div> 
+                            ) }
+                        </div>
+                    ) }
+                </div>
+                { isList && <div className="listPreviewBox"><ListPreview {...listPreviewProps} /></div> }
+            </div>
+            { isList && listType === "unordered" && (
+                <div className="listSection-typeSettings">
                     <div className="dialogGrid dialogGrid_2cols">
                         <div className="dialogGrid dialogGrid_2cols">
                             <span className="listSection-firstSpan">List item</span>
@@ -215,172 +372,8 @@ const TestSection = (props) => {
                             </div> 
                         ) }
                     </div> 
-                ) }
-
-                { isList && (listType === "ordered" || listType === "sideNumber") && (
-                    <div className="dialogGrid dialogGrid_2cols">
-                        <span>Numbering style</span>
-                        <div>
-                            <NativeSelect
-                                value={numberingStyle}
-                                onChange={changeNumberingStyle}
-                                input={ <CustomInputShort /> }
-                            >
-                                {listStyleType.map(style => (
-                                  <option value={style.value} key={style.value}>{style.name}</option>
-                                ))}                                    
-                            </NativeSelect>
-                        </div>
-                                
-                        <span>Continue numbering after interruption</span>
-                        <div>
-                            <Checkbox
-                                checked={continueNumbering}
-                                onChange={changeContinueNumbering}
-                                color="primary" 
-                            />
-                        </div>
-                                
-                        <span>Allow restart numbering</span>
-                        <div>
-                            <Checkbox
-                                checked={allowRestartNumbering} 
-                                onChange={changeAllowRestartNumbering}
-                                color="primary" 
-                            />
-                        </div>
-
-                        <span>Include previous levels from</span>
-                        <div>
-                            <NativeSelect
-                                value={includePreviousFrom} 
-                                onChange={changencludePreviousFrom}
-                                input={ <CustomInputShort /> }
-                            >
-                                <option value="">...</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </NativeSelect>
-                        </div>
-
-                        <span>Side number</span>
-                        <div>
-                            <Checkbox
-                                checked={sideNumber}
-                                onChange={onSideNumberChange}
-                                color="primary" 
-                            />
-                        </div>
-                    </div> 
-                ) }
-
-                { isList && listType === "sideNumber" && (
-                    <div className="dialogGrid dialogGrid_2cols">
-                        <span>Side number</span>
-                    </div> 
-                ) }
-
-                { isList && listType === "ordered" && sideNumber && (
-                    <div className="dialogGrid dialogGrid_2minCols listSection-typeSettings">
-                        <span>Font</span>
-                        <NativeSelect 
-                            value={sideNumberFont}
-                            onChange={changeSideNumberFont}
-                            input={ <CustomInput /> }
-                        >
-                            <option value={"Roboto, slab-serif"}>Roboto</option>
-                            <option value={"'Source Serif Pro', serif"}>Source Serif</option>
-                        </NativeSelect>
-
-                        <span>Alignment</span>
-                        <NativeSelect 
-                            value={sideNumberAlignment}
-                            onChange={changeSideNumberAlignment}
-                            input={ <CustomInput /> }
-                        >
-                            <option value={"left"}>Left</option>
-                            <option value={"center"}>Center</option>
-                            <option value={"right"}>Right</option>
-                        </NativeSelect>
-
-                        <span>Font size</span>
-                        <div className="inputWithAdornment">
-                            <TextField 
-                                value={sideNumberFontSize}
-                                onChange={changeSideNumberFontSize}
-                                onClick={selectAllOnClick("12")}
-                                variant="outlined" 
-                                margin="dense" 
-                                className="numberInput"
-                            />                                            
-                            <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                        </div>      
-
-                        <span>Font color</span>
-                        <div className="colorField">
-                            <TextField 
-                                value={sideNumberFontColor}
-                                onChange={changeSideNumberFontColor}
-                                onClick={selectAllOnClick("FFF")}
-                                variant="outlined" 
-                                margin="dense" 
-                                className="numberInput" 
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">#</InputAdornment>
-                                }}
-                            />
-                            <div className="colorSample" style={fontColorSampleStyle}></div>
-                        </div>
-
-                        <span>Filling color</span>
-                        <div className="colorField">
-                            <TextField 
-                                value={sideNumberFillingColor}
-                                onChange={changeSideNumberFillingColor}
-                                onClick={selectAllOnClick("1E88E5")}
-                                variant="outlined" 
-                                margin="dense" 
-                                className="numberInput" 
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">#</InputAdornment>
-                                }}
-                            />
-                            <div className="colorSample" style={fillingColorSampleStyle}></div>
-                        </div>
-
-                        <span>Padding</span>
-                        <div className="inputWithAdornment">
-                            <TextField 
-                                value={sideNumberPadding}
-                                onChange={changeSideNumberPadding}
-                                onClick={selectAllOnClick("12")}
-                                variant="outlined" 
-                                margin="dense" 
-                                className="numberInput"
-                            />                                            
-                            <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                        </div>    
-
-                        <span>Radius</span>
-                        <div className="inputWithAdornment">
-                            <TextField 
-                                value={sideNumberRadius}
-                                onChange={changeSideNumberRadius}
-                                onClick={selectAllOnClick("5")}
-                                variant="outlined" 
-                                margin="dense" 
-                                className="numberInput"
-                            />                                            
-                            <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                        </div>    
-                    </div> 
-                ) }
-            </div>
-             
+                </div> 
+            ) }
         </>
     );
 };

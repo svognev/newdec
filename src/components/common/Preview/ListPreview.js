@@ -1,6 +1,5 @@
 import React from "react";
 import "./style.css";
-import { getOffset } from "utils.js";
 
 const ListPreview = (props) => {
     const { 
@@ -11,7 +10,6 @@ const ListPreview = (props) => {
         suffixDistance, 
         sideNumberStyle,
     } = props;
-    console.log(1);
 
     const demonstrationElementClassName = "demonstrationElement";
     const listItemsBeginnings = listChars.map(listChar => {
@@ -31,27 +29,30 @@ const ListPreview = (props) => {
                         className={`${demonstrationElementClassName}-text`}
                         style={listPreviewStyle}
                     >
-                        <p>
-                            <span><span 
+                        <div>
+                            <span 
                                 className="listItemBeginning"
                                 style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[0]}`}</span> The first list item</span>
-                            <br /><br />
-                            <span><span 
+                            >{`${listItemsBeginnings[0]}`}</span><span>The first list item</span>
+                        </div>
+                        <div>
+                            <span 
                                 className="listItemBeginning"
                                 style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[1]}`}</span> The second list item</span>
-                            <br /><br />
-                            <span><span 
+                            >{`${listItemsBeginnings[1]}`}</span><span>The second list item</span>
+                        </div>
+                        <div>
+                            <span 
                                 className="listItemBeginning"
                                 style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[2]}`}</span> The third list item</span>
-                            <br /><br />
-                            <span><span 
+                            >{`${listItemsBeginnings[2]}`}</span><span>The third list item</span>
+                        </div>
+                        <div>
+                            <span 
                                 className="listItemBeginning"
                                 style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[3]}`}</span> The fourth list item</span>
-                        </p>
+                            >{`${listItemsBeginnings[3]}`}</span><span>The fourth list item</span>
+                        </div>
                     </div>
                 </div>
             </div>
