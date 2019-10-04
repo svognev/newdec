@@ -13,7 +13,7 @@ const withNewGroupControl = (View) => {
                 return {
                     isOpen: !isOpen
                 };
-            })
+            });
         }
     
         onSave = newGroup => {
@@ -32,11 +32,7 @@ const withNewGroupControl = (View) => {
         
         render() {
             const { handleClick, onSave, changeGroupSelect, hideDialog } = this; 
-            return <View 
-                {...this.props} 
-                {...this.state}
-                {...{ handleClick, onSave, changeGroupSelect, hideDialog }}
-                />
+            return ( <View {...this.props} {...this.state} {...{ handleClick, onSave, changeGroupSelect, hideDialog }} /> );
         }
     }
 };

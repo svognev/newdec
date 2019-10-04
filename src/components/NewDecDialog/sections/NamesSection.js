@@ -1,32 +1,55 @@
-import React from 'react';
+import React from "react";
 
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Button from '@material-ui/core/Button';
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import Button from "@material-ui/core/Button";
 
-import CustomInput from '../../common/CustomInput';
-import NewGroupDialog from '../../common/NewGroupDialog';
-import withNewGroupControl from '../../common/withNewGroupControl';
+import CustomInput from "components/common/CustomInput";
+import NewGroupDialog from "components/common/NewGroupDialog";
+import withNewGroupControl from "components/common/withNewGroupControl";
 
 const NamesSection = (props) => {
-    const newGroupName = props.newGroup.nameEN;
+    const { 
+        newGroup, 
+        isOpen, 
+        hideDialog, 
+        handleClick, 
+        onSave, 
+        decKey, changeDecKey,
+        group, changeGroup,
+        active, changeActive,
+        styleNameEn, changeStyleNameEn,
+        styleNameDe, changeStyleNameDe,
+        styleNameRu, changeStyleNameRu,
+        styleNameFr, changeStyleNameFr,
+     } = props;
+
+    const newGroupName = newGroup.nameEN;
     const isEditMode = !!newGroupName;
-    const { groupSelect, newGroup, isOpen, hideDialog, handleClick, onSave, changeGroupSelect } = props;
+
+    const onGroupChange = e => {
+        if (newGroupName && e.target.value === newGroupName) {
+            
+        }
+    };
 
     return (
         <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
             <span>Key</span>
-            <TextField variant="outlined" margin="dense" />
+            <TextField 
+                value={decKey}
+                onChange={changeDecKey}
+                variant="outlined" 
+                margin="dense" 
+            />
 
             <span>Group</span>
             <div>
                 <NativeSelect 
-                    input={ <CustomInput /> } 
-                    value={groupSelect} 
-                    onChange={(e) => {
-                        changeGroupSelect(e.target.value)
-                    }} 
+                    value={group} 
+                    onChange={changeGroup}
+                    input={ <CustomInput /> }  
                 >
                     <option value="">...</option>
                     { isEditMode && <option className="highlightedOption" value={newGroupName}>{newGroupName}</option> }
@@ -34,29 +57,53 @@ const NamesSection = (props) => {
                     <option value="1">Heading</option>
                     <option value="2">Heading Heading Heading Heading</option>
                 </NativeSelect>
-                {
-                    !(isEditMode && groupSelect !== newGroupName) &&
+                { !(isEditMode && group !== newGroupName) && (
                     <Button color="primary" className="textButton" onClick={handleClick}>
                         { isEditMode ? "Edit new group" : "+New" }
                     </Button>
-                 }
+                ) }
             </div>
 
             <span>Active</span>
             <div>
-                <Checkbox color="primary" />
+                <Checkbox
+                    checked={active}
+                    onChange={changeActive} 
+                    color="primary" 
+                />
             </div>
+
             <span>Style name (English)</span>
-            <TextField variant="outlined" margin="dense" />
+            <TextField 
+                value={styleNameEn}
+                onChange={changeStyleNameEn}
+                variant="outlined" 
+                margin="dense" 
+            />
 
             <span>Style name (German)</span>
-            <TextField variant="outlined" margin="dense" />
+            <TextField 
+                value={styleNameDe}
+                onChange={changeStyleNameDe}
+                variant="outlined" 
+                margin="dense" 
+            />
 
             <span>Style name (Russian)</span>
-            <TextField variant="outlined" margin="dense" />
+            <TextField 
+                value={styleNameRu}
+                onChange={changeStyleNameRu}
+                variant="outlined" 
+                margin="dense" 
+            />
 
             <span>Style name (French)</span>
-            <TextField variant="outlined" margin="dense" />
+            <TextField 
+                value={styleNameFr}
+                onChange={changeStyleNameFr}
+                variant="outlined" 
+                margin="dense" 
+            />
 
             <NewGroupDialog 
                 isOpen={isOpen}
@@ -64,7 +111,7 @@ const NamesSection = (props) => {
                 onSave={onSave}
                 isEditMode={isEditMode}
                 currentGroup={newGroup}
-                changeGroupSelect={changeGroupSelect}
+                changeGroupSelect={changeGroup}
                 groupType="decorators"
             />
         </div>

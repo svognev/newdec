@@ -25,7 +25,7 @@ class NewGroupDialog extends React.Component {
         hideDialog()
     };
 
-    onSave = () => {
+    onGroupSave = () => {
         const { onSave, changeGroupSelect, hideDialog, groupType } = this.props;
         if (this.state.nameEN.trim().length && (groupType !== "xref" || this.state.groupKey.trim().length)) {
             const groupToSave = {
@@ -38,14 +38,14 @@ class NewGroupDialog extends React.Component {
                 groupToSave.groupKey = this.state.groupKey.trim();
             }
             onSave(groupToSave);
-            changeGroupSelect(this.state.nameEN.trim());
+            changeGroupSelect(null, this.state.nameEN.trim());
             hideDialog();
         }
     };
 
     render() {
         const { isOpen, isEditMode } = this.props;
-        const { onInputChange, onSave, onClose } = this;
+        const { onInputChange, onGroupSave, onClose } = this;
         const titleText = `${isEditMode ? "Edit" : "Create"} new ${this.props.groupType === "xref" ? "reference " : ""}group`
         const buttonText = isEditMode ? "Save" : "Create";
 
@@ -107,7 +107,7 @@ class NewGroupDialog extends React.Component {
                     <Button onClick={onClose} color="default">
                         Cancel
                     </Button>
-                    <Button onClick={onSave} color="primary">
+                    <Button onClick={onGroupSave} color="primary">
                         {buttonText}
                     </Button>
                 </DialogActions>

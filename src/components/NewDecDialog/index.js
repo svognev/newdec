@@ -29,7 +29,14 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 0,
+        decKey: "",
+        group: "",
+        active: false,
+        styleNameEn: "",
+        styleNameDe: "",
+        styleNameRu: "",
+        styleNameFr: "",
         isList: false,
         listType: "unordered",
         bulletField: "",
@@ -85,6 +92,8 @@ class NewDecDialog extends React.Component {
         sideNumberWidth: "20",
         sideNumberRadius: "10",
         tocIndentation: "",
+        groupToCreate: undefined,
+        xrefToCreate: undefined,
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -142,6 +151,13 @@ class NewDecDialog extends React.Component {
         const { isOpen, onClose } = this.props;
         const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet } = this;
         const { openedTab, 
+                decKey,
+                group,
+                active,
+                styleNameEn,
+                styleNameDe,
+                styleNameRu,
+                styleNameFr,
                 isList, 
                 listType, 
                 verticalAlign, 
@@ -196,9 +212,18 @@ class NewDecDialog extends React.Component {
                 sideNumberWidth,
                 sideNumberRadius,
                 tocIndentation,
+                groupToCreate,
+                xrefToCreate,
             } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
+        const changeDecKey = setStateProperty("decKey");
+        const changeGroup = setStateProperty("group");
+        const changeActive = toggleStateProperty("active");
+        const changeStyleNameEn = setStateProperty("styleNameEn");
+        const changeStyleNameDe = setStateProperty("styleNameDe");
+        const changeStyleNameRu = setStateProperty("styleNameRu");
+        const changeStyleNameFr = setStateProperty("styleNameFr");
         const changeIsList = toggleStateProperty("isList");
         const changeVerticalAlign = setStateProperty("verticalAlign");
         const changeTextTransform = setStateProperty("textTransform");
@@ -333,13 +358,13 @@ class NewDecDialog extends React.Component {
         const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
 
         const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
-                fontFamily: sideNumberFont,
-                textAlign: sideNumberAlignment,
-                fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
-                color: `#${previewSideNumberFontColor}`,
-                backgroundColor: `#${previewSideNumberFillingColor}`,
-                minWidth: `${sideNumberWidth || 0}pt`,
-                borderRadius: `${sideNumberRadius || 0}pt`,
+            fontFamily: sideNumberFont,
+            textAlign: sideNumberAlignment,
+            fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
+            color: `#${previewSideNumberFontColor}`,
+            backgroundColor: `#${previewSideNumberFillingColor}`,
+            minWidth: `${sideNumberWidth || 0}pt`,
+            borderRadius: `${sideNumberRadius || 0}pt`,
         };
 
         const listPreviewProps = { 
@@ -354,7 +379,17 @@ class NewDecDialog extends React.Component {
             suffix, 
             suffixDistance,
             sideNumberStyle,
-         };
+        };
+
+        const namesSectionProps = {
+            decKey, changeDecKey,
+            group, changeGroup,
+            active, changeActive,
+            styleNameEn, changeStyleNameEn,
+            styleNameDe, changeStyleNameDe,
+            styleNameRu, changeStyleNameRu,
+            styleNameFr, changeStyleNameFr,
+        }; 
 
         const listSectionProps = { 
             listPreviewProps,
@@ -512,7 +547,7 @@ class NewDecDialog extends React.Component {
                         </CustomTabs>
                     </div>
                     <div className="content-rightSide">
-                        { openedTab === 0 && <NamesSection /> }
+                        { openedTab === 0 && <NamesSection {...namesSectionProps} /> }
                         { openedTab === 1 && <WordExportSection /> }
                         { openedTab === 2 && <PositioningSection /> }
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
