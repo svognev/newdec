@@ -29,7 +29,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         isList: false,
         listType: "unordered",
         bulletField: "",
@@ -84,6 +84,7 @@ class NewDecDialog extends React.Component {
         sideNumberFillingColor: "1E88E5",
         sideNumberWidth: "20",
         sideNumberRadius: "10",
+        tocIndentation: "",
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -194,6 +195,7 @@ class NewDecDialog extends React.Component {
                 sideNumberFillingColor,
                 sideNumberWidth,
                 sideNumberRadius,
+                tocIndentation,
             } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
@@ -244,6 +246,7 @@ class NewDecDialog extends React.Component {
         const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
         const changeSideNumberWidth = setNumber("sideNumberWidth");
         const changeSideNumberRadius = setNumber("sideNumberRadius");
+        const changeTocIndentation = setStateProperty("tocIndentation");
 
         const changeListType = e => {
             const { value } = e.target;
@@ -443,6 +446,10 @@ class NewDecDialog extends React.Component {
             connectToPrevious,
             changeConnectToPrevious,
         };
+
+        const tocSectionProps = {
+            tocIndentation, changeTocIndentation,
+        };
         
         return (
             <ThemeProvider theme={theme}>
@@ -514,9 +521,9 @@ class NewDecDialog extends React.Component {
                         { openedTab === 6 && <DistancesSection {...distancesSectionProps} /> }
                         { openedTab === 7 && <FramesSection {...framesSectionProps} /> }
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
-                        { openedTab === 9 && <TocSection /> }
+                        { openedTab === 9 && <TocSection {...tocSectionProps} /> }
                         { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <TestSection {...listSectionProps} /> }
+                        { openedTab === 11 && <TestSection {...tocSectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>
