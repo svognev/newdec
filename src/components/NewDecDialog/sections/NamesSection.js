@@ -23,15 +23,20 @@ const NamesSection = (props) => {
         styleNameDe, changeStyleNameDe,
         styleNameRu, changeStyleNameRu,
         styleNameFr, changeStyleNameFr,
-     } = props;
-
+        changeGroupToCreate,
+    } = props;
+    
     const newGroupName = newGroup.nameEN;
     const isEditMode = !!newGroupName;
 
-    const onGroupChange = e => {
-        if (newGroupName && e.target.value === newGroupName) {
-            
+    const onGroupChange = group => (...args) => {
+        const value = args[0] ? args[0].target.value : args[1];
+        if (group.nameEN && value === group.nameEN) {
+            changeGroupToCreate(null, group);
+        } else {
+            changeGroupToCreate(null, "");
         }
+        changeGroup(...args);
     };
 
     return (
@@ -48,7 +53,7 @@ const NamesSection = (props) => {
             <div>
                 <NativeSelect 
                     value={group} 
-                    onChange={changeGroup}
+                    onChange={onGroupChange(newGroup)}
                     input={ <CustomInput /> }  
                 >
                     <option value="">...</option>
@@ -111,7 +116,7 @@ const NamesSection = (props) => {
                 onSave={onSave}
                 isEditMode={isEditMode}
                 currentGroup={newGroup}
-                changeGroupSelect={changeGroup}
+                changeGroupSelect={onGroupChange}
                 groupType="decorators"
             />
         </div>

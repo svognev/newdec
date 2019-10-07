@@ -9,7 +9,9 @@ import TextField from '@material-ui/core/TextField';
 
 class NewGroupDialog extends React.Component {
 
-    state = this.props.groupType !== "xref" 
+    state = this.props.currentGroup 
+          ? this.props.currentGroup 
+          : this.props.groupType !== "xref" 
           ? { nameEN: "", nameDE: "", nameRU: "", nameFR: "" }
           : { nameEN: "", nameDE: "", nameRU: "", nameFR: "", groupKey: "" };
     
@@ -38,7 +40,7 @@ class NewGroupDialog extends React.Component {
                 groupToSave.groupKey = this.state.groupKey.trim();
             }
             onSave(groupToSave);
-            changeGroupSelect(null, this.state.nameEN.trim());
+            changeGroupSelect(groupToSave)(null, this.state.nameEN.trim());
             hideDialog();
         }
     };
@@ -48,7 +50,6 @@ class NewGroupDialog extends React.Component {
         const { onInputChange, onGroupSave, onClose } = this;
         const titleText = `${isEditMode ? "Edit" : "Create"} new ${this.props.groupType === "xref" ? "reference " : ""}group`
         const buttonText = isEditMode ? "Save" : "Create";
-
         return (
             <Dialog
                 className="paragraphDecorators-dialog"

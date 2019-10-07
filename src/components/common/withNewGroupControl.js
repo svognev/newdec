@@ -1,11 +1,11 @@
 import React from "react";
 
-const withNewGroupControl = (View) => {
+const withNewGroupControl = (ViewComponent) => {
     return class extends React.Component {
         state = {
             isOpen: false,
             groupSelect: "",
-            newGroup: {},
+            newGroup: this.props.newGroup || "",
         }
         
         handleClick = () => {
@@ -32,7 +32,7 @@ const withNewGroupControl = (View) => {
         
         render() {
             const { handleClick, onSave, changeGroupSelect, hideDialog } = this; 
-            return ( <View {...this.props} {...this.state} {...{ handleClick, onSave, changeGroupSelect, hideDialog }} /> );
+            return ( <ViewComponent {...this.props} {...this.state} {...{ handleClick, onSave, changeGroupSelect, hideDialog }} /> );
         }
     }
 };

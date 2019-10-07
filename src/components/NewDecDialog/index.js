@@ -92,8 +92,9 @@ class NewDecDialog extends React.Component {
         sideNumberWidth: "20",
         sideNumberRadius: "10",
         tocIndentation: "",
-        groupToCreate: undefined,
-        xrefToCreate: undefined,
+        groupToCreate: "",
+        xrefToCreate: "",
+        referenceGroup: "",    
     };
 
     toggleStateProperty = (propName) => (e) => {
@@ -150,71 +151,73 @@ class NewDecDialog extends React.Component {
     render() {
         const { isOpen, onClose } = this.props;
         const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet } = this;
-        const { openedTab, 
-                decKey,
-                group,
-                active,
-                styleNameEn,
-                styleNameDe,
-                styleNameRu,
-                styleNameFr,
-                isList, 
-                listType, 
-                verticalAlign, 
-                textTransform,
-                leftBorder, 
-                rightBorder,
-                topBorder,
-                bottomBorder, 
-                borderType,
-                borderColor,
-                borderColorName,
-                fontColor,
-                fillingColor,
-                borderThickness,
-                firstRowIndent,
-                otherRowsIndent,
-                lineSpacing,
-                customLineSpacing,
-                previewText,
-                fontSize,
-                fontColorName,
-                font,
-                alignment,
-                bold,
-                italic,
-                underlined,
-                stroke,
-                fillingColorName,
-                connectToPrevious,
-                marginTop,
-                marginBottom,
-                wordSpacing,
-                listName,
-                prefix,
-                suffix,
-                orderLevel,
-                suffixDistance,
-                magicTabs,
-                listItem,
-                unicodeNumber,
-                unicodeChar,
-                numberingStyle,
-                continueNumbering,
-                allowRestartNumbering,
-                includePreviousFrom,
-                sideNumber,
-                sideNumberFont,
-                sideNumberAlignment,
-                sideNumberFontSize,
-                sideNumberFontColor,
-                sideNumberFillingColor,
-                sideNumberWidth,
-                sideNumberRadius,
-                tocIndentation,
-                groupToCreate,
-                xrefToCreate,
-            } = this.state;
+        const { 
+            openedTab, 
+            decKey,
+            group,
+            active,
+            styleNameEn,
+            styleNameDe,
+            styleNameRu,
+            styleNameFr,
+            isList, 
+            listType, 
+            verticalAlign, 
+            textTransform,
+            leftBorder, 
+            rightBorder,
+            topBorder,
+            bottomBorder, 
+            borderType,
+            borderColor,
+            borderColorName,
+            fontColor,
+            fillingColor,
+            borderThickness,
+            firstRowIndent,
+            otherRowsIndent,
+            lineSpacing,
+            customLineSpacing,
+            previewText,
+            fontSize,
+            fontColorName,
+            font,
+            alignment,
+            bold,
+            italic,
+            underlined,
+            stroke,
+            fillingColorName,
+            connectToPrevious,
+            marginTop,
+            marginBottom,
+            wordSpacing,
+            listName,
+            prefix,
+            suffix,
+            orderLevel,
+            suffixDistance,
+            magicTabs,
+            listItem,
+            unicodeNumber,
+            unicodeChar,
+            numberingStyle,
+            continueNumbering,
+            allowRestartNumbering,
+            includePreviousFrom,
+            sideNumber,
+            sideNumberFont,
+            sideNumberAlignment,
+            sideNumberFontSize,
+            sideNumberFontColor,
+            sideNumberFillingColor,
+            sideNumberWidth,
+            sideNumberRadius,
+            tocIndentation,
+            groupToCreate,
+            xrefToCreate,
+            referenceGroup,
+        } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
         const changeDecKey = setStateProperty("decKey");
@@ -272,6 +275,9 @@ class NewDecDialog extends React.Component {
         const changeSideNumberWidth = setNumber("sideNumberWidth");
         const changeSideNumberRadius = setNumber("sideNumberRadius");
         const changeTocIndentation = setStateProperty("tocIndentation");
+        const changeGroupToCreate = setStateProperty("groupToCreate");
+        const changeXrefToCreate = setStateProperty("xrefToCreate");
+        const changeReferenceGroup = setStateProperty("referenceGroup");
 
         const changeListType = e => {
             const { value } = e.target;
@@ -389,6 +395,8 @@ class NewDecDialog extends React.Component {
             styleNameDe, changeStyleNameDe,
             styleNameRu, changeStyleNameRu,
             styleNameFr, changeStyleNameFr,
+            newGroup: groupToCreate, 
+            changeGroupToCreate,
         }; 
 
         const listSectionProps = { 
@@ -416,6 +424,12 @@ class NewDecDialog extends React.Component {
             sideNumberFillingColor, changeSideNumberFillingColor,
             sideNumberWidth, changeSideNumberWidth,
             sideNumberRadius, changeSideNumberRadius,
+        };
+
+        const referencingSectionProps = {
+            referenceGroup, changeReferenceGroup,
+            newGroup: xrefToCreate,
+            changeXrefToCreate,
         };
 
         const typographySectionProps = { 
@@ -551,7 +565,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 1 && <WordExportSection /> }
                         { openedTab === 2 && <PositioningSection /> }
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
-                        { openedTab === 4 && <ReferencingSection /> }
+                        { openedTab === 4 && <ReferencingSection {...referencingSectionProps} /> }
                         { openedTab === 5 && <TypographySection {...typographySectionProps} /> }
                         { openedTab === 6 && <DistancesSection {...distancesSectionProps} /> }
                         { openedTab === 7 && <FramesSection {...framesSectionProps} /> }
