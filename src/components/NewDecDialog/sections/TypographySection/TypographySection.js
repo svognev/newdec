@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import { getCorrectColor, selectAllOnClick } from "utils.js";
+import { getCorrectColor, selectAllOnClick } from "utils";
 import Preview from "components/common/Preview";
 import CustomInput from "components/common/CustomInput";
 

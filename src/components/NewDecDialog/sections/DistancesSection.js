@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import { selectAllOnClick } from "utils.js";
+import { selectAllOnClick } from "utils";
 import CustomInputShort from '../../common/CustomInputShort';
 import Preview from "components/common/Preview";
 

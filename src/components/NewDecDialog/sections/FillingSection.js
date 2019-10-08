@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { getCorrectColor, selectAllOnClick } from 'utils.js';
+import { getCorrectColor, selectAllOnClick } from 'utils';
 import Preview from "components/common/Preview";
 
 const  FillingSection = (props) => {

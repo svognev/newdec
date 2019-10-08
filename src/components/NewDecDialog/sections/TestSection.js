@@ -1,29 +1,39 @@
 import React from "react";
 
-import NativeSelect from "@material-ui/core/NativeSelect";
-import CustomInputShort from "components/common/CustomInputShort";
-
-const TocSection = ({ tocIndentation, changeTocIndentation }) => {
+import TextField from '@material-ui/core/TextField';
+import { detectOS } from "utils";
+const ShortCutSection = (props) => {
+    const {
+        shortCutWinView, changeShortCutWin, 
+        shortCutMacView, changeShortCutMac,
+    } = props;
+    const currentOS = detectOS();
+    console.log(shortCutWinView, shortCutMacView,)
     return (
         <div className="dialogGrid dialogGrid_2cols">
-            <span>ToC indentation</span>
+            <span>Windows</span>
             <div>
-                <NativeSelect
-                    value={tocIndentation}
-                    onChange={changeTocIndentation} 
-                    input={ <CustomInputShort /> }
-                >
-                    <option value="">...</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </NativeSelect>
-            </div>                    
+                <TextField 
+                    value={shortCutWinView}
+                    onKeyDown={changeShortCutWin} 
+                    variant="outlined" 
+                    margin="dense"
+                    disabled={currentOS !== "Windows"}
+                />
+            </div>
+
+            <span>Mac</span>
+            <div>
+                <TextField 
+                    value={shortCutMacView}
+                    onKeyDown={changeShortCutMac} 
+                    variant="outlined" 
+                    margin="dense" 
+                    disabled={currentOS !== "MacOS"}
+                />     
+            </div>          
         </div>
     );
 }
 
-export default TocSection;
+export default ShortCutSection;

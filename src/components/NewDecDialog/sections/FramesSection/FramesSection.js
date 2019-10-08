@@ -6,7 +6,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 
-import { getCorrectColor, selectAllOnClick } from "utils.js";
+import { getCorrectColor, selectAllOnClick } from "utils";
 import FrameTypeInput from "components/NewDecDialog/sections/FramesSection/FrameTypeInput";
 
 import "./style.css";

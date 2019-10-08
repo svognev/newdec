@@ -9,7 +9,7 @@ import ListPreview from "components/common/Preview/ListPreview";
 import CustomInput from "components/common/CustomInput";
 import CustomInputShort from "components/common/CustomInputShort";
 import { listStyleType, bulletNamesMap } from "constants.js"
-import { getCorrectColor, selectAllOnClick, scrollToBottom } from "utils.js";
+import { getCorrectColor, selectAllOnClick, scrollToBottom } from "utils";
 
 const ListSection = (props) => {
     const {

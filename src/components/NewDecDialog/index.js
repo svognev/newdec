@@ -22,14 +22,21 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
-import { getCorrectColor, getUnstyledText, unicodeNumberToChar, unicodeCharToNumber, getListChars } from 'utils.js';
 import { alignmentsMap } from 'constants.js';
+import ShortCutUtils from "utils/ShotrcutUtils";
+import { 
+    getCorrectColor, 
+    getUnstyledText, 
+    unicodeNumberToChar, 
+    unicodeCharToNumber, 
+    getListChars, 
+} from 'utils';
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         decKey: "",
         group: "",
         active: false,
@@ -94,23 +101,27 @@ class NewDecDialog extends React.Component {
         tocIndentation: "",
         groupToCreate: "",
         xrefToCreate: "",
-        referenceGroup: "",    
+        referenceGroup: "",
+        shortCutWin: "",
+        shortCutWinView: "",
+        shortCutMac: "",
+        shortCutMacView: "",
     };
 
-    toggleStateProperty = (propName) => (e) => {
+    toggleStateProperty = propName => e => {
         this.setState({
             [propName]: e.target.checked
         });
     };
 
-    setStateProperty = (propName) => (e, secondArg = "") => {
+    setStateProperty = propName => (e, secondArg = "") => {
         const newValue = (e && e.target.value !== "" && e.target.value !== undefined) ? e.target.value : secondArg;
         this.setState({
             [propName]: newValue,
         });
     };
 
-    setBullet = (propName) => (e) => {
+    setBullet = propName => e => {
         const newBullet = e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value;
         this.setState({
             [propName]: newBullet,
@@ -118,7 +129,7 @@ class NewDecDialog extends React.Component {
         return newBullet;
     };
 
-    setColor = (propName) => (e) => {
+    setColor = propName => e => {
         let input = e.target.value || "";
         
         const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
@@ -133,7 +144,7 @@ class NewDecDialog extends React.Component {
         return filteredInput;
     };
 
-    setNumber = (propName) => (e) => {
+    setNumber = propName => e => {
         let input = e.target.value || "";
 
         const filteredInput = input.replace(",", ".").trim().match(/[0-9]+/i) 
@@ -148,9 +159,22 @@ class NewDecDialog extends React.Component {
         return filteredInput;
     };
 
+    setShortCut = (valuePropName, viewPropName) => e => {
+        const shortCut = ShortCutUtils.convertEventToShortCut(e);
+        if (shortCut && shortCut.deleteKey) {
+          setTimeout(() => {
+            this.setState({ [valuePropName]: "" });
+            this.setState({ [viewPropName]: "" });
+          }, 100);
+        } else if (shortCut) {
+          this.setState({ [valuePropName]: shortCut.value });
+          this.setState({ [viewPropName]: shortCut.stringValue });
+        }
+    };
+
     render() {
         const { isOpen, onClose } = this.props;
-        const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet } = this;
+        const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet, setShortCut } = this;
         const { 
             openedTab, 
             decKey,
@@ -217,6 +241,8 @@ class NewDecDialog extends React.Component {
             groupToCreate,
             xrefToCreate,
             referenceGroup,
+            shortCutWinView,
+            shortCutMacView,
         } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
@@ -278,6 +304,8 @@ class NewDecDialog extends React.Component {
         const changeGroupToCreate = setStateProperty("groupToCreate");
         const changeXrefToCreate = setStateProperty("xrefToCreate");
         const changeReferenceGroup = setStateProperty("referenceGroup");
+        const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
+        const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView");
 
         const changeListType = e => {
             const { value } = e.target;
@@ -499,6 +527,11 @@ class NewDecDialog extends React.Component {
         const tocSectionProps = {
             tocIndentation, changeTocIndentation,
         };
+
+        const shortCutsSectionProps = {
+            shortCutWinView, changeShortCutWin, 
+            shortCutMacView, changeShortCutMac,
+        };
         
         return (
             <ThemeProvider theme={theme}>
@@ -571,8 +604,8 @@ class NewDecDialog extends React.Component {
                         { openedTab === 7 && <FramesSection {...framesSectionProps} /> }
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection {...tocSectionProps} /> }
-                        { openedTab === 10 && <ShortCutsSection /> }
-                        { openedTab === 11 && <TestSection {...tocSectionProps} /> }
+                        { openedTab === 10 && <ShortCutsSection {...shortCutsSectionProps} /> }
+                        { openedTab === 11 && <TestSection {...shortCutsSectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>

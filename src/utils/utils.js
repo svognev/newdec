@@ -3,14 +3,14 @@ import { numberingSets, bulletNamesMap } from "constants.js";
 export const getCorrectColor = (hex, backgroundColor = "FFF") => {
     const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : backgroundColor;
     return correctColor;
-}
+};
 
 export const selectAllOnClick = defaultValue => e => {
     if (!defaultValue || e.target.value === defaultValue) {
         e.target.focus();
         e.target.select();
     }
-}
+};
 
 export const getOffset = (alignType, fontSize) => {
     if (alignType === "baseline") {
@@ -51,4 +51,14 @@ export const getListChars = ({ isOrderedList, numberingStyle, listItem, unicodeC
     }
     const newBullet = bulletNamesMap[listItem] || unicodeChar;
     return Array(4).fill(newBullet);
-}
+};
+
+export const detectOS = () => {
+    if (navigator && navigator.appVersion) {
+        if (navigator.appVersion.indexOf("Win") !== -1) {
+            return "Windows";
+        } else if (navigator.appVersion.indexOf("Mac") !== -1) {
+            return "MacOS";
+        }
+    }
+};
