@@ -133,8 +133,13 @@
     max-width: 50px;
 }
 
-.paragraphDecorators-dialog .middleSizeTextInput {
+.paragraphDecorators-dialog .mediumTextField {
     width: 223px;
+}
+
+.paragraphDecorators-dialog .largeTextField {
+    width: 400px;
+    display: inherit;
 }
 
 .paragraphDecorators-dialog .colorSample {

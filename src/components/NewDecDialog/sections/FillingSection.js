@@ -27,7 +27,7 @@ const  FillingSection = (props) => {
                     <TextField 
                         variant="outlined" 
                         margin="dense"
-                        className="middleSizeTextInput" 
+                        className="mediumTextField" 
                         value={fillingColorName}
                         onChange={changeFillingColorName}
                     />

@@ -1,24 +1,35 @@
-import React from 'react';
+import React from "react";
 
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 
 const ShortCutSection = (props) => {
+    const {
+        shortCutWinView, changeShortCutWin, 
+        shortCutMacView, changeShortCutMac,
+    } = props;
+
     return (
-        <form className="paragraphDecorators-dialog__form">
-            <ul className="paragraphDecorators-dialog__field-list">
-                <div className="paragraphDecorators-dialog__col">
-                    <li><span>Windows</span></li>
-                    <li><span>Mac</span></li>
-                </div>
-                <div className="paragraphDecorators-dialog__col">
-                    <li><TextField variant="outlined" margin="dense" /></li>
-                    <li><TextField variant="outlined" margin="dense" /></li>
-                </div>
-                <div className="paragraphDecorators-dialog__col ">
-                </div>
-            </ul>
-                
-        </form>
+        <div className="dialogGrid dialogGrid_2cols">
+            <span>Windows</span>
+            <div className="largeTextField">
+                <TextField 
+                    value={shortCutWinView}
+                    onKeyDown={changeShortCutWin} 
+                    variant="outlined" 
+                    margin="dense"
+                />
+            </div>
+
+            <span>Mac</span>
+            <div className="largeTextField">
+                <TextField 
+                    value={shortCutMacView}
+                    onKeyDown={changeShortCutMac} 
+                    variant="outlined" 
+                    margin="dense" 
+                />     
+            </div>          
+        </div>
     );
 }
 

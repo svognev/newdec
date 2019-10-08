@@ -23,7 +23,7 @@ import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
 import { alignmentsMap } from 'constants.js';
-import ShortCutUtils from "utils/ShotrcutUtils";
+import getShortCutUtils from "utils/getShortCutUtils";
 import { 
     getCorrectColor, 
     getUnstyledText, 
@@ -36,7 +36,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 0,
         decKey: "",
         group: "",
         active: false,
@@ -159,8 +159,9 @@ class NewDecDialog extends React.Component {
         return filteredInput;
     };
 
-    setShortCut = (valuePropName, viewPropName) => e => {
-        const shortCut = ShortCutUtils.convertEventToShortCut(e);
+    setShortCut = (valuePropName, viewPropName, isMac) => e => {
+        const systemName = isMac ? "MacOS" : "Windows";
+        const shortCut = getShortCutUtils(systemName).convertEventToShortCut(e);
         if (shortCut && shortCut.deleteKey) {
           setTimeout(() => {
             this.setState({ [valuePropName]: "" });
@@ -305,7 +306,7 @@ class NewDecDialog extends React.Component {
         const changeXrefToCreate = setStateProperty("xrefToCreate");
         const changeReferenceGroup = setStateProperty("referenceGroup");
         const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
-        const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView");
+        const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
 
         const changeListType = e => {
             const { value } = e.target;
