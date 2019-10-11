@@ -36,7 +36,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 0,
+        openedTab: 11,
         decKey: "",
         group: "",
         active: false,
@@ -129,8 +129,8 @@ class NewDecDialog extends React.Component {
         return newBullet;
     };
 
-    setColor = propName => e => {
-        let input = e.target.value || "";
+    setColor = propName => (e, secondArg) => {
+        let input = e ? (e.target.value || "") : secondArg;
         
         const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
                               ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
@@ -606,7 +606,7 @@ class NewDecDialog extends React.Component {
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection {...tocSectionProps} /> }
                         { openedTab === 10 && <ShortCutsSection {...shortCutsSectionProps} /> }
-                        { openedTab === 11 && <TestSection {...shortCutsSectionProps} /> }
+                        { openedTab === 11 && <TestSection {...typographySectionProps} /> }
                     </div>
                 </DialogContent>
             </CustomDialog>

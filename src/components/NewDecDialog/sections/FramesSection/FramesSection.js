@@ -8,6 +8,7 @@ import Select from "@material-ui/core/Select";
 
 import { getCorrectColor, selectAllOnClick } from "utils";
 import FrameTypeInput from "components/NewDecDialog/sections/FramesSection/FrameTypeInput";
+import ColorField from "components/common/ColorField";
 
 import "./style.css";
 
@@ -32,9 +33,6 @@ const FramesSection = (props) => {
      } = props;
 
      const correctColor = getCorrectColor(borderColor);
-     const colorSampleStyle = {
-         backgroundColor: `#${correctColor}`,
-     };
      const previewBorderWidth = borderThickness && !isNaN(parseFloat(borderThickness))
                                 ? `${borderThickness <= 15 ? borderThickness : 15}pt`
                                 : "0";
@@ -105,21 +103,11 @@ const FramesSection = (props) => {
                 />
 
                 <span>Frame color HEX</span>
-                <div className="colorField">
-                    <TextField 
-                        variant="outlined" 
-                        margin="dense" 
-                        className="numberInput" 
-                        InputProps={{
-                           startAdornment: <InputAdornment position="start">#</InputAdornment>
-                        }}
-                        value={borderColor}
-                        onChange={changeBorderColor}
-                        onClick={selectAllOnClick("f00")}
-                    />
-                    <div className="colorSample" style={colorSampleStyle}></div>
-                </div>
-                
+                <ColorField 
+                    colorCode={borderColor} 
+                    changeColorCode={changeBorderColor}
+                    required
+                />
 
                 <span>Frame thickness</span>
                 <div className="inputWithAdornment">

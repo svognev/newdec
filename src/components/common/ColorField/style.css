@@ -1,0 +1,18 @@
+.colorPicker-popOver {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 4;
+}
+
+.colorPicker-innerBox {
+    position: absolute;
+    z-index: 5;
+}
+
+.colorPicker-outerBox {
+    margin-left: 20px;
+    margin-top: -50px;
+}

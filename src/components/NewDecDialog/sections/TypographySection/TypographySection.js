@@ -8,9 +8,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import { getCorrectColor, selectAllOnClick } from "utils";
+import { selectAllOnClick } from "utils";
 import Preview from "components/common/Preview";
 import CustomInput from "components/common/CustomInput";
+import ColorField from "components/common/ColorField";
 
 import "./style.css";
 
@@ -26,12 +27,6 @@ const TypographySection = (props) => {
         stroke, changeStroke, 
         verticalAlign, changeVerticalAlign,
         textTransform, changeTextTransform} = props;
-
-        const correctColor = getCorrectColor(fontColor);
-
-        const colorSampleStyle = {
-            backgroundColor: `#${correctColor}`,
-        };
 
     return (
         <>
@@ -82,20 +77,11 @@ const TypographySection = (props) => {
                 />
 
                 <span>Font color HEX</span>
-                <div className="colorField">
-                    <TextField 
-                        variant="outlined" 
-                        margin="dense" 
-                        className="numberInput" 
-                        InputProps={{
-                            startAdornment: <InputAdornment position="start">#</InputAdornment>
-                        }}
-                        value={fontColor}
-                        onChange={changeFontColor}
-                        onClick={selectAllOnClick("000")}
-                    />
-                    <div className="colorSample" style={colorSampleStyle}></div>
-                </div>
+                <ColorField 
+                    colorCode={fontColor} 
+                    changeColorCode={changeFontColor}
+                    required
+                />
             </div>
             <div className="previewSide">
                 <Preview {...previewProps} />

@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 
 const CustomDialog = withStyles(theme => ({
     root: {
-        minWidth: "1150px",
+        minWidth: "1250px",
         minHeight: "1100px !important",
         height: "100%",
     },

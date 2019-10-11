@@ -1,11 +1,10 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { getCorrectColor, selectAllOnClick } from 'utils';
 import Preview from "components/common/Preview";
+import ColorField from "components/common/ColorField";
 
 const  FillingSection = (props) => {
     const { 
@@ -14,10 +13,6 @@ const  FillingSection = (props) => {
         fillingColorName, changeFillingColorName,
         connectToPrevious, changeConnectToPrevious,
      } = props;
-        const correctColor = getCorrectColor(fillingColor);
-        const colorSampleStyle = {
-            backgroundColor: `#${correctColor}`,
-        };
 
     return (
         <div className="dialogGrid dialogGrid_2cols dialogGrid_flexStartAligned">
@@ -34,20 +29,10 @@ const  FillingSection = (props) => {
                 </div>
 
                 <span>Filling color HEX</span>
-                <div className="colorField">
-                    <TextField 
-                        variant="outlined" 
-                        margin="dense" 
-                        className="numberInput" 
-                        InputProps={{
-                            startAdornment: <InputAdornment position="start">#</InputAdornment>
-                        }}
-                        value={fillingColor}
-                        onChange={changeFillingColor}
-                        onClick={selectAllOnClick()}
-                    />
-                    <div className="colorSample" style={colorSampleStyle}></div>
-                </div>
+                <ColorField 
+                    colorCode={fillingColor} 
+                    changeColorCode={changeFillingColor}
+                />
 
                 <span>Connect to previous</span>
                 <div>
