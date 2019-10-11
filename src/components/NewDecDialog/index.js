@@ -36,7 +36,7 @@ import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
-        openedTab: 11,
+        openedTab: 0,
         decKey: "",
         group: "",
         active: false,
