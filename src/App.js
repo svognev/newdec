@@ -1,35 +1,46 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
 
-import NewDecDialog from './components/NewDecDialog';
+import NewDecDialog from "./components/NewDecDialog";
+import { clearDecoratorForm } from "./components/NewDecDialog/actions";
+
+import "./App.css";
 
 class App extends React.Component {
-  state = {
-    isOpen: true,
-  }
+    state = {
+        isOpen: true,
+    };
 
-  handleClick = () => {
-    this.setState(({ isOpen }) => {
-      return {
-        isOpen: !isOpen
-      };
-    })
-  }
+    handleClick = () => {
+        this.setState(({ isOpen }) => {
+            return {
+                isOpen: !isOpen
+            };
+        });
+    };
 
-  render() {
+    onClose = () => {
+      this.setState({ isOpen: false });
+      this.props.clearForm();
+    }
 
-    return (
-      <div className="App">
-        <button onClick={this.handleClick}>Open</button>
-        <NewDecDialog 
-          isOpen={this.state.isOpen}
-          onClose={() => {
-            this.setState({ isOpen: false });
-          }}
-        />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <button onClick={this.handleClick}>Open</button>
+                <NewDecDialog 
+                    isOpen={this.state.isOpen}
+                    onClose={this.onClose}
+                />
+            </div>
+        );
+    }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+    return {
+        clearForm: () => dispatch(clearDecoratorForm()),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(App);

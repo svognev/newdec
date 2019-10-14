@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,12 +19,13 @@ import TocSection from "./sections/TocSection";
 import ShortCutsSection from "./sections/ShortCutsSection";
 import TestSection from "./sections/TestSection";
 
+import { changeDecoratorForm } from "./actions";
+import Handlers from "./Handlers";
 import theme from "./theme";
 import CustomTab from "./common/CustomTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { alignmentsMap, sampleText } from "./constants";
-import getShortCutUtils from "./utils/getShortCutUtils";
+import { alignmentsMap } from "./constants";
 import { 
     getCorrectColor, 
     getUnstyledText, 
@@ -35,527 +37,389 @@ import {
 
 import "./style.css";
 
-class NewDecDialog extends React.Component {
-    state = { 
-        openedTab: 0,
-        previewText: sampleText,
-        decKey: "",
-        group: "",
-        groupToCreate: "",
-        active: false,
-        styleNameEn: "",
-        styleNameDe: "",
-        styleNameRu: "",
-        styleNameFr: "",
-        wordStyleName: "",
-        softReturn: false,
-        indentationalLevel: "",
-        backspaceActionWithContent: "merge",
-        backspaceActionWithoutContent: "apply_other_pd",
-        returnActionNextSection: "default",
-        returnActionEmptySection: "default",
-        tabAction: "",
-        shiftTabAction: "",
-        isList: false,
-        listName: "",
-        orderLevel: "",
-        prefix: "",
-        suffix: "",
-        suffixDistance: "0.25",
-        magicTabs: false,
-        listType: "unordered",
-        listItem: "bulletpoint",
-        unicodeNumber: "",
-        unicodeChar: "",
-        numberingStyle: "decimal",
-        continueNumbering: false,
-        allowRestartNumbering: false,
-        includePreviousFrom: "",
-        sideNumber: false,
-        sideNumberFont: "Roboto",
-        sideNumberAlignment: "center",
-        sideNumberFontSize: "12",
-        sideNumberFontColor: "FFF",
-        sideNumberFillingColor: "1E88E5",
-        sideNumberWidth: "20",
-        sideNumberRadius: "10",
-        referenceGroup: "",
-        referenceGroupToCreate: "",
-        font: "Roboto",
-        alignment: "left",
-        fontSize: "12",
-        fontColorName: "Black",
-        fontColor: "000",
-        bold: false,
-        italic: false,
-        underlined: false,
-        stroke: false,
-        textTransform: "none",
-        verticalAlign: "baseline",
-        marginTop: "6",
-        marginBottom: "6",
-        firstRowIndent: "0",
-        otherRowsIndent: "0",
-        lineSpacing: "1.15",
-        customLineSpacing: "",
-        wordSpacing: "0",   
-        leftBorder: false,
-        rightBorder: false,
-        topBorder: false,
-        bottomBorder: false,
-        borderColorName: "Red",
-        borderColor: "f00",
-        borderThickness: "2",
-        borderType: "solid",
-        fillingColorName: "",
-        fillingColor: "",
-        connectToPrevious: false,
-        tocIndentation: "",
-        shortCutWin: "",
-        shortCutWinView: "",
-        shortCutMac: "",
-        shortCutMacView: "",
-    };
+const NewDecDialog = (props) => {
+    const { isOpen, onClose, updateForm, formState } = props;
 
-    toggleStateProperty = propName => e => {
-        this.setState({
-            [propName]: e.target.checked
-        });
-    };
+    const { 
+        setStateProperty, 
+        toggleStateProperty, 
+        setNumber, 
+        setColor, 
+        setBullet, 
+        setShortCut 
+    } = Handlers(updateForm, formState);
 
-    setStateProperty = propName => (e, secondArg = "") => {
-        const newValue = (e && e.target.value !== "" && e.target.value !== undefined) ? e.target.value : secondArg;
-        this.setState({
-            [propName]: newValue,
-        });
-    };
+    const { 
+        openedTab,
+        previewText,
+        decKey,
+        group,
+        groupToCreate,
+        active,
+        styleNameEn,
+        styleNameDe,
+        styleNameRu,
+        styleNameFr,
+        wordStyleName,
+        softReturn,
+        indentationalLevel,
+        backspaceActionWithContent,
+        backspaceActionWithoutContent,
+        returnActionNextSection,
+        returnActionEmptySection,
+        tabAction,
+        shiftTabAction,
+        isList,
+        listName,
+        orderLevel,
+        prefix,
+        suffix,
+        suffixDistance,
+        magicTabs,
+        listType,
+        listItem,
+        unicodeNumber,
+        unicodeChar,
+        numberingStyle,
+        continueNumbering,
+        allowRestartNumbering,
+        includePreviousFrom,
+        sideNumber,
+        sideNumberFont,
+        sideNumberAlignment,
+        sideNumberFontSize,
+        sideNumberFontColor,
+        sideNumberFillingColor,
+        sideNumberWidth,
+        sideNumberRadius,
+        referenceGroup,
+        referenceGroupToCreate,
+        font,
+        alignment,
+        fontSize,
+        fontColorName,
+        fontColor,
+        bold,
+        italic,
+        underlined,
+        stroke,
+        textTransform,
+        verticalAlign,
+        marginTop,
+        marginBottom,
+        firstRowIndent,
+        otherRowsIndent,
+        lineSpacing,
+        customLineSpacing,
+        wordSpacing,   
+        leftBorder,
+        rightBorder,
+        topBorder,
+        bottomBorder,
+        borderColorName,
+        borderColor,
+        borderThickness,
+        borderType,
+        fillingColorName,
+        fillingColor,
+        connectToPrevious,
+        tocIndentation,
+        shortCutWinView,
+        shortCutMacView,
+    } = formState;
 
-    setBullet = propName => e => {
-        const newBullet = e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value;
-        this.setState({
-            [propName]: newBullet,
-        });
-        return newBullet;
-    };
+    const changeOpenedTab = setStateProperty("openedTab");
+    const changeDecKey = setStateProperty("decKey");
+    const changeGroup = setStateProperty("group");
+    const changeGroupToCreate = setStateProperty("groupToCreate");
+    const changeActive = toggleStateProperty("active");
+    const changeStyleNameEn = setStateProperty("styleNameEn");
+    const changeStyleNameDe = setStateProperty("styleNameDe");
+    const changeStyleNameRu = setStateProperty("styleNameRu");
+    const changeStyleNameFr = setStateProperty("styleNameFr");
+    const changeWordStyleName = setStateProperty("wordStyleName");
+    const changeSoftReturn = toggleStateProperty("softReturn");
+    const changeIndentationalLevel = setStateProperty("indentationalLevel")
+    const changeBackspaceActionWithContent = setStateProperty("backspaceActionWithContent");
+    const changeBackspaceActionWithoutContent = setStateProperty("backspaceActionWithoutContent")
+    const changeReturnActionNextSection = setStateProperty("returnActionNextSection");
+    const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
+    const changeTabAction = setStateProperty("tabAction");
+    const changeShiftTabAction = setStateProperty("shiftTabAction");
+    const changeIsList = toggleStateProperty("isList");
+    const changeListName = setStateProperty("listName");
+    const changeOrderLevel = setStateProperty("orderLevel");
+    const changePrefix = setStateProperty("prefix");
+    const changeSuffix = setStateProperty("suffix");
+    const changeSuffixDistance = setStateProperty("suffixDistance");
+    const changeMagicTabs = toggleStateProperty("magicTabs");
+    const changeListItem = setStateProperty("listItem");
+    const changeNumberingStyle = setStateProperty("numberingStyle");
+    const changeContinueNumbering = toggleStateProperty("continueNumbering");
+    const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
+    const changeIncludePreviousFrom = setStateProperty("includePreviousFrom");
+    const changeSideNumberFont = setStateProperty("sideNumberFont");
+    const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
+    const changeSideNumberFontSize = setNumber("sideNumberFontSize");
+    const changeSideNumberFontColor = setColor("sideNumberFontColor");
+    const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
+    const changeSideNumberWidth = setNumber("sideNumberWidth");
+    const changeSideNumberRadius = setNumber("sideNumberRadius");
+    const changeReferenceGroup = setStateProperty("referenceGroup");
+    const changeReferenceGroupToCreate = setStateProperty("referenceGroupToCreate");
+    const changeFont = setStateProperty("font");
+    const changeAlignment = setStateProperty("alignment");
+    const changeFontSize = setNumber("fontSize");
+    const changeFontColorName = setStateProperty("fontColorName");
+    const changeFontColor = setColor("fontColor");
+    const changeBold = toggleStateProperty("bold");
+    const changeItalic = toggleStateProperty("italic");
+    const changeUnderlined = toggleStateProperty("underlined");
+    const changeStroke = toggleStateProperty("stroke");
+    const changeTextTransform = setStateProperty("textTransform");
+    const changeVerticalAlign = setStateProperty("verticalAlign");
+    const changeMarginTop = setNumber("marginTop");
+    const changeMarginBottom = setNumber("marginBottom");
+    const changeFirstRowIndent = setNumber("firstRowIndent");
+    const changeOtherRowsIndent = setNumber("otherRowsIndent");
+    const changeLineSpacing = setStateProperty("lineSpacing");
+    const changeCustomLineSpacing = setNumber("customLineSpacing");
+    const changeWordSpacing = setNumber("wordSpacing");
+    const changeLeftBorder = toggleStateProperty("leftBorder");
+    const changeRightBorder = toggleStateProperty("rightBorder");
+    const changeTopBorder = toggleStateProperty("topBorder");
+    const changeBottomBorder = toggleStateProperty("bottomBorder");
+    const changeBorderColorName = setStateProperty("borderColorName");
+    const changeBorderColor = setColor("borderColor");
+    const changeBorderThickness = setNumber("borderThickness");
+    const changeFillingColorName = setStateProperty("fillingColorName");
+    const changeFillingColor = setColor("fillingColor");
+    const changeConnectToPrevious = toggleStateProperty("connectToPrevious");
+    const changeTocIndentation = setStateProperty("tocIndentation");
+    const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
+    const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
 
-    setColor = propName => (e, secondArg) => {
-        let input = e ? (e.target.value || "") : secondArg;
-        
-        const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
-                              ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
-                              : "" ;
-        
-        if (filteredInput !== this.state[propName]) {
-            this.setState({
-                [propName]: filteredInput,
-            });
+    const changePreviewText = e => {
+        const { value } = e.target;
+        if (value && value !== "<div></div>" && value !== "<br>") {
+            setStateProperty("previewText")(null, getUnstyledText(value));
+        } else {
+            setStateProperty("previewText")(null, `<div><br></div>`);
         }
-        return filteredInput;
     };
 
-    setNumber = propName => e => {
-        let input = e.target.value || "";
-
-        const filteredInput = input.replace(",", ".").trim().match(/[0-9]+/i) 
-                              ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
-                              : "" ;
-
-        if (filteredInput !== this.state[propName]) {
-          this.setState({
-              [propName]: filteredInput,
-          });
-        }
-        return filteredInput;
-    };
-
-    setShortCut = (valuePropName, viewPropName, isMac) => e => {
-        const systemName = isMac ? "MacOS" : "Windows";
-        const shortCut = getShortCutUtils(systemName).convertEventToShortCut(e);
-        if (shortCut && shortCut.deleteKey) {
-          setTimeout(() => {
-            this.setState({ [valuePropName]: "" });
-            this.setState({ [viewPropName]: "" });
-          }, 100);
-        } else if (shortCut) {
-          this.setState({ [valuePropName]: shortCut.value });
-          this.setState({ [viewPropName]: shortCut.stringValue });
+    const changeListType = e => {
+        const { value } = e.target;
+        setStateProperty("listType")(null, value);
+        if (value === "ordered" && suffix === "") {
+            setStateProperty("suffix")(null, ".");
+        } else if (value === "unordered" && suffix === ".") {
+            setStateProperty("suffix")(null, "");
         }
     };
 
-    render() {
-        const { isOpen, onClose } = this.props;
-        const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet, setShortCut } = this;
-        const { 
-            openedTab,
-            previewText,
-            decKey,
-            group,
-            groupToCreate,
-            active,
-            styleNameEn,
-            styleNameDe,
-            styleNameRu,
-            styleNameFr,
-            wordStyleName,
-            softReturn,
-            indentationalLevel,
-            backspaceActionWithContent,
-            backspaceActionWithoutContent,
-            returnActionNextSection,
-            returnActionEmptySection,
-            tabAction,
-            shiftTabAction,
-            isList,
-            listName,
-            orderLevel,
-            prefix,
-            suffix,
-            suffixDistance,
-            magicTabs,
-            listType,
-            listItem,
-            unicodeNumber,
-            unicodeChar,
-            numberingStyle,
-            continueNumbering,
-            allowRestartNumbering,
-            includePreviousFrom,
-            sideNumber,
-            sideNumberFont,
-            sideNumberAlignment,
-            sideNumberFontSize,
-            sideNumberFontColor,
-            sideNumberFillingColor,
-            sideNumberWidth,
-            sideNumberRadius,
-            referenceGroup,
-            referenceGroupToCreate,
-            font,
-            alignment,
-            fontSize,
-            fontColorName,
-            fontColor,
-            bold,
-            italic,
-            underlined,
-            stroke,
-            textTransform,
-            verticalAlign,
-            marginTop,
-            marginBottom,
-            firstRowIndent,
-            otherRowsIndent,
-            lineSpacing,
-            customLineSpacing,
-            wordSpacing,   
-            leftBorder,
-            rightBorder,
-            topBorder,
-            bottomBorder,
-            borderColorName,
-            borderColor,
-            borderThickness,
-            borderType,
-            fillingColorName,
-            fillingColor,
-            connectToPrevious,
-            tocIndentation,
-            shortCutWinView,
-            shortCutMacView,
-        } = this.state;
+    const changeUnicodeNumber = e => {
+        const newUnicodeNumber = setColor("unicodeNumber")(e);
+        const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
+        setStateProperty("unicodeChar")(null, newUnicodeChar);
+    };
+    
+    const changeUnicodeChar = e => {
+        const newUnicodeChar = setBullet("unicodeChar")(e);
+        const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
+        setStateProperty("unicodeNumber")(null, newUnicodeNumber);
+    };
 
-        const changeOpenedTab = setStateProperty("openedTab");
-        const changeDecKey = setStateProperty("decKey");
-        const changeGroup = setStateProperty("group");
-        const changeGroupToCreate = setStateProperty("groupToCreate");
-        const changeActive = toggleStateProperty("active");
-        const changeStyleNameEn = setStateProperty("styleNameEn");
-        const changeStyleNameDe = setStateProperty("styleNameDe");
-        const changeStyleNameRu = setStateProperty("styleNameRu");
-        const changeStyleNameFr = setStateProperty("styleNameFr");
-        const changeWordStyleName = setStateProperty("wordStyleName");
-        const changeSoftReturn = toggleStateProperty("softReturn");
-        const changeIndentationalLevel = setStateProperty("indentationalLevel")
-        const changeBackspaceActionWithContent = setStateProperty("backspaceActionWithContent");
-        const changeBackspaceActionWithoutContent = setStateProperty("backspaceActionWithoutContent")
-        const changeReturnActionNextSection = setStateProperty("returnActionNextSection");
-        const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
-        const changeTabAction = setStateProperty("tabAction");
-        const changeShiftTabAction = setStateProperty("shiftTabAction");
-        const changeIsList = toggleStateProperty("isList");
-        const changeListName = setStateProperty("listName");
-        const changeOrderLevel = setStateProperty("orderLevel");
-        const changePrefix = setStateProperty("prefix");
-        const changeSuffix = setStateProperty("suffix");
-        const changeSuffixDistance = setStateProperty("suffixDistance");
-        const changeMagicTabs = toggleStateProperty("magicTabs");
-        const changeListItem = setStateProperty("listItem");
-        const changeNumberingStyle = setStateProperty("numberingStyle");
-        const changeContinueNumbering = toggleStateProperty("continueNumbering");
-        const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
-        const changeIncludePreviousFrom = setStateProperty("includePreviousFrom");
-        const changeSideNumberFont = setStateProperty("sideNumberFont");
-        const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
-        const changeSideNumberFontSize = setNumber("sideNumberFontSize");
-        const changeSideNumberFontColor = setColor("sideNumberFontColor");
-        const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
-        const changeSideNumberWidth = setNumber("sideNumberWidth");
-        const changeSideNumberRadius = setNumber("sideNumberRadius");
-        const changeReferenceGroup = setStateProperty("referenceGroup");
-        const changeReferenceGroupToCreate = setStateProperty("referenceGroupToCreate");
-        const changeFont = setStateProperty("font");
-        const changeAlignment = setStateProperty("alignment");
-        const changeFontSize = setNumber("fontSize");
-        const changeFontColorName = setStateProperty("fontColorName");
-        const changeFontColor = setColor("fontColor");
-        const changeBold = toggleStateProperty("bold");
-        const changeItalic = toggleStateProperty("italic");
-        const changeUnderlined = toggleStateProperty("underlined");
-        const changeStroke = toggleStateProperty("stroke");
-        const changeTextTransform = setStateProperty("textTransform");
-        const changeVerticalAlign = setStateProperty("verticalAlign");
-        const changeMarginTop = setNumber("marginTop");
-        const changeMarginBottom = setNumber("marginBottom");
-        const changeFirstRowIndent = setNumber("firstRowIndent");
-        const changeOtherRowsIndent = setNumber("otherRowsIndent");
-        const changeLineSpacing = setStateProperty("lineSpacing");
-        const changeCustomLineSpacing = setNumber("customLineSpacing");
-        const changeWordSpacing = setNumber("wordSpacing");
-        const changeLeftBorder = toggleStateProperty("leftBorder");
-        const changeRightBorder = toggleStateProperty("rightBorder");
-        const changeTopBorder = toggleStateProperty("topBorder");
-        const changeBottomBorder = toggleStateProperty("bottomBorder");
-        const changeBorderColorName = setStateProperty("borderColorName");
-        const changeBorderColor = setColor("borderColor");
-        const changeBorderThickness = setNumber("borderThickness");
-        const changeFillingColorName = setStateProperty("fillingColorName");
-        const changeFillingColor = setColor("fillingColor");
-        const changeConnectToPrevious = toggleStateProperty("connectToPrevious");
-        const changeTocIndentation = setStateProperty("tocIndentation");
-        const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
-        const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
+    const changeSideNumber = e => {
+        toggleStateProperty("sideNumber")(e);
+        if (e.target.checked && suffix === ".") {
+            setStateProperty("suffix")(null, "");
+        } else if (!e.target.checked && suffix === "") {
+            setStateProperty("suffix")(null, ".");
+        }
+    };
 
-        const changePreviewText = e => {
-            const { value } = e.target;
-            if (value && value !== "<div></div>" && value !== "<br>") {
-                setStateProperty("previewText")(null, getUnstyledText(value));
-            } else {
-                setStateProperty("previewText")(null, `<div><br></div>`);
-            }
+    const changeBorderType = e => {
+        setStateProperty("borderType")(e);
+        if (e.target.value === "double" && borderThickness === "2") {
+            setStateProperty("borderThickness")(null, "3");
+        }
+        if (e.target.value !== "double" && borderThickness === "3") {
+            setStateProperty("borderThickness")(null, "2");
+        }
         };
 
-        const changeListType = e => {
-            const { value } = e.target;
-            setStateProperty("listType")(null, value);
-            if (value === "ordered" && suffix === "") {
-                setStateProperty("suffix")(null, ".");
-            } else if (value === "unordered" && suffix === ".") {
-                setStateProperty("suffix")(null, "");
-            }
-        };
+    const previewFontColor = getCorrectColor(fontColor, "f5f5f5");
+    const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
+    const previewAdditionalFillingColor = connectToPrevious ? previewFillingColor : "f5f5f5";
+    const indentsDifference = (firstRowIndent || 0) - (otherRowsIndent || 0);
+    const previewMarginLeft = otherRowsIndent ? `${otherRowsIndent >= 12 ? 12 : otherRowsIndent}cm` : 0;
+    const previewTextIndent = indentsDifference ? `${indentsDifference >= 12 ? 12 : indentsDifference}cm` : 0;
 
-        const changeUnicodeNumber = e => {
-            const newUnicodeNumber = setColor("unicodeNumber")(e);
-            const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
-            setStateProperty("unicodeChar")(null, newUnicodeChar);
-        };
-        
-        const changeUnicodeChar = e => {
-            const newUnicodeChar = setBullet("unicodeChar")(e);
-            const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
-            setStateProperty("unicodeNumber")(null, newUnicodeNumber);
-        };
+    const previewStyle = {
+        fontSize: !fontSize ? "0" : `${fontSize <= 120 ? fontSize : 120}pt`,
+        color: `#${previewFontColor}`,
+        fontFamily: font,
+        alignItems: alignmentsMap[alignment],
+        textAlign: alignment,
+        fontWeight: bold ? "bold" : "normal",
+        fontStyle: italic ? "italic" : "normal",
+        textDecoration: `${underlined ? "underline" : ""}${stroke ? " line-through" : ""}`.trim() || "none",
+        verticalAlign,
+        textTransform: textTransform !== "small-caps" ? textTransform : "none",
+        fontVariant: textTransform === "small-caps" ? textTransform : "normal",
+        backgroundColor: `#${previewFillingColor}`,
+        backgroundImage:  `linear-gradient(#${previewAdditionalFillingColor}, #${previewAdditionalFillingColor})`,
+        marginLeft: previewMarginLeft,
+        textIndent: previewTextIndent,
+        wordSpacing: `${wordSpacing || 0}pt`,
+        lineHeight: (lineSpacing !== "custom" ? lineSpacing : (!customLineSpacing ? "1.15" : `${customLineSpacing || 0}`)),
+        marginBottom: `${marginBottom || 0}pt`,
+        marginTop: `${marginTop || 0}pt`,
+    };
 
-        const changeSideNumber = e => {
-            toggleStateProperty("sideNumber")(e);
-            if (e.target.checked && suffix === ".") {
-                setStateProperty("suffix")(null, "");
-            } else if (!e.target.checked && suffix === "") {
-                setStateProperty("suffix")(null, ".");
-            }
-        };
+    const previewProps = { previewText, changePreviewText, previewStyle };
 
-        const changeBorderType = e => {
-            setStateProperty("borderType")(e);
-            if (e.target.value === "double" && borderThickness === "2") {
-                setStateProperty("borderThickness")(null, "3");
-            }
-            if (e.target.value !== "double" && borderThickness === "3") {
-                setStateProperty("borderThickness")(null, "2");
-            }
-         };
+    const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "f5f5f5");
+    const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
 
-        const previewFontColor = getCorrectColor(fontColor, "f5f5f5");
-        const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
-        const previewAdditionalFillingColor = connectToPrevious ? previewFillingColor : "f5f5f5";
-        const indentsDifference = (firstRowIndent || 0) - (otherRowsIndent || 0);
-        const previewMarginLeft = otherRowsIndent ? `${otherRowsIndent >= 12 ? 12 : otherRowsIndent}cm` : 0;
-        const previewTextIndent = indentsDifference ? `${indentsDifference >= 12 ? 12 : indentsDifference}cm` : 0;
+    const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
+        fontFamily: sideNumberFont,
+        textAlign: sideNumberAlignment,
+        fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
+        color: `#${previewSideNumberFontColor}`,
+        backgroundColor: `#${previewSideNumberFillingColor}`,
+        minWidth: `${sideNumberWidth || 0}pt`,
+        borderRadius: `${sideNumberRadius || 0}pt`,
+    };
 
-        const previewStyle = {
-            fontSize: !fontSize ? "0" : `${fontSize <= 120 ? fontSize : 120}pt`,
-            color: `#${previewFontColor}`,
-            fontFamily: font,
-            alignItems: alignmentsMap[alignment],
-            textAlign: alignment,
-            fontWeight: bold ? "bold" : "normal",
-            fontStyle: italic ? "italic" : "normal",
-            textDecoration: `${underlined ? "underline" : ""}${stroke ? " line-through" : ""}`.trim() || "none",
-            verticalAlign,
-            textTransform: textTransform !== "small-caps" ? textTransform : "none",
-            fontVariant: textTransform === "small-caps" ? textTransform : "normal",
-            backgroundColor: `#${previewFillingColor}`,
-            backgroundImage:  `linear-gradient(#${previewAdditionalFillingColor}, #${previewAdditionalFillingColor})`,
-            marginLeft: previewMarginLeft,
-            textIndent: previewTextIndent,
-            wordSpacing: `${wordSpacing || 0}pt`,
-            lineHeight: (lineSpacing !== "custom" ? lineSpacing : (!customLineSpacing ? "1.15" : `${customLineSpacing || 0}`)),
-            marginBottom: `${marginBottom || 0}pt`,
-            marginTop: `${marginTop || 0}pt`,
-        };
+    const listPreviewProps = { 
+        listChars: getListChars({
+                isOrderedList: listType === "ordered", 
+                numberingStyle, 
+                listItem,
+                unicodeChar,
+            }),
+        listPreviewStyle: previewStyle,
+        prefix, 
+        suffix, 
+        suffixDistance,
+        sideNumberStyle,
+    };
 
-        const previewProps = { previewText, changePreviewText, previewStyle };
+    const namesSectionProps = {
+        decKey, changeDecKey,
+        group, changeGroup,
+        newGroup: groupToCreate, changeGroupToCreate,
+        active, changeActive,
+        styleNameEn, changeStyleNameEn,
+        styleNameDe, changeStyleNameDe,
+        styleNameRu, changeStyleNameRu,
+        styleNameFr, changeStyleNameFr,
+    }; 
 
-        const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "f5f5f5");
-        const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
+    const wordExportProps = {
+        wordStyleName, changeWordStyleName,
+        softReturn, changeSoftReturn,
+    };
 
-        const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
-            fontFamily: sideNumberFont,
-            textAlign: sideNumberAlignment,
-            fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
-            color: `#${previewSideNumberFontColor}`,
-            backgroundColor: `#${previewSideNumberFillingColor}`,
-            minWidth: `${sideNumberWidth || 0}pt`,
-            borderRadius: `${sideNumberRadius || 0}pt`,
-        };
+    const positioningSectionProps = {
+        indentationalLevel, changeIndentationalLevel,
+        backspaceActionWithContent, changeBackspaceActionWithContent,
+        backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
+        returnActionNextSection, changeReturnActionNextSection,
+        returnActionEmptySection, changeReturnActionEmptySection,
+        tabAction, changeTabAction,
+        shiftTabAction, changeShiftTabAction,
+    };
 
-        const listPreviewProps = { 
-            listChars: getListChars({
-                    isOrderedList: listType === "ordered", 
-                    numberingStyle, 
-                    listItem,
-                    unicodeChar,
-                }),
-            listPreviewStyle: previewStyle,
-            prefix, 
-            suffix, 
-            suffixDistance,
-            sideNumberStyle,
-        };
+    const listSectionProps = { 
+        listPreviewProps,
+        isList, changeIsList, 
+        listName, changeListName,
+        orderLevel, changeOrderLevel,
+        prefix, changePrefix,
+        suffix, changeSuffix,
+        suffixDistance, changeSuffixDistance,
+        magicTabs, changeMagicTabs,
+        listType, changeListType, 
+        listItem, changeListItem,
+        unicodeNumber, changeUnicodeNumber,
+        unicodeChar, changeUnicodeChar,
+        numberingStyle, changeNumberingStyle,
+        continueNumbering, changeContinueNumbering,
+        allowRestartNumbering, changeAllowRestartNumbering,
+        includePreviousFrom, changeIncludePreviousFrom,
+        sideNumber, changeSideNumber,
+        sideNumberFont, changeSideNumberFont,
+        sideNumberAlignment, changeSideNumberAlignment,
+        sideNumberFontSize, changeSideNumberFontSize,
+        sideNumberFontColor, changeSideNumberFontColor,
+        sideNumberFillingColor, changeSideNumberFillingColor,
+        sideNumberWidth, changeSideNumberWidth,
+        sideNumberRadius, changeSideNumberRadius,
+    };
 
-        const namesSectionProps = {
-            decKey, changeDecKey,
-            group, changeGroup,
-            newGroup: groupToCreate, changeGroupToCreate,
-            active, changeActive,
-            styleNameEn, changeStyleNameEn,
-            styleNameDe, changeStyleNameDe,
-            styleNameRu, changeStyleNameRu,
-            styleNameFr, changeStyleNameFr,
-        }; 
+    const referencingSectionProps = {
+        referenceGroup, changeReferenceGroup,
+        newGroup: referenceGroupToCreate, changeReferenceGroupToCreate,
+    };
 
-        const wordExportProps = {
-            wordStyleName, changeWordStyleName,
-            softReturn, changeSoftReturn,
-        };
+    const typographySectionProps = { 
+        previewProps,
+        font, changeFont,
+        alignment, changeAlignment,
+        fontSize, changeFontSize,
+        fontColorName, changeFontColorName,
+        fontColor, changeFontColor,
+        bold, changeBold,
+        italic, changeItalic,
+        underlined, changeUnderlined,         
+        stroke, changeStroke,
+        textTransform, changeTextTransform,
+        verticalAlign, changeVerticalAlign, 
+    };
 
-        const positioningSectionProps = {
-            indentationalLevel, changeIndentationalLevel,
-            backspaceActionWithContent, changeBackspaceActionWithContent,
-            backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
-            returnActionNextSection, changeReturnActionNextSection,
-            returnActionEmptySection, changeReturnActionEmptySection,
-            tabAction, changeTabAction,
-            shiftTabAction, changeShiftTabAction,
-        };
+    const distancesSectionProps = {
+        previewProps,
+        marginTop, changeMarginTop,
+        marginBottom, changeMarginBottom,
+        firstRowIndent, changeFirstRowIndent,
+        otherRowsIndent, changeOtherRowsIndent,
+        lineSpacing, changeLineSpacing,
+        customLineSpacing, changeCustomLineSpacing,
+        wordSpacing, changeWordSpacing,
+    };
 
-        const listSectionProps = { 
-            listPreviewProps,
-            isList, changeIsList, 
-            listName, changeListName,
-            orderLevel, changeOrderLevel,
-            prefix, changePrefix,
-            suffix, changeSuffix,
-            suffixDistance, changeSuffixDistance,
-            magicTabs, changeMagicTabs,
-            listType, changeListType, 
-            listItem, changeListItem,
-            unicodeNumber, changeUnicodeNumber,
-            unicodeChar, changeUnicodeChar,
-            numberingStyle, changeNumberingStyle,
-            continueNumbering, changeContinueNumbering,
-            allowRestartNumbering, changeAllowRestartNumbering,
-            includePreviousFrom, changeIncludePreviousFrom,
-            sideNumber, changeSideNumber,
-            sideNumberFont, changeSideNumberFont,
-            sideNumberAlignment, changeSideNumberAlignment,
-            sideNumberFontSize, changeSideNumberFontSize,
-            sideNumberFontColor, changeSideNumberFontColor,
-            sideNumberFillingColor, changeSideNumberFillingColor,
-            sideNumberWidth, changeSideNumberWidth,
-            sideNumberRadius, changeSideNumberRadius,
-        };
+    const framesSectionProps = { 
+        leftBorder, changeLeftBorder, 
+        rightBorder, changeRightBorder,
+        topBorder, changeTopBorder, 
+        bottomBorder, changeBottomBorder, 
+        borderColorName, changeBorderColorName,
+        borderColor, changeBorderColor,
+        borderThickness, changeBorderThickness,
+        borderType, changeBorderType,
+    };
 
-        const referencingSectionProps = {
-            referenceGroup, changeReferenceGroup,
-            newGroup: referenceGroupToCreate, changeReferenceGroupToCreate,
-        };
+    const fillingSectionProps = { 
+        previewProps,
+        fillingColorName, changeFillingColorName,
+        fillingColor, changeFillingColor,
+        connectToPrevious, changeConnectToPrevious,
+    };
 
-        const typographySectionProps = { 
-            previewProps,
-            font, changeFont,
-            alignment, changeAlignment,
-            fontSize, changeFontSize,
-            fontColorName, changeFontColorName,
-            fontColor, changeFontColor,
-            bold, changeBold,
-            italic, changeItalic,
-            underlined, changeUnderlined,         
-            stroke, changeStroke,
-            textTransform, changeTextTransform,
-            verticalAlign, changeVerticalAlign, 
-        };
+    const tocSectionProps = {
+        tocIndentation, changeTocIndentation,
+    };
 
-        const distancesSectionProps = {
-            previewProps,
-            marginTop, changeMarginTop,
-            marginBottom, changeMarginBottom,
-            firstRowIndent, changeFirstRowIndent,
-            otherRowsIndent, changeOtherRowsIndent,
-            lineSpacing, changeLineSpacing,
-            customLineSpacing, changeCustomLineSpacing,
-            wordSpacing, changeWordSpacing,
-        };
-
-        const framesSectionProps = { 
-            leftBorder, changeLeftBorder, 
-            rightBorder, changeRightBorder,
-            topBorder, changeTopBorder, 
-            bottomBorder, changeBottomBorder, 
-            borderColorName, changeBorderColorName,
-            borderColor, changeBorderColor,
-            borderThickness, changeBorderThickness,
-            borderType, changeBorderType,
-        };
-
-        const fillingSectionProps = { 
-            previewProps,
-            fillingColorName, changeFillingColorName,
-            fillingColor, changeFillingColor,
-            connectToPrevious, changeConnectToPrevious,
-        };
-
-        const tocSectionProps = {
-            tocIndentation, changeTocIndentation,
-        };
-
-        const shortCutsSectionProps = {
-            shortCutWinView, changeShortCutWin, 
-            shortCutMacView, changeShortCutMac,
-        };
-        
-        return (
-            <ThemeProvider theme={theme}>
+    const shortCutsSectionProps = {
+        shortCutWinView, changeShortCutWin, 
+        shortCutMacView, changeShortCutMac,
+    };
+    
+    return (
+        <ThemeProvider theme={theme}>
             <CustomDialog
                 open={isOpen}
                 onClose={onClose}
@@ -589,7 +453,7 @@ class NewDecDialog extends React.Component {
                         </Button>
                     </div>
                 </div>
-                    
+
                 <DialogContent className="content">
                     <div className="content-leftSide">
                         <CustomTabs 
@@ -630,9 +494,18 @@ class NewDecDialog extends React.Component {
                     </div>
                 </DialogContent>
             </CustomDialog>
-            </ThemeProvider>
-        );
-    }
+        </ThemeProvider>
+    );
 };
 
-export default NewDecDialog;
+const mapStateToProps = state => {
+    return { formState: state };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateForm: payload => dispatch(changeDecoratorForm(payload)),
+    };
+};
+  
+export default connect(mapStateToProps, mapDispatchToProps)(NewDecDialog);
