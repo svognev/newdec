@@ -106,6 +106,8 @@ class NewDecDialog extends React.Component {
         shortCutWinView: "",
         shortCutMac: "",
         shortCutMacView: "",
+        wordStyleName: "",
+        softReturn: false,
     };
 
     toggleStateProperty = propName => e => {
@@ -244,6 +246,8 @@ class NewDecDialog extends React.Component {
             referenceGroup,
             shortCutWinView,
             shortCutMacView,
+            wordStyleName,
+            softReturn,
         } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
@@ -307,6 +311,8 @@ class NewDecDialog extends React.Component {
         const changeReferenceGroup = setStateProperty("referenceGroup");
         const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
         const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
+        const changeWordStyleName = setStateProperty("wordStyleName");
+        const changeSoftReturn = toggleStateProperty("softReturn");
 
         const changeListType = e => {
             const { value } = e.target;
@@ -427,6 +433,11 @@ class NewDecDialog extends React.Component {
             newGroup: groupToCreate, 
             changeGroupToCreate,
         }; 
+
+        const wordExportProps = {
+            wordStyleName, changeWordStyleName,
+            softReturn, changeSoftReturn,
+        };
 
         const listSectionProps = { 
             listPreviewProps,
@@ -596,7 +607,7 @@ class NewDecDialog extends React.Component {
                     </div>
                     <div className="content-rightSide">
                         { openedTab === 0 && <NamesSection {...namesSectionProps} /> }
-                        { openedTab === 1 && <WordExportSection /> }
+                        { openedTab === 1 && <WordExportSection {...wordExportProps} /> }
                         { openedTab === 2 && <PositioningSection /> }
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
                         { openedTab === 4 && <ReferencingSection {...referencingSectionProps} /> }

@@ -1,17 +1,26 @@
-import React from 'react';
+import React from "react";
 
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
 
-const WordExportSection = (props) => {
+const WordExportSection = ({ wordStyleName, changeWordStyleName, softReturn, changeSoftReturn }) => {
     return (
         <div className="dialogGrid dialogGrid_2cols">
             <span>Style name in WORD</span>
-            <TextField variant="outlined" margin="dense" />
+            <TextField 
+                value={wordStyleName}
+                onChange={changeWordStyleName}
+                variant="outlined" 
+                margin="dense" 
+            />
             
             <span>Soft return</span>
             <div>
-                <Checkbox color="primary" />
+                <Checkbox 
+                    checked={softReturn}
+                    onChange={changeSoftReturn}
+                    color="primary" 
+                />
             </div>
         </div>
     );
