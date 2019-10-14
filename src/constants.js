@@ -36,7 +36,7 @@ export const returnOnEmptySectionActions = [
 ];
 
 export const decoratorsList = [
-    { name: "...", value: null },
+    { name: "...", value: "" },
     { name: "Text 0", value: "quick_text_0" },
     { name: "Text 1", value: "quick_text_1" },
     { name: "Text 2", value: "quick_text_2" },
@@ -65,3 +65,5 @@ export const bulletNamesMap = {
   dash: "—",
   star: "★",
 };
+
+export const sampleText = `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`;

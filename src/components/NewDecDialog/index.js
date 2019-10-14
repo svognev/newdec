@@ -22,7 +22,7 @@ import theme from '../../theme';
 import CustomTab from '../common/CustomTab';
 import CustomTabs from '../common/CustomTabs';
 import CustomDialog from '../common/CustomDialog';
-import { alignmentsMap } from 'constants.js';
+import { alignmentsMap, sampleText } from "constants.js";
 import getShortCutUtils from "utils/getShortCutUtils";
 import { 
     getCorrectColor, 
@@ -30,59 +30,40 @@ import {
     unicodeNumberToChar, 
     unicodeCharToNumber, 
     getListChars, 
-} from 'utils';
+} from "utils";
+
 
 import "./style.css";
 
 class NewDecDialog extends React.Component {
     state = { 
         openedTab: 0,
+        previewText: sampleText,
         decKey: "",
         group: "",
+        groupToCreate: "",
         active: false,
         styleNameEn: "",
         styleNameDe: "",
         styleNameRu: "",
         styleNameFr: "",
+        wordStyleName: "",
+        softReturn: false,
+        indentationalLevel: "",
+        backspaceActionWithContent: "merge",
+        backspaceActionWithoutContent: "apply_other_pd",
+        returnActionNextSection: "default",
+        returnActionEmptySection: "default",
+        tabAction: "",
+        shiftTabAction: "",
         isList: false,
-        listType: "unordered",
-        bulletField: "",
-        verticalAlign: "baseline",
-        textTransform: "none",
-        leftBorder: false,
-        rightBorder: false,
-        topBorder: false,
-        bottomBorder: false,
-        borderType: "solid",
-        borderColor: "f00",
-        borderColorName: "Red",
-        borderThickness: "2",
-        fontSize: "12",
-        fontColor: "000",
-        fontColorName: "Black",
-        alignment: "left",
-        font: "Roboto",
-        fillingColor: "",
-        fillingColorName: "",
-        firstRowIndent: "0",
-        otherRowsIndent: "0",
-        lineSpacing: "1.15",
-        customLineSpacing: "",
-        previewText: `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`,
-        bold: false,
-        italic: false,
-        underlined: false,
-        stroke: false,
-        connectToPrevious: false,
-        marginTop: "6",
-        marginBottom: "6",
-        wordSpacing: "0",   
         listName: "",
+        orderLevel: "",
         prefix: "",
         suffix: "",
-        orderLevel: "",
         suffixDistance: "0.25",
         magicTabs: false,
+        listType: "unordered",
         listItem: "bulletpoint",
         unicodeNumber: "",
         unicodeChar: "",
@@ -98,16 +79,42 @@ class NewDecDialog extends React.Component {
         sideNumberFillingColor: "1E88E5",
         sideNumberWidth: "20",
         sideNumberRadius: "10",
-        tocIndentation: "",
-        groupToCreate: "",
-        xrefToCreate: "",
         referenceGroup: "",
+        xrefToCreate: "",
+        font: "Roboto",
+        alignment: "left",
+        fontSize: "12",
+        fontColorName: "Black",
+        fontColor: "000",
+        bold: false,
+        italic: false,
+        underlined: false,
+        stroke: false,
+        textTransform: "none",
+        verticalAlign: "baseline",
+        marginTop: "6",
+        marginBottom: "6",
+        firstRowIndent: "0",
+        otherRowsIndent: "0",
+        lineSpacing: "1.15",
+        customLineSpacing: "",
+        wordSpacing: "0",   
+        leftBorder: false,
+        rightBorder: false,
+        topBorder: false,
+        bottomBorder: false,
+        borderColorName: "Red",
+        borderColor: "f00",
+        borderThickness: "2",
+        borderType: "solid",
+        fillingColorName: "",
+        fillingColor: "",
+        connectToPrevious: false,
+        tocIndentation: "",
         shortCutWin: "",
         shortCutWinView: "",
         shortCutMac: "",
         shortCutMacView: "",
-        wordStyleName: "",
-        softReturn: false,
     };
 
     toggleStateProperty = propName => e => {
@@ -179,52 +186,33 @@ class NewDecDialog extends React.Component {
         const { isOpen, onClose } = this.props;
         const { setStateProperty, toggleStateProperty, setNumber, setColor, setBullet, setShortCut } = this;
         const { 
-            openedTab, 
+            openedTab,
+            previewText,
             decKey,
             group,
+            groupToCreate,
             active,
             styleNameEn,
             styleNameDe,
             styleNameRu,
             styleNameFr,
-            isList, 
-            listType, 
-            verticalAlign, 
-            textTransform,
-            leftBorder, 
-            rightBorder,
-            topBorder,
-            bottomBorder, 
-            borderType,
-            borderColor,
-            borderColorName,
-            fontColor,
-            fillingColor,
-            borderThickness,
-            firstRowIndent,
-            otherRowsIndent,
-            lineSpacing,
-            customLineSpacing,
-            previewText,
-            fontSize,
-            fontColorName,
-            font,
-            alignment,
-            bold,
-            italic,
-            underlined,
-            stroke,
-            fillingColorName,
-            connectToPrevious,
-            marginTop,
-            marginBottom,
-            wordSpacing,
+            wordStyleName,
+            softReturn,
+            indentationalLevel,
+            backspaceActionWithContent,
+            backspaceActionWithoutContent,
+            returnActionNextSection,
+            returnActionEmptySection,
+            tabAction,
+            shiftTabAction,
+            isList,
             listName,
+            orderLevel,
             prefix,
             suffix,
-            orderLevel,
             suffixDistance,
             magicTabs,
+            listType,
             listItem,
             unicodeNumber,
             unicodeChar,
@@ -240,14 +228,40 @@ class NewDecDialog extends React.Component {
             sideNumberFillingColor,
             sideNumberWidth,
             sideNumberRadius,
-            tocIndentation,
-            groupToCreate,
-            xrefToCreate,
             referenceGroup,
+            xrefToCreate,
+            font,
+            alignment,
+            fontSize,
+            fontColorName,
+            fontColor,
+            bold,
+            italic,
+            underlined,
+            stroke,
+            textTransform,
+            verticalAlign,
+            marginTop,
+            marginBottom,
+            firstRowIndent,
+            otherRowsIndent,
+            lineSpacing,
+            customLineSpacing,
+            wordSpacing,   
+            leftBorder,
+            rightBorder,
+            topBorder,
+            bottomBorder,
+            borderColorName,
+            borderColor,
+            borderThickness,
+            borderType,
+            fillingColorName,
+            fillingColor,
+            connectToPrevious,
+            tocIndentation,
             shortCutWinView,
             shortCutMacView,
-            wordStyleName,
-            softReturn,
         } = this.state;
 
         const changeOpenedTab = setStateProperty("openedTab");
@@ -313,6 +327,13 @@ class NewDecDialog extends React.Component {
         const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
         const changeWordStyleName = setStateProperty("wordStyleName");
         const changeSoftReturn = toggleStateProperty("softReturn");
+        const changeIndentationalLevel = setStateProperty("indentationalLevel")
+        const changeBackspaceActionWithContent = setStateProperty("backspaceActionWithContent");
+        const changeBackspaceActionWithoutContent = setStateProperty("backspaceActionWithoutContent")
+        const changeReturnActionNextSection = setStateProperty("returnActionNextSection");
+        const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
+        const changeTabAction = setStateProperty("tabAction");
+        const changeShiftTabAction = setStateProperty("shiftTabAction");
 
         const changeListType = e => {
             const { value } = e.target;
@@ -425,13 +446,12 @@ class NewDecDialog extends React.Component {
         const namesSectionProps = {
             decKey, changeDecKey,
             group, changeGroup,
+            newGroup: groupToCreate, changeGroupToCreate,
             active, changeActive,
             styleNameEn, changeStyleNameEn,
             styleNameDe, changeStyleNameDe,
             styleNameRu, changeStyleNameRu,
             styleNameFr, changeStyleNameFr,
-            newGroup: groupToCreate, 
-            changeGroupToCreate,
         }; 
 
         const wordExportProps = {
@@ -439,16 +459,26 @@ class NewDecDialog extends React.Component {
             softReturn, changeSoftReturn,
         };
 
+        const positioningSectionProps = {
+            indentationalLevel, changeIndentationalLevel,
+            backspaceActionWithContent, changeBackspaceActionWithContent,
+            backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
+            returnActionNextSection, changeReturnActionNextSection,
+            returnActionEmptySection, changeReturnActionEmptySection,
+            tabAction, changeTabAction,
+            shiftTabAction, changeShiftTabAction,
+        };
+
         const listSectionProps = { 
             listPreviewProps,
             isList, changeIsList, 
-            listType, changeListType, 
             listName, changeListName,
+            orderLevel, changeOrderLevel,
             prefix, changePrefix,
             suffix, changeSuffix,
-            orderLevel, changeOrderLevel,
             suffixDistance, changeSuffixDistance,
             magicTabs, changeMagicTabs,
+            listType, changeListType, 
             listItem, changeListItem,
             unicodeNumber, changeUnicodeNumber,
             unicodeChar, changeUnicodeChar,
@@ -468,72 +498,51 @@ class NewDecDialog extends React.Component {
 
         const referencingSectionProps = {
             referenceGroup, changeReferenceGroup,
-            newGroup: xrefToCreate,
-            changeXrefToCreate,
+            newGroup: xrefToCreate, changeXrefToCreate,
         };
 
         const typographySectionProps = { 
-            verticalAlign, 
-            textTransform, 
-            changeVerticalAlign, 
-            changeTextTransform,
-            fontColor,
-            changeFontColor,
             previewProps,
-            fontSize,
-            changeFontSize,
-            fontColorName,
-            changeFontColorName,
-            font, 
-            changeFont,
+            font, changeFont,
             alignment, changeAlignment,
+            fontSize, changeFontSize,
+            fontColorName, changeFontColorName,
+            fontColor, changeFontColor,
             bold, changeBold,
             italic, changeItalic,
-            underlined, changeUnderlined,
+            underlined, changeUnderlined,         
             stroke, changeStroke,
+            textTransform, changeTextTransform,
+            verticalAlign, changeVerticalAlign, 
         };
 
         const distancesSectionProps = {
             previewProps,
-            firstRowIndent,
-            otherRowsIndent,
-            lineSpacing,
-            changeFirstRowIndent,
-            changeOtherRowsIndent,
-            changeLineSpacing,
             marginTop, changeMarginTop,
             marginBottom, changeMarginBottom,
-            wordSpacing, changeWordSpacing,
+            firstRowIndent, changeFirstRowIndent,
+            otherRowsIndent, changeOtherRowsIndent,
+            lineSpacing, changeLineSpacing,
             customLineSpacing, changeCustomLineSpacing,
+            wordSpacing, changeWordSpacing,
         };
 
         const framesSectionProps = { 
-            leftBorder, 
-            rightBorder, 
-            topBorder, 
-            bottomBorder, 
-            changeLeftBorder, 
-            changeRightBorder, 
-            changeTopBorder, 
-            changeBottomBorder, 
-            borderColor,
-            changeBorderColor,
-            borderThickness,
-            changeBorderThickness,
-            borderType,
-            changeBorderType,
-            borderColorName,
-            changeBorderColorName,
+            leftBorder, changeLeftBorder, 
+            rightBorder, changeRightBorder,
+            topBorder, changeTopBorder, 
+            bottomBorder, changeBottomBorder, 
+            borderColorName, changeBorderColorName,
+            borderColor, changeBorderColor,
+            borderThickness, changeBorderThickness,
+            borderType, changeBorderType,
         };
 
         const fillingSectionProps = { 
-            fillingColor, 
-            changeFillingColor,
-            fillingColorName,
-            changeFillingColorName,
             previewProps,
-            connectToPrevious,
-            changeConnectToPrevious,
+            fillingColorName, changeFillingColorName,
+            fillingColor, changeFillingColor,
+            connectToPrevious, changeConnectToPrevious,
         };
 
         const tocSectionProps = {
@@ -608,7 +617,7 @@ class NewDecDialog extends React.Component {
                     <div className="content-rightSide">
                         { openedTab === 0 && <NamesSection {...namesSectionProps} /> }
                         { openedTab === 1 && <WordExportSection {...wordExportProps} /> }
-                        { openedTab === 2 && <PositioningSection /> }
+                        { openedTab === 2 && <PositioningSection {...positioningSectionProps} /> }
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
                         { openedTab === 4 && <ReferencingSection {...referencingSectionProps} /> }
                         { openedTab === 5 && <TypographySection {...typographySectionProps} /> }
