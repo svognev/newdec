@@ -1,5 +1,5 @@
-import Tabs from '@material-ui/core/Tabs';
-import { withStyles } from '@material-ui/core/styles';
+import Tabs from "@material-ui/core/Tabs";
+import { withStyles } from "@material-ui/core/styles";
 
 const CustomTabs = withStyles(theme => ({
     indicator: {

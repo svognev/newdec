@@ -8,25 +8,28 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import { selectAllOnClick } from "utils";
-import Preview from "components/common/Preview";
-import CustomInput from "components/common/CustomInput";
-import ColorField from "components/common/ColorField";
+import Preview from "../../common/Preview";
+import CustomInput from "../../common/CustomInput";
+import ColorField from "../../common/ColorField";
+import { selectAllOnClick } from "../../utils";
 
 import "./style.css";
 
 const TypographySection = (props) => {
-    const { previewProps, fontSize, changeFontSize, fontColor, changeFontColor, fontColorName,
-        changeFontColorName,
-        font, 
-        changeFont,
+    const { 
+        previewProps,
+        font, changeFont,
         alignment, changeAlignment,
+        fontSize, changeFontSize,
+        fontColorName, changeFontColorName,
+        fontColor, changeFontColor,
         bold, changeBold,
         italic, changeItalic,
-        underlined, changeUnderlined,
-        stroke, changeStroke, 
-        verticalAlign, changeVerticalAlign,
-        textTransform, changeTextTransform} = props;
+        underlined, changeUnderlined,         
+        stroke, changeStroke,
+        textTransform, changeTextTransform,
+        verticalAlign, changeVerticalAlign, 
+    } = props;
 
     return (
         <>

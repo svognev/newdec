@@ -1,7 +1,8 @@
 import React from "react";
 
 import NativeSelect from "@material-ui/core/NativeSelect";
-import CustomInputShort from "components/common/CustomInputShort";
+
+import CustomInputShort from "../common/CustomInputShort";
 
 const TocSection = ({ tocIndentation, changeTocIndentation }) => {
     return (

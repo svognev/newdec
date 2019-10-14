@@ -1,26 +1,23 @@
-import React from 'react';
+import React from "react";
 
-import TextField from '@material-ui/core/TextField';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from "@material-ui/core/TextField";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
-import { selectAllOnClick } from "utils";
-import CustomInputShort from '../../common/CustomInputShort';
-import Preview from "components/common/Preview";
+import CustomInputShort from "../common/CustomInputShort";
+import Preview from "../common/Preview";
+import { selectAllOnClick } from "../utils";
 
 const DistancesSection = (props) => {
     const {
         previewProps,
-        firstRowIndent,
-        otherRowsIndent,
-        lineSpacing,
-        changeFirstRowIndent,
-        changeOtherRowsIndent,
-        changeLineSpacing,
         marginTop, changeMarginTop,
         marginBottom, changeMarginBottom,
-        wordSpacing, changeWordSpacing,
+        firstRowIndent, changeFirstRowIndent,
+        otherRowsIndent, changeOtherRowsIndent,
+        lineSpacing, changeLineSpacing,
         customLineSpacing, changeCustomLineSpacing,
+        wordSpacing, changeWordSpacing,
     } = props;
     
     return (

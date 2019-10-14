@@ -3,9 +3,9 @@ import React from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Button from "@material-ui/core/Button";
 
-import CustomInput from "components/common/CustomInput";
-import NewGroupDialog from "components/common/NewGroupDialog";
-import withNewGroupControl from "components/common/withNewGroupControl";
+import CustomInput from "../common/CustomInput";
+import NewGroupDialog from "../common/NewGroupDialog";
+import withNewGroupControl from "../hoc/withNewGroupControl";
 
 const ReferencingSection = (props) => {
     const { 
@@ -15,7 +15,7 @@ const ReferencingSection = (props) => {
         handleClick, 
         onSave,
         referenceGroup, changeReferenceGroup,
-        changeXrefToCreate,
+        changeReferenceGroupToCreate,
     } = props;
     
     const newGroupName = newGroup.nameEN;
@@ -24,9 +24,9 @@ const ReferencingSection = (props) => {
     const onXrefChange = xref => (...args) => {
         const value = args[0] ? args[0].target.value : args[1];
         if (xref.groupKey && xref.nameEN && value === xref.nameEN) {
-            changeXrefToCreate(null, xref);
+            changeReferenceGroupToCreate(null, xref);
         } else {
-            changeXrefToCreate(null, "");
+            changeReferenceGroupToCreate(null, "");
         }
         changeReferenceGroup(...args);
     };

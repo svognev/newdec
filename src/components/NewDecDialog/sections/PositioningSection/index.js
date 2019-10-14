@@ -1,2 +1,2 @@
-import PositioningSection from "./PositioningSection.js";
+import PositioningSection from "./PositioningSection";
 export default PositioningSection;

@@ -1,4 +1,4 @@
-import { numberingSets, bulletNamesMap } from "constants.js";
+import { numberingSets, bulletNamesMap } from "../constants";
 
 export const getCorrectColor = (hex, backgroundColor = "FFF") => {
     const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : backgroundColor;

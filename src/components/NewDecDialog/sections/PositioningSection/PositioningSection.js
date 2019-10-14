@@ -2,9 +2,9 @@ import React from "react";
 
 import NativeSelect from "@material-ui/core/NativeSelect";
 
-import CustomInput from "components/common/CustomInput";
-import CustomInputShort from "components/common/CustomInputShort";
-import { backSpaceActions, returnOnEmptySectionActions, decoratorsList } from "constants.js"
+import CustomInput from "../../common/CustomInput";
+import CustomInputShort from "../../common/CustomInputShort";
+import { backSpaceActions, returnOnEmptySectionActions, decoratorsList } from "../../constants";
 
 import "./style.css";
 
@@ -22,20 +22,22 @@ const PositioningSection = (props) => {
     return (
         <div className="dialogGrid dialogGrid_positioning">
             <span id="r1c1">Identational level</span>
-            <NativeSelect
-                value={indentationalLevel}
-                onChange={changeIndentationalLevel}
-                id="r1c2" 
-                input={ <CustomInputShort /> }
-            >
-                <option value="">...</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </NativeSelect>
+            <div>
+                <NativeSelect
+                    value={indentationalLevel}
+                    onChange={changeIndentationalLevel}
+                    id="r1c2" 
+                    input={ <CustomInputShort /> }
+                >
+                    <option value="">...</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </NativeSelect>
+            </div>
             
             <div id="r2" className="sectionTitle">
                 <span>BACKSPACE</span>

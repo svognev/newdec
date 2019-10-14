@@ -6,30 +6,22 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 
-import { getCorrectColor, selectAllOnClick } from "utils";
-import FrameTypeInput from "components/NewDecDialog/sections/FramesSection/FrameTypeInput";
-import ColorField from "components/common/ColorField";
+import FrameTypeInput from "../../sections/FramesSection/FrameTypeInput";
+import ColorField from "../../common/ColorField";
+import { getCorrectColor, selectAllOnClick } from "../../utils";
 
 import "./style.css";
 
 const FramesSection = (props) => {
     const { 
-        leftBorder, 
-        rightBorder, 
-        topBorder, 
-        bottomBorder, 
-        changeLeftBorder,
-        changeRightBorder,
-        changeTopBorder,
-        changeBottomBorder,
-        borderColor,
-        changeBorderColor,
-        borderThickness,
-        changeBorderThickness,
-        borderType,
-        changeBorderType,
-        borderColorName,
-        changeBorderColorName,
+        leftBorder, changeLeftBorder, 
+        rightBorder, changeRightBorder,
+        topBorder, changeTopBorder, 
+        bottomBorder, changeBottomBorder, 
+        borderColorName, changeBorderColorName,
+        borderColor, changeBorderColor,
+        borderThickness, changeBorderThickness,
+        borderType, changeBorderType,
      } = props;
 
      const correctColor = getCorrectColor(borderColor);

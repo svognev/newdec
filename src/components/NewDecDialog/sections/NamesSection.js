@@ -5,9 +5,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Button from "@material-ui/core/Button";
 
-import CustomInput from "components/common/CustomInput";
-import NewGroupDialog from "components/common/NewGroupDialog";
-import withNewGroupControl from "components/common/withNewGroupControl";
+import CustomInput from "../common/CustomInput";
+import NewGroupDialog from "../common/NewGroupDialog";
+import withNewGroupControl from "../hoc/withNewGroupControl";
 
 const NamesSection = (props) => {
     const { 

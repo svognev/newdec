@@ -5,30 +5,30 @@ import Checkbox from "@material-ui/core/Checkbox";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NativeSelect from "@material-ui/core/NativeSelect";
 
-import ListPreview from "components/common/Preview/ListPreview";
-import CustomInput from "components/common/CustomInput";
-import CustomInputShort from "components/common/CustomInputShort";
-import { listStyleType, bulletNamesMap } from "constants.js"
-import { getCorrectColor, selectAllOnClick, scrollToBottom } from "utils";
+import ListPreview from "../common/Preview/ListPreview";
+import CustomInput from "../common/CustomInput";
+import CustomInputShort from "../common/CustomInputShort";
+import { listStyleType, bulletNamesMap } from "../constants"
+import { getCorrectColor, selectAllOnClick, scrollToBottom } from "../utils";
 
 const ListSection = (props) => {
     const {
         listPreviewProps,
         isList, changeIsList, 
-        listType, changeListType, 
         listName, changeListName,
+        orderLevel, changeOrderLevel,
         prefix, changePrefix,
         suffix, changeSuffix,
-        orderLevel, changeOrderLevel,
         suffixDistance, changeSuffixDistance,
         magicTabs, changeMagicTabs,
+        listType, changeListType, 
         listItem, changeListItem,
         unicodeNumber, changeUnicodeNumber,
         unicodeChar, changeUnicodeChar,
         numberingStyle, changeNumberingStyle,
         continueNumbering, changeContinueNumbering,
         allowRestartNumbering, changeAllowRestartNumbering,
-        includePreviousFrom, changencludePreviousFrom,
+        includePreviousFrom, changeIncludePreviousFrom,
         sideNumber, changeSideNumber,
         sideNumberFont, changeSideNumberFont,
         sideNumberAlignment, changeSideNumberAlignment,
@@ -196,7 +196,7 @@ const ListSection = (props) => {
                                 <div>
                                     <NativeSelect
                                         value={includePreviousFrom} 
-                                        onChange={changencludePreviousFrom}
+                                        onChange={changeIncludePreviousFrom}
                                         input={ <CustomInputShort /> }
                                     >
                                         <option value="">...</option>

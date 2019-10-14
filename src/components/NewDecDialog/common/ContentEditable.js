@@ -1,6 +1,6 @@
-import * as React from 'react';
-import deepEqual from 'fast-deep-equal';
-import * as PropTypes from 'prop-types';
+import * as React from "react";
+import deepEqual from "fast-deep-equal";
+import * as PropTypes from "prop-types";
 
 var __rest = (this && this.__rest) || function (s, e) {
   var t = {};
@@ -15,7 +15,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 
 function normalizeHtml(str) {
-  return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
+  return str && str.replace(/&nbsp;|\u202F|\u00A0/g, " ");
 }
 function findLastTextNode(node) {
   if (node.nodeType === Node.TEXT_NODE)
@@ -53,8 +53,8 @@ export default class ContentEditable extends React.Component {
   constructor() {
       super(...arguments);
       this.lastHtml = this.props.html;
-      this.el = typeof this.props.innerRef === 'function' ? { current: null } : React.createRef();
-      this.getEl = () => (this.props.innerRef && typeof this.props.innerRef !== 'function' ? this.props.innerRef : this.el).current;
+      this.el = typeof this.props.innerRef === "function" ? { current: null } : React.createRef();
+      this.getEl = () => (this.props.innerRef && typeof this.props.innerRef !== "function" ? this.props.innerRef : this.el).current;
       this.emitChange = (originalEvt) => {
           const el = this.getEl();
           if (!el)
@@ -75,7 +75,7 @@ export default class ContentEditable extends React.Component {
   }
   render() {
       const _a = this.props, { tagName, html, innerRef } = _a, props = __rest(_a, ["tagName", "html", "innerRef"]);
-      return React.createElement(tagName || 'div', Object.assign({}, props, { ref: typeof innerRef === 'function' ? (current) => {
+      return React.createElement(tagName || "div", Object.assign({}, props, { ref: typeof innerRef === "function" ? (current) => {
               innerRef(current);
               this.el.current = current;
           } : innerRef || this.el, onInput: this.emitChange, onBlur: this.props.onBlur || this.emitChange, onKeyUp: this.props.onKeyUp || this.emitChange, onKeyDown: this.props.onKeyDown || this.emitChange, contentEditable: !this.props.disabled, dangerouslySetInnerHTML: { __html: html } }), this.props.children);

@@ -1,36 +1,36 @@
-import React from 'react';
+import React from "react";
 
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import { ThemeProvider } from '@material-ui/styles';
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Button from "@material-ui/core/Button";
+import { ThemeProvider } from "@material-ui/styles";
 
-import NamesSection from './sections/NamesSection';
-import WordExportSection from './sections/WordExportSection';
-import PositioningSection from './sections/PositioningSection';
-import ListSection from './sections/ListSection';
-import ReferencingSection from './sections/ReferencingSection';
-import TypographySection from './sections/TypographySection';
-import DistancesSection from './sections/DistancesSection';
-import FramesSection from './sections/FramesSection';
-import FillingSection from './sections/FillingSection';
-import TocSection from './sections/TocSection';
-import ShortCutsSection from './sections/ShortCutsSection';
-import TestSection from './sections/TestSection';
+import NamesSection from "./sections/NamesSection";
+import WordExportSection from "./sections/WordExportSection";
+import PositioningSection from "./sections/PositioningSection";
+import ListSection from "./sections/ListSection";
+import ReferencingSection from "./sections/ReferencingSection";
+import TypographySection from "./sections/TypographySection";
+import DistancesSection from "./sections/DistancesSection";
+import FramesSection from "./sections/FramesSection";
+import FillingSection from "./sections/FillingSection";
+import TocSection from "./sections/TocSection";
+import ShortCutsSection from "./sections/ShortCutsSection";
+import TestSection from "./sections/TestSection";
 
-import theme from '../../theme';
-import CustomTab from '../common/CustomTab';
-import CustomTabs from '../common/CustomTabs';
-import CustomDialog from '../common/CustomDialog';
-import { alignmentsMap, sampleText } from "constants.js";
-import getShortCutUtils from "utils/getShortCutUtils";
+import theme from "./theme";
+import CustomTab from "./common/CustomTab";
+import CustomTabs from "./common/CustomTabs";
+import CustomDialog from "./common/CustomDialog";
+import { alignmentsMap, sampleText } from "./constants";
+import getShortCutUtils from "./utils/getShortCutUtils";
 import { 
     getCorrectColor, 
     getUnstyledText, 
     unicodeNumberToChar, 
     unicodeCharToNumber, 
     getListChars, 
-} from "utils";
+} from "./utils";
 
 
 import "./style.css";
@@ -80,7 +80,7 @@ class NewDecDialog extends React.Component {
         sideNumberWidth: "20",
         sideNumberRadius: "10",
         referenceGroup: "",
-        xrefToCreate: "",
+        referenceGroupToCreate: "",
         font: "Roboto",
         alignment: "left",
         fontSize: "12",
@@ -229,7 +229,7 @@ class NewDecDialog extends React.Component {
             sideNumberWidth,
             sideNumberRadius,
             referenceGroup,
-            xrefToCreate,
+            referenceGroupToCreate,
             font,
             alignment,
             fontSize,
@@ -267,64 +267,12 @@ class NewDecDialog extends React.Component {
         const changeOpenedTab = setStateProperty("openedTab");
         const changeDecKey = setStateProperty("decKey");
         const changeGroup = setStateProperty("group");
+        const changeGroupToCreate = setStateProperty("groupToCreate");
         const changeActive = toggleStateProperty("active");
         const changeStyleNameEn = setStateProperty("styleNameEn");
         const changeStyleNameDe = setStateProperty("styleNameDe");
         const changeStyleNameRu = setStateProperty("styleNameRu");
         const changeStyleNameFr = setStateProperty("styleNameFr");
-        const changeIsList = toggleStateProperty("isList");
-        const changeVerticalAlign = setStateProperty("verticalAlign");
-        const changeTextTransform = setStateProperty("textTransform");
-        const changeLeftBorder = toggleStateProperty("leftBorder");
-        const changeRightBorder = toggleStateProperty("rightBorder");
-        const changeTopBorder = toggleStateProperty("topBorder");
-        const changeBottomBorder = toggleStateProperty("bottomBorder");
-        const changeBorderColor = setColor("borderColor");
-        const changeFontColor = setColor("fontColor");
-        const changeFillingColor = setColor("fillingColor");
-        const changeBorderThickness = setNumber("borderThickness");
-        const changeFirstRowIndent = setNumber("firstRowIndent");
-        const changeOtherRowsIndent = setNumber("otherRowsIndent");
-        const changeLineSpacing = setStateProperty("lineSpacing");
-        const changeCustomLineSpacing = setNumber("customLineSpacing");
-        const changeBorderColorName = setStateProperty("borderColorName");
-        const changeFontSize = setNumber("fontSize");
-        const changeFontColorName = setStateProperty("fontColorName");
-        const changeFont = setStateProperty("font");
-        const changeAlignment = setStateProperty("alignment");
-        const changeBold = toggleStateProperty("bold");
-        const changeItalic = toggleStateProperty("italic");
-        const changeUnderlined = toggleStateProperty("underlined");
-        const changeStroke = toggleStateProperty("stroke");
-        const changeFillingColorName = setStateProperty("fillingColorName");
-        const changeConnectToPrevious = toggleStateProperty("connectToPrevious");
-        const changeMarginTop = setNumber("marginTop");
-        const changeMarginBottom = setNumber("marginBottom");
-        const changeWordSpacing = setNumber("wordSpacing");
-        const changeListName = setStateProperty("listName");
-        const changePrefix = setStateProperty("prefix");
-        const changeSuffix = setStateProperty("suffix");
-        const changeOrderLevel = setStateProperty("orderLevel");
-        const changeSuffixDistance = setStateProperty("suffixDistance");
-        const changeMagicTabs = toggleStateProperty("magicTabs");
-        const changeListItem = setStateProperty("listItem");
-        const changeNumberingStyle = setStateProperty("numberingStyle");
-        const changeContinueNumbering = toggleStateProperty("continueNumbering");
-        const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
-        const changencludePreviousFrom = setStateProperty("includePreviousFrom");
-        const changeSideNumberFont = setStateProperty("sideNumberFont");
-        const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
-        const changeSideNumberFontSize = setNumber("sideNumberFontSize");
-        const changeSideNumberFontColor = setColor("sideNumberFontColor");
-        const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
-        const changeSideNumberWidth = setNumber("sideNumberWidth");
-        const changeSideNumberRadius = setNumber("sideNumberRadius");
-        const changeTocIndentation = setStateProperty("tocIndentation");
-        const changeGroupToCreate = setStateProperty("groupToCreate");
-        const changeXrefToCreate = setStateProperty("xrefToCreate");
-        const changeReferenceGroup = setStateProperty("referenceGroup");
-        const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
-        const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
         const changeWordStyleName = setStateProperty("wordStyleName");
         const changeSoftReturn = toggleStateProperty("softReturn");
         const changeIndentationalLevel = setStateProperty("indentationalLevel")
@@ -334,6 +282,67 @@ class NewDecDialog extends React.Component {
         const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
         const changeTabAction = setStateProperty("tabAction");
         const changeShiftTabAction = setStateProperty("shiftTabAction");
+        const changeIsList = toggleStateProperty("isList");
+        const changeListName = setStateProperty("listName");
+        const changeOrderLevel = setStateProperty("orderLevel");
+        const changePrefix = setStateProperty("prefix");
+        const changeSuffix = setStateProperty("suffix");
+        const changeSuffixDistance = setStateProperty("suffixDistance");
+        const changeMagicTabs = toggleStateProperty("magicTabs");
+        const changeListItem = setStateProperty("listItem");
+        const changeNumberingStyle = setStateProperty("numberingStyle");
+        const changeContinueNumbering = toggleStateProperty("continueNumbering");
+        const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
+        const changeIncludePreviousFrom = setStateProperty("includePreviousFrom");
+        const changeSideNumberFont = setStateProperty("sideNumberFont");
+        const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
+        const changeSideNumberFontSize = setNumber("sideNumberFontSize");
+        const changeSideNumberFontColor = setColor("sideNumberFontColor");
+        const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
+        const changeSideNumberWidth = setNumber("sideNumberWidth");
+        const changeSideNumberRadius = setNumber("sideNumberRadius");
+        const changeReferenceGroup = setStateProperty("referenceGroup");
+        const changeReferenceGroupToCreate = setStateProperty("referenceGroupToCreate");
+        const changeFont = setStateProperty("font");
+        const changeAlignment = setStateProperty("alignment");
+        const changeFontSize = setNumber("fontSize");
+        const changeFontColorName = setStateProperty("fontColorName");
+        const changeFontColor = setColor("fontColor");
+        const changeBold = toggleStateProperty("bold");
+        const changeItalic = toggleStateProperty("italic");
+        const changeUnderlined = toggleStateProperty("underlined");
+        const changeStroke = toggleStateProperty("stroke");
+        const changeTextTransform = setStateProperty("textTransform");
+        const changeVerticalAlign = setStateProperty("verticalAlign");
+        const changeMarginTop = setNumber("marginTop");
+        const changeMarginBottom = setNumber("marginBottom");
+        const changeFirstRowIndent = setNumber("firstRowIndent");
+        const changeOtherRowsIndent = setNumber("otherRowsIndent");
+        const changeLineSpacing = setStateProperty("lineSpacing");
+        const changeCustomLineSpacing = setNumber("customLineSpacing");
+        const changeWordSpacing = setNumber("wordSpacing");
+        const changeLeftBorder = toggleStateProperty("leftBorder");
+        const changeRightBorder = toggleStateProperty("rightBorder");
+        const changeTopBorder = toggleStateProperty("topBorder");
+        const changeBottomBorder = toggleStateProperty("bottomBorder");
+        const changeBorderColorName = setStateProperty("borderColorName");
+        const changeBorderColor = setColor("borderColor");
+        const changeBorderThickness = setNumber("borderThickness");
+        const changeFillingColorName = setStateProperty("fillingColorName");
+        const changeFillingColor = setColor("fillingColor");
+        const changeConnectToPrevious = toggleStateProperty("connectToPrevious");
+        const changeTocIndentation = setStateProperty("tocIndentation");
+        const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
+        const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
+
+        const changePreviewText = e => {
+            const { value } = e.target;
+            if (value && value !== "<div></div>" && value !== "<br>") {
+                setStateProperty("previewText")(null, getUnstyledText(value));
+            } else {
+                setStateProperty("previewText")(null, `<div><br></div>`);
+            }
+        };
 
         const changeListType = e => {
             const { value } = e.target;
@@ -345,14 +354,11 @@ class NewDecDialog extends React.Component {
             }
         };
 
-        const changeSideNumber = e => {
-            toggleStateProperty("sideNumber")(e);
-            if (e.target.checked && suffix === ".") {
-                setStateProperty("suffix")(null, "");
-            } else if (!e.target.checked && suffix === "") {
-                setStateProperty("suffix")(null, ".");
-            }
-        } 
+        const changeUnicodeNumber = e => {
+            const newUnicodeNumber = setColor("unicodeNumber")(e);
+            const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
+            setStateProperty("unicodeChar")(null, newUnicodeChar);
+        };
         
         const changeUnicodeChar = e => {
             const newUnicodeChar = setBullet("unicodeChar")(e);
@@ -360,18 +366,12 @@ class NewDecDialog extends React.Component {
             setStateProperty("unicodeNumber")(null, newUnicodeNumber);
         };
 
-        const changeUnicodeNumber = e => {
-            const newUnicodeNumber = setColor("unicodeNumber")(e);
-            const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
-            setStateProperty("unicodeChar")(null, newUnicodeChar);
-        };
-
-        const changePreviewText = e => {
-            const { value } = e.target;
-            if (value && value !== "<div></div>" && value !== "<br>") {
-                setStateProperty("previewText")(null, getUnstyledText(value));
-            } else {
-                setStateProperty("previewText")(null, `<div><br></div>`);
+        const changeSideNumber = e => {
+            toggleStateProperty("sideNumber")(e);
+            if (e.target.checked && suffix === ".") {
+                setStateProperty("suffix")(null, "");
+            } else if (!e.target.checked && suffix === "") {
+                setStateProperty("suffix")(null, ".");
             }
         };
 
@@ -485,7 +485,7 @@ class NewDecDialog extends React.Component {
             numberingStyle, changeNumberingStyle,
             continueNumbering, changeContinueNumbering,
             allowRestartNumbering, changeAllowRestartNumbering,
-            includePreviousFrom, changencludePreviousFrom,
+            includePreviousFrom, changeIncludePreviousFrom,
             sideNumber, changeSideNumber,
             sideNumberFont, changeSideNumberFont,
             sideNumberAlignment, changeSideNumberAlignment,
@@ -498,7 +498,7 @@ class NewDecDialog extends React.Component {
 
         const referencingSectionProps = {
             referenceGroup, changeReferenceGroup,
-            newGroup: xrefToCreate, changeXrefToCreate,
+            newGroup: referenceGroupToCreate, changeReferenceGroupToCreate,
         };
 
         const typographySectionProps = { 

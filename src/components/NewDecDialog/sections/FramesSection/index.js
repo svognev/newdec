@@ -1,2 +1,2 @@
-import FramesSection from "./FramesSection.js";
+import FramesSection from "./FramesSection";
 export default FramesSection;

@@ -1,13 +1,13 @@
-import keycode from 'keycode';
-import isEqual from 'lodash/isEqual';
+import keycode from "keycode";
+import isEqual from "lodash/isEqual";
 
 const getShortCutUtils = systemName => {
   return class ShortcutUtils {  
     static CMD_KEYS = {
-      altKey: systemName === 'MacOS' ? 'Option' : 'Alt',
-      ctrlKey: systemName === 'MacOS' ? 'Control' : 'Ctrl',
-      shiftKey: 'Shift',
-      metaKey: 'Command',
+      altKey: systemName === "MacOS" ? "Option" : "Alt",
+      ctrlKey: systemName === "MacOS" ? "Control" : "Ctrl",
+      shiftKey: "Shift",
+      metaKey: "Command",
     };
   
     static isDeadKey(e) {
@@ -54,7 +54,7 @@ const getShortCutUtils = systemName => {
     }
   
     static convertShortcutToMeta(shortCut = {}) {
-      let shortCutForView = '';
+      let shortCutForView = "";
       let isCmdPressed = false;
       Object.keys(ShortcutUtils.CMD_KEYS).forEach((key) => {
         if (shortCut && shortCut[key]) {
@@ -73,7 +73,7 @@ const getShortCutUtils = systemName => {
       Object.keys(decorators).forEach((decoratorKey) => {
         const item = decorators[decoratorKey];
         const itemType = item.item_type;
-        if (itemType === 'style') {
+        if (itemType === "style") {
           if (isEqual(item.keyboard_shortcut, newPdShortcut)) {
             decorators[decoratorKey].keyboard_shortcut = null;
             removed = true;

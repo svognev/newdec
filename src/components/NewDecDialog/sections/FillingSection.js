@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import Preview from "components/common/Preview";
-import ColorField from "components/common/ColorField";
+import Preview from "../common/Preview";
+import ColorField from "../common/ColorField";
 
 const  FillingSection = (props) => {
     const { 
-        previewProps, 
-        fillingColor, changeFillingColor, 
+        previewProps,
         fillingColorName, changeFillingColorName,
+        fillingColor, changeFillingColor,
         connectToPrevious, changeConnectToPrevious,
      } = props;
 
