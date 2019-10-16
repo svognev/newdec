@@ -8,8 +8,9 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import ListPreview from "../common/Preview/ListPreview";
 import CustomInput from "../common/CustomInput";
 import CustomInputShort from "../common/CustomInputShort";
+import ColorField from "../common/ColorField";
 import { listStyleType, bulletNamesMap } from "../constants"
-import { getCorrectColor, selectAllOnClick, scrollToBottom } from "../utils";
+import { selectAllOnClick, scrollToBottom } from "../utils";
 
 const ListSection = (props) => {
     const {
@@ -47,14 +48,6 @@ const ListSection = (props) => {
     const onSideNumberChange = (...args) => {
         changeSideNumber(...args);
         scrollToBottom("content-rightSide");
-    };
-
-    const fontColorSampleStyle = {
-        backgroundColor: `#${getCorrectColor(sideNumberFontColor)}`,
-    };
-
-    const fillingColorSampleStyle = {
-        backgroundColor: `#${getCorrectColor(sideNumberFillingColor)}`,
     };
     
     return (
@@ -256,37 +249,21 @@ const ListSection = (props) => {
                                     </div>      
                             
                                     <span>Font color</span>
-                                    <div className="colorField">
-                                        <TextField 
-                                            value={sideNumberFontColor}
-                                            onChange={changeSideNumberFontColor}
-                                            onClick={selectAllOnClick("FFF")}
-                                            variant="outlined" 
-                                            margin="dense" 
-                                            className="numberInput" 
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">#</InputAdornment>
-                                            }}
-                                        />
-                                        <div className="colorSample" style={fontColorSampleStyle}></div>
-                                    </div>
+                                    <ColorField 
+                                        colorCode={sideNumberFontColor} 
+                                        changeColorCode={changeSideNumberFontColor}
+                                        defaultColorCode={"FFF"}
+                                        bottomAligned
+                                    />
                                         
                                     <span>Filling color</span>
-                                    <div className="colorField">
-                                        <TextField 
-                                            value={sideNumberFillingColor}
-                                            onChange={changeSideNumberFillingColor}
-                                            onClick={selectAllOnClick("1E88E5")}
-                                            variant="outlined" 
-                                            margin="dense" 
-                                            className="numberInput" 
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">#</InputAdornment>
-                                            }}
-                                        />
-                                        <div className="colorSample" style={fillingColorSampleStyle}></div>
-                                    </div>
-                                        
+                                    <ColorField 
+                                        colorCode={sideNumberFillingColor} 
+                                        changeColorCode={changeSideNumberFillingColor}
+                                        defaultColorCode={"1E88E5"}
+                                        bottomAligned
+                                    />
+
                                     <span>Width</span>
                                     <div className="inputWithAdornment">
                                         <TextField 

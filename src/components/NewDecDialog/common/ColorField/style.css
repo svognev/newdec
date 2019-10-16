@@ -1,3 +1,13 @@
+.colorPicker {
+    margin-left: 20px;
+    margin-top: -50px;
+    position: relative;
+}
+
+.colorPicker_bottomAligned {
+    margin-top: -410px !important;
+}
+
 .colorPicker-popOver {
     position: fixed;
     top: 0;
@@ -7,12 +17,7 @@
     z-index: 4;
 }
 
-.colorPicker-innerBox {
+.colorPicker-chromeBox {
     position: absolute;
     z-index: 5;
-}
-
-.colorPicker-outerBox {
-    margin-left: 20px;
-    margin-top: -50px;
 }
