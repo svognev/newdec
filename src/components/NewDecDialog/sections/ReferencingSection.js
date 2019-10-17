@@ -18,12 +18,12 @@ const ReferencingSection = (props) => {
         changeReferenceGroupToCreate,
     } = props;
     
-    const newGroupName = newGroup.nameEN;
+    const newGroupName = newGroup.nameEn;
     const isEditMode = !!newGroupName;
 
     const onXrefChange = xref => (...args) => {
         const value = args[0] ? args[0].target.value : args[1];
-        if (xref.groupKey && xref.nameEN && value === xref.nameEN) {
+        if (xref.groupKey && xref.nameEn && value === xref.nameEn) {
             changeReferenceGroupToCreate(null, xref);
         } else {
             changeReferenceGroupToCreate(null, "");

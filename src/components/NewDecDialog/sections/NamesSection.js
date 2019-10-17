@@ -23,15 +23,17 @@ const NamesSection = (props) => {
         styleNameDe, changeStyleNameDe,
         styleNameRu, changeStyleNameRu,
         styleNameFr, changeStyleNameFr,
+        styleNameFrCa, changeStyleNameFrCa,
+        styleNameEs, changeStyleNameEs,
         changeGroupToCreate,
     } = props;
     
-    const newGroupName = newGroup.nameEN;
+    const newGroupName = newGroup.nameEn;
     const isEditMode = !!newGroupName;
 
     const onGroupChange = group => (...args) => {
         const value = args[0] ? args[0].target.value : args[1];
-        if (group.nameEN && value === group.nameEN) {
+        if (group.nameEn && value === group.nameEn) {
             changeGroupToCreate(null, group);
         } else {
             changeGroupToCreate(null, "");
@@ -78,7 +80,7 @@ const NamesSection = (props) => {
                 />
             </div>
 
-            <span>Style name (English)</span>
+            <span>Name EN</span>
             <TextField 
                 value={styleNameEn}
                 onChange={changeStyleNameEn}
@@ -86,7 +88,7 @@ const NamesSection = (props) => {
                 margin="dense" 
             />
 
-            <span>Style name (German)</span>
+            <span>Name DE</span>
             <TextField 
                 value={styleNameDe}
                 onChange={changeStyleNameDe}
@@ -94,7 +96,7 @@ const NamesSection = (props) => {
                 margin="dense" 
             />
 
-            <span>Style name (Russian)</span>
+            <span>Name RU</span>
             <TextField 
                 value={styleNameRu}
                 onChange={changeStyleNameRu}
@@ -102,13 +104,30 @@ const NamesSection = (props) => {
                 margin="dense" 
             />
 
-            <span>Style name (French)</span>
+            <span>Name FR<br/><span className="span_smallText">France</span></span>
             <TextField 
                 value={styleNameFr}
                 onChange={changeStyleNameFr}
                 variant="outlined" 
                 margin="dense" 
             />
+
+            <span>Name FR<br/><span className="span_smallText">Canada</span></span>
+            <TextField 
+                value={styleNameFrCa}
+                onChange={changeStyleNameFrCa}
+                variant="outlined" 
+                margin="dense" 
+            />
+
+            <span>Name ES</span>
+            <TextField 
+                value={styleNameEs}
+                onChange={changeStyleNameEs}
+                variant="outlined" 
+                margin="dense" 
+            />
+
 
             <NewGroupDialog 
                 isOpen={isOpen}

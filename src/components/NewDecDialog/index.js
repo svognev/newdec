@@ -60,11 +60,15 @@ const NewDecDialog = (props) => {
         styleNameDe,
         styleNameRu,
         styleNameFr,
+        styleNameFrCa,
+        styleNameEs,
         wordStyleName,
         softReturn,
         indentationalLevel,
         backspaceActionWithContent,
+        backspaceActionWithContentStyle,
         backspaceActionWithoutContent,
+        backspaceActionWithoutContentStyle,
         returnActionNextSection,
         returnActionEmptySection,
         tabAction,
@@ -137,11 +141,15 @@ const NewDecDialog = (props) => {
     const changeStyleNameDe = setStateProperty("styleNameDe");
     const changeStyleNameRu = setStateProperty("styleNameRu");
     const changeStyleNameFr = setStateProperty("styleNameFr");
+    const changeStyleNameFrCa = setStateProperty("styleNameFrCa");
+    const changeStyleNameEs = setStateProperty("styleNameEs");
     const changeWordStyleName = setStateProperty("wordStyleName");
     const changeSoftReturn = toggleStateProperty("softReturn");
     const changeIndentationalLevel = setStateProperty("indentationalLevel")
     const changeBackspaceActionWithContent = setStateProperty("backspaceActionWithContent");
-    const changeBackspaceActionWithoutContent = setStateProperty("backspaceActionWithoutContent")
+    const changeBackspaceActionWithContentStyle = setStateProperty("backspaceActionWithContentStyle");
+    const changeBackspaceActionWithoutContent = setStateProperty("backspaceActionWithoutContent");
+    const changeBackspaceActionWithoutContentStyle = setStateProperty("backspaceActionWithoutContentStyle");
     const changeReturnActionNextSection = setStateProperty("returnActionNextSection");
     const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
     const changeTabAction = setStateProperty("tabAction");
@@ -316,6 +324,8 @@ const NewDecDialog = (props) => {
         styleNameDe, changeStyleNameDe,
         styleNameRu, changeStyleNameRu,
         styleNameFr, changeStyleNameFr,
+        styleNameFrCa, changeStyleNameFrCa,
+        styleNameEs, changeStyleNameEs,
     }; 
 
     const wordExportProps = {
@@ -326,7 +336,9 @@ const NewDecDialog = (props) => {
     const positioningSectionProps = {
         indentationalLevel, changeIndentationalLevel,
         backspaceActionWithContent, changeBackspaceActionWithContent,
+        backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
         backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
+        backspaceActionWithoutContentStyle, changeBackspaceActionWithoutContentStyle,
         returnActionNextSection, changeReturnActionNextSection,
         returnActionEmptySection, changeReturnActionEmptySection,
         tabAction, changeTabAction,

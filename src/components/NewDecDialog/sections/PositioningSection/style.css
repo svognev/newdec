@@ -80,17 +80,3 @@
 .paragraphDecorators-dialog .dialogGrid_positioning #r10c2 {
     grid-area: r10c2;
 }
-
-
-.paragraphDecorators-dialog .sectionTitle {
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-}
-
-.paragraphDecorators-dialog .sectionTitle span {
-    font-weight: bold;
-    color: #444;
-    font-size: 18px;
-    margin-bottom: 8px;
-}

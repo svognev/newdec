@@ -12,7 +12,9 @@ const PositioningSection = (props) => {
     const {
         indentationalLevel, changeIndentationalLevel,
         backspaceActionWithContent, changeBackspaceActionWithContent,
+        backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
         backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
+        backspaceActionWithoutContentStyle, changeBackspaceActionWithoutContentStyle,
         returnActionNextSection, changeReturnActionNextSection,
         returnActionEmptySection, changeReturnActionEmptySection,
         tabAction, changeTabAction,
@@ -44,16 +46,28 @@ const PositioningSection = (props) => {
             </div>
 
             <span id="r3c1">At the beginning of a section with content</span>
-            <NativeSelect 
-                value={backspaceActionWithContent}
-                onChange={changeBackspaceActionWithContent}
-                id="r3c2" 
-                input={ <CustomInput /> }
-            >
-                {backSpaceActions.map(action => (
-                    <option value={action.key} key={`backSpace ${action.key}`}>{action.value}</option>
-                ))}
-            </NativeSelect>
+            <div className="dialogGrid dialogGrid_2cols">
+                <NativeSelect 
+                    value={backspaceActionWithContent}
+                    onChange={changeBackspaceActionWithContent}
+                    id="r3c2" 
+                    input={ <CustomInput /> }
+                >
+                    {backSpaceActions.map(action => (
+                        <option value={action.key} key={`backSpace ${action.key}`}>{action.value}</option>
+                    ))}
+                </NativeSelect>
+                {   backspaceActionWithContent === "apply_other_pd" && (
+                    <NativeSelect
+                        value={backspaceActionWithContentStyle}
+                        onChange={changeBackspaceActionWithContentStyle}
+                        input={ <CustomInput /> }
+                    >
+                        <option value="default">Global Fallback Style</option>
+                        { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
+                    </NativeSelect>
+                ) }
+            </div>
 
             <span id="r4c1">At the beginning of a section WITHOUT content</span>
             <NativeSelect

@@ -2,6 +2,11 @@
     white-space: nowrap;
 }
 
+.paragraphDecorators-dialog .span_smallText {
+    font-size: 14px;
+    color: dimgrey;
+}
+
 .paragraphDecorators-dialog .header {
     display: flex;
     justify-content: space-between;
@@ -104,11 +109,28 @@
 }
 
 .paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {
-    text-align: right 
+    text-align: right;
 }
 
 .paragraphDecorators-dialog .textButton {
     margin-left: 1rem !important;
+}
+
+.paragraphDecorators-dialog .sectionTitle {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.paragraphDecorators-dialog .sectionTitle span {
+    font-weight: bold;
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.paragraphDecorators-dialog .sectionTitle_rightAligned {
+    justify-content: flex-end;
 }
 
 .paragraphDecorators-dialog .highlightedOption {

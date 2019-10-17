@@ -1,5 +1,5 @@
 import { CHANGE_DECORATOR_FORM, CLEAR_DECORATOR_FORM } from "../components/NewDecDialog/actions";
-import initialState from "./initialState";
+import initialState from "../components/NewDecDialog/initialState";
 
 const decoratorFormReducer = (state = initialState, action) =>  {
     switch (action.type) {
