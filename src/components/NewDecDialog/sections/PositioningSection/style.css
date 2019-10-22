@@ -10,7 +10,7 @@
                          "r8 r8"
                          "r9c1 r9c2"
                          "r10c1 r10c2";
-    grid-template-columns: min-content min-content;
+    grid-template-columns: min-content 1fr;
 }
 
 .paragraphDecorators-dialog .dialogGrid_positioning #r1c1 {
@@ -79,4 +79,8 @@
 
 .paragraphDecorators-dialog .dialogGrid_positioning #r10c2 {
     grid-area: r10c2;
+}
+
+.paragraphDecorators-dialog .positioning-styleInputBox {
+    display: inherit;
 }

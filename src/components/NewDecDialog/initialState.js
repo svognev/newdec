@@ -1,7 +1,7 @@
 import { sampleText } from "./constants";
 
 const initialState = { 
-    openedTab: 0,
+    openedTab: 2,
     previewText: sampleText,
     decKey: "",
     group: "",
