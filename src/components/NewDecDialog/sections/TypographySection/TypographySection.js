@@ -11,7 +11,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Preview from "../../common/Preview";
 import CustomInput from "../../common/CustomInput";
 import ColorField from "../../common/ColorField";
-import { selectAllOnClick } from "../../utils";
+import { selectAllOnClick } from "../../helpers";
 
 import "./style.css";
 

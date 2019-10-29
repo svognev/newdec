@@ -19,26 +19,28 @@ import TocSection from "./sections/TocSection";
 import ShortCutsSection from "./sections/ShortCutsSection";
 import TestSection from "./sections/TestSection";
 
+import withDialogControl from "./hoc/withDialogControl";
+import theme from "./theme";
 import { changeDecoratorForm, clearDecoratorForm } from "./actions";
 import Handlers from "./Handlers";
-import theme from "./theme";
 import CustomTab from "./common/CustomTab";
+import CustomErrorTab from "./common/CustomErrorTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { alignmentsMap, HOLDER } from "./constants";
-import isFormValid from "./utils/isFormValid";
+import { alignmentsMap, HOLDER, requiredFields } from "./constants";
 import { 
     getCorrectColor, 
     getUnstyledText, 
     unicodeNumberToChar, 
     unicodeCharToNumber, 
     getListChars, 
-} from "./utils";
+    getErrorSections,
+} from "./helpers";
 
 import "./style.css";
 
 const NewDecDialog = props => {
-    const { isOpen, closeDialog, updateForm, clearForm, formState } = props;
+    const { isOpen, onClose, onSaveButtonClick, updateForm, formState } = props;
 
     const { 
         setStateProperty, 
@@ -49,32 +51,20 @@ const NewDecDialog = props => {
         setShortCut 
     } = Handlers(updateForm, formState);
 
-    const onClose = () => {
-        closeDialog();
-        clearForm();
-    };
-
-    const onSaveButtonClick = () => {
-        if (!isFormValid(formState)) {
-            console.log(0);  //updateForm({ validationError: true });
-        } else {
-            console.log(1);  //saveForm(formState);
-        }
-    }
-
     const { 
         openedTab,
+        validationError,
         previewText,
         decKey,
         group,
         groupToCreate,
         active,
-        styleNameEn,
-        styleNameDe,
-        styleNameRu,
-        styleNameFr,
-        styleNameFrCa,
-        styleNameEs,
+        decNameEn,
+        decNameDe,
+        decNameRu,
+        decNameFr,
+        decNameFrCa,
+        decNameEs,
         wordStyleName,
         softReturn,
         indentationalLevel,
@@ -150,12 +140,12 @@ const NewDecDialog = props => {
     const changeGroup = setStateProperty("group");
     const changeGroupToCreate = setStateProperty("groupToCreate");
     const changeActive = toggleStateProperty("active");
-    const changeStyleNameEn = setStateProperty("styleNameEn");
-    const changeStyleNameDe = setStateProperty("styleNameDe");
-    const changeStyleNameRu = setStateProperty("styleNameRu");
-    const changeStyleNameFr = setStateProperty("styleNameFr");
-    const changeStyleNameFrCa = setStateProperty("styleNameFrCa");
-    const changeStyleNameEs = setStateProperty("styleNameEs");
+    const changeDecNameEn = setStateProperty("decNameEn");
+    const changeDecNameDe = setStateProperty("decNameDe");
+    const changeDecNameRu = setStateProperty("decNameRu");
+    const changeDecNameFr = setStateProperty("decNameFr");
+    const changeDecNameFrCa = setStateProperty("decNameFrCa");
+    const changeDecNameEs = setStateProperty("decNameEs");
     const changeWordStyleName = setStateProperty("wordStyleName");
     const changeSoftReturn = toggleStateProperty("softReturn");
     const changeIndentationalLevel = setStateProperty("indentationalLevel")
@@ -230,6 +220,9 @@ const NewDecDialog = props => {
 
     const changeIsList = e => {
         if (e.target.checked) {
+            if (validationError && requiredFields.every(field => formState[field])) {
+                updateForm({ validationError: false });
+            }
             if (listName === HOLDER) {
                 changeListName(null, "");
             }
@@ -343,17 +336,19 @@ const NewDecDialog = props => {
         group, changeGroup,
         newGroup: groupToCreate, changeGroupToCreate,
         active, changeActive,
-        styleNameEn, changeStyleNameEn,
-        styleNameDe, changeStyleNameDe,
-        styleNameRu, changeStyleNameRu,
-        styleNameFr, changeStyleNameFr,
-        styleNameFrCa, changeStyleNameFrCa,
-        styleNameEs, changeStyleNameEs,
+        decNameEn, changeDecNameEn,
+        decNameDe, changeDecNameDe,
+        decNameRu, changeDecNameRu,
+        decNameFr, changeDecNameFr,
+        decNameFrCa, changeDecNameFrCa,
+        decNameEs, changeDecNameEs,
+        validationError,
     }; 
 
-    const wordExportProps = {
+    const wordExportSectionProps = {
         wordStyleName, changeWordStyleName,
         softReturn, changeSoftReturn,
+        validationError,
     };
 
     const positioningSectionProps = {
@@ -393,6 +388,7 @@ const NewDecDialog = props => {
         sideNumberFillingColor, changeSideNumberFillingColor,
         sideNumberWidth, changeSideNumberWidth,
         sideNumberRadius, changeSideNumberRadius,
+        validationError,
     };
 
     const referencingSectionProps = {
@@ -452,7 +448,14 @@ const NewDecDialog = props => {
         shortCutWinView, changeShortCutWin, 
         shortCutMacView, changeShortCutMac,
     };
-    
+
+    const [
+       isErrorInNames,
+       isErrorInWordExport,
+       isErrorInList,
+    ] = validationError ? getErrorSections(requiredFields, namesSectionProps, wordExportSectionProps, listSectionProps) 
+        : [false, false, false];
+        
     return (
         <ThemeProvider theme={theme}>
             <CustomDialog
@@ -499,10 +502,17 @@ const NewDecDialog = props => {
                             color="primary"
                             indicatorColor="primary"
                         >
-                            <CustomTab className="dialogTab" label="Names" />
-                            <CustomTab className="dialogTab" label="WORD export" />
+                            { isErrorInNames ? ( <CustomErrorTab className="dialogTab" label="Names" /> )
+                                :  ( <CustomTab className="dialogTab" label="Names" /> ) }
+
+                            { isErrorInWordExport ? ( <CustomErrorTab className="dialogTab" label="WORD export" /> ) 
+                                : ( <CustomTab className="dialogTab" label="WORD export" /> ) }
+
                             <CustomTab className="dialogTab" label="Positioning" />
-                            <CustomTab className="dialogTab" label="List" />
+
+                            { isErrorInList ? ( <CustomErrorTab className="dialogTab" label="List" /> ) 
+                                :( <CustomTab className="dialogTab" label="List" /> ) }
+
                             <CustomTab className="dialogTab" label="Referencing" />
                             <CustomTab className="dialogTab" label="Typography" />
                             <CustomTab className="dialogTab" label="Distances" />
@@ -515,7 +525,7 @@ const NewDecDialog = props => {
                     </div>
                     <div className="content-rightSide">
                         { openedTab === 0 && <NamesSection {...namesSectionProps} /> }
-                        { openedTab === 1 && <WordExportSection {...wordExportProps} /> }
+                        { openedTab === 1 && <WordExportSection {...wordExportSectionProps} /> }
                         { openedTab === 2 && <PositioningSection {...positioningSectionProps} /> }
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
                         { openedTab === 4 && <ReferencingSection {...referencingSectionProps} /> }
@@ -533,8 +543,8 @@ const NewDecDialog = props => {
     );
 };
 
-const mapStateToProps = state => {
-    return { formState: state };
+const mapStateToProps = ({ form }) => {
+    return { formState: form };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -544,4 +554,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
   
-export default connect(mapStateToProps, mapDispatchToProps)(NewDecDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(withDialogControl(NewDecDialog));

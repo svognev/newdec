@@ -6,7 +6,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 import CustomInputShort from "../common/CustomInputShort";
 import Preview from "../common/Preview";
-import { selectAllOnClick } from "../utils";
+import { selectAllOnClick } from "../helpers";
 
 const DistancesSection = (props) => {
     const {

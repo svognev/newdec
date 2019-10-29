@@ -68,16 +68,6 @@ export const bulletNamesMap = {
 
 export const sampleText = `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`;
 
-export const namesSectionRequiredFields = [ "decKey", "styleNameEn", ];
-
-export const WordExportSectionRequiredFields = [ "wordStyleName", ];
-
-export const ListSectionRequiredFields = [ "listName", ];
-
-export const requiredFields = [ 
-  ...namesSectionRequiredFields, 
-  ...WordExportSectionRequiredFields,
-  ...ListSectionRequiredFields,
-];
+export const requiredFields = [ "decKey", "decNameEn", "wordStyleName", "listName", ];
 
 export const HOLDER = "HOLDER-POLDER";

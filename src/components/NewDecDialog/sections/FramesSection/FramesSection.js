@@ -8,7 +8,7 @@ import Select from "@material-ui/core/Select";
 
 import FrameTypeInput from "../../sections/FramesSection/FrameTypeInput";
 import ColorField from "../../common/ColorField";
-import { getCorrectColor, selectAllOnClick } from "../../utils";
+import { getCorrectColor, selectAllOnClick } from "../../helpers";
 
 import "./style.css";
 

@@ -73,6 +73,10 @@
     font-size: 14px !important;
 }
 
+.paragraphDecorators-dialog .dialogTab_error {
+    text-decoration: red underline;
+}
+
 .paragraphDecorators-dialog .dialogGrid {
     width: 100%;
     display: grid;

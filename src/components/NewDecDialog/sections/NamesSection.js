@@ -19,13 +19,14 @@ const NamesSection = (props) => {
         decKey, changeDecKey,
         group, changeGroup,
         active, changeActive,
-        styleNameEn, changeStyleNameEn,
-        styleNameDe, changeStyleNameDe,
-        styleNameRu, changeStyleNameRu,
-        styleNameFr, changeStyleNameFr,
-        styleNameFrCa, changeStyleNameFrCa,
-        styleNameEs, changeStyleNameEs,
+        decNameEn, changeDecNameEn,
+        decNameDe, changeDecNameDe,
+        decNameRu, changeDecNameRu,
+        decNameFr, changeDecNameFr,
+        decNameFrCa, changeDecNameFrCa,
+        decNameEs, changeDecNameEs,
         changeGroupToCreate,
+        validationError,
     } = props;
     
     const newGroupName = newGroup.nameEn;
@@ -47,6 +48,7 @@ const NamesSection = (props) => {
             <TextField 
                 value={decKey}
                 onChange={changeDecKey}
+                error={validationError && !decKey}
                 variant="outlined" 
                 margin="dense" 
             />
@@ -82,48 +84,49 @@ const NamesSection = (props) => {
 
             <span>Name EN</span>
             <TextField 
-                value={styleNameEn}
-                onChange={changeStyleNameEn}
+                value={decNameEn}
+                onChange={changeDecNameEn}
+                error={validationError && !decNameEn}
                 variant="outlined" 
                 margin="dense" 
             />
 
             <span>Name DE</span>
             <TextField 
-                value={styleNameDe}
-                onChange={changeStyleNameDe}
+                value={decNameDe}
+                onChange={changeDecNameDe}
                 variant="outlined" 
                 margin="dense" 
             />
 
             <span>Name RU</span>
             <TextField 
-                value={styleNameRu}
-                onChange={changeStyleNameRu}
+                value={decNameRu}
+                onChange={changeDecNameRu}
                 variant="outlined" 
                 margin="dense" 
             />
 
             <span>Name FR<br/><span className="span_smallText">France</span></span>
             <TextField 
-                value={styleNameFr}
-                onChange={changeStyleNameFr}
+                value={decNameFr}
+                onChange={changeDecNameFr}
                 variant="outlined" 
                 margin="dense" 
             />
 
             <span>Name FR<br/><span className="span_smallText">Canada</span></span>
             <TextField 
-                value={styleNameFrCa}
-                onChange={changeStyleNameFrCa}
+                value={decNameFrCa}
+                onChange={changeDecNameFrCa}
                 variant="outlined" 
                 margin="dense" 
             />
 
             <span>Name ES</span>
             <TextField 
-                value={styleNameEs}
-                onChange={changeStyleNameEs}
+                value={decNameEs}
+                onChange={changeDecNameEs}
                 variant="outlined" 
                 margin="dense" 
             />

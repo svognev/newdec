@@ -9,7 +9,8 @@ import {
     selectAllEditableContent,
     getListChars,
     detectOS,
-} from "./utils.js";
+    getErrorSections,
+} from "./helpers.js";
 
 export {
     getCorrectColor,
@@ -22,4 +23,5 @@ export {
     selectAllEditableContent,
     getListChars,
     detectOS,
+    getErrorSections,
 };

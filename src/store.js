@@ -1,7 +1,7 @@
 import { createStore } from "redux";
-import decoratorFormReducer from "./reducers/decoratorFormReducer";
+import decoratorDialogReducer from "./reducers/decoratorDialogReducer";
 
 export default createStore(
-    decoratorFormReducer,
+    decoratorDialogReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

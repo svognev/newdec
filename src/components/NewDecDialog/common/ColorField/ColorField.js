@@ -4,7 +4,7 @@ import { ChromePicker } from "react-color";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-import { getCorrectColor, selectAllOnClick } from "../../utils";
+import { getCorrectColor, selectAllOnClick } from "../../helpers";
 
 import "./style.css";
 

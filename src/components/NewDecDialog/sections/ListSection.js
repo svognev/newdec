@@ -10,7 +10,7 @@ import CustomInput from "../common/CustomInput";
 import CustomInputShort from "../common/CustomInputShort";
 import ColorField from "../common/ColorField";
 import { listStyleType, bulletNamesMap } from "../constants"
-import { selectAllOnClick, scrollToBottom } from "../utils";
+import { selectAllOnClick, scrollToBottom } from "../helpers";
 
 const ListSection = (props) => {
     const {
@@ -38,6 +38,7 @@ const ListSection = (props) => {
         sideNumberFillingColor, changeSideNumberFillingColor,
         sideNumberWidth, changeSideNumberWidth,
         sideNumberRadius, changeSideNumberRadius,
+        validationError,
     } = props;
 
     const onListTypeChange = (...args) => {
@@ -71,6 +72,7 @@ const ListSection = (props) => {
                             <TextField
                                 value={listName}
                                 onChange={changeListName} 
+                                error={validationError && !listName}
                                 variant="outlined" 
                                 margin="dense" 
                             />

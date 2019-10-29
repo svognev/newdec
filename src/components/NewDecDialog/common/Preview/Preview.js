@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 import ContentEditable from "../ContentEditable";
-import { getOffset, selectAllEditableContent } from "../../utils"
+import { getOffset, selectAllEditableContent } from "../../helpers"
 
 const Preview = ({previewText, changePreviewText, previewStyle}) => {
     const { verticalAlign, fontSize } = previewStyle;

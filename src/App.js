@@ -1,36 +1,37 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import NewDecDialog from "./components/NewDecDialog";
+import { openDialog, closeDialog } from "./components/NewDecDialog/actions";
+import DecDataParser from "./components/NewDecDialog/helpers/DecDataParser";
 
 import "./App.css";
 
-class App extends React.Component {
-    state = {
-        isOpen: true,
+const App = props => {
+    const { isOpen, openDialog, closeDialog } = props;
+
+    const openEditDialog = () => {
+        openDialog(DecDataParser.parseToEdit({ decKey: "hello", active: true}));
     };
 
-    handleClick = () => {
-        this.setState(({ isOpen }) => {
-            return {
-                isOpen: !isOpen
-            };
-        });
+    return (
+        <div className="App">
+            <button onClick={() => openDialog()}>Create new</button>
+            <button onClick={() => openEditDialog()}>Edit saved</button>
+            <NewDecDialog { ...{isOpen, closeDialog}} />
+        </div>
+    );
+};
+
+const mapStateToProps = ({ isOpen }) => {
+    return { isOpen };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        openDialog: openDialog(dispatch),
+        closeDialog: closeDialog(dispatch),
     };
-
-    closeDialog = () => {
-      this.setState({ isOpen: false });
-    }
-
-    render() {
-        return (
-            <div className="App">
-                <button onClick={this.handleClick}>Open</button>
-                <NewDecDialog 
-                    isOpen={this.state.isOpen}
-                    closeDialog={this.closeDialog}
-                />
-            </div>
-        );
-    }
-}
-
-export default App;
+};
+  
+export default connect(mapStateToProps, mapDispatchToProps)(App);

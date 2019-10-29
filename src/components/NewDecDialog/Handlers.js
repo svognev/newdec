@@ -1,4 +1,4 @@
-import getShortCutUtils from "./utils/getShortCutUtils";
+import getShortCutUtils from "./helpers/getShortCutUtils";
 
 const Handlers = (update, formState) => class {    
     static toggleStateProperty = propName => e => {

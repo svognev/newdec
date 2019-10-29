@@ -62,3 +62,11 @@ export const detectOS = () => {
         }
     }
 };
+
+export const getErrorSections = (requiredFields = [], ...sectionPropsSets) => {
+    return sectionPropsSets.map(sectionProps => {
+        return requiredFields.some(fieldName => {
+            return sectionProps.hasOwnProperty(fieldName) && !sectionProps[fieldName]
+        });
+    });
+};
