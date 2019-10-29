@@ -1,8 +1,6 @@
-import { sampleText } from "./constants";
+import { sampleText, requiredFields, HOLDER } from "./constants";
 
-const initialState = { 
-    openedTab: 2,
-    previewText: sampleText,
+const emptyDecProps = {
     decKey: "",
     group: "",
     groupToCreate: "",
@@ -25,7 +23,7 @@ const initialState = {
     tabAction: "",
     shiftTabAction: "",
     isList: false,
-    listName: "",
+    listName: HOLDER,
     orderLevel: "",
     prefix: "",
     suffix: "",
@@ -85,4 +83,15 @@ const initialState = {
     shortCutMacView: "",
 };
 
-export default initialState;
+const getInitialState = (decProps = {}) => {
+    return { 
+        openedTab: 0,
+        previewText: sampleText,
+        validationError: false,
+        requiredFields,
+        ...emptyDecProps,
+        ...decProps,
+    };
+};
+
+export default getInitialState;

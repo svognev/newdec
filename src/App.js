@@ -1,8 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-
 import NewDecDialog from "./components/NewDecDialog";
-import { clearDecoratorForm } from "./components/NewDecDialog/actions";
 
 import "./App.css";
 
@@ -19,9 +16,8 @@ class App extends React.Component {
         });
     };
 
-    onClose = () => {
+    closeDialog = () => {
       this.setState({ isOpen: false });
-      this.props.clearForm();
     }
 
     render() {
@@ -30,17 +26,11 @@ class App extends React.Component {
                 <button onClick={this.handleClick}>Open</button>
                 <NewDecDialog 
                     isOpen={this.state.isOpen}
-                    onClose={this.onClose}
+                    closeDialog={this.closeDialog}
                 />
             </div>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        clearForm: () => dispatch(clearDecoratorForm()),
-    };
-};
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

@@ -72,41 +72,16 @@ const PositioningSection = (props) => {
                 ) }
             </div>
 
-            <span id="r4c1">At the beginning of a section WITHOUT content</span>
-            <div id="r4c2" className="dialogGrid dialogGrid_2cols">
-                <div>
-                    <NativeSelect
-                        value={backspaceActionWithoutContent}
-                        onChange={changeBackspaceActionWithoutContent}
-                        input={ <BackSpaceActionInput /> }
-                    >
-                        {returnOnEmptySectionActions.map(action => (
-                            <option value={action.key} key={`backSpace ${action.key}`}>{action.value}</option>
-                        ))}
-                    </NativeSelect>
-                </div>
-                {   backspaceActionWithoutContent === "apply_other_pd" && (
-                    <NativeSelect
-                        value={backspaceActionWithoutContentStyle}
-                        onChange={changeBackspaceActionWithoutContentStyle}
-                        input={ <CustomInput /> }
-                    >
-                        <option value="default">Global Fallback Style</option>
-                        { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
-                    </NativeSelect>
-                ) }
-            </div>
-
-            <div id="r5" className="sectionTitle">
+            <div id="r4" className="sectionTitle">
                 <span>RETURN</span>
             </div>
 
-            <span id="r6c1">Style of next section</span>
+            <span id="r5c1">Style of next section</span>
             <div className="positioning-styleInputBox">
                 <NativeSelect
                     value={returnActionNextSection}
                     onChange={changeReturnActionNextSection}
-                    id="r6c2" 
+                    id="r5c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="default">Global Fallback Style</option>
@@ -115,12 +90,12 @@ const PositioningSection = (props) => {
             </div>
             
 
-            <span id="r7c1">In empty section change current style to</span>
+            <span id="r6c1">In empty section change current style to</span>
             <div className="positioning-styleInputBox">
                 <NativeSelect 
                     value={returnActionEmptySection}
                     onChange={changeReturnActionEmptySection}
-                    id="r7c2" 
+                    id="r6c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="default">Global Fallback Style</option>
@@ -128,28 +103,28 @@ const PositioningSection = (props) => {
                 </NativeSelect>
             </div>
 
-            <div id="r8" className="sectionTitle">
+            <div id="r7" className="sectionTitle">
                 <span>TAB / SHIFT+TAB</span>
             </div>
 
-            <span id="r9c1">TAB – change current style to</span>
+            <span id="r8c1">TAB – change current style to</span>
             <div className="positioning-styleInputBox">
                 <NativeSelect
                     value={tabAction}
                     onChange={changeTabAction}
-                    id="r9c2" 
+                    id="r8c2" 
                     input={ <CustomInput /> }
                 >
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
             </div>
 
-            <span id="r10c1">SHIFT+TAB – change current style to</span>
+            <span id="r9c1">SHIFT+TAB – change current style to</span>
             <div className="positioning-styleInputBox">
                 <NativeSelect
                     value={shiftTabAction}
                     onChange={changeShiftTabAction} 
-                    id="r10c2" 
+                    id="r9c2" 
                     input={ <CustomInput /> }
                 >
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }

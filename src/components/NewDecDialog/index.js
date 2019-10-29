@@ -19,13 +19,14 @@ import TocSection from "./sections/TocSection";
 import ShortCutsSection from "./sections/ShortCutsSection";
 import TestSection from "./sections/TestSection";
 
-import { changeDecoratorForm } from "./actions";
+import { changeDecoratorForm, clearDecoratorForm } from "./actions";
 import Handlers from "./Handlers";
 import theme from "./theme";
 import CustomTab from "./common/CustomTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { alignmentsMap } from "./constants";
+import { alignmentsMap, HOLDER } from "./constants";
+import isFormValid from "./utils/isFormValid";
 import { 
     getCorrectColor, 
     getUnstyledText, 
@@ -34,11 +35,10 @@ import {
     getListChars, 
 } from "./utils";
 
-
 import "./style.css";
 
-const NewDecDialog = (props) => {
-    const { isOpen, onClose, updateForm, formState } = props;
+const NewDecDialog = props => {
+    const { isOpen, closeDialog, updateForm, clearForm, formState } = props;
 
     const { 
         setStateProperty, 
@@ -48,6 +48,19 @@ const NewDecDialog = (props) => {
         setBullet, 
         setShortCut 
     } = Handlers(updateForm, formState);
+
+    const onClose = () => {
+        closeDialog();
+        clearForm();
+    };
+
+    const onSaveButtonClick = () => {
+        if (!isFormValid(formState)) {
+            console.log(0);  //updateForm({ validationError: true });
+        } else {
+            console.log(1);  //saveForm(formState);
+        }
+    }
 
     const { 
         openedTab,
@@ -154,7 +167,6 @@ const NewDecDialog = (props) => {
     const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
     const changeTabAction = setStateProperty("tabAction");
     const changeShiftTabAction = setStateProperty("shiftTabAction");
-    const changeIsList = toggleStateProperty("isList");
     const changeListName = setStateProperty("listName");
     const changeOrderLevel = setStateProperty("orderLevel");
     const changePrefix = setStateProperty("prefix");
@@ -216,6 +228,17 @@ const NewDecDialog = (props) => {
         }
     };
 
+    const changeIsList = e => {
+        if (e.target.checked) {
+            if (listName === HOLDER) {
+                changeListName(null, "");
+            }
+        } else if (listName === ""){
+            changeListName(null, HOLDER);
+        }
+        toggleStateProperty("isList")(e);
+    };
+
     const changeListType = e => {
         const { value } = e.target;
         setStateProperty("listType")(null, value);
@@ -255,7 +278,7 @@ const NewDecDialog = (props) => {
         if (e.target.value !== "double" && borderThickness === "3") {
             setStateProperty("borderThickness")(null, "2");
         }
-        };
+    };
 
     const previewFontColor = getCorrectColor(fontColor, "f5f5f5");
     const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
@@ -458,7 +481,7 @@ const NewDecDialog = (props) => {
                         <Button 
                             variant="contained"
                             color="primary"
-                            onClick={() => {}}
+                            onClick={onSaveButtonClick}
                             className="topNavButton"
                         >
                             Create
@@ -517,6 +540,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateForm: payload => dispatch(changeDecoratorForm(payload)),
+        clearForm: () => dispatch(clearDecoratorForm()),
     };
 };
   
