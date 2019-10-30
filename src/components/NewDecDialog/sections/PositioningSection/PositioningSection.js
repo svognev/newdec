@@ -4,7 +4,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
-import { backSpaceActions, returnOnEmptySectionActions, decoratorsList } from "../../constants";
+import { backSpaceActions, decoratorsList } from "../../constants";
 import BackSpaceActionInput from "./BackSpaceActionInput";
 
 import "./style.css";
@@ -14,8 +14,6 @@ const PositioningSection = (props) => {
         indentationalLevel, changeIndentationalLevel,
         backspaceActionWithContent, changeBackspaceActionWithContent,
         backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
-        backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
-        backspaceActionWithoutContentStyle, changeBackspaceActionWithoutContentStyle,
         returnActionNextSection, changeReturnActionNextSection,
         returnActionEmptySection, changeReturnActionEmptySection,
         tabAction, changeTabAction,

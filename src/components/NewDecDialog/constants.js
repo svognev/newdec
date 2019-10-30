@@ -28,13 +28,6 @@ export const backSpaceActions = [
   { key: 'nothing', value: 'Nothing' }
 ];
 
-export const returnOnEmptySectionActions = [
-  { key: 'apply_other_pd', value: 'Apply other PD' },
-  { key: 'create_new_section', value: 'Create new section' },
-  { key: 'apply_default_pd', value: 'Apply default PD' },
-  { key: 'nothing', value: 'Nothing' }
-];
-
 export const decoratorsList = [
     { name: "...", value: "" },
     { name: "Text 0", value: "quick_text_0" },

@@ -21,7 +21,7 @@ const CustomErrorTab = withStyles(theme => ({
         backgroundColor: "#2196f3",
         color: "white",
         opacity: 1,
-        textDecoration: "Firebrick underline",
+        textDecoration: "indianred underline",
       },
       "&:hover:active": {
         backgroundColor: "white",

@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
+import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
 
 const NamesSection = (props) => {
@@ -44,7 +45,7 @@ const NamesSection = (props) => {
 
     return (
         <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
-            <span>Key</span>
+            <LabelWithAsterisk>Key</LabelWithAsterisk>
             <TextField 
                 value={decKey}
                 onChange={changeDecKey}
@@ -82,7 +83,7 @@ const NamesSection = (props) => {
                 />
             </div>
 
-            <span>Name EN</span>
+            <LabelWithAsterisk>Name EN</LabelWithAsterisk>
             <TextField 
                 value={decNameEn}
                 onChange={changeDecNameEn}

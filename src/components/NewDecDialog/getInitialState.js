@@ -1,4 +1,4 @@
-import { sampleText, requiredFields, HOLDER } from "./constants";
+import { sampleText, HOLDER } from "./constants";
 
 const emptyDecProps = {
     decKey: "",
@@ -85,10 +85,7 @@ const emptyDecProps = {
 
 const getInitialState = (decProps = {}) => {
     return { 
-        openedTab: 0,
         previewText: sampleText,
-        validationError: false,
-        requiredFields,
         ...emptyDecProps,
         ...decProps,
     };

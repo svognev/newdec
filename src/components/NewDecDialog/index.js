@@ -21,7 +21,6 @@ import TestSection from "./sections/TestSection";
 
 import withDialogControl from "./hoc/withDialogControl";
 import theme from "./theme";
-import { changeDecoratorForm, clearDecoratorForm } from "./actions";
 import Handlers from "./Handlers";
 import CustomTab from "./common/CustomTab";
 import CustomErrorTab from "./common/CustomErrorTab";
@@ -36,11 +35,30 @@ import {
     getListChars, 
     getErrorSections,
 } from "./helpers";
+import {
+    changeDecoratorForm, 
+    clearDecoratorForm, 
+    switchDecDialogTab, 
+    switchOnDecDialogValidationErrorMode, 
+    switchOffDecDialogValidationErrorMode,
+} from "./actions";
+
 
 import "./style.css";
 
 const NewDecDialog = props => {
-    const { isOpen, onClose, onSaveButtonClick, updateForm, formState } = props;
+    const { 
+        isOpen, 
+        onClose, 
+        onSaveButtonClick, 
+        updateForm, 
+        formState, 
+        openedTab,
+        validationError, 
+        isEditMode,
+        switchTab,
+        switchOffErrorMode,
+    } = props;
 
     const { 
         setStateProperty, 
@@ -52,8 +70,6 @@ const NewDecDialog = props => {
     } = Handlers(updateForm, formState);
 
     const { 
-        openedTab,
-        validationError,
         previewText,
         decKey,
         group,
@@ -134,8 +150,7 @@ const NewDecDialog = props => {
         shortCutWinView,
         shortCutMacView,
     } = formState;
-
-    const changeOpenedTab = setStateProperty("openedTab");
+    
     const changeDecKey = setStateProperty("decKey");
     const changeGroup = setStateProperty("group");
     const changeGroupToCreate = setStateProperty("groupToCreate");
@@ -221,7 +236,7 @@ const NewDecDialog = props => {
     const changeIsList = e => {
         if (e.target.checked) {
             if (validationError && requiredFields.every(field => formState[field])) {
-                updateForm({ validationError: false });
+                switchOffErrorMode();
             }
             if (listName === HOLDER) {
                 changeListName(null, "");
@@ -487,7 +502,7 @@ const NewDecDialog = props => {
                             onClick={onSaveButtonClick}
                             className="topNavButton"
                         >
-                            Create
+                            {isEditMode ? "Save" : "Create"}
                         </Button>
                     </div>
                 </div>
@@ -497,7 +512,7 @@ const NewDecDialog = props => {
                         <CustomTabs 
                             className="dialogTabs"
                             value={openedTab} 
-                            onChange={changeOpenedTab} 
+                            onChange={(e, tabNumber) => { switchTab(tabNumber) }} 
                             orientation="vertical"
                             color="primary"
                             indicatorColor="primary"
@@ -543,14 +558,22 @@ const NewDecDialog = props => {
     );
 };
 
-const mapStateToProps = ({ form }) => {
-    return { formState: form };
+const mapStateToProps = ({ form, openedTab, validationError, isEditMode }) => {
+    return { 
+        formState: form,
+        openedTab,
+        validationError, 
+        isEditMode,
+    };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         updateForm: payload => dispatch(changeDecoratorForm(payload)),
         clearForm: () => dispatch(clearDecoratorForm()),
+        switchTab: payload => dispatch(switchDecDialogTab(payload)),
+        switchOnErrorMode: () => dispatch(switchOnDecDialogValidationErrorMode()),
+        switchOffErrorMode: () => dispatch(switchOffDecDialogValidationErrorMode()),
     };
 };
   

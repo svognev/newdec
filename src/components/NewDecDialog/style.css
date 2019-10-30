@@ -141,6 +141,37 @@
     font-weight: bold;
 }
 
+.paragraphDecorators-dialog .labelWithAsterisk {
+    display: flex;
+    width: 100%;
+}
+
+.paragraphDecorators-dialog .labelWithAsterisk-asteriskBox {
+    position: relative;
+    width: 0px;
+}
+
+.paragraphDecorators-dialog .labelWithAsterisk-asteriskBox {
+    position: relative;
+    width: 0px;
+}
+
+.paragraphDecorators-dialog .dialogGrid_rightAlignedLabels .labelWithAsterisk-labelBox {
+    text-align: right;
+}
+
+.paragraphDecorators-dialog .dialogGrid_rightAlignedLabels .labelWithAsterisk-labelBox {
+    width: 100%;
+}
+
+.paragraphDecorators-dialog .labelWithAsterisk-asteriskMark {
+    color: tomato;
+    font-weight: bold;
+    margin-top: -5px;
+    margin-left: 5px;
+    position: absolute;
+}
+
 .paragraphDecorators-dialog .inputWithAdornment {
     display: flex;
     align-items: center;

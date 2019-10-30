@@ -9,6 +9,7 @@ import ListPreview from "../common/Preview/ListPreview";
 import CustomInput from "../common/CustomInput";
 import CustomInputShort from "../common/CustomInputShort";
 import ColorField from "../common/ColorField";
+import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import { listStyleType, bulletNamesMap } from "../constants"
 import { selectAllOnClick, scrollToBottom } from "../helpers";
 
@@ -68,7 +69,7 @@ const ListSection = (props) => {
                     </div>
                     { isList && (
                         <>
-                            <span>List name</span>
+                            <LabelWithAsterisk>List name</LabelWithAsterisk>
                             <TextField
                                 value={listName}
                                 onChange={changeListName} 

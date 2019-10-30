@@ -6,7 +6,14 @@ const withDialogControl = Wrapped => {
     return class extends React.Component {
 
         render() {
-            const { closeDialog, clearForm, formState, updateForm, ...otherProps } = this.props;
+            const { 
+                closeDialog, 
+                clearForm, 
+                formState, 
+                updateForm, 
+                switchOnErrorMode, 
+                ...otherProps 
+            } = this.props;
 
             const onClose = () => {
                 closeDialog();
@@ -16,15 +23,25 @@ const withDialogControl = Wrapped => {
             const onSaveButtonClick = () => {
                 if (!isFormValid(formState)) {
                     console.log(0);
-                    updateForm({ validationError: true });
+                    switchOnErrorMode();
                 } else {
                     console.log(1);  //saveForm(formState);
                     onClose();
                 }
-            }
+            };
             
             return (
-                <Wrapped { ...{ onClose, onSaveButtonClick, clearForm, updateForm, formState, ...otherProps } } />
+                <Wrapped 
+                    { ...{ 
+                    onClose, 
+                    onSaveButtonClick, 
+                    clearForm, 
+                    updateForm, 
+                    formState, 
+                    switchOnErrorMode, 
+                    ...otherProps 
+                    } } 
+                />
             );
         }
     }
