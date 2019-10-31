@@ -10,6 +10,7 @@ import {
     getListChars,
     detectOS,
     getErrorSections,
+    fillMissedFields,
 } from "./helpers.js";
 
 export {
@@ -24,4 +25,5 @@ export {
     getListChars,
     detectOS,
     getErrorSections,
+    fillMissedFields,
 };

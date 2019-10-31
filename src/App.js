@@ -1,36 +1,60 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import Button from "@material-ui/core/Button";
+import { ThemeProvider } from "@material-ui/styles";
+
 import NewDecDialog from "./components/NewDecDialog";
 import { openDialog, closeDialog } from "./components/NewDecDialog/actions";
+import { clearSavedDecoratorForm } from "./actions";
 import DecDataParser from "./components/NewDecDialog/helpers/DecDataParser";
+import theme from "./components/NewDecDialog/theme";
 
 import "./App.css";
 
 const App = props => {
-    const { isOpen, openDialog, closeDialog } = props;
+    const { isOpen, openDialog, closeDialog, savedForm, clearSavedForm } = props;
 
     const openEditDialog = () => {
-        openDialog(DecDataParser.parseToEdit({ decKey: "hello", active: true}));
+        openDialog(DecDataParser.parseToEdit(savedForm || {}));
     };
 
     return (
-        <div className="App">
-            <button onClick={() => openDialog()}>Create new</button>
-            <button onClick={() => openEditDialog()}>Edit saved</button>
-            <NewDecDialog { ...{isOpen, closeDialog}} />
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className="App">
+                <div className="startButtons">
+                    { !savedForm ? (
+                        <Button 
+                            onClick={() => openDialog()}
+                            color="primary"
+                        >Create new</Button>
+                    ) : (
+                        <>
+                            <Button 
+                                onClick={() => openEditDialog()}
+                            >Edit saved</Button>
+                            <Button 
+                                onClick={clearSavedForm}
+                                color="secondary"
+                            >Delete saved</Button>
+                        </>
+                    )}
+                </div>
+                <NewDecDialog { ...{isOpen, closeDialog}} />
+            </div>
+        </ThemeProvider>
     );
 };
 
-const mapStateToProps = ({ isOpen }) => {
-    return { isOpen };
+const mapStateToProps = ({ savedForm, decoratorDialog: { isOpen }}) => {
+    return { isOpen, savedForm };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         openDialog: openDialog(dispatch),
         closeDialog: closeDialog(dispatch),
+        clearSavedForm: () => dispatch(clearSavedDecoratorForm()),
     };
 };
   

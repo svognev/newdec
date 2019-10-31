@@ -1,6 +1,8 @@
 import React from "react";
 
 import isFormValid from "../helpers/isFormValid";
+import DecDataParser from "../helpers/DecDataParser";
+import { fillMissedFields } from "../helpers";
 
 const withDialogControl = Wrapped => {
     return class extends React.Component {
@@ -12,6 +14,7 @@ const withDialogControl = Wrapped => {
                 formState, 
                 updateForm, 
                 switchOnErrorMode, 
+                saveForm,
                 ...otherProps 
             } = this.props;
 
@@ -25,7 +28,9 @@ const withDialogControl = Wrapped => {
                     console.log(0);
                     switchOnErrorMode();
                 } else {
-                    console.log(1);  //saveForm(formState);
+                    console.log(1);
+                    const formToSave = DecDataParser.parseToSend(fillMissedFields(formState));
+                    saveForm(formToSave);
                     onClose();
                 }
             };

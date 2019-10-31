@@ -1,4 +1,4 @@
-import { numberingSets, bulletNamesMap } from "../constants";
+import { numberingSets, bulletNamesMap, autoFillingRequiredFields } from "../constants";
 
 export const getCorrectColor = (hex, backgroundColor = "FFF") => {
     const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : backgroundColor;
@@ -69,4 +69,14 @@ export const getErrorSections = (requiredFields = [], ...sectionPropsSets) => {
             return sectionProps.hasOwnProperty(fieldName) && !sectionProps[fieldName]
         });
     });
+};
+
+export const fillMissedFields = currentFormState => {
+    const formStateWithoutMissedFields = { ...currentFormState }; // eslint-disable-next-line
+    for (let fieldName in autoFillingRequiredFields) {
+        if (!currentFormState[fieldName] && autoFillingRequiredFields[fieldName]) {
+            formStateWithoutMissedFields[fieldName] = autoFillingRequiredFields[fieldName];
+        }
+    }
+    return formStateWithoutMissedFields;
 };

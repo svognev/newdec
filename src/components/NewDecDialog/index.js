@@ -43,6 +43,7 @@ import {
     switchOffDecDialogValidationErrorMode,
 } from "./actions";
 
+import { saveDecoratorForm } from "../../actions"
 
 import "./style.css";
 
@@ -558,7 +559,7 @@ const NewDecDialog = props => {
     );
 };
 
-const mapStateToProps = ({ form, openedTab, validationError, isEditMode }) => {
+const mapStateToProps = ({ decoratorDialog: { form, openedTab, validationError, isEditMode }}) => {
     return { 
         formState: form,
         openedTab,
@@ -574,6 +575,7 @@ const mapDispatchToProps = dispatch => {
         switchTab: payload => dispatch(switchDecDialogTab(payload)),
         switchOnErrorMode: () => dispatch(switchOnDecDialogValidationErrorMode()),
         switchOffErrorMode: () => dispatch(switchOffDecDialogValidationErrorMode()),
+        saveForm: payload => dispatch(saveDecoratorForm(payload)),
     };
 };
   

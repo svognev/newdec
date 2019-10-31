@@ -1,3 +1,10 @@
 .App {
   display: flex;
+  justify-content: center;
+}
+
+.startButtons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
 }

@@ -10,7 +10,7 @@ import CustomInput from "../common/CustomInput";
 import CustomInputShort from "../common/CustomInputShort";
 import ColorField from "../common/ColorField";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
-import { listStyleType, bulletNamesMap } from "../constants"
+import { listStyleTypes, bulletNamesMap } from "../constants"
 import { selectAllOnClick, scrollToBottom } from "../helpers";
 
 const ListSection = (props) => {
@@ -164,7 +164,7 @@ const ListSection = (props) => {
                                         onChange={changeNumberingStyle}
                                         input={ <CustomInputShort /> }
                                     >
-                                        {listStyleType.map(style => (
+                                        {listStyleTypes.map(style => (
                                           <option value={style.value} key={style.value}>{style.name}</option>
                                         ))}                                    
                                     </NativeSelect>
