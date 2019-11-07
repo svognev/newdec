@@ -34,6 +34,7 @@ import {
     unicodeCharToNumber, 
     getListChars, 
     getErrorSections,
+    getPreviewFont,
 } from "./helpers";
 import {
     changeDecoratorForm, 
@@ -110,6 +111,7 @@ const NewDecDialog = props => {
         includePreviousFrom,
         sideNumber,
         sideNumberFont,
+        customSideNumberFont,
         sideNumberAlignment,
         sideNumberFontSize,
         sideNumberFontColor,
@@ -119,6 +121,7 @@ const NewDecDialog = props => {
         referenceGroup,
         referenceGroupToCreate,
         font,
+        customFont,
         alignment,
         fontSize,
         fontColorName,
@@ -185,6 +188,7 @@ const NewDecDialog = props => {
     const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
     const changeIncludePreviousFrom = setStateProperty("includePreviousFrom");
     const changeSideNumberFont = setStateProperty("sideNumberFont");
+    const changeCustomSideNumberFont = setStateProperty("customSideNumberFont");
     const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
     const changeSideNumberFontSize = setNumber("sideNumberFontSize");
     const changeSideNumberFontColor = setColor("sideNumberFontColor");
@@ -194,6 +198,7 @@ const NewDecDialog = props => {
     const changeReferenceGroup = setStateProperty("referenceGroup");
     const changeReferenceGroupToCreate = setStateProperty("referenceGroupToCreate");
     const changeFont = setStateProperty("font");
+    const changeCustomFont = setStateProperty("customFont");
     const changeAlignment = setStateProperty("alignment");
     const changeFontSize = setNumber("fontSize");
     const changeFontColorName = setStateProperty("fontColorName");
@@ -299,7 +304,7 @@ const NewDecDialog = props => {
     const previewStyle = {
         fontSize: !fontSize ? "0" : `${fontSize <= 120 ? fontSize : 120}pt`,
         color: `#${previewFontColor}`,
-        fontFamily: font,
+        fontFamily: getPreviewFont(font, customFont),
         alignItems: alignmentsMap[alignment],
         textAlign: alignment,
         fontWeight: bold ? "bold" : "normal",
@@ -324,7 +329,7 @@ const NewDecDialog = props => {
     const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
 
     const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
-        fontFamily: sideNumberFont,
+        fontFamily: getPreviewFont(sideNumberFont, customSideNumberFont),
         textAlign: sideNumberAlignment,
         fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
         color: `#${previewSideNumberFontColor}`,
@@ -398,6 +403,7 @@ const NewDecDialog = props => {
         includePreviousFrom, changeIncludePreviousFrom,
         sideNumber, changeSideNumber,
         sideNumberFont, changeSideNumberFont,
+        customSideNumberFont, changeCustomSideNumberFont,
         sideNumberAlignment, changeSideNumberAlignment,
         sideNumberFontSize, changeSideNumberFontSize,
         sideNumberFontColor, changeSideNumberFontColor,
@@ -415,6 +421,7 @@ const NewDecDialog = props => {
     const typographySectionProps = { 
         previewProps,
         font, changeFont,
+        customFont, changeCustomFont,
         alignment, changeAlignment,
         fontSize, changeFontSize,
         fontColorName, changeFontColorName,

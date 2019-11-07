@@ -10,6 +10,7 @@ import CustomInput from "../common/CustomInput";
 import CustomInputShort from "../common/CustomInputShort";
 import ColorField from "../common/ColorField";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
+import FontSelect from "../common/FontSelect";
 import { listStyleTypes, bulletNamesMap } from "../constants"
 import { selectAllOnClick, scrollToBottom } from "../helpers";
 
@@ -33,6 +34,7 @@ const ListSection = (props) => {
         includePreviousFrom, changeIncludePreviousFrom,
         sideNumber, changeSideNumber,
         sideNumberFont, changeSideNumberFont,
+        customSideNumberFont, changeCustomSideNumberFont,
         sideNumberAlignment, changeSideNumberAlignment,
         sideNumberFontSize, changeSideNumberFontSize,
         sideNumberFontColor, changeSideNumberFontColor,
@@ -217,15 +219,12 @@ const ListSection = (props) => {
 
                             { sideNumber && (
                                 <div className="dialogGrid dialogGrid_2minCols listSection-typeSettings">
-                                    <span>Font</span>
-                                    <NativeSelect 
-                                        value={sideNumberFont}
-                                        onChange={changeSideNumberFont}
-                                        input={ <CustomInput /> }
-                                    >
-                                        <option value={"Roboto, slab-serif"}>Roboto</option>
-                                        <option value={"'Source Serif Pro', serif"}>Source Serif</option>
-                                    </NativeSelect>
+                                    <FontSelect 
+                                        font={sideNumberFont}
+                                        changeFont={changeSideNumberFont}
+                                        customFont={customSideNumberFont}
+                                        changeCustomFont={changeCustomSideNumberFont}
+                                    />
                             
                                     <span>Alignment</span>
                                     <NativeSelect 
@@ -315,11 +314,11 @@ const ListSection = (props) => {
                                             return (<option key={key} value={key}>{value}</option>) 
                                         })
                                     }
-                                    <option value={"individual"}>Custom</option>
+                                    <option value={"custom"} className="highlightedOption">Custom</option>
                                 </NativeSelect>
                             </div>
                         </div>
-                        {   listItem === "individual" && (
+                        {   listItem === "custom" && (
                             <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                     <span>Unicode number</span>

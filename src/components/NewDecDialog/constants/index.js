@@ -1,5 +1,6 @@
-import { emptyDecFormState, autoFillingRequiredFields, HOLDER } from "./emptyDecFormState";
+import { emptyDecFormState, autoFillingRequiredFields, HOLDER, DEFAULT_FONT } from "./emptyDecFormState";
 import decoratorsList from "./decoratorsList";
+import fontSet from "./fontsSet";
 import {
     alignmentsMap,
     backSpaceActions,
@@ -14,6 +15,7 @@ export {
     emptyDecFormState, 
     autoFillingRequiredFields, 
     HOLDER,
+    DEFAULT_FONT,
     decoratorsList,
     alignmentsMap,
     backSpaceActions,
@@ -22,4 +24,5 @@ export {
     numberingSets,
     requiredFields,
     sampleText,
+    fontSet,
 };

@@ -1,4 +1,5 @@
-import { numberingSets, bulletNamesMap, autoFillingRequiredFields } from "../constants";
+import { numberingSets, bulletNamesMap, autoFillingRequiredFields, DEFAULT_FONT } from "../constants";
+import isFontAvailable from "./isFontAvailable";
 
 export const getCorrectColor = (hex, backgroundColor = "FFF") => {
     const correctColor = typeof hex === "string" && (hex.length === 6 || hex.length === 3) ? hex : backgroundColor;
@@ -71,8 +72,27 @@ export const getErrorSections = (requiredFields = [], ...sectionPropsSets) => {
     });
 };
 
+export const getPreviewFont = (font, customFont) => {
+    if (font !== "custom" && isFontAvailable(font)) {
+        return font;
+    } else if (font === "custom" && customFont && isFontAvailable(customFont)) {
+        return customFont;
+    }
+    return `'${DEFAULT_FONT}', 'Roboto', sans-serif`;
+}
+
 export const fillMissedFields = currentFormState => {
-    const formStateWithoutMissedFields = { ...currentFormState }; // eslint-disable-next-line
+    const formStateWithoutMissedFields = { ...currentFormState }; 
+    
+    if (currentFormState.font === "custom" && !currentFormState.customFont) {
+        formStateWithoutMissedFields.font = DEFAULT_FONT;
+    };
+    
+    if (currentFormState.sideNumberFont === "custom" && !currentFormState.customSideNumberFont) {
+        formStateWithoutMissedFields.sideNumberFont = DEFAULT_FONT;
+    };
+
+    // eslint-disable-next-line
     for (let fieldName in autoFillingRequiredFields) {
         if (!currentFormState[fieldName] && autoFillingRequiredFields[fieldName]) {
             formStateWithoutMissedFields[fieldName] = autoFillingRequiredFields[fieldName];

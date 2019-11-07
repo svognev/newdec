@@ -11,6 +11,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Preview from "../../common/Preview";
 import CustomInput from "../../common/CustomInput";
 import ColorField from "../../common/ColorField";
+import FontSelect from "../../common/FontSelect";
 import { selectAllOnClick } from "../../helpers";
 
 import "./style.css";
@@ -19,6 +20,7 @@ const TypographySection = (props) => {
     const { 
         previewProps,
         font, changeFont,
+        customFont, changeCustomFont,
         alignment, changeAlignment,
         fontSize, changeFontSize,
         fontColorName, changeFontColorName,
@@ -35,16 +37,7 @@ const TypographySection = (props) => {
         <>
         <div className="dialogGrid dialogGrid_2cols">
             <div className="dialogGrid dialogGrid_2minCols">
-                <span>Font</span>
-                <NativeSelect 
-                    input={ <CustomInput /> }
-                    value={font}
-                    onChange={changeFont}
-                >
-                    <option value={"Roboto, slab-serif"}>Roboto</option>
-                    <option value={"'Source Serif Pro', serif"}>Source Serif</option>
-                </NativeSelect>
-
+                <FontSelect { ...{ font, changeFont, customFont, changeCustomFont }} />
                 <span>Alignment</span>
                 <NativeSelect 
                     input={ <CustomInput /> }
@@ -174,9 +167,9 @@ const TypographySection = (props) => {
             <span>Sub/Superscript</span>
             <div>
                 <NativeSelect 
+                value={verticalAlign} 
+                onChange={changeVerticalAlign}
                     input={ <CustomInput /> } 
-                    value={verticalAlign} 
-                    onChange={changeVerticalAlign} 
                 >
                     <option value="baseline">None</option>
                     <option value="sub">Subscript</option>

@@ -1,4 +1,5 @@
 export const HOLDER = "HOLDER-POLDER";
+export const DEFAULT_FONT = "Helvetica";
 
 export const autoFillingRequiredFields = {
   sideNumberFontSize: "12",
@@ -53,11 +54,13 @@ export const emptyDecFormState = {
   allowRestartNumbering: false,
   includePreviousFrom: "",
   sideNumber: false,
-  sideNumberFont: "Roboto",
+  sideNumberFont: DEFAULT_FONT,
+  customSideNumberFont: "",
   sideNumberAlignment: "center",
   referenceGroup: "",
   referenceGroupToCreate: "",
-  font: "Roboto",
+  font: DEFAULT_FONT,
+  customFont: "",
   alignment: "left",
   fontColorName: "Black",
   bold: false,

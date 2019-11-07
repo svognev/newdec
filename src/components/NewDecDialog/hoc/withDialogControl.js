@@ -1,8 +1,6 @@
 import React from "react";
 
-import isFormValid from "../helpers/isFormValid";
-import DecDataParser from "../helpers/DecDataParser";
-import { fillMissedFields } from "../helpers";
+import { fillMissedFields, DecDataParser, isFormValid } from "../helpers";
 
 const withDialogControl = Wrapped => {
     return class extends React.Component {

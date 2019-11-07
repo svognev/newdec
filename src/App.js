@@ -7,7 +7,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import NewDecDialog from "./components/NewDecDialog";
 import { openDialog, closeDialog } from "./components/NewDecDialog/actions";
 import { clearSavedDecoratorForm } from "./actions";
-import DecDataParser from "./components/NewDecDialog/helpers/DecDataParser";
+import { DecDataParser } from "./components/NewDecDialog/helpers";
 import theme from "./components/NewDecDialog/theme";
 
 import "./App.css";

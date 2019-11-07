@@ -218,6 +218,7 @@
 .paragraphDecorators-dialog .previewSide {
     align-self: flex-start;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start; 
     padding-left: 35px;
     padding-right: 10px;
