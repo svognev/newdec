@@ -1,0 +1,24 @@
+.paragraphDecorators-dialog .listSection-firstSpan {
+    min-width: 105px;
+}
+
+.paragraphDecorators-dialog .optionalSettings {
+    transition: all 0.4s ease-out;
+}
+
+.paragraphDecorators-dialog .optionalSettings_hidden {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.paragraphDecorators-dialog .optionalSettings_shown {
+    max-height: none;
+    opacity: 1;
+}
+
+.paragraphDecorators-dialog .listTypeSettings {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid lightgrey;
+}

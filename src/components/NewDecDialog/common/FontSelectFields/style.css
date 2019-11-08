@@ -1,0 +1,17 @@
+.paragraphDecorators-dialog .customFontField {
+    display: inline-flex;
+    width: 100%;
+    transition: all 0.4s ease-out;
+    align-items: center;
+}
+
+.paragraphDecorators-dialog .customFontField_hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.paragraphDecorators-dialog .customFontField_shown {
+    opacity: 1;
+    height: 3.5rem;
+}

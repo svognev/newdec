@@ -4,161 +4,179 @@ import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import Fade from '@material-ui/core/Fade';
 
-import ListPreview from "../common/Preview/ListPreview";
-import CustomInput from "../common/CustomInput";
-import CustomInputShort from "../common/CustomInputShort";
-import ColorField from "../common/ColorField";
-import LabelWithAsterisk from "../common/LabelWithAsterisk";
-import FontSelect from "../common/FontSelect";
-import { listStyleTypes, bulletNamesMap } from "../constants"
-import { selectAllOnClick, scrollToBottom } from "../helpers";
+import ListPreview from "../../common/Preview/ListPreview";
+import CustomInput from "../../common/CustomInput";
+import CustomInputShort from "../../common/CustomInputShort";
+import ColorField from "../../common/ColorField";
+import LabelWithAsterisk from "../../common/LabelWithAsterisk";
+import FontSelectFields from "../../common/FontSelectFields";
+import { listStyleTypes, bulletNamesMap } from "../../constants"
+import { selectAllOnClick, scrollToBottom } from "../../helpers";
 
-const ListSection = (props) => {
-    const {
-        listPreviewProps,
-        isList, changeIsList, 
-        listName, changeListName,
-        orderLevel, changeOrderLevel,
-        prefix, changePrefix,
-        suffix, changeSuffix,
-        suffixDistance, changeSuffixDistance,
-        magicTabs, changeMagicTabs,
-        listType, changeListType, 
-        listItem, changeListItem,
-        unicodeNumber, changeUnicodeNumber,
-        unicodeChar, changeUnicodeChar,
-        numberingStyle, changeNumberingStyle,
-        continueNumbering, changeContinueNumbering,
-        allowRestartNumbering, changeAllowRestartNumbering,
-        includePreviousFrom, changeIncludePreviousFrom,
-        sideNumber, changeSideNumber,
-        sideNumberFont, changeSideNumberFont,
-        customSideNumberFont, changeCustomSideNumberFont,
-        sideNumberAlignment, changeSideNumberAlignment,
-        sideNumberFontSize, changeSideNumberFontSize,
-        sideNumberFontColor, changeSideNumberFontColor,
-        sideNumberFillingColor, changeSideNumberFillingColor,
-        sideNumberWidth, changeSideNumberWidth,
-        sideNumberRadius, changeSideNumberRadius,
-        validationError,
-    } = props;
+import "./style.css";
 
-    const onListTypeChange = (...args) => {
-        changeListType(...args);
+class ListSection extends React.Component {
+    listNameInputRef = React.createRef();
+    unicodeCharInputRef = React.createRef();
+
+    focusInput = inputRef => {
+        inputRef.current.focus();
+    };
+
+    changeAndScroll = changeFunction => e => {
+        changeFunction(e);
         scrollToBottom("content-rightSide");
     };
 
-    const onSideNumberChange = (...args) => {
-        changeSideNumber(...args);
-        scrollToBottom("content-rightSide");
-    };
+    render() {
+        const {
+            listPreviewProps,
+            isList, changeIsList, 
+            listName, changeListName,
+            orderLevel, changeOrderLevel,
+            prefix, changePrefix,
+            suffix, changeSuffix,
+            suffixDistance, changeSuffixDistance,
+            magicTabs, changeMagicTabs,
+            listType, changeListType, 
+            listItem, changeListItem,
+            unicodeNumber, changeUnicodeNumber,
+            unicodeChar, changeUnicodeChar,
+            numberingStyle, changeNumberingStyle,
+            continueNumbering, changeContinueNumbering,
+            allowRestartNumbering, changeAllowRestartNumbering,
+            includePreviousFrom, changeIncludePreviousFrom,
+            sideNumber, changeSideNumber,
+            sideNumberFont, changeSideNumberFont,
+            customSideNumberFont, changeCustomSideNumberFont,
+            sideNumberAlignment, changeSideNumberAlignment,
+            sideNumberFontSize, changeSideNumberFontSize,
+            sideNumberFontColor, changeSideNumberFontColor,
+            sideNumberFillingColor, changeSideNumberFillingColor,
+            sideNumberWidth, changeSideNumberWidth,
+            sideNumberRadius, changeSideNumberRadius,
+            validationError,
+        } = this.props;
+
+        const { changeAndScroll, focusInput } = this;
+        
+        const mainListSettingsState = isList ? "shown" : "hidden";
+        const unorderedListSettingsState = (isList && listType === "unordered") ? "shown" : "hidden";
+        const orderedListSettingsState = (isList && listType === "ordered") ? "shown" : "hidden";
+        const sideNumberSettingsState = (isList && listType === "ordered" && sideNumber) ? "shown" : "hidden";
     
-    return (
-        <>
-            <div className="dialogGrid dialogGrid_2cols">
-                <div>
-                    <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth">
-                    <div className="listSection-firstSpan">
-                        <span>Is it a list?</span>
-                    </div>
+        return (
+            <>
+                <div className="dialogGrid dialogGrid_2cols">
                     <div>
-                        <Checkbox 
-                            color="primary" 
-                            checked={isList} 
-                            onChange={changeIsList} 
-                        />
-                    </div>
-                    { isList && (
-                        <>
-                            <LabelWithAsterisk>List name</LabelWithAsterisk>
-                            <TextField
-                                value={listName}
-                                onChange={changeListName} 
-                                error={validationError && !listName}
-                                variant="outlined" 
-                                margin="dense" 
-                            />
-
-                            <span>Order level</span>
-                            <div>
-                                <NativeSelect
-                                    value={orderLevel}
-                                    onChange={changeOrderLevel}
-                                    input={ <CustomInputShort /> }
-                                >
-                                    <option value="">...</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </NativeSelect>
+                        <div>
+                            <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth">
+                                <div className="listSection-firstSpan">
+                                    <span>Is it a list?</span>
+                                </div>
+                                <div>
+                                    <Checkbox 
+                                        color="primary" 
+                                        checked={isList} 
+                                        onChange={e => {
+                                            changeAndScroll(changeIsList(e));
+                                            focusInput(this.listNameInputRef);
+                                        }} 
+                                    />
+                                </div>
                             </div>
-
-                            <span>Prefix</span>
-                            <TextField
-                                value={prefix}
-                                onChange={changePrefix} 
-                                variant="outlined" 
-                                margin="dense" 
-                            />
-
-                            <span>Suffix</span>
-                            <TextField
-                                value={suffix}
-                                onChange={changeSuffix} 
-                                variant="outlined" 
-                                margin="dense" 
-                                onClick={selectAllOnClick(".")}
-                            />
-
-                            <span>Suffix distance</span>
-                            <div className="inputWithAdornment">
-                                <NativeSelect
-                                    value={suffixDistance}
-                                    onChange={changeSuffixDistance} 
-                                    input={ <CustomInputShort /> }
-                                >
-                                    <option value="0.25">0.25</option>
-                                    <option value="0.5">0.5</option>
-                                    <option value="0.75">0.75</option>
-                                    <option value="1">1</option>
-                                    <option value="1.25">1.25</option>
-                                    <option value="1.5">1.5</option>
-                                    <option value="1.75">1.75</option>
-                                    <option value="2">2</option>
-                                </NativeSelect>
-                                <InputAdornment variant="filled" position="end">cm</InputAdornment>
+                            <div className={`optionalSettings optionalSettings_${mainListSettingsState}`}>
+                                <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth optionalSettings">
+                                    <LabelWithAsterisk>List name</LabelWithAsterisk>
+                                    <TextField
+                                        value={listName}
+                                        onChange={changeListName} 
+                                        error={validationError && !listName}
+                                        inputRef={this.listNameInputRef}
+                                        variant="outlined" 
+                                        margin="dense" 
+                                    />
+    
+                                    <span>Order level</span>
+                                    <div>
+                                        <NativeSelect
+                                            value={orderLevel}
+                                            onChange={changeOrderLevel}
+                                            input={ <CustomInputShort /> }
+                                        >
+                                            <option value="">...</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </NativeSelect>
+                                    </div>
+    
+                                    <span>Prefix</span>
+                                    <TextField
+                                        value={prefix}
+                                        onChange={changePrefix} 
+                                        variant="outlined" 
+                                        margin="dense" 
+                                    />
+    
+                                    <span>Suffix</span>
+                                    <TextField
+                                        value={suffix}
+                                        onChange={changeSuffix} 
+                                        variant="outlined" 
+                                        margin="dense" 
+                                        onClick={selectAllOnClick(".")}
+                                    />
+    
+                                    <span>Suffix distance</span>
+                                    <div className="inputWithAdornment">
+                                        <NativeSelect
+                                            value={suffixDistance}
+                                            onChange={changeSuffixDistance} 
+                                            input={ <CustomInputShort /> }
+                                        >
+                                            <option value="0.25">0.25</option>
+                                            <option value="0.5">0.5</option>
+                                            <option value="0.75">0.75</option>
+                                            <option value="1">1</option>
+                                            <option value="1.25">1.25</option>
+                                            <option value="1.5">1.5</option>
+                                            <option value="1.75">1.75</option>
+                                            <option value="2">2</option>
+                                        </NativeSelect>
+                                        <InputAdornment variant="filled" position="end">cm</InputAdornment>
+                                    </div>
+    
+                                    <span>Magic Tabs</span>
+                                    <div>
+                                        <Checkbox 
+                                            color="primary" 
+                                            checked={magicTabs} 
+                                            onChange={changeMagicTabs} 
+                                        />
+                                    </div>
+    
+                                    <span>Type of list</span>
+                                    <div>
+                                        <NativeSelect 
+                                            value={listType} 
+                                            onChange={changeAndScroll(changeListType)} 
+                                            input={ <CustomInput /> }
+                                        >
+                                            <option value={"unordered"}>Unordered</option>
+                                            <option value={"ordered"}>Ordered</option>
+                                        </NativeSelect>
+                                    </div>
+                                </div>
                             </div>
-
-                            <span>Magic Tabs</span>
-                            <div>
-                                <Checkbox 
-                                    color="primary" 
-                                    checked={magicTabs} 
-                                    onChange={changeMagicTabs} 
-                                />
-                            </div>
-
-                            <span>Type of list</span>
-                            <div>
-                                <NativeSelect 
-                                    value={listType} 
-                                    onChange={onListTypeChange} 
-                                    input={ <CustomInput /> }
-                                >
-                                    <option value={"unordered"}>Unordered</option>
-                                    <option value={"ordered"}>Ordered</option>
-                                </NativeSelect>
-                            </div>
-                        </>
-                    ) }
-                </div>
-                    { isList && listType === "ordered" && (
-                        <div className="listSection-typeSettings">
-                            <div className="dialogGrid dialogGrid_2cols">
+                        </div>
+                        <div className={`optionalSettings optionalSettings_${orderedListSettingsState}`}>
+                            <div className="dialogGrid dialogGrid_2cols listTypeSettings">
                                 <span>Numbering style</span>
                                 <div>
                                     <NativeSelect
@@ -167,7 +185,7 @@ const ListSection = (props) => {
                                         input={ <CustomInputShort /> }
                                     >
                                         {listStyleTypes.map(style => (
-                                          <option value={style.value} key={style.value}>{style.name}</option>
+                                            <option value={style.value} key={style.value}>{style.name}</option>
                                         ))}                                    
                                     </NativeSelect>
                                 </div>
@@ -211,15 +229,15 @@ const ListSection = (props) => {
                                 <div>
                                     <Checkbox
                                         checked={sideNumber}
-                                        onChange={onSideNumberChange}
+                                        onChange={changeAndScroll(changeSideNumber)}
                                         color="primary" 
                                     />
                                 </div>
                             </div> 
-
-                            { sideNumber && (
-                                <div className="fontSettingsGrid listSection-typeSettings">
-                                    <FontSelect 
+    
+                            <div className={`optionalSettings optionalSettings_${sideNumberSettingsState}`}>
+                                <div className="fontSettingsGrid listTypeSettings">
+                                    <FontSelectFields 
                                         font={sideNumberFont}
                                         changeFont={changeSideNumberFont}
                                         customFont={customSideNumberFont}
@@ -266,7 +284,7 @@ const ListSection = (props) => {
                                         defaultColorCode={"1E88E5"}
                                         bottomAligned
                                     />
-
+    
                                     <span>Width</span>
                                     <div className="inputWithAdornment">
                                         <TextField 
@@ -293,21 +311,27 @@ const ListSection = (props) => {
                                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
                                     </div>    
                                 </div> 
-                            ) }
+                            </div>
                         </div>
-                    ) }
+                    </div>
+    
+                    <div className={`listPreviewBox optionalSettings optionalSettings_${mainListSettingsState}`}>
+                        <ListPreview {...listPreviewProps} />
+                    </div>
                 </div>
-                { isList && <div className="listPreviewBox"><ListPreview {...listPreviewProps} /></div> }
-            </div>
-            { isList && listType === "unordered" && (
-                <div className="listSection-typeSettings">
-                    <div className="dialogGrid dialogGrid_2cols">
+                <div className={`optionalSettings optionalSettings_${unorderedListSettingsState}`}>
+                    <div className="dialogGrid dialogGrid_2cols listTypeSettings">
                         <div className="dialogGrid dialogGrid_2cols">
                             <span className="listSection-firstSpan">List item</span>
                             <div className="listItemSelect">
                                 <NativeSelect 
                                     value={listItem} 
-                                    onChange={changeListItem} 
+                                    onChange={e => {
+                                        changeListItem(e);
+                                        if (e.target.value === "custom") {
+                                            focusInput(this.unicodeCharInputRef);
+                                        }
+                                    }} 
                                     input={ <CustomInputShort /> }
                                 >
                                     { 
@@ -319,12 +343,12 @@ const ListSection = (props) => {
                                 </NativeSelect>
                             </div>
                         </div>
-                        {   listItem === "custom" && (
+                        <Fade in={listItem === "custom"}>
                             <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                     <span>Unicode number</span>
                                     <div>
-                                        <TextField 
+                                        <TextField  
                                             value={unicodeNumber}
                                             onChange={changeUnicodeNumber}
                                             variant="outlined" 
@@ -343,6 +367,7 @@ const ListSection = (props) => {
                                             value={unicodeChar}
                                             onChange={changeUnicodeChar}
                                             onClick={selectAllOnClick()}
+                                            inputRef={this.unicodeCharInputRef}
                                             variant="outlined" 
                                             margin="dense" 
                                             className="bulletInput" 
@@ -350,12 +375,12 @@ const ListSection = (props) => {
                                     </div>
                                 </div>
                             </div> 
-                        ) }
+                        </Fade>
                     </div> 
-                </div> 
-            ) }
-        </>
-    );
-};
+                </div>
+            </>
+        );
+    }
+}
 
 export default ListSection;

@@ -11,7 +11,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Preview from "../../common/Preview";
 import CustomInput from "../../common/CustomInput";
 import ColorField from "../../common/ColorField";
-import FontSelect from "../../common/FontSelect";
+import FontSelectFields from "../../common/FontSelectFields";
 import { selectAllOnClick } from "../../helpers";
 
 import "./style.css";
@@ -37,7 +37,7 @@ const TypographySection = (props) => {
         <>
         <div className="dialogGrid dialogGrid_2cols">
             <div className="fontSettingsGrid">
-                <FontSelect { ...{ font, changeFont, customFont, changeCustomFont }} />
+                <FontSelectFields { ...{ font, changeFont, customFont, changeCustomFont }} />
                 
                 <span>Alignment</span>
                 <NativeSelect 

@@ -97,14 +97,14 @@ class NewGroupDialog extends React.Component {
                             onChange={onInputChange("nameRu")} 
                             value={this.state.nameRu}
                         />                        
-                        <span>Name FR<br/><span className="span_smallText">France</span></span>
+                        <span>Name FR<br/><span className="smallText">France</span></span>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
                             onChange={onInputChange("nameFr")} 
                             value={this.state.nameFr}
                         />
-                        <span>Name FR<br/><span className="span_smallText">Canada</span></span>
+                        <span>Name FR<br/><span className="smallText">Canada</span></span>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 

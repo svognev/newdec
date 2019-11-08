@@ -108,7 +108,7 @@ const NamesSection = (props) => {
                 margin="dense" 
             />
 
-            <span>Name FR<br/><span className="span_smallText">France</span></span>
+            <span>Name FR<br/><span className="smallText">France</span></span>
             <TextField 
                 value={decNameFr}
                 onChange={changeDecNameFr}
@@ -116,7 +116,7 @@ const NamesSection = (props) => {
                 margin="dense" 
             />
 
-            <span>Name FR<br/><span className="span_smallText">Canada</span></span>
+            <span>Name FR<br/><span className="smallText">Canada</span></span>
             <TextField 
                 value={decNameFrCa}
                 onChange={changeDecNameFrCa}

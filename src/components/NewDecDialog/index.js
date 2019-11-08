@@ -248,7 +248,7 @@ const NewDecDialog = props => {
                 changeListName(null, "");
             }
         } else if (listName === ""){
-            changeListName(null, HOLDER);
+            setTimeout(() => changeListName(null, HOLDER), 200);
         }
         toggleStateProperty("isList")(e);
     };

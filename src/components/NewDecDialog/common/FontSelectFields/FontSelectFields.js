@@ -2,11 +2,14 @@ import React from "react";
 
 import NativeSelect from "@material-ui/core/NativeSelect";
 import TextField from "@material-ui/core/TextField";
-import CustomInput from "./CustomInput";
-import { fontSet, DEFAULT_FONT } from "../constants";
-import { isFontAvailable } from "../helpers";
 
-class FontSelect extends React.Component {
+import CustomInput from "../CustomInput";
+import { fontSet, DEFAULT_FONT } from "../../constants";
+import { isFontAvailable } from "../../helpers";
+
+import "./style.css";
+
+class FontSelectFields extends React.Component {
     textInput = React.createRef();
 
     focusTextInput = () => {
@@ -59,4 +62,4 @@ class FontSelect extends React.Component {
     }
 }
 
-export default FontSelect;
+export default FontSelectFields;
