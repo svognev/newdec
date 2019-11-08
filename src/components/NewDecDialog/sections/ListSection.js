@@ -224,6 +224,7 @@ const ListSection = (props) => {
                                         changeFont={changeSideNumberFont}
                                         customFont={customSideNumberFont}
                                         changeCustomFont={changeCustomSideNumberFont}
+                                        extraFunction={() => { scrollToBottom("content-rightSide"); }}
                                     />
                             
                                     <span>Alignment</span>

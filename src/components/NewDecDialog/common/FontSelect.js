@@ -17,6 +17,9 @@ class FontSelect extends React.Component {
         this.props.changeFont(e);
         if (e.target.value === "custom") {
             this.focusTextInput();
+            if (typeof this.props.extraFunction === "function") {
+                setTimeout(this.props.extraFunction, 500);
+            }
         }
     };
 
