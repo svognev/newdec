@@ -36,8 +36,9 @@ const TypographySection = (props) => {
     return (
         <>
         <div className="dialogGrid dialogGrid_2cols">
-            <div className="dialogGrid dialogGrid_2minCols">
+            <div className="fontSettingsGrid">
                 <FontSelect { ...{ font, changeFont, customFont, changeCustomFont }} />
+                
                 <span>Alignment</span>
                 <NativeSelect 
                     input={ <CustomInput /> }

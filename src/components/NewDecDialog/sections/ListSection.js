@@ -218,7 +218,7 @@ const ListSection = (props) => {
                             </div> 
 
                             { sideNumber && (
-                                <div className="dialogGrid dialogGrid_2minCols listSection-typeSettings">
+                                <div className="fontSettingsGrid listSection-typeSettings">
                                     <FontSelect 
                                         font={sideNumberFont}
                                         changeFont={changeSideNumberFont}
