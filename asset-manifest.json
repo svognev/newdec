@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/newdec/static/css/main.1ad99bcc.chunk.css",
-    "main.js": "/newdec/static/js/main.b8eda646.chunk.js",
-    "main.js.map": "/newdec/static/js/main.b8eda646.chunk.js.map",
+    "main.css": "/newdec/static/css/main.bd6882c8.chunk.css",
+    "main.js": "/newdec/static/js/main.38dd2fb5.chunk.js",
+    "main.js.map": "/newdec/static/js/main.38dd2fb5.chunk.js.map",
     "runtime~main.js": "/newdec/static/js/runtime~main.3c986089.js",
     "runtime~main.js.map": "/newdec/static/js/runtime~main.3c986089.js.map",
-    "static/js/2.1682f474.chunk.js": "/newdec/static/js/2.1682f474.chunk.js",
-    "static/js/2.1682f474.chunk.js.map": "/newdec/static/js/2.1682f474.chunk.js.map",
+    "static/js/2.a4cd059e.chunk.js": "/newdec/static/js/2.a4cd059e.chunk.js",
+    "static/js/2.a4cd059e.chunk.js.map": "/newdec/static/js/2.a4cd059e.chunk.js.map",
     "index.html": "/newdec/index.html",
-    "precache-manifest.b5b2b97756e17941b3bc6a4e8d6cb59a.js": "/newdec/precache-manifest.b5b2b97756e17941b3bc6a4e8d6cb59a.js",
+    "precache-manifest.b2339c45e59653e43a8ae4b9c8286ef5.js": "/newdec/precache-manifest.b2339c45e59653e43a8ae4b9c8286ef5.js",
     "service-worker.js": "/newdec/service-worker.js",
-    "static/css/main.1ad99bcc.chunk.css.map": "/newdec/static/css/main.1ad99bcc.chunk.css.map"
+    "static/css/main.bd6882c8.chunk.css.map": "/newdec/static/css/main.bd6882c8.chunk.css.map"
   }
 }
