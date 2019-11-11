@@ -19,7 +19,6 @@ import TocSection from "./sections/TocSection";
 import ShortCutsSection from "./sections/ShortCutsSection";
 import TestSection from "./sections/TestSection";
 
-import withDialogControl from "./hoc/withDialogControl";
 import theme from "./theme";
 import Handlers from "./Handlers";
 import CustomTab from "./common/CustomTab";
@@ -28,6 +27,9 @@ import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
 import { alignmentsMap, HOLDER, requiredFields } from "./constants";
 import { 
+    fillMissedFields, 
+    DecDataParser, 
+    isFormValid,
     getCorrectColor, 
     getUnstyledText, 
     unicodeNumberToChar, 
@@ -51,16 +53,33 @@ import "./style.css";
 const NewDecDialog = props => {
     const { 
         isOpen, 
-        onClose, 
-        onSaveButtonClick, 
+        closeDialog, 
+        clearForm, 
+        saveForm,
         updateForm, 
         formState, 
         openedTab,
         validationError, 
         isEditMode,
         switchTab,
+        switchOnErrorMode,
         switchOffErrorMode,
     } = props;
+
+    const onClose = () => {
+        closeDialog();
+        clearForm();
+    };
+
+    const onSaveButtonClick = () => {
+        if (!isFormValid(formState)) {
+            switchOnErrorMode();
+        } else {
+            const formToSave = DecDataParser.parseToSend(fillMissedFields(formState));
+            saveForm(formToSave);
+            onClose();
+        }
+    };
 
     const { 
         setStateProperty, 
@@ -586,4 +605,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
   
-export default connect(mapStateToProps, mapDispatchToProps)(withDialogControl(NewDecDialog));
+export default connect(mapStateToProps, mapDispatchToProps)(NewDecDialog);
