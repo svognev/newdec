@@ -100,7 +100,7 @@ class ListSection extends React.Component {
                                     />
                                 </div>
                             </div>
-                            <div className={`optionalSettings optionalSettings_${mainListSettingsState}`}>
+                            <div className={`optionalSettings optionalSettings_main optionalSettings_${mainListSettingsState}`}>
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth optionalSettings">
                                     <LabelWithAsterisk>List name</LabelWithAsterisk>
                                     <TextField
@@ -248,7 +248,7 @@ class ListSection extends React.Component {
                                 </div>
                             </div> 
     
-                            <div className={`optionalSettings optionalSettings_${sideNumberSettingsState}`}>
+                            <div className={`optionalSettings optionalSettings_main optionalSettings_${sideNumberSettingsState}`}>
                                 <div className="fontSettingsGrid listTypeSettings">
                                     <FontSelectFields 
                                         font={sideNumberFont}
