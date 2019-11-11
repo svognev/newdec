@@ -12,7 +12,7 @@ import CustomInputShort from "../../common/CustomInputShort";
 import ColorField from "../../common/ColorField";
 import LabelWithAsterisk from "../../common/LabelWithAsterisk";
 import FontSelectFields from "../../common/FontSelectFields";
-import { listStyleTypes, bulletNamesMap } from "../../constants"
+import { listStyleTypes, bulletNamesMap, HOLDER } from "../../constants"
 import { selectAllOnClick, scrollToBottom } from "../../helpers";
 
 import "./style.css";
@@ -21,8 +21,10 @@ class ListSection extends React.Component {
     listNameInputRef = React.createRef();
     unicodeCharInputRef = React.createRef();
 
-    focusInput = inputRef => {
-        inputRef.current.focus();
+    focusInput = (inputRef, timeout = 300) => {
+        setTimeout(() => {
+            inputRef.current.focus();
+        }, timeout);
     };
 
     changeAndScroll = changeFunction => e => {
@@ -30,10 +32,24 @@ class ListSection extends React.Component {
         scrollToBottom("content-rightSide");
     };
 
+    onIsListChange = e => {
+        this.changeAndScroll(this.props.changeIsList)(e);
+        if (e.target.checked && this.props.listName === HOLDER) {
+            this.focusInput(this.listNameInputRef);
+        }
+    };
+
+    onListItemChange = e => {
+        this.props.changeListItem(e);
+        if (e.target.value === "custom" && !this.props.customItem) {
+            this.focusInput(this.unicodeCharInputRef);
+        }
+    };
+
     render() {
         const {
             listPreviewProps,
-            isList, changeIsList, 
+            isList,
             listName, changeListName,
             orderLevel, changeOrderLevel,
             prefix, changePrefix,
@@ -41,7 +57,7 @@ class ListSection extends React.Component {
             suffixDistance, changeSuffixDistance,
             magicTabs, changeMagicTabs,
             listType, changeListType, 
-            listItem, changeListItem,
+            listItem,
             unicodeNumber, changeUnicodeNumber,
             unicodeChar, changeUnicodeChar,
             numberingStyle, changeNumberingStyle,
@@ -60,7 +76,7 @@ class ListSection extends React.Component {
             validationError,
         } = this.props;
 
-        const { changeAndScroll, focusInput } = this;
+        const { changeAndScroll, onIsListChange, onListItemChange } = this;
         
         const mainListSettingsState = isList ? "shown" : "hidden";
         const unorderedListSettingsState = (isList && listType === "unordered") ? "shown" : "hidden";
@@ -80,10 +96,7 @@ class ListSection extends React.Component {
                                     <Checkbox 
                                         color="primary" 
                                         checked={isList} 
-                                        onChange={e => {
-                                            changeAndScroll(changeIsList(e));
-                                            focusInput(this.listNameInputRef);
-                                        }} 
+                                        onChange={onIsListChange} 
                                     />
                                 </div>
                             </div>
@@ -326,12 +339,7 @@ class ListSection extends React.Component {
                             <div className="listItemSelect">
                                 <NativeSelect 
                                     value={listItem} 
-                                    onChange={e => {
-                                        changeListItem(e);
-                                        if (e.target.value === "custom") {
-                                            focusInput(this.unicodeCharInputRef);
-                                        }
-                                    }} 
+                                    onChange={onListItemChange} 
                                     input={ <CustomInputShort /> }
                                 >
                                     { 
