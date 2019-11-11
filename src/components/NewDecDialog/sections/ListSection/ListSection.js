@@ -41,7 +41,7 @@ class ListSection extends React.Component {
 
     onListItemChange = e => {
         this.props.changeListItem(e);
-        if (e.target.value === "custom" && !this.props.customItem) {
+        if (e.target.value === "custom" && !this.props.unicodeChar) {
             this.focusInput(this.unicodeCharInputRef);
         }
     };
