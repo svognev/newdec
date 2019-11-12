@@ -9,6 +9,7 @@ import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
+import { getNamesSectionErrorState } from "../helpers";
 
 const NamesSection = (props) => {
     const { 
@@ -27,8 +28,14 @@ const NamesSection = (props) => {
         decNameFrCa, changeDecNameFrCa,
         decNameEs, changeDecNameEs,
         changeGroupToCreate,
-        validationError,
+        validationError: { namesSection: validationError },
+        updateValidationError,
+        formState,
     } = props;
+
+    if (validationError && !getNamesSectionErrorState(formState)) {
+        updateValidationError({ namesSection: false });
+    }
     
     const newGroupName = newGroup.nameEn;
     const isEditMode = !!newGroupName;

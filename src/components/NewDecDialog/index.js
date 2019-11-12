@@ -26,10 +26,11 @@ import CustomErrorTab from "./common/CustomErrorTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
 import { alignmentsMap, HOLDER, requiredFields } from "./constants";
+
 import { 
     fillMissedFields, 
     DecDataParser, 
-    isFormValid,
+    getTabsErrorState,
     getCorrectColor, 
     getUnstyledText, 
     unicodeNumberToChar, 
@@ -38,12 +39,12 @@ import {
     getErrorSections,
     getPreviewFont,
 } from "./helpers";
+
 import {
     changeDecoratorForm, 
     clearDecoratorForm, 
     switchDecDialogTab, 
-    switchOnDecDialogValidationErrorMode, 
-    switchOffDecDialogValidationErrorMode,
+    updateValidationError, 
 } from "./actions";
 
 import { saveDecoratorForm } from "../../actions"
@@ -62,8 +63,7 @@ const NewDecDialog = props => {
         validationError, 
         isEditMode,
         switchTab,
-        switchOnErrorMode,
-        switchOffErrorMode,
+        updateValidationError,
     } = props;
 
     const onClose = () => {
@@ -72,8 +72,9 @@ const NewDecDialog = props => {
     };
 
     const onSaveButtonClick = () => {
-        if (!isFormValid(formState)) {
-            switchOnErrorMode();
+        const tabsErrorState = getTabsErrorState(formState)
+        if (tabsErrorState) {
+            updateValidationError(tabsErrorState);
         } else {
             const formToSave = DecDataParser.parseToSend(fillMissedFields(formState));
             saveForm(formToSave);
@@ -260,9 +261,6 @@ const NewDecDialog = props => {
 
     const changeIsList = e => {
         if (e.target.checked) {
-            if (validationError && requiredFields.every(field => formState[field])) {
-                switchOffErrorMode();
-            }
             if (listName === HOLDER) {
                 changeListName(null, "");
             }
@@ -382,7 +380,8 @@ const NewDecDialog = props => {
         decNameFr, changeDecNameFr,
         decNameFrCa, changeDecNameFrCa,
         decNameEs, changeDecNameEs,
-        validationError,
+        validationError, updateValidationError,
+        formState,
     }; 
 
     const wordExportSectionProps = {
@@ -490,13 +489,6 @@ const NewDecDialog = props => {
         shortCutWinView, changeShortCutWin, 
         shortCutMacView, changeShortCutMac,
     };
-
-    const [
-       isErrorInNames,
-       isErrorInWordExport,
-       isErrorInList,
-    ] = validationError ? getErrorSections(requiredFields, namesSectionProps, wordExportSectionProps, listSectionProps) 
-        : [false, false, false];
         
     return (
         <ThemeProvider theme={theme}>
@@ -544,16 +536,19 @@ const NewDecDialog = props => {
                             color="primary"
                             indicatorColor="primary"
                         >
-                            { isErrorInNames ? ( <CustomErrorTab className="dialogTab" label="Names" /> )
+                            { validationError.namesSection 
+                                ? ( <CustomErrorTab className="dialogTab" label="Names" /> )
                                 :  ( <CustomTab className="dialogTab" label="Names" /> ) }
 
-                            { isErrorInWordExport ? ( <CustomErrorTab className="dialogTab" label="WORD export" /> ) 
+                            { validationError.wordExportSection 
+                                ? ( <CustomErrorTab className="dialogTab" label="WORD export" /> ) 
                                 : ( <CustomTab className="dialogTab" label="WORD export" /> ) }
 
                             <CustomTab className="dialogTab" label="Positioning" />
 
-                            { isErrorInList ? ( <CustomErrorTab className="dialogTab" label="List" /> ) 
-                                :( <CustomTab className="dialogTab" label="List" /> ) }
+                            { validationError.listSection 
+                                ? ( <CustomErrorTab className="dialogTab" label="List" /> ) 
+                                : ( <CustomTab className="dialogTab" label="List" /> ) }
 
                             <CustomTab className="dialogTab" label="Referencing" />
                             <CustomTab className="dialogTab" label="Typography" />
@@ -599,8 +594,7 @@ const mapDispatchToProps = dispatch => {
         updateForm: payload => dispatch(changeDecoratorForm(payload)),
         clearForm: () => dispatch(clearDecoratorForm()),
         switchTab: payload => dispatch(switchDecDialogTab(payload)),
-        switchOnErrorMode: () => dispatch(switchOnDecDialogValidationErrorMode()),
-        switchOffErrorMode: () => dispatch(switchOffDecDialogValidationErrorMode()),
+        updateValidationError: payload => dispatch(updateValidationError(payload)),
         saveForm: payload => dispatch(saveDecoratorForm(payload)),
     };
 };

@@ -73,7 +73,7 @@ class ListSection extends React.Component {
             sideNumberFillingColor, changeSideNumberFillingColor,
             sideNumberWidth, changeSideNumberWidth,
             sideNumberRadius, changeSideNumberRadius,
-            validationError,
+            validationError: { listSection: validationError },
         } = this.props;
 
         const { changeAndScroll, onIsListChange, onListItemChange } = this;

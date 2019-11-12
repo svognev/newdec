@@ -1,7 +1,12 @@
 import DecDataParser from "./DecDataParser";
 import getShortCutUtils from "./getShortCutUtils";
 import isFontAvailable from "./isFontAvailable";
-import isFormValid from "./isFormValid";
+import {
+    getTabsErrorState, 
+    getNamesSectionErrorState,
+    getWordExportSectionErrorState,
+    getListSectionErrorState,
+} from "./getTabsErrorState";
 import {
     getCorrectColor,
     selectAllOnClick,
@@ -22,7 +27,10 @@ export {
     DecDataParser,
     getShortCutUtils,
     isFontAvailable,
-    isFormValid,
+    getTabsErrorState,
+    getNamesSectionErrorState,
+    getWordExportSectionErrorState,
+    getListSectionErrorState,
     getCorrectColor,
     getPreviewFont,
     selectAllOnClick,

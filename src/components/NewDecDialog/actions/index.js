@@ -6,8 +6,8 @@ export const SWITCH_DEC_DIALOG_TAB = "SWITCH_DEC_DIALOG_TAB";
 export const RESET_DEC_DIALOG_TAB = "RESET_DEC_DIALOG_TAB";
 export const SWITCH_ON_DEC_DIALOG_EDIT_MODE = "SWITCH_ON_DEC_DIALOG_EDIT_MOD";
 export const SWITCH_OFF_DEC_DIALOG_EDIT_MODE = "SWITCH_OFF_DEC_DIALOG_EDIT_MODE";
-export const SWITCH_ON_DEC_DIALOG_VALIDATION_ERROR_MODE = "SWITCH_ON_DEC_DIALOG_VALIDATION_ERROR_MODE";
-export const SWITCH_OFF_DEC_DIALOG_VALIDATION_ERROR_MODE = "SWITCH_OFF_DEC_DIALOG_VALIDATION_ERROR_MODE";
+export const UPDATE_VALIDATION_ERROR = "UPDATE_VALIDATION_ERROR";
+export const REMOVE_VALIDATION_ERROR = "REMOVE_VALIDATION_ERROR";
 
 export const changeDecoratorForm = payload => {
     return {
@@ -60,15 +60,16 @@ export const switchOffDecDialogEditMode = () => {
     };
 };
 
-export const switchOnDecDialogValidationErrorMode = () => {
+export const updateValidationError = payload => {
     return {
-        type: SWITCH_ON_DEC_DIALOG_VALIDATION_ERROR_MODE,
+        type: UPDATE_VALIDATION_ERROR,
+        payload,
     };
 };
 
-export const switchOffDecDialogValidationErrorMode = () => {
+export const removeValidationError = () => {
     return {
-        type: SWITCH_OFF_DEC_DIALOG_VALIDATION_ERROR_MODE,
+        type: REMOVE_VALIDATION_ERROR,
     };
 };
 
@@ -83,7 +84,7 @@ export const openDialog = dispatch => dec => {
 export const closeDialog = dispatch => () => {
     dispatch(hideDecoratorDialog());
     dispatch(switchOffDecDialogEditMode());
-    dispatch(switchOffDecDialogValidationErrorMode());
+    dispatch(removeValidationError());
     dispatch(resetDecDialogTab());
     dispatch(clearDecoratorForm());
 };

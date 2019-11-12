@@ -2,13 +2,19 @@ import { emptyDecFormState, autoFillingRequiredFields, HOLDER, DEFAULT_FONT } fr
 import decoratorsList from "./decoratorsList";
 import fontSet from "./fontsSet";
 import {
+    requiredFields,
+    namesSectionRequiredFields,
+    wordExportSectionRequiredFields,
+    listSectionRequiredFields,
+    tabsErrorInitialState,
+} from "./requiredFields";
+import {
     alignmentsMap,
     backSpaceActions,
     bulletNamesMap,
     listStyleTypes,
     numberingSets,
-    requiredFields,
-    sampleText 
+    sampleText,
 } from "./constants";
 
 export {
@@ -23,6 +29,10 @@ export {
     listStyleTypes,
     numberingSets,
     requiredFields,
+    namesSectionRequiredFields,
+    wordExportSectionRequiredFields,
+    listSectionRequiredFields,
+    tabsErrorInitialState,
     sampleText,
     fontSet,
 };
