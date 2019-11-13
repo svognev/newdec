@@ -3,7 +3,7 @@ import {
     RESET_DEC_DIALOG_TAB, 
 } from "../../components/NewDecDialog/actions";
 
-const initialState = 3;
+const initialState = 0;
 
 const openedTabReducer = (state = initialState, action) => {
     switch (action.type) {

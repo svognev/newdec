@@ -5,6 +5,7 @@ import {
     wordExportSectionRequiredFields,
     listSectionRequiredFields,
     tabsErrorInitialState,
+    sectionsTabNumbers,
 } from "../constants";
 
 export const getNamesSectionErrorState = form => {
@@ -41,4 +42,12 @@ export const getTabsErrorState = form => {
     }
 
     return false;
+};
+
+export const getTabNumberToSwitch = tabsErrorState => {
+    for (const { tabName, tabNumber } of sectionsTabNumbers) {
+        if (tabsErrorState[tabName]) {
+            return tabNumber;
+        }
+    }
 };

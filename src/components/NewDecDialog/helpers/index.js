@@ -6,7 +6,8 @@ import {
     getNamesSectionErrorState,
     getWordExportSectionErrorState,
     getListSectionErrorState,
-} from "./getTabsErrorState";
+    getTabNumberToSwitch,
+} from "./validationFunctions";
 import {
     getCorrectColor,
     selectAllOnClick,
@@ -21,6 +22,7 @@ import {
     detectOS,
     getErrorSections,
     fillMissedFields,
+    focusInput,
 } from "./helpers.js";
 
 export {
@@ -31,6 +33,7 @@ export {
     getNamesSectionErrorState,
     getWordExportSectionErrorState,
     getListSectionErrorState,
+    getTabNumberToSwitch,
     getCorrectColor,
     getPreviewFont,
     selectAllOnClick,
@@ -44,4 +47,5 @@ export {
     detectOS,
     getErrorSections,
     fillMissedFields,
+    focusInput,
 };

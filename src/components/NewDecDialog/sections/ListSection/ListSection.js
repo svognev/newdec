@@ -13,19 +13,13 @@ import ColorField from "../../common/ColorField";
 import LabelWithAsterisk from "../../common/LabelWithAsterisk";
 import FontSelectFields from "../../common/FontSelectFields";
 import { listStyleTypes, bulletNamesMap, HOLDER } from "../../constants"
-import { selectAllOnClick, scrollToBottom } from "../../helpers";
+import { selectAllOnClick, scrollToBottom, getListSectionErrorState,focusInput } from "../../helpers";
 
 import "./style.css";
 
 class ListSection extends React.Component {
     listNameInputRef = React.createRef();
     unicodeCharInputRef = React.createRef();
-
-    focusInput = (inputRef, timeout = 300) => {
-        setTimeout(() => {
-            inputRef.current.focus();
-        }, timeout);
-    };
 
     changeAndScroll = changeFunction => e => {
         changeFunction(e);
@@ -35,14 +29,14 @@ class ListSection extends React.Component {
     onIsListChange = e => {
         this.changeAndScroll(this.props.changeIsList)(e);
         if (e.target.checked && this.props.listName === HOLDER) {
-            this.focusInput(this.listNameInputRef);
+            focusInput(this.listNameInputRef);
         }
     };
 
     onListItemChange = e => {
         this.props.changeListItem(e);
         if (e.target.value === "custom" && !this.props.unicodeChar) {
-            this.focusInput(this.unicodeCharInputRef);
+            focusInput(this.unicodeCharInputRef);
         }
     };
 
@@ -74,9 +68,15 @@ class ListSection extends React.Component {
             sideNumberWidth, changeSideNumberWidth,
             sideNumberRadius, changeSideNumberRadius,
             validationError: { listSection: validationError },
+            updateValidationError,
+            formState,
         } = this.props;
 
         const { changeAndScroll, onIsListChange, onListItemChange } = this;
+
+        if (validationError && !getListSectionErrorState(formState)) {
+            updateValidationError({ listSection: false });
+        }
         
         const mainListSettingsState = isList ? "shown" : "hidden";
         const unorderedListSettingsState = (isList && listType === "unordered") ? "shown" : "hidden";

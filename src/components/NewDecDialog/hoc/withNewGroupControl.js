@@ -5,7 +5,7 @@ const withNewGroupControl = (ViewComponent) => {
         state = {
             isOpen: false,
             groupSelect: "",
-            newGroup: this.props.newGroup || "",
+            newGroup: this.props.savedNewGroup || "",
         }
         
         handleClick = () => {

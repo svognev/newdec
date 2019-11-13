@@ -7,7 +7,8 @@ import {
     wordExportSectionRequiredFields,
     listSectionRequiredFields,
     tabsErrorInitialState,
-} from "./requiredFields";
+    sectionsTabNumbers,
+} from "./validationData";
 import {
     alignmentsMap,
     backSpaceActions,
@@ -33,6 +34,7 @@ export {
     wordExportSectionRequiredFields,
     listSectionRequiredFields,
     tabsErrorInitialState,
+    sectionsTabNumbers,
     sampleText,
     fontSet,
 };

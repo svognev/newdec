@@ -1,4 +1,10 @@
-import { numberingSets, bulletNamesMap, autoFillingRequiredFields, DEFAULT_FONT } from "../constants";
+import { 
+    numberingSets, 
+    bulletNamesMap, 
+    autoFillingRequiredFields, 
+    DEFAULT_FONT, 
+    sectionsTabNumbers,
+} from "../constants";
 import isFontAvailable from "./isFontAvailable";
 
 export const getCorrectColor = (hex, backgroundColor = "FFF") => {
@@ -62,6 +68,12 @@ export const detectOS = () => {
             return "MacOS";
         }
     }
+};
+
+export const focusInput = (inputRef, timeout = 300) => {
+    setTimeout(() => {
+        inputRef.current.focus();
+    }, timeout);
 };
 
 export const getErrorSections = (requiredFields = [], ...sectionPropsSets) => {

@@ -25,7 +25,7 @@ import CustomTab from "./common/CustomTab";
 import CustomErrorTab from "./common/CustomErrorTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { alignmentsMap, HOLDER, requiredFields } from "./constants";
+import { alignmentsMap, HOLDER } from "./constants";
 
 import { 
     fillMissedFields, 
@@ -36,7 +36,7 @@ import {
     unicodeNumberToChar, 
     unicodeCharToNumber, 
     getListChars, 
-    getErrorSections,
+    getTabNumberToSwitch,
     getPreviewFont,
 } from "./helpers";
 
@@ -75,6 +75,7 @@ const NewDecDialog = props => {
         const tabsErrorState = getTabsErrorState(formState)
         if (tabsErrorState) {
             updateValidationError(tabsErrorState);
+            switchTab(getTabNumberToSwitch(tabsErrorState));
         } else {
             const formToSave = DecDataParser.parseToSend(fillMissedFields(formState));
             saveForm(formToSave);
@@ -93,18 +94,6 @@ const NewDecDialog = props => {
 
     const { 
         previewText,
-        decKey,
-        group,
-        groupToCreate,
-        active,
-        decNameEn,
-        decNameDe,
-        decNameRu,
-        decNameFr,
-        decNameFrCa,
-        decNameEs,
-        wordStyleName,
-        softReturn,
         indentationalLevel,
         backspaceActionWithContent,
         backspaceActionWithContentStyle,
@@ -174,19 +163,8 @@ const NewDecDialog = props => {
         shortCutWinView,
         shortCutMacView,
     } = formState;
-    
-    const changeDecKey = setStateProperty("decKey");
-    const changeGroup = setStateProperty("group");
-    const changeGroupToCreate = setStateProperty("groupToCreate");
-    const changeActive = toggleStateProperty("active");
-    const changeDecNameEn = setStateProperty("decNameEn");
-    const changeDecNameDe = setStateProperty("decNameDe");
-    const changeDecNameRu = setStateProperty("decNameRu");
-    const changeDecNameFr = setStateProperty("decNameFr");
-    const changeDecNameFrCa = setStateProperty("decNameFrCa");
-    const changeDecNameEs = setStateProperty("decNameEs");
-    const changeWordStyleName = setStateProperty("wordStyleName");
-    const changeSoftReturn = toggleStateProperty("softReturn");
+    console.log(0);
+
     const changeIndentationalLevel = setStateProperty("indentationalLevel")
     const changeBackspaceActionWithContent = setStateProperty("backspaceActionWithContent");
     const changeBackspaceActionWithContentStyle = setStateProperty("backspaceActionWithContentStyle");
@@ -369,27 +347,6 @@ const NewDecDialog = props => {
         sideNumberStyle,
     };
 
-    const namesSectionProps = {
-        decKey, changeDecKey,
-        group, changeGroup,
-        newGroup: groupToCreate, changeGroupToCreate,
-        active, changeActive,
-        decNameEn, changeDecNameEn,
-        decNameDe, changeDecNameDe,
-        decNameRu, changeDecNameRu,
-        decNameFr, changeDecNameFr,
-        decNameFrCa, changeDecNameFrCa,
-        decNameEs, changeDecNameEs,
-        validationError, updateValidationError,
-        formState,
-    }; 
-
-    const wordExportSectionProps = {
-        wordStyleName, changeWordStyleName,
-        softReturn, changeSoftReturn,
-        validationError,
-    };
-
     const positioningSectionProps = {
         indentationalLevel, changeIndentationalLevel,
         backspaceActionWithContent, changeBackspaceActionWithContent,
@@ -428,12 +385,14 @@ const NewDecDialog = props => {
         sideNumberFillingColor, changeSideNumberFillingColor,
         sideNumberWidth, changeSideNumberWidth,
         sideNumberRadius, changeSideNumberRadius,
-        validationError,
+        validationError, updateValidationError,
+        formState,
     };
 
     const referencingSectionProps = {
         referenceGroup, changeReferenceGroup,
-        newGroup: referenceGroupToCreate, changeReferenceGroupToCreate,
+        savedNewGroup: referenceGroupToCreate, 
+        changeReferenceGroupToCreate,
     };
 
     const typographySectionProps = { 
@@ -561,8 +520,8 @@ const NewDecDialog = props => {
                         </CustomTabs>
                     </div>
                     <div className="content-rightSide">
-                        { openedTab === 0 && <NamesSection {...namesSectionProps} /> }
-                        { openedTab === 1 && <WordExportSection {...wordExportSectionProps} /> }
+                        { openedTab === 0 && <NamesSection /> }
+                        { openedTab === 1 && <WordExportSection /> }
                         { openedTab === 2 && <PositioningSection {...positioningSectionProps} /> }
                         { openedTab === 3 && <ListSection {...listSectionProps} />}
                         { openedTab === 4 && <ReferencingSection {...referencingSectionProps} /> }
