@@ -32,9 +32,7 @@ import {
     DecDataParser, 
     getTabsErrorState,
     getCorrectColor, 
-    getUnstyledText, 
-    unicodeNumberToChar, 
-    unicodeCharToNumber, 
+    getUnstyledText,
     getListChars, 
     getTabNumberToSwitch,
     getPreviewFont,
@@ -94,15 +92,6 @@ const NewDecDialog = props => {
 
     const { 
         previewText,
-        indentationalLevel,
-        backspaceActionWithContent,
-        backspaceActionWithContentStyle,
-        backspaceActionWithoutContent,
-        backspaceActionWithoutContentStyle,
-        returnActionNextSection,
-        returnActionEmptySection,
-        tabAction,
-        shiftTabAction,
         isList,
         listName,
         orderLevel,
@@ -165,36 +154,6 @@ const NewDecDialog = props => {
     } = formState;
     console.log(0);
 
-    const changeIndentationalLevel = setStateProperty("indentationalLevel")
-    const changeBackspaceActionWithContent = setStateProperty("backspaceActionWithContent");
-    const changeBackspaceActionWithContentStyle = setStateProperty("backspaceActionWithContentStyle");
-    const changeBackspaceActionWithoutContent = setStateProperty("backspaceActionWithoutContent");
-    const changeBackspaceActionWithoutContentStyle = setStateProperty("backspaceActionWithoutContentStyle");
-    const changeReturnActionNextSection = setStateProperty("returnActionNextSection");
-    const changeReturnActionEmptySection = setStateProperty("returnActionEmptySectionStyle")
-    const changeTabAction = setStateProperty("tabAction");
-    const changeShiftTabAction = setStateProperty("shiftTabAction");
-    const changeListName = setStateProperty("listName");
-    const changeOrderLevel = setStateProperty("orderLevel");
-    const changePrefix = setStateProperty("prefix");
-    const changeSuffix = setStateProperty("suffix");
-    const changeSuffixDistance = setStateProperty("suffixDistance");
-    const changeMagicTabs = toggleStateProperty("magicTabs");
-    const changeListItem = setStateProperty("listItem");
-    const changeNumberingStyle = setStateProperty("numberingStyle");
-    const changeContinueNumbering = toggleStateProperty("continueNumbering");
-    const changeAllowRestartNumbering = toggleStateProperty("allowRestartNumbering");
-    const changeIncludePreviousFrom = setStateProperty("includePreviousFrom");
-    const changeSideNumberFont = setStateProperty("sideNumberFont");
-    const changeCustomSideNumberFont = setStateProperty("customSideNumberFont");
-    const changeSideNumberAlignment = setStateProperty("sideNumberAlignment");
-    const changeSideNumberFontSize = setNumber("sideNumberFontSize");
-    const changeSideNumberFontColor = setColor("sideNumberFontColor");
-    const changeSideNumberFillingColor = setColor("sideNumberFillingColor");
-    const changeSideNumberWidth = setNumber("sideNumberWidth");
-    const changeSideNumberRadius = setNumber("sideNumberRadius");
-    const changeReferenceGroup = setStateProperty("referenceGroup");
-    const changeReferenceGroupToCreate = setStateProperty("referenceGroupToCreate");
     const changeFont = setStateProperty("font");
     const changeCustomFont = setStateProperty("customFont");
     const changeAlignment = setStateProperty("alignment");
@@ -234,48 +193,6 @@ const NewDecDialog = props => {
             setStateProperty("previewText")(null, getUnstyledText(value));
         } else {
             setStateProperty("previewText")(null, `<div><br></div>`);
-        }
-    };
-
-    const changeIsList = e => {
-        if (e.target.checked) {
-            if (listName === HOLDER) {
-                changeListName(null, "");
-            }
-        } else if (listName === ""){
-            setTimeout(() => changeListName(null, HOLDER), 200);
-        }
-        toggleStateProperty("isList")(e);
-    };
-
-    const changeListType = e => {
-        const { value } = e.target;
-        setStateProperty("listType")(null, value);
-        if (value === "ordered" && suffix === "") {
-            setStateProperty("suffix")(null, ".");
-        } else if (value === "unordered" && suffix === ".") {
-            setStateProperty("suffix")(null, "");
-        }
-    };
-
-    const changeUnicodeNumber = e => {
-        const newUnicodeNumber = setColor("unicodeNumber")(e);
-        const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
-        setStateProperty("unicodeChar")(null, newUnicodeChar);
-    };
-    
-    const changeUnicodeChar = e => {
-        const newUnicodeChar = setBullet("unicodeChar")(e);
-        const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
-        setStateProperty("unicodeNumber")(null, newUnicodeNumber);
-    };
-
-    const changeSideNumber = e => {
-        toggleStateProperty("sideNumber")(e);
-        if (e.target.checked && suffix === ".") {
-            setStateProperty("suffix")(null, "");
-        } else if (!e.target.checked && suffix === "") {
-            setStateProperty("suffix")(null, ".");
         }
     };
 
@@ -347,53 +264,15 @@ const NewDecDialog = props => {
         sideNumberStyle,
     };
 
-    const positioningSectionProps = {
-        indentationalLevel, changeIndentationalLevel,
-        backspaceActionWithContent, changeBackspaceActionWithContent,
-        backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
-        backspaceActionWithoutContent, changeBackspaceActionWithoutContent,
-        backspaceActionWithoutContentStyle, changeBackspaceActionWithoutContentStyle,
-        returnActionNextSection, changeReturnActionNextSection,
-        returnActionEmptySection, changeReturnActionEmptySection,
-        tabAction, changeTabAction,
-        shiftTabAction, changeShiftTabAction,
-    };
-
     const listSectionProps = { 
         listPreviewProps,
-        isList, changeIsList, 
-        listName, changeListName,
-        orderLevel, changeOrderLevel,
-        prefix, changePrefix,
-        suffix, changeSuffix,
-        suffixDistance, changeSuffixDistance,
-        magicTabs, changeMagicTabs,
-        listType, changeListType, 
-        listItem, changeListItem,
-        unicodeNumber, changeUnicodeNumber,
-        unicodeChar, changeUnicodeChar,
-        numberingStyle, changeNumberingStyle,
-        continueNumbering, changeContinueNumbering,
-        allowRestartNumbering, changeAllowRestartNumbering,
-        includePreviousFrom, changeIncludePreviousFrom,
-        sideNumber, changeSideNumber,
-        sideNumberFont, changeSideNumberFont,
-        customSideNumberFont, changeCustomSideNumberFont,
-        sideNumberAlignment, changeSideNumberAlignment,
-        sideNumberFontSize, changeSideNumberFontSize,
-        sideNumberFontColor, changeSideNumberFontColor,
-        sideNumberFillingColor, changeSideNumberFillingColor,
-        sideNumberWidth, changeSideNumberWidth,
-        sideNumberRadius, changeSideNumberRadius,
-        validationError, updateValidationError,
-        formState,
     };
 
-    const referencingSectionProps = {
-        referenceGroup, changeReferenceGroup,
-        savedNewGroup: referenceGroupToCreate, 
-        changeReferenceGroupToCreate,
-    };
+    //const referencingSectionProps = {
+    //    referenceGroup, changeReferenceGroup,
+    //    savedNewGroup: referenceGroupToCreate, 
+    //    changeReferenceGroupToCreate,
+    //};
 
     const typographySectionProps = { 
         previewProps,
@@ -522,9 +401,9 @@ const NewDecDialog = props => {
                     <div className="content-rightSide">
                         { openedTab === 0 && <NamesSection /> }
                         { openedTab === 1 && <WordExportSection /> }
-                        { openedTab === 2 && <PositioningSection {...positioningSectionProps} /> }
-                        { openedTab === 3 && <ListSection {...listSectionProps} />}
-                        { openedTab === 4 && <ReferencingSection {...referencingSectionProps} /> }
+                        { openedTab === 2 && <PositioningSection /> }
+                        { openedTab === 3 && <ListSection {...listSectionProps} /> }
+                        { openedTab === 4 && <ReferencingSection /> }
                         { openedTab === 5 && <TypographySection {...typographySectionProps} /> }
                         { openedTab === 6 && <DistancesSection {...distancesSectionProps} /> }
                         { openedTab === 7 && <FramesSection {...framesSectionProps} /> }

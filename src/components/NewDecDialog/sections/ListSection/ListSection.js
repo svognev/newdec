@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -6,77 +7,162 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Fade from '@material-ui/core/Fade';
 
+import Handlers from "../../Handlers";
 import ListPreview from "../../common/Preview/ListPreview";
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
 import ColorField from "../../common/ColorField";
 import LabelWithAsterisk from "../../common/LabelWithAsterisk";
 import FontSelectFields from "../../common/FontSelectFields";
-import { listStyleTypes, bulletNamesMap, HOLDER } from "../../constants"
-import { selectAllOnClick, scrollToBottom, getListSectionErrorState,focusInput } from "../../helpers";
+import { listStyleTypes, bulletNamesMap, HOLDER } from "../../constants";
+import { changeDecoratorForm, updateValidationError } from "../../actions";
+import { 
+    selectAllOnClick, 
+    scrollToBottom, 
+    changeAndScroll, 
+    getListSectionErrorState,
+    focusInput,
+    unicodeNumberToChar, 
+    unicodeCharToNumber 
+} from "../../helpers";
 
 import "./style.css";
 
 class ListSection extends React.Component {
+    handlers = Handlers(this.props.updateForm);
+    setStateProperty = this.handlers.setStateProperty;
+    toggleStateProperty = this.handlers.toggleStateProperty;
+    setNumber = this.handlers.setNumber;
+    setColor = this.handlers.setColor;
+    setBullet = this.handlers.setBullet;
+
+    changeListName = this.setStateProperty("listName");
+    changeOrderLevel = this.setStateProperty("orderLevel");
+    changePrefix = this.setStateProperty("prefix");
+    changeSuffix = this.setStateProperty("suffix");
+    changeSuffixDistance = this.setStateProperty("suffixDistance");
+    changeMagicTabs = this.toggleStateProperty("magicTabs");
+    changeListItem = this.setStateProperty("listItem");
+    changeNumberingStyle = this.setStateProperty("numberingStyle");
+    changeContinueNumbering = this.toggleStateProperty("continueNumbering");
+    changeAllowRestartNumbering = this.toggleStateProperty("allowRestartNumbering");
+    changeIncludePreviousFrom = this.setStateProperty("includePreviousFrom");
+    changeSideNumberFont = this.setStateProperty("sideNumberFont");
+    changeCustomSideNumberFont = this.setStateProperty("customSideNumberFont");
+    changeSideNumberAlignment = this.setStateProperty("sideNumberAlignment");
+    changeSideNumberFontSize = this.setNumber("sideNumberFontSize");
+    changeSideNumberFontColor = this.setColor("sideNumberFontColor");
+    changeSideNumberFillingColor = this.setColor("sideNumberFillingColor");
+    changeSideNumberWidth = this.setNumber("sideNumberWidth");
+    changeSideNumberRadius = this.setNumber("sideNumberRadius");
+
+    changeIsList = listName => e => {
+        if (e.target.checked) {
+            if (listName === HOLDER) {
+                this.changeListName(null, "");
+            }
+        } else if (listName === ""){
+            setTimeout(() => this.changeListName(null, HOLDER), 200);
+        }
+        this.toggleStateProperty("isList")(e);
+    };
+
+    changeListType = suffix => e => {
+        const { value } = e.target;
+        this.setStateProperty("listType")(null, value);
+        if (value === "ordered" && suffix === "") {
+            this.setStateProperty("suffix")(null, ".");
+        } else if (value === "unordered" && suffix === ".") {
+            this.setStateProperty("suffix")(null, "");
+        }
+    };
+
+    changeUnicodeNumber = prevUnicodeNumber => e => {
+        const newUnicodeNumber = this.setColor("unicodeNumber")(prevUnicodeNumber)(e);
+        const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
+        this.setStateProperty("unicodeChar")(null, newUnicodeChar);
+    };
+    
+    changeUnicodeChar = e => {
+        const newUnicodeChar = this.setBullet("unicodeChar")(e);
+        const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
+        this.setStateProperty("unicodeNumber")(null, newUnicodeNumber);
+    };
+
+    changeSideNumber = suffix => e => {
+        this.toggleStateProperty("sideNumber")(e);
+        if (e.target.checked && suffix === ".") {
+            this.setStateProperty("suffix")(null, "");
+        } else if (!e.target.checked && suffix === "") {
+            this.setStateProperty("suffix")(null, ".");
+        }
+    };
+
     listNameInputRef = React.createRef();
     unicodeCharInputRef = React.createRef();
 
-    changeAndScroll = changeFunction => e => {
-        changeFunction(e);
-        scrollToBottom("content-rightSide");
-    };
-
-    onIsListChange = e => {
-        this.changeAndScroll(this.props.changeIsList)(e);
-        if (e.target.checked && this.props.listName === HOLDER) {
+    onIsListChange = listName => e => {
+        changeAndScroll(this.changeIsList(listName))(e);
+        if (e.target.checked && listName === HOLDER) {
             focusInput(this.listNameInputRef);
         }
     };
 
-    onListItemChange = e => {
-        this.props.changeListItem(e);
-        if (e.target.value === "custom" && !this.props.unicodeChar) {
+    onListItemChange = unicodeChar => e => {
+        this.changeListItem(e);
+        if (e.target.value === "custom" && !unicodeChar) {
             focusInput(this.unicodeCharInputRef);
         }
     };
 
+    componentDidMount() {
+        if (this.props.validationError) {
+            focusInput(this.listNameInputRef);
+        }
+    }
+
+    componentDidUpdate(prevprops) {
+        if (this.props.validationError && !prevprops.validationError) {
+            focusInput(this.listNameInputRef);
+        }
+        if (this.props.validationError && !getListSectionErrorState(this.props.formState)) {
+            this.props.updateValidationError({ listSection: false });
+        }
+    }
+
     render() {
         const {
             listPreviewProps,
-            isList,
-            listName, changeListName,
-            orderLevel, changeOrderLevel,
-            prefix, changePrefix,
-            suffix, changeSuffix,
-            suffixDistance, changeSuffixDistance,
-            magicTabs, changeMagicTabs,
-            listType, changeListType, 
-            listItem,
-            unicodeNumber, changeUnicodeNumber,
-            unicodeChar, changeUnicodeChar,
-            numberingStyle, changeNumberingStyle,
-            continueNumbering, changeContinueNumbering,
-            allowRestartNumbering, changeAllowRestartNumbering,
-            includePreviousFrom, changeIncludePreviousFrom,
-            sideNumber, changeSideNumber,
-            sideNumberFont, changeSideNumberFont,
-            customSideNumberFont, changeCustomSideNumberFont,
-            sideNumberAlignment, changeSideNumberAlignment,
-            sideNumberFontSize, changeSideNumberFontSize,
-            sideNumberFontColor, changeSideNumberFontColor,
-            sideNumberFillingColor, changeSideNumberFillingColor,
-            sideNumberWidth, changeSideNumberWidth,
-            sideNumberRadius, changeSideNumberRadius,
-            validationError: { listSection: validationError },
-            updateValidationError,
+            validationError,
             formState,
         } = this.props;
 
-        const { changeAndScroll, onIsListChange, onListItemChange } = this;
-
-        if (validationError && !getListSectionErrorState(formState)) {
-            updateValidationError({ listSection: false });
-        }
+        const {
+            isList,
+            listName, 
+            orderLevel,
+            prefix,
+            suffix,
+            suffixDistance,
+            magicTabs,
+            listType,
+            listItem,
+            unicodeNumber,
+            unicodeChar,
+            numberingStyle,
+            continueNumbering,
+            allowRestartNumbering,
+            includePreviousFrom,
+            sideNumber,
+            sideNumberFont,
+            customSideNumberFont,
+            sideNumberAlignment,
+            sideNumberFontSize,
+            sideNumberFontColor,
+            sideNumberFillingColor,
+            sideNumberWidth,
+            sideNumberRadius,
+        } = formState;
         
         const mainListSettingsState = isList ? "shown" : "hidden";
         const unorderedListSettingsState = (isList && listType === "unordered") ? "shown" : "hidden";
@@ -96,7 +182,7 @@ class ListSection extends React.Component {
                                     <Checkbox 
                                         color="primary" 
                                         checked={isList} 
-                                        onChange={onIsListChange} 
+                                        onChange={this.onIsListChange(listName)} 
                                     />
                                 </div>
                             </div>
@@ -105,7 +191,7 @@ class ListSection extends React.Component {
                                     <LabelWithAsterisk>List name</LabelWithAsterisk>
                                     <TextField
                                         value={listName}
-                                        onChange={changeListName} 
+                                        onChange={this.changeListName} 
                                         error={validationError && !listName}
                                         inputRef={this.listNameInputRef}
                                         variant="outlined" 
@@ -116,7 +202,7 @@ class ListSection extends React.Component {
                                     <div>
                                         <NativeSelect
                                             value={orderLevel}
-                                            onChange={changeOrderLevel}
+                                            onChange={this.changeOrderLevel}
                                             input={ <CustomInputShort /> }
                                         >
                                             <option value="">...</option>
@@ -132,7 +218,7 @@ class ListSection extends React.Component {
                                     <span>Prefix</span>
                                     <TextField
                                         value={prefix}
-                                        onChange={changePrefix} 
+                                        onChange={this.changePrefix} 
                                         variant="outlined" 
                                         margin="dense" 
                                     />
@@ -140,7 +226,7 @@ class ListSection extends React.Component {
                                     <span>Suffix</span>
                                     <TextField
                                         value={suffix}
-                                        onChange={changeSuffix} 
+                                        onChange={this.changeSuffix} 
                                         variant="outlined" 
                                         margin="dense" 
                                         onClick={selectAllOnClick(".")}
@@ -150,7 +236,7 @@ class ListSection extends React.Component {
                                     <div className="inputWithAdornment">
                                         <NativeSelect
                                             value={suffixDistance}
-                                            onChange={changeSuffixDistance} 
+                                            onChange={this.changeSuffixDistance} 
                                             input={ <CustomInputShort /> }
                                         >
                                             <option value="0.25">0.25</option>
@@ -170,7 +256,7 @@ class ListSection extends React.Component {
                                         <Checkbox 
                                             color="primary" 
                                             checked={magicTabs} 
-                                            onChange={changeMagicTabs} 
+                                            onChange={this.changeMagicTabs} 
                                         />
                                     </div>
     
@@ -178,7 +264,7 @@ class ListSection extends React.Component {
                                     <div>
                                         <NativeSelect 
                                             value={listType} 
-                                            onChange={changeAndScroll(changeListType)} 
+                                            onChange={changeAndScroll(this.changeListType(suffix))} 
                                             input={ <CustomInput /> }
                                         >
                                             <option value={"unordered"}>Unordered</option>
@@ -194,7 +280,7 @@ class ListSection extends React.Component {
                                 <div>
                                     <NativeSelect
                                         value={numberingStyle}
-                                        onChange={changeNumberingStyle}
+                                        onChange={this.changeNumberingStyle}
                                         input={ <CustomInputShort /> }
                                     >
                                         {listStyleTypes.map(style => (
@@ -207,7 +293,7 @@ class ListSection extends React.Component {
                                 <div>
                                     <Checkbox
                                         checked={continueNumbering}
-                                        onChange={changeContinueNumbering}
+                                        onChange={this.changeContinueNumbering}
                                         color="primary" 
                                     />
                                 </div>
@@ -216,7 +302,7 @@ class ListSection extends React.Component {
                                 <div>
                                     <Checkbox
                                         checked={allowRestartNumbering} 
-                                        onChange={changeAllowRestartNumbering}
+                                        onChange={this.changeAllowRestartNumbering}
                                         color="primary" 
                                     />
                                 </div>
@@ -225,7 +311,7 @@ class ListSection extends React.Component {
                                 <div>
                                     <NativeSelect
                                         value={includePreviousFrom} 
-                                        onChange={changeIncludePreviousFrom}
+                                        onChange={this.changeIncludePreviousFrom}
                                         input={ <CustomInputShort /> }
                                     >
                                         <option value="">...</option>
@@ -242,7 +328,7 @@ class ListSection extends React.Component {
                                 <div>
                                     <Checkbox
                                         checked={sideNumber}
-                                        onChange={changeAndScroll(changeSideNumber)}
+                                        onChange={changeAndScroll(this.changeSideNumber(suffix))}
                                         color="primary" 
                                     />
                                 </div>
@@ -252,16 +338,16 @@ class ListSection extends React.Component {
                                 <div className="fontSettingsGrid listTypeSettings">
                                     <FontSelectFields 
                                         font={sideNumberFont}
-                                        changeFont={changeSideNumberFont}
+                                        changeFont={this.changeSideNumberFont}
                                         customFont={customSideNumberFont}
-                                        changeCustomFont={changeCustomSideNumberFont}
+                                        changeCustomFont={this.changeCustomSideNumberFont}
                                         extraFunction={() => { scrollToBottom("content-rightSide"); }}
                                     />
                             
                                     <span>Alignment</span>
                                     <NativeSelect 
                                         value={sideNumberAlignment}
-                                        onChange={changeSideNumberAlignment}
+                                        onChange={this.changeSideNumberAlignment}
                                         input={ <CustomInput /> }
                                     >
                                         <option value={"left"}>Left</option>
@@ -273,7 +359,7 @@ class ListSection extends React.Component {
                                     <div className="inputWithAdornment">
                                         <TextField 
                                             value={sideNumberFontSize}
-                                            onChange={changeSideNumberFontSize}
+                                            onChange={this.changeSideNumberFontSize(sideNumberFontSize)}
                                             onClick={selectAllOnClick("12")}
                                             variant="outlined" 
                                             margin="dense" 
@@ -285,7 +371,7 @@ class ListSection extends React.Component {
                                     <span>Font color</span>
                                     <ColorField 
                                         colorCode={sideNumberFontColor} 
-                                        changeColorCode={changeSideNumberFontColor}
+                                        changeColorCode={this.changeSideNumberFontColor(sideNumberFontColor)}
                                         defaultColorCode={"FFF"}
                                         bottomAligned
                                     />
@@ -293,7 +379,7 @@ class ListSection extends React.Component {
                                     <span>Filling color</span>
                                     <ColorField 
                                         colorCode={sideNumberFillingColor} 
-                                        changeColorCode={changeSideNumberFillingColor}
+                                        changeColorCode={this.changeSideNumberFillingColor(sideNumberFillingColor)}
                                         defaultColorCode={"1E88E5"}
                                         bottomAligned
                                     />
@@ -302,7 +388,7 @@ class ListSection extends React.Component {
                                     <div className="inputWithAdornment">
                                         <TextField 
                                             value={sideNumberWidth}
-                                            onChange={changeSideNumberWidth}
+                                            onChange={this.changeSideNumberWidth(sideNumberWidth)}
                                             onClick={selectAllOnClick("20")}
                                             variant="outlined" 
                                             margin="dense" 
@@ -315,7 +401,7 @@ class ListSection extends React.Component {
                                     <div className="inputWithAdornment">
                                         <TextField 
                                             value={sideNumberRadius}
-                                            onChange={changeSideNumberRadius}
+                                            onChange={this.changeSideNumberRadius(sideNumberRadius)}
                                             onClick={selectAllOnClick("10")}
                                             variant="outlined" 
                                             margin="dense" 
@@ -339,7 +425,7 @@ class ListSection extends React.Component {
                             <div className="listItemSelect">
                                 <NativeSelect 
                                     value={listItem} 
-                                    onChange={onListItemChange} 
+                                    onChange={this.onListItemChange(unicodeChar)} 
                                     input={ <CustomInputShort /> }
                                 >
                                     { 
@@ -358,7 +444,7 @@ class ListSection extends React.Component {
                                     <div>
                                         <TextField  
                                             value={unicodeNumber}
-                                            onChange={changeUnicodeNumber}
+                                            onChange={this.changeUnicodeNumber(unicodeNumber)}
                                             variant="outlined" 
                                             margin="dense" 
                                             className="unicodeInput" 
@@ -373,7 +459,7 @@ class ListSection extends React.Component {
                                     <div>
                                         <TextField 
                                             value={unicodeChar}
-                                            onChange={changeUnicodeChar}
+                                            onChange={this.changeUnicodeChar}
                                             onClick={selectAllOnClick()}
                                             inputRef={this.unicodeCharInputRef}
                                             variant="outlined" 
@@ -391,4 +477,18 @@ class ListSection extends React.Component {
     }
 }
 
-export default ListSection;
+const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
+    return { 
+        formState: form,
+        validationError: validationError.listSection,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateForm: payload => dispatch(changeDecoratorForm(payload)),
+        updateValidationError: payload => dispatch(updateValidationError(payload)),
+    };
+};
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ListSection);

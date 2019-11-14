@@ -46,6 +46,11 @@ export const scrollToBottom = className => {
     })}, 0);
 };
 
+export const changeAndScroll = changeFunction => (...args) => {
+    changeFunction(...args);
+    scrollToBottom("content-rightSide");
+};
+
 export const selectAllEditableContent = className => e => {
     if (e.target.className === className) {
         window.getSelection().selectAllChildren(e.target.children[0]);

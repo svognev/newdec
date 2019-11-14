@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Handlers from "../Handlers";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
+
+import Handlers from "../Handlers";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import { getWordExportSectionErrorState } from "../helpers";
 import { changeDecoratorForm, updateValidationError } from "../actions";

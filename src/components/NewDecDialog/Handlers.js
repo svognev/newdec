@@ -1,6 +1,6 @@
 import { getShortCutUtils } from "./helpers";
 
-const Handlers = (update, formState) => class {    
+const Handlers = update => class {    
     static toggleStateProperty = propName => e => {
         update({
             [propName]: e.target.checked
@@ -22,14 +22,14 @@ const Handlers = (update, formState) => class {
         return newBullet;
     };
 
-    static setColor = propName => (e, secondArg) => {
+    static setColor = propName => prevValue => (e, secondArg) => {
         let input = e ? (e.target.value || "") : secondArg;
         
         const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
                               ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
                               : "" ;
         
-        if (filteredInput !== formState[propName]) {
+        if (filteredInput !== prevValue) {
             update({
                 [propName]: filteredInput,
             });
@@ -37,14 +37,15 @@ const Handlers = (update, formState) => class {
         return filteredInput;
     };
 
-    static setNumber = propName => e => {
+    static setNumber = propName => prevValue => e => {
+        console.log(prevValue, 11, e);
         let input = e.target.value || "";
 
         const filteredInput = input.replace(",", ".").trim().match(/[0-9]+/i) 
                               ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
                               : "" ;
 
-        if (filteredInput !== formState[propName]) {
+        if (filteredInput !== prevValue) {
           update({
               [propName]: filteredInput,
           });
