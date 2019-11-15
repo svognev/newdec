@@ -1,13 +1,13 @@
 import { getShortCutUtils } from "./helpers";
 
 const Handlers = update => class {    
-    static toggleStateProperty = propName => e => {
+    static toggleValue = propName => e => {
         update({
             [propName]: e.target.checked
         });
     };
 
-    static setStateProperty = propName => (e, secondArg = "") => {
+    static setValue = propName => (e, secondArg = "") => {
         const newValue = (e && e.target.value !== "" && e.target.value !== undefined) ? e.target.value : secondArg;
         update({
             [propName]: newValue,

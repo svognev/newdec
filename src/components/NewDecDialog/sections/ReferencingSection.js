@@ -4,19 +4,14 @@ import { connect } from "react-redux";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Button from "@material-ui/core/Button";
 
-import Handlers from "../Handlers";
 import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import withNewGroupControl from "../hoc/withNewGroupControl";
-import { changeDecoratorForm } from "../actions";
-
+import { setValue } from "../actions";
 
 class ReferencingSection extends React.Component {
-    handlers = Handlers(this.props.updateForm);
-    setStateProperty = this.handlers.setStateProperty;
-
-    changeReferenceGroup = this.setStateProperty("referenceGroup");
-    changeReferenceGroupToCreate = this.setStateProperty("referenceGroupToCreate");
+    changeReferenceGroup = this.props.setValue("referenceGroup");
+    changeReferenceGroupToCreate = this.props.setValue("referenceGroupToCreate");
 
     onXrefChange = xref => (e, secondArg) => {
         const value = e ? e.target.value : secondArg;
@@ -85,7 +80,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateForm: payload => dispatch(changeDecoratorForm(payload)),
+        setValue: setValue(dispatch),
     };
 };
   

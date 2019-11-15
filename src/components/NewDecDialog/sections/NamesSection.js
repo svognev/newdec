@@ -6,50 +6,34 @@ import Checkbox from "@material-ui/core/Checkbox";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Button from "@material-ui/core/Button";
 
-import Handlers from "../Handlers";
 import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
 import { getNamesSectionErrorState, focusInput } from "../helpers";
-import { changeDecoratorForm, updateValidationError } from "../actions";
+import { setValue, toggleValue, updateValidationError } from "../actions";
 
 class NamesSection extends React.Component {
-    handlers = Handlers(this.props.updateForm);
-    setStateProperty = this.handlers.setStateProperty;
-    toggleStateProperty = this.handlers.toggleStateProperty;
-
-    changeDecKey = this.setStateProperty("decKey");
-    changeGroup = this.setStateProperty("group");
-    changeGroupToCreate = this.setStateProperty("groupToCreate");
-    changeActive = this.toggleStateProperty("active");
-    changeDecNameEn = this.setStateProperty("decNameEn");
-    changeDecNameDe = this.setStateProperty("decNameDe");
-    changeDecNameRu = this.setStateProperty("decNameRu");
-    changeDecNameFr = this.setStateProperty("decNameFr");
-    changeDecNameFrCa = this.setStateProperty("decNameFrCa");
-    changeDecNameEs = this.setStateProperty("decNameEs");
-
-    onGroupChange = group => (...args) => {
-        const value = args[0] ? args[0].target.value : args[1];
-        if (group.nameEn && value === group.nameEn) {
-            this.changeGroupToCreate(null, group);
-        } else {
-            this.changeGroupToCreate(null, "");
-        }
-        this.changeGroup(...args);
-    };
-
     decKeyInputRef = React.createRef();
     decNameEnInputRef = React.createRef();
 
     focusOnEmptyField = () => {
-        if (!this.props.formState.decKey) {
+        if (!this.props.decKey) {
             focusInput(this.decKeyInputRef);
-        } else if (!this.props.formState.decNameEn) {
+        } else if (!this.props.decNameEn) {
             focusInput(this.decNameEnInputRef);
         }
-    }
+    };
+
+    onGroupChange = group => (e, secondArg) => {
+        const value = e ? e.target.value : secondArg;
+        if (group.nameEn && value === group.nameEn) {
+            this.props.changeGroupToCreate(null, group);
+        } else {
+            this.props.changeGroupToCreate(null, "");
+        }
+        this.props.changeGroup(e, secondArg);
+    };
 
     componentDidMount() {
         if (this.props.validationError) {
@@ -68,26 +52,22 @@ class NamesSection extends React.Component {
 
     render() {
         const { 
-            formState,
             validationError,
             onSave,
             newGroup, 
             isOpen, 
             hideDialog, 
             handleClick, 
-        } = this.props;
-
-        const {
-            decKey,
+            decKey, changeDecKey,
             group,
-            active,
-            decNameEn,
-            decNameDe,
-            decNameRu,
-            decNameFr,
-            decNameFrCa,
-            decNameEs,
-        } = formState;
+            active, changeActive,
+            decNameEn, changeDecNameEn,
+            decNameDe, changeDecNameDe,
+            decNameRu, changeDecNameRu,
+            decNameFr, changeDecNameFr,
+            decNameFrCa, changeDecNameFrCa,
+            decNameEs, changeDecNameEs,
+        } = this.props;
 
         const newGroupName = newGroup.nameEn;
         const isEditMode = !!newGroupName;
@@ -97,7 +77,7 @@ class NamesSection extends React.Component {
                 <LabelWithAsterisk>Key</LabelWithAsterisk>
                 <TextField 
                     value={decKey}
-                    onChange={this.changeDecKey}
+                    onChange={changeDecKey}
                     error={validationError && !decKey}
                     inputRef={this.decKeyInputRef}
                     variant="outlined" 
@@ -128,7 +108,7 @@ class NamesSection extends React.Component {
                 <div>
                     <Checkbox
                         checked={active}
-                        onChange={this.changeActive} 
+                        onChange={changeActive} 
                         color="primary" 
                     />
                 </div>
@@ -136,7 +116,7 @@ class NamesSection extends React.Component {
                 <LabelWithAsterisk>Name EN</LabelWithAsterisk>
                 <TextField 
                     value={decNameEn}
-                    onChange={this.changeDecNameEn}
+                    onChange={changeDecNameEn}
                     error={validationError && !decNameEn}
                     inputRef={this.decNameEnInputRef}
                     variant="outlined" 
@@ -146,7 +126,7 @@ class NamesSection extends React.Component {
                 <span>Name DE</span>
                 <TextField 
                     value={decNameDe}
-                    onChange={this.changeDecNameDe}
+                    onChange={changeDecNameDe}
                     variant="outlined" 
                     margin="dense" 
                 />
@@ -154,7 +134,7 @@ class NamesSection extends React.Component {
                 <span>Name RU</span>
                 <TextField 
                     value={decNameRu}
-                    onChange={this.changeDecNameRu}
+                    onChange={changeDecNameRu}
                     variant="outlined" 
                     margin="dense" 
                 />
@@ -162,7 +142,7 @@ class NamesSection extends React.Component {
                 <span>Name FR<br/><span className="smallText">France</span></span>
                 <TextField 
                     value={decNameFr}
-                    onChange={this.changeDecNameFr}
+                    onChange={changeDecNameFr}
                     variant="outlined" 
                     margin="dense" 
                 />
@@ -170,7 +150,7 @@ class NamesSection extends React.Component {
                 <span>Name FR<br/><span className="smallText">Canada</span></span>
                 <TextField 
                     value={decNameFrCa}
-                    onChange={this.changeDecNameFrCa}
+                    onChange={changeDecNameFrCa}
                     variant="outlined" 
                     margin="dense" 
                 />
@@ -178,7 +158,7 @@ class NamesSection extends React.Component {
                 <span>Name ES</span>
                 <TextField 
                     value={decNameEs}
-                    onChange={this.changeDecNameEs}
+                    onChange={changeDecNameEs}
                     variant="outlined" 
                     margin="dense" 
                 />
@@ -199,16 +179,33 @@ class NamesSection extends React.Component {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
-        formState: form,
-        savedNewGroup: form.groupToCreate,
         validationError: validationError.namesSection,
+        decKey: form.decKey,
+        group: form.group,
+        active: form.active,
+        decNameEn: form.decNameEn,
+        decNameDe: form.decNameDe,
+        decNameRu: form.decNameRu,
+        decNameFr: form.decNameFr,
+        decNameFrCa: form.decNameFrCa,
+        decNameEs: form.decNameEs,
+        savedNewGroup: form.groupToCreate,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateForm: payload => dispatch(changeDecoratorForm(payload)),
         updateValidationError: payload => dispatch(updateValidationError(payload)),
+        changeDecKey: setValue(dispatch)("decKey"),
+        changeGroup: setValue(dispatch)("group"),
+        changeGroupToCreate: setValue(dispatch)("groupToCreate"),
+        changeActive: toggleValue(dispatch)("active"),
+        changeDecNameEn: setValue(dispatch)("decNameEn"),
+        changeDecNameDe: setValue(dispatch)("decNameDe"),
+        changeDecNameRu: setValue(dispatch)("decNameRu"),
+        changeDecNameFr: setValue(dispatch)("decNameFr"),
+        changeDecNameFrCa: setValue(dispatch)("decNameFrCa"),
+        changeDecNameEs: setValue(dispatch)("decNameEs"),
     };
 };
   

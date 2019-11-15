@@ -4,53 +4,45 @@ import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import Handlers from "../Handlers";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import { getWordExportSectionErrorState } from "../helpers";
-import { changeDecoratorForm, updateValidationError } from "../actions";
+import { setValue, toggleValue, updateValidationError } from "../actions";
 
-class WordExportSection extends React.Component {
-    handlers = Handlers(this.props.updateForm);
-    setStateProperty = this.handlers.setStateProperty;
-    toggleStateProperty = this.handlers.toggleStateProperty;
+const WordExportSection = props => {
+    const { 
+        validationError,
+        formState,
+        wordStyleName, changeWordStyleName,
+        softReturn, changeSoftReturn,
+    } = props;
 
-    changeWordStyleName = this.setStateProperty("wordStyleName");
-    changeSoftReturn = this.toggleStateProperty("softReturn");
-
-    componentDidUpdate() {
-        if (this.props.validationError && !getWordExportSectionErrorState(this.props.formState)) {
-            this.props.updateValidationError({ wordExportSection: false });
-        }
+    if (validationError && !getWordExportSectionErrorState(formState)) {
+        this.props.updateValidationError({ wordExportSection: false });
     }
 
-    render() {
-        const { wordStyleName, softReturn, validationError } = this.props;
-        console.log(2);
-
-        return (
-            <div className="dialogGrid dialogGrid_2cols">
-                <LabelWithAsterisk>Style name in WORD</LabelWithAsterisk>
-                <TextField 
-                    value={wordStyleName}
-                    onChange={this.changeWordStyleName}
-                    error={validationError && !wordStyleName}
-                    autoFocus={validationError && !wordStyleName}
-                    variant="outlined" 
-                    margin="dense" 
+    return (
+        <div className="dialogGrid dialogGrid_2cols">
+            <LabelWithAsterisk>Style name in WORD</LabelWithAsterisk>
+            <TextField 
+                value={wordStyleName}
+                onChange={changeWordStyleName}
+                error={validationError && !wordStyleName}
+                autoFocus={!wordStyleName}
+                variant="outlined" 
+                margin="dense" 
+            />
+            
+            <span>Soft return</span>
+            <div>
+                <Checkbox 
+                    checked={softReturn}
+                    onChange={changeSoftReturn}
+                    color="primary" 
                 />
-                
-                <span>Soft return</span>
-                <div>
-                    <Checkbox 
-                        checked={softReturn}
-                        onChange={this.changeSoftReturn}
-                        color="primary" 
-                    />
-                </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
@@ -62,9 +54,10 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        updateForm: payload => dispatch(changeDecoratorForm(payload)),
+    return {       
         updateValidationError: payload => dispatch(updateValidationError(payload)),
+        changeWordStyleName: setValue(dispatch)("wordStyleName"),
+        changeSoftReturn: toggleValue(dispatch)("softReturn"),
     };
 };
   

@@ -39,7 +39,7 @@ import {
 } from "./helpers";
 
 import {
-    changeDecoratorForm, 
+    updateDecoratorForm, 
     clearDecoratorForm, 
     switchDecDialogTab, 
     updateValidationError, 
@@ -82,8 +82,8 @@ const NewDecDialog = props => {
     };
 
     const { 
-        setStateProperty, 
-        toggleStateProperty, 
+        setValue, 
+        toggleValue, 
         setNumber, 
         setColor, 
         setBullet, 
@@ -154,55 +154,55 @@ const NewDecDialog = props => {
     } = formState;
     console.log(0);
 
-    const changeFont = setStateProperty("font");
-    const changeCustomFont = setStateProperty("customFont");
-    const changeAlignment = setStateProperty("alignment");
+    const changeFont = setValue("font");
+    const changeCustomFont = setValue("customFont");
+    const changeAlignment = setValue("alignment");
     const changeFontSize = setNumber("fontSize");
-    const changeFontColorName = setStateProperty("fontColorName");
+    const changeFontColorName = setValue("fontColorName");
     const changeFontColor = setColor("fontColor");
-    const changeBold = toggleStateProperty("bold");
-    const changeItalic = toggleStateProperty("italic");
-    const changeUnderlined = toggleStateProperty("underlined");
-    const changeStroke = toggleStateProperty("stroke");
-    const changeTextTransform = setStateProperty("textTransform");
-    const changeVerticalAlign = setStateProperty("verticalAlign");
+    const changeBold = toggleValue("bold");
+    const changeItalic = toggleValue("italic");
+    const changeUnderlined = toggleValue("underlined");
+    const changeStroke = toggleValue("stroke");
+    const changeTextTransform = setValue("textTransform");
+    const changeVerticalAlign = setValue("verticalAlign");
     const changeMarginTop = setNumber("marginTop");
     const changeMarginBottom = setNumber("marginBottom");
     const changeFirstRowIndent = setNumber("firstRowIndent");
     const changeOtherRowsIndent = setNumber("otherRowsIndent");
-    const changeLineSpacing = setStateProperty("lineSpacing");
+    const changeLineSpacing = setValue("lineSpacing");
     const changeCustomLineSpacing = setNumber("customLineSpacing");
     const changeWordSpacing = setNumber("wordSpacing");
-    const changeLeftBorder = toggleStateProperty("leftBorder");
-    const changeRightBorder = toggleStateProperty("rightBorder");
-    const changeTopBorder = toggleStateProperty("topBorder");
-    const changeBottomBorder = toggleStateProperty("bottomBorder");
-    const changeBorderColorName = setStateProperty("borderColorName");
+    const changeLeftBorder = toggleValue("leftBorder");
+    const changeRightBorder = toggleValue("rightBorder");
+    const changeTopBorder = toggleValue("topBorder");
+    const changeBottomBorder = toggleValue("bottomBorder");
+    const changeBorderColorName = setValue("borderColorName");
     const changeBorderColor = setColor("borderColor");
     const changeBorderThickness = setNumber("borderThickness");
-    const changeFillingColorName = setStateProperty("fillingColorName");
+    const changeFillingColorName = setValue("fillingColorName");
     const changeFillingColor = setColor("fillingColor");
-    const changeConnectToPrevious = toggleStateProperty("connectToPrevious");
-    const changeTocIndentation = setStateProperty("tocIndentation");
+    const changeConnectToPrevious = toggleValue("connectToPrevious");
+    const changeTocIndentation = setValue("tocIndentation");
     const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
     const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
 
     const changePreviewText = e => {
         const { value } = e.target;
         if (value && value !== "<div></div>" && value !== "<br>") {
-            setStateProperty("previewText")(null, getUnstyledText(value));
+            setValue("previewText")(null, getUnstyledText(value));
         } else {
-            setStateProperty("previewText")(null, `<div><br></div>`);
+            setValue("previewText")(null, `<div><br></div>`);
         }
     };
 
     const changeBorderType = e => {
-        setStateProperty("borderType")(e);
+        setValue("borderType")(e);
         if (e.target.value === "double" && borderThickness === "2") {
-            setStateProperty("borderThickness")(null, "3");
+            setValue("borderThickness")(null, "3");
         }
         if (e.target.value !== "double" && borderThickness === "3") {
-            setStateProperty("borderThickness")(null, "2");
+            setValue("borderThickness")(null, "2");
         }
     };
 
@@ -429,7 +429,7 @@ const mapStateToProps = ({ decoratorDialog: { form, openedTab, validationError, 
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateForm: payload => dispatch(changeDecoratorForm(payload)),
+        updateForm: payload => dispatch(updateDecoratorForm(payload)),
         clearForm: () => dispatch(clearDecoratorForm()),
         switchTab: payload => dispatch(switchDecDialogTab(payload)),
         updateValidationError: payload => dispatch(updateValidationError(payload)),

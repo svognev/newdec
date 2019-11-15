@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -8,13 +9,39 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
+import Handlers from "../../Handlers";
 import Preview from "../../common/Preview";
 import CustomInput from "../../common/CustomInput";
 import ColorField from "../../common/ColorField";
 import FontSelectFields from "../../common/FontSelectFields";
 import { selectAllOnClick } from "../../helpers";
+import { updateDecoratorForm } from "../../actions";
+
 
 import "./style.css";
+
+//class TypographySexion extends React.Component {
+//    handlers = Handlers(this.props.updateForm);
+//    setValue = this.handlers.setValue;
+//    toggleValue = this.handlers.toggleValue;
+//    setNumber = this.handlers.setNumber;
+//    setColor = this.handlers.setColor;
+//    setBullet = this.handlers.setBullet;
+//
+//    changeFont = setValue("font");
+//    changeCustomFont = setValue("customFont");
+//    changeAlignment = setValue("alignment");
+//    changeFontSize = setNumber("fontSize");
+//    changeFontColorName = setValue("fontColorName");
+//    changeFontColor = setColor("fontColor");
+//    changeBold = toggleValue("bold");
+//    changeItalic = toggleValue("italic");
+//    changeUnderlined = toggleValue("underlined");
+//    changeStroke = toggleValue("stroke");
+//    changeTextTransform = setValue("textTransform");
+//    changeVerticalAlign = setValue("verticalAlign");
+//    changeMarginTop = setNumber("marginTop");
+//}
 
 const TypographySection = (props) => {
     const { 

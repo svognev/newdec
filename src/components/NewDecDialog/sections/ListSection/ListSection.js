@@ -15,7 +15,7 @@ import ColorField from "../../common/ColorField";
 import LabelWithAsterisk from "../../common/LabelWithAsterisk";
 import FontSelectFields from "../../common/FontSelectFields";
 import { listStyleTypes, bulletNamesMap, HOLDER } from "../../constants";
-import { changeDecoratorForm, updateValidationError } from "../../actions";
+import { updateDecoratorForm, updateValidationError } from "../../actions";
 import { 
     selectAllOnClick, 
     scrollToBottom, 
@@ -30,26 +30,26 @@ import "./style.css";
 
 class ListSection extends React.Component {
     handlers = Handlers(this.props.updateForm);
-    setStateProperty = this.handlers.setStateProperty;
-    toggleStateProperty = this.handlers.toggleStateProperty;
+    setValue = this.handlers.setValue;
+    toggleValue = this.handlers.toggleValue;
     setNumber = this.handlers.setNumber;
     setColor = this.handlers.setColor;
     setBullet = this.handlers.setBullet;
 
-    changeListName = this.setStateProperty("listName");
-    changeOrderLevel = this.setStateProperty("orderLevel");
-    changePrefix = this.setStateProperty("prefix");
-    changeSuffix = this.setStateProperty("suffix");
-    changeSuffixDistance = this.setStateProperty("suffixDistance");
-    changeMagicTabs = this.toggleStateProperty("magicTabs");
-    changeListItem = this.setStateProperty("listItem");
-    changeNumberingStyle = this.setStateProperty("numberingStyle");
-    changeContinueNumbering = this.toggleStateProperty("continueNumbering");
-    changeAllowRestartNumbering = this.toggleStateProperty("allowRestartNumbering");
-    changeIncludePreviousFrom = this.setStateProperty("includePreviousFrom");
-    changeSideNumberFont = this.setStateProperty("sideNumberFont");
-    changeCustomSideNumberFont = this.setStateProperty("customSideNumberFont");
-    changeSideNumberAlignment = this.setStateProperty("sideNumberAlignment");
+    changeListName = this.setValue("listName");
+    changeOrderLevel = this.setValue("orderLevel");
+    changePrefix = this.setValue("prefix");
+    changeSuffix = this.setValue("suffix");
+    changeSuffixDistance = this.setValue("suffixDistance");
+    changeMagicTabs = this.toggleValue("magicTabs");
+    changeListItem = this.setValue("listItem");
+    changeNumberingStyle = this.setValue("numberingStyle");
+    changeContinueNumbering = this.toggleValue("continueNumbering");
+    changeAllowRestartNumbering = this.toggleValue("allowRestartNumbering");
+    changeIncludePreviousFrom = this.setValue("includePreviousFrom");
+    changeSideNumberFont = this.setValue("sideNumberFont");
+    changeCustomSideNumberFont = this.setValue("customSideNumberFont");
+    changeSideNumberAlignment = this.setValue("sideNumberAlignment");
     changeSideNumberFontSize = this.setNumber("sideNumberFontSize");
     changeSideNumberFontColor = this.setColor("sideNumberFontColor");
     changeSideNumberFillingColor = this.setColor("sideNumberFillingColor");
@@ -64,37 +64,37 @@ class ListSection extends React.Component {
         } else if (listName === ""){
             setTimeout(() => this.changeListName(null, HOLDER), 200);
         }
-        this.toggleStateProperty("isList")(e);
+        this.toggleValue("isList")(e);
     };
 
     changeListType = suffix => e => {
         const { value } = e.target;
-        this.setStateProperty("listType")(null, value);
+        this.setValue("listType")(null, value);
         if (value === "ordered" && suffix === "") {
-            this.setStateProperty("suffix")(null, ".");
+            this.setValue("suffix")(null, ".");
         } else if (value === "unordered" && suffix === ".") {
-            this.setStateProperty("suffix")(null, "");
+            this.setValue("suffix")(null, "");
         }
     };
 
     changeUnicodeNumber = prevUnicodeNumber => e => {
         const newUnicodeNumber = this.setColor("unicodeNumber")(prevUnicodeNumber)(e);
         const newUnicodeChar = newUnicodeNumber !== "" ? unicodeNumberToChar(newUnicodeNumber) : "";
-        this.setStateProperty("unicodeChar")(null, newUnicodeChar);
+        this.setValue("unicodeChar")(null, newUnicodeChar);
     };
     
     changeUnicodeChar = e => {
         const newUnicodeChar = this.setBullet("unicodeChar")(e);
         const newUnicodeNumber = newUnicodeChar !== "" ? unicodeCharToNumber(newUnicodeChar) : "";
-        this.setStateProperty("unicodeNumber")(null, newUnicodeNumber);
+        this.setValue("unicodeNumber")(null, newUnicodeNumber);
     };
 
     changeSideNumber = suffix => e => {
-        this.toggleStateProperty("sideNumber")(e);
+        this.toggleValue("sideNumber")(e);
         if (e.target.checked && suffix === ".") {
-            this.setStateProperty("suffix")(null, "");
+            this.setValue("suffix")(null, "");
         } else if (!e.target.checked && suffix === "") {
-            this.setStateProperty("suffix")(null, ".");
+            this.setValue("suffix")(null, ".");
         }
     };
 
@@ -486,7 +486,7 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateForm: payload => dispatch(changeDecoratorForm(payload)),
+        updateForm: payload => dispatch(updateDecoratorForm(payload)),
         updateValidationError: payload => dispatch(updateValidationError(payload)),
     };
 };

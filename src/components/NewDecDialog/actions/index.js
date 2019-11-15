@@ -1,4 +1,6 @@
-export const CHANGE_DEC_FORM = "CHANGE_DEC_FORM";
+import { getShortCutUtils } from "../helpers";
+
+export const UPDATE_DEC_FORM = "UPDATE_DEC_FORM";
 export const CLEAR_DEC_FORM = "CLEAR_DEC_FORM";
 export const SHOW_DEC_DIALOG = "SHOW_DEC_DIALOG";
 export const HIDE_DEC_DIALOG = "HIDE_DEC_DIALOG";
@@ -9,9 +11,9 @@ export const SWITCH_OFF_DEC_DIALOG_EDIT_MODE = "SWITCH_OFF_DEC_DIALOG_EDIT_MODE"
 export const UPDATE_VALIDATION_ERROR = "UPDATE_VALIDATION_ERROR";
 export const REMOVE_VALIDATION_ERROR = "REMOVE_VALIDATION_ERROR";
 
-export const changeDecoratorForm = payload => {
+export const updateDecoratorForm = payload => {
     return {
-        type: CHANGE_DEC_FORM,
+        type: UPDATE_DEC_FORM,
         payload,
     };
 };
@@ -75,7 +77,7 @@ export const removeValidationError = () => {
 
 export const openDialog = dispatch => dec => {
     if (dec) {
-        dispatch(changeDecoratorForm(dec));
+        dispatch(updateDecoratorForm(dec));
         dispatch(switchOnDecDialogEditMode());
     } 
     dispatch(showDecoratorDialog());
@@ -87,4 +89,77 @@ export const closeDialog = dispatch => () => {
     dispatch(removeValidationError());
     dispatch(resetDecDialogTab());
     dispatch(clearDecoratorForm());
+};
+
+export const setValue = dispatch => propName => (e, secondArg = "") => {
+    const newValue = (e && e.target.value !== "" && e.target.value !== undefined) ? e.target.value : secondArg;
+    dispatch(updateDecoratorForm({
+        [propName]: newValue,
+    }));
+};
+
+export const toggleValue = dispatch => propName => e => {
+    dispatch(updateDecoratorForm({
+        [propName]: e.target.checked
+    }));
+};
+
+export const setBullet = dispatch => propName => e => {
+    const newBullet = e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value;
+    dispatch(updateDecoratorForm({
+        [propName]: newBullet,
+    }));
+    return newBullet;
+};
+
+export const setColor = dispatch => propName => prevValue => (e, secondArg) => {
+    let input = e ? (e.target.value || "") : secondArg;
+    
+    const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
+                          ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
+                          : "" ;
+    
+    if (filteredInput !== prevValue) {
+        dispatch(updateDecoratorForm({
+            [propName]: filteredInput,
+        }));
+    }
+    return filteredInput;
+};
+
+export const setNumber = dispatch => propName => prevValue => e => {
+    let input = e.target.value || "";
+
+    const filteredInput = input.replace(",", ".").trim().match(/[0-9]+/i) 
+                          ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
+                          : "" ;
+
+    if (filteredInput !== prevValue) {
+        dispatch(updateDecoratorForm({
+            [propName]: filteredInput,
+        }));
+    }
+    return filteredInput;
+};
+
+export const setShortCut = dispatch => (valuePropName, viewPropName, isMac) => e => {
+    const systemName = isMac ? "MacOS" : "Windows";
+    const shortCut = getShortCutUtils(systemName).convertEventToShortCut(e);
+    if (shortCut && shortCut.deleteKey) {
+        setTimeout(() => {
+            dispatch(updateDecoratorForm({ 
+                [valuePropName]: "" 
+            }));
+            dispatch(updateDecoratorForm({ 
+                [viewPropName]: "" 
+            }));
+        }, 100);
+    } else if (shortCut) {
+        dispatch(updateDecoratorForm({ 
+            [valuePropName]: shortCut.value 
+        }));
+        dispatch(updateDecoratorForm({ 
+            [viewPropName]: shortCut.stringValue 
+        }));
+    }
 };
