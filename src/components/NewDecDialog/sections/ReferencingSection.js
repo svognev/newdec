@@ -10,17 +10,14 @@ import withNewGroupControl from "../hoc/withNewGroupControl";
 import { setValue } from "../actions";
 
 class ReferencingSection extends React.Component {
-    changeReferenceGroup = this.props.setValue("referenceGroup");
-    changeReferenceGroupToCreate = this.props.setValue("referenceGroupToCreate");
-
     onXrefChange = xref => (e, secondArg) => {
         const value = e ? e.target.value : secondArg;
         if (xref.groupKey && xref.nameEn && value === xref.nameEn) {
-            this.changeReferenceGroupToCreate(null, xref);
+            this.props.changeReferenceGroupToCreate(null, xref);
         } else {
-            this.changeReferenceGroupToCreate(null, "");
+            this.props.changeReferenceGroupToCreate(null, "");
         }
-        this.changeReferenceGroup(e, secondArg);
+        this.props.changeReferenceGroup(e, secondArg);
     };
 
     render() {
@@ -80,7 +77,8 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setValue: setValue(dispatch),
+        changeReferenceGroup: setValue(dispatch)("referenceGroup"),
+        changeReferenceGroupToCreate: setValue(dispatch)("referenceGroupToCreate"),
     };
 };
   

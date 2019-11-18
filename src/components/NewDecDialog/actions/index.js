@@ -98,47 +98,46 @@ export const setValue = dispatch => propName => (e, secondArg = "") => {
     }));
 };
 
-export const toggleValue = dispatch => propName => e => {
+export const toggleValue = dispatch => propName => (e, secondArg) => {
+    const newValue = e ? e.target.checked : secondArg;
     dispatch(updateDecoratorForm({
-        [propName]: e.target.checked
+        [propName]: newValue,
     }));
 };
 
-export const setBullet = dispatch => propName => e => {
-    const newBullet = e.target.value.length > 1 ? e.target.value[e.target.value.length - 1] : e.target.value;
+export const setBullet = dispatch => propName => (e, secondArg) => {
+    const input = e ? (e.target.value || "") : (secondArg || "");
+
+    const newBullet = input.length > 1 ? input[input.length - 1] : input;
     dispatch(updateDecoratorForm({
         [propName]: newBullet,
     }));
     return newBullet;
 };
 
-export const setColor = dispatch => propName => prevValue => (e, secondArg) => {
-    let input = e ? (e.target.value || "") : secondArg;
+export const setColor = dispatch => propName => (e, secondArg) => {
+    const input = e ? (e.target.value || "") : (secondArg || "");
     
     const filteredInput = input.replace("#", "").trim().match(/[0-9a-f]+/i) 
                           ? input.replace("#", "").trim().match(/[0-9a-f]+/i)[0].slice(0, 6)
                           : "" ;
     
-    if (filteredInput !== prevValue) {
-        dispatch(updateDecoratorForm({
-            [propName]: filteredInput,
-        }));
-    }
+    dispatch(updateDecoratorForm({
+        [propName]: filteredInput,
+    }));
     return filteredInput;
 };
 
-export const setNumber = dispatch => propName => prevValue => e => {
-    let input = e.target.value || "";
+export const setNumber = dispatch => propName => (e, secondArg) => {
+    let input = e ? (e.target.value || "") : (secondArg || "");
 
     const filteredInput = input.replace(",", ".").trim().match(/[0-9]+/i) 
                           ? input.replace(",", ".").trim().match(/\d+[.,]?\d*/)[0]
                           : "" ;
 
-    if (filteredInput !== prevValue) {
-        dispatch(updateDecoratorForm({
-            [propName]: filteredInput,
-        }));
-    }
+    dispatch(updateDecoratorForm({
+        [propName]: filteredInput,
+    }));
     return filteredInput;
 };
 

@@ -86,27 +86,18 @@ const NewDecDialog = props => {
         toggleValue, 
         setNumber, 
         setColor, 
-        setBullet, 
         setShortCut 
     } = Handlers(updateForm, formState);
 
     const { 
         previewText,
-        isList,
-        listName,
-        orderLevel,
         prefix,
         suffix,
         suffixDistance,
-        magicTabs,
         listType,
         listItem,
-        unicodeNumber,
         unicodeChar,
         numberingStyle,
-        continueNumbering,
-        allowRestartNumbering,
-        includePreviousFrom,
         sideNumber,
         sideNumberFont,
         customSideNumberFont,
@@ -116,8 +107,6 @@ const NewDecDialog = props => {
         sideNumberFillingColor,
         sideNumberWidth,
         sideNumberRadius,
-        referenceGroup,
-        referenceGroupToCreate,
         font,
         customFont,
         alignment,
@@ -267,12 +256,6 @@ const NewDecDialog = props => {
     const listSectionProps = { 
         listPreviewProps,
     };
-
-    //const referencingSectionProps = {
-    //    referenceGroup, changeReferenceGroup,
-    //    savedNewGroup: referenceGroupToCreate, 
-    //    changeReferenceGroupToCreate,
-    //};
 
     const typographySectionProps = { 
         previewProps,
