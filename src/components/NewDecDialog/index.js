@@ -111,7 +111,6 @@ const NewDecDialog = props => {
         customFont,
         alignment,
         fontSize,
-        fontColorName,
         fontColor,
         bold,
         italic,
@@ -143,18 +142,6 @@ const NewDecDialog = props => {
     } = formState;
     console.log(0);
 
-    const changeFont = setValue("font");
-    const changeCustomFont = setValue("customFont");
-    const changeAlignment = setValue("alignment");
-    const changeFontSize = setNumber("fontSize");
-    const changeFontColorName = setValue("fontColorName");
-    const changeFontColor = setColor("fontColor");
-    const changeBold = toggleValue("bold");
-    const changeItalic = toggleValue("italic");
-    const changeUnderlined = toggleValue("underlined");
-    const changeStroke = toggleValue("stroke");
-    const changeTextTransform = setValue("textTransform");
-    const changeVerticalAlign = setValue("verticalAlign");
     const changeMarginTop = setNumber("marginTop");
     const changeMarginBottom = setNumber("marginBottom");
     const changeFirstRowIndent = setNumber("firstRowIndent");
@@ -259,18 +246,6 @@ const NewDecDialog = props => {
 
     const typographySectionProps = { 
         previewProps,
-        font, changeFont,
-        customFont, changeCustomFont,
-        alignment, changeAlignment,
-        fontSize, changeFontSize,
-        fontColorName, changeFontColorName,
-        fontColor, changeFontColor,
-        bold, changeBold,
-        italic, changeItalic,
-        underlined, changeUnderlined,         
-        stroke, changeStroke,
-        textTransform, changeTextTransform,
-        verticalAlign, changeVerticalAlign, 
     };
 
     const distancesSectionProps = {
