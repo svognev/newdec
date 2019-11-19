@@ -125,15 +125,6 @@ const NewDecDialog = props => {
         lineSpacing,
         customLineSpacing,
         wordSpacing,   
-        leftBorder,
-        rightBorder,
-        topBorder,
-        bottomBorder,
-        borderColorName,
-        borderColor,
-        borderThickness,
-        borderType,
-        fillingColorName,
         fillingColor,
         fillingConnectToPrevious,
         tocIndentation,
@@ -142,16 +133,6 @@ const NewDecDialog = props => {
     } = formState;
     console.log(0);
 
-    const changeLeftBorder = toggleValue("leftBorder");
-    const changeRightBorder = toggleValue("rightBorder");
-    const changeTopBorder = toggleValue("topBorder");
-    const changeBottomBorder = toggleValue("bottomBorder");
-    const changeBorderColorName = setValue("borderColorName");
-    const changeBorderColor = setColor("borderColor");
-    const changeBorderThickness = setNumber("borderThickness");
-    const changeFillingColorName = setValue("fillingColorName");
-    const changeFillingColor = setColor("fillingColor");
-    const changefillingConnectToPrevious = toggleValue("fillingConnectToPrevious");
     const changeTocIndentation = setValue("tocIndentation");
     const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
     const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
@@ -237,9 +218,6 @@ const NewDecDialog = props => {
 
     const fillingSectionProps = { 
         previewProps,
-        fillingColorName, changeFillingColorName,
-        fillingColor, changeFillingColor,
-        fillingConnectToPrevious, changefillingConnectToPrevious,
     };
 
     const tocSectionProps = {

@@ -1,18 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import Preview from "../common/Preview";
 import ColorField from "../common/ColorField";
+import { setValue, toggleValue, setColor } from "../actions";
 
-const  FillingSection = (props) => {
+const  FillingSection = props => {
     const { 
         previewProps,
         fillingColorName, changeFillingColorName,
         fillingColor, changeFillingColor,
         fillingConnectToPrevious, changefillingConnectToPrevious,
-     } = props;
+    } = props;
 
     return (
         <div className="dialogGrid dialogGrid_2cols dialogGrid_flexStartAligned">
@@ -51,4 +53,20 @@ const  FillingSection = (props) => {
     );
 };
 
-export default FillingSection;
+const mapStateToProps = ({ decoratorDialog: { form }}) => {
+    return { 
+        fillingColorName: form.fillingColorName,
+        fillingColor: form.fillingColor,
+        fillingConnectToPrevious: form.fillingConnectToPrevious,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {       
+        changeFillingColorName: setValue(dispatch)("fillingColorName"),
+        changeFillingColor: setColor(dispatch)("fillingColor"),
+        changefillingConnectToPrevious: toggleValue(dispatch)("fillingConnectToPrevious"),
+    };
+};
+  
+export default (connect(mapStateToProps, mapDispatchToProps)(FillingSection));
