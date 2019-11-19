@@ -1,6 +1,6 @@
-import { getCorrectColor } from "./helpers";
+import { getCorrectColor } from "../../helpers";
 
-export const getBorderPreviewStyle = formState => {
+const generateBorderPreviewStyle = formState => {
     const { 
         leftBorder,
         rightBorder,
@@ -28,4 +28,6 @@ export const getBorderPreviewStyle = formState => {
     };
 
     return previewStyle;
-}
+};
+
+export default generateBorderPreviewStyle;

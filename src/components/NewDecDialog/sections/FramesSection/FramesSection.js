@@ -9,8 +9,9 @@ import Select from "@material-ui/core/Select";
 
 import FrameTypeInput from "../../sections/FramesSection/FrameTypeInput";
 import ColorField from "../../common/ColorField";
+import generateBorderPreviewStyle from "./generateBorderPreviewStyle";
 import {  setValue, toggleValue, setNumber, setColor } from "../../actions";
-import { selectAllOnClick, getBorderPreviewStyle } from "../../helpers";
+import { selectAllOnClick } from "../../helpers";
 
 import "./style.css";
 
@@ -38,7 +39,7 @@ class FramesSection extends React.Component {
             borderConnectToPrevious, changeBorderConnectToPrevious,
          } = this.props;
 
-        const previewStyle = getBorderPreviewStyle(formState)
+        const previewStyle = generateBorderPreviewStyle(formState)
     
         return (
             <div className="dialogGrid dialogGrid_2cols">

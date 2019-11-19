@@ -1,38 +1,59 @@
 import React from "react";
-import "./style.css";
+import { connect } from "react-redux";
+
 import ContentEditable from "../ContentEditable";
-import { getOffset, selectAllEditableContent } from "../../helpers"
+import { generatePreviewStyle } from "./generators";
+import { setValue } from "../../actions";
+import { selectAllEditableContent, getUnstyledText } from "../../helpers"
 
-const Preview = ({previewText, changePreviewText, previewStyle}) => {
-    const { verticalAlign, fontSize } = previewStyle;
+import "./style.css";
 
-    const editableContentStyle = {
-        ...previewStyle, 
-        outline: "none",
-        marginTop: `${parseFloat(previewStyle.marginTop) + getOffset(verticalAlign, fontSize)}pt`,
-        marginBottom: `${parseFloat(previewStyle.marginBottom) - getOffset(verticalAlign, fontSize)}pt`,
+class Preview extends React.Component {
+    onPreviewTextChange = e => {
+        const { value } = e.target;
+        if (value && value !== "<div></div>" && value !== "<br>") {
+            this.props.changePreviewText(null, getUnstyledText(value));
+        } else {
+            this.props.changePreviewText(null, `<div><br></div>`);
+        }
     };
 
-    const demonstrationElementClassName = "demonstrationElement";
-
-    return (
-        <div className="preview">
-            <span className="preview-title">Preview</span>
-            <div 
-                className="preview-content preview-content_withPointer" 
-                onClick={selectAllEditableContent(demonstrationElementClassName)}
-            >
-                <div className={demonstrationElementClassName}>
-                    <ContentEditable
-                        className={`${demonstrationElementClassName}-text`}
-                        onChange={changePreviewText} 
-                        html={previewText}
-                        style={editableContentStyle}
-                    />
+    render() {
+        const previewStyle = generatePreviewStyle(this.props.formState);
+        const { previewText } = this.props;
+    
+        return (
+            <div className="preview">
+                <span className="preview-title">Preview</span>
+                <div 
+                    className="preview-content preview-content_withPointer" 
+                    onClick={selectAllEditableContent("demonstrationElement")}
+                >
+                    <div className="demonstrationElement">
+                        <ContentEditable
+                            className={"demonstrationElement"+"-text"}
+                            onChange={this.onPreviewTextChange} 
+                            html={previewText}
+                            style={previewStyle}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+}
+
+const mapStateToProps = ({ decoratorDialog: { form }}) => {
+    return { 
+        formState: form,
+        previewText: form.previewText,
+    };
 };
 
-export default Preview;
+const mapDispatchToProps = dispatch => {
+    return {       
+        changePreviewText: setValue(dispatch)("previewText"),
+    };
+};
+  
+export default (connect(mapStateToProps, mapDispatchToProps)(Preview));

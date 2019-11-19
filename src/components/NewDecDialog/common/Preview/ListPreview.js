@@ -1,21 +1,40 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { generatePreviewStyle, generateSideNumberStyle } from "./generators";
+import { getListChars } from "../../helpers"
+
 import "./style.css";
 
-const ListPreview = (props) => {
+const ListPreview = props => {
     const { 
-        listPreviewStyle, 
-        listChars, 
+        formState,
         prefix, 
         suffix, 
-        suffixDistance, 
-        sideNumberStyle,
+        suffixDistance,
+        listType,
+        listItem, 
+        unicodeChar,
+        numberingStyle,
+        sideNumber,
     } = props;
 
-    const demonstrationElementClassName = "demonstrationElement";
-    const listItemsBeginnings = listChars.map(listChar => {
+    const isOrderedList = listType === "ordered";
+
+    const listChars = getListChars({ 
+        isOrderedList, 
+        numberingStyle, 
+        listItem, 
+        unicodeChar 
+    });
+
+    const listItemBeginnings = listChars.map(listChar => {
         return (`${prefix}${listChar}${suffix}`);
     });
-    const listItemBeginingStyle = {
+
+    const previewStyle = generatePreviewStyle(formState);
+    const sideNumberStyle = isOrderedList && sideNumber ? generateSideNumberStyle(formState) : {};
+    const listItemBeginningStyle = {
         marginRight: `${suffixDistance || 0}cm`,
         ...sideNumberStyle,
     };
@@ -24,34 +43,28 @@ const ListPreview = (props) => {
         <div className="preview preview_list">
             <span className="preview-title">Preview</span>
             <div className="preview-content">
-                <div className={demonstrationElementClassName}>
+                <div className="demonstrationElement">
                     <div
-                        className={`${demonstrationElementClassName}-text`}
-                        style={listPreviewStyle}
+                        className={"demonstrationElement"+"-text"}
+                        style={previewStyle}
                     >
                         <div>
                             <span 
                                 className="listItemBeginning"
-                                style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[0]}`}</span><span>The first list item</span>
+                                style={listItemBeginningStyle}
+                            >{`${listItemBeginnings[0]}`}</span><span>The first list item</span>
                         </div>
                         <div>
                             <span 
                                 className="listItemBeginning"
-                                style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[1]}`}</span><span>The second list item</span>
+                                style={listItemBeginningStyle}
+                            >{`${listItemBeginnings[1]}`}</span><span>The second list item</span>
                         </div>
                         <div>
                             <span 
                                 className="listItemBeginning"
-                                style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[2]}`}</span><span>The third list item</span>
-                        </div>
-                        <div>
-                            <span 
-                                className="listItemBeginning"
-                                style={listItemBeginingStyle}
-                            >{`${listItemsBeginnings[3]}`}</span><span>The fourth list item</span>
+                                style={listItemBeginningStyle}
+                            >{`${listItemBeginnings[2]}`}</span><span>The third list item</span>
                         </div>
                     </div>
                 </div>
@@ -60,4 +73,19 @@ const ListPreview = (props) => {
     );
 };
 
-export default ListPreview;
+const mapStateToProps = ({ decoratorDialog: { form }}) => {
+    return { 
+        formState: form,
+        previewText: form.previewText,
+        prefix: form.prefix, 
+        suffix: form.suffix,
+        suffixDistance: form.suffixDistance,
+        listType: form.listType,
+        listItem: form.listItem, 
+        unicodeChar: form.unicodeChar,
+        numberingStyle: form.numberingStyle,
+        sideNumber: form.sideNumber,
+    };
+};
+
+export default (connect(mapStateToProps)(ListPreview));
