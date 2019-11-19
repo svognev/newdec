@@ -1,36 +1,48 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import TextField from "@material-ui/core/TextField";
 
-const ShortCutSection = (props) => {
-    const {
-        shortCutWinView, changeShortCutWin, 
-        shortCutMacView, changeShortCutMac,
-    } = props;
+import { setShortCut } from "../actions";
 
+const ShortCutSection = ({ shortCutWinView, shortCutMacView, changeShortCutWin, changeShortCutMac }) => {
     return (
         <div className="dialogGrid dialogGrid_2cols">
             <span>Windows</span>
             <div className="largeTextField">
-                <TextField 
+                <TextField
                     value={shortCutWinView}
-                    onKeyDown={changeShortCutWin} 
-                    variant="outlined" 
+                    onKeyDown={changeShortCutWin}
+                    variant="outlined"
                     margin="dense"
                 />
             </div>
 
             <span>Mac</span>
             <div className="largeTextField">
-                <TextField 
+                <TextField
                     value={shortCutMacView}
-                    onKeyDown={changeShortCutMac} 
-                    variant="outlined" 
-                    margin="dense" 
-                />     
-            </div>          
+                    onKeyDown={changeShortCutMac}
+                    variant="outlined"
+                    margin="dense"
+                />
+            </div>
         </div>
     );
-}
+};
 
-export default ShortCutSection;
+const mapStateToProps = ({ decoratorDialog: { form }}) => {
+    return { 
+        shortCutWinView: form.shortCutWinView,
+        shortCutMacView: form.shortCutMacView,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {       
+        changeShortCutWin: setShortCut(dispatch)("shortCutWin", "shortCutWinView"),
+        changeShortCutMac: setShortCut(dispatch)("shortCutMac", "shortCutMacView"),
+    };
+};
+
+export default (connect(mapStateToProps, mapDispatchToProps)(ShortCutSection));

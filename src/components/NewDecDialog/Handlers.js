@@ -53,8 +53,8 @@ const Handlers = update => class {
         return filteredInput;
     };
 
-    static setShortCut = (valuePropName, viewPropName, isMac) => e => {
-        const systemName = isMac ? "MacOS" : "Windows";
+    static setShortCut = (valuePropName, viewPropName) => e => {
+        const systemName = valuePropName === "shortCutMac" ? "MacOS" : "Windows";
         const shortCut = getShortCutUtils(systemName).convertEventToShortCut(e);
         if (shortCut && shortCut.deleteKey) {
           setTimeout(() => {

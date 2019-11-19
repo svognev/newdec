@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import NativeSelect from "@material-ui/core/NativeSelect";
 
 import CustomInputShort from "../common/CustomInputShort";
+import { setValue } from "../actions";
 
 const TocSection = ({ tocIndentation, changeTocIndentation }) => {
     return (
@@ -25,6 +27,18 @@ const TocSection = ({ tocIndentation, changeTocIndentation }) => {
             </div>                    
         </div>
     );
-}
+};
 
-export default TocSection;
+const mapStateToProps = ({ decoratorDialog: { form }}) => {
+    return { 
+        tocIndentation: form.tocIndentation,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {       
+        changeTocIndentation: setValue(dispatch)("tocIndentation"),
+    };
+};
+
+export default (connect(mapStateToProps, mapDispatchToProps)(TocSection));

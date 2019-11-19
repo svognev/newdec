@@ -25,7 +25,7 @@ import CustomTab from "./common/CustomTab";
 import CustomErrorTab from "./common/CustomErrorTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { alignmentsMap, HOLDER } from "./constants";
+import { alignmentsMap } from "./constants";
 
 import { 
     fillMissedFields, 
@@ -83,10 +83,6 @@ const NewDecDialog = props => {
 
     const { 
         setValue, 
-        toggleValue, 
-        setNumber, 
-        setColor, 
-        setShortCut 
     } = Handlers(updateForm, formState);
 
     const { 
@@ -127,15 +123,8 @@ const NewDecDialog = props => {
         wordSpacing,   
         fillingColor,
         fillingConnectToPrevious,
-        tocIndentation,
-        shortCutWinView,
-        shortCutMacView,
     } = formState;
     console.log(0);
-
-    const changeTocIndentation = setValue("tocIndentation");
-    const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
-    const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
 
     const changePreviewText = e => {
         const { value } = e.target;
@@ -220,15 +209,6 @@ const NewDecDialog = props => {
         previewProps,
     };
 
-    const tocSectionProps = {
-        tocIndentation, changeTocIndentation,
-    };
-
-    const shortCutsSectionProps = {
-        shortCutWinView, changeShortCutWin, 
-        shortCutMacView, changeShortCutMac,
-    };
-        
     return (
         <ThemeProvider theme={theme}>
             <CustomDialog
@@ -309,8 +289,8 @@ const NewDecDialog = props => {
                         { openedTab === 6 && <DistancesSection {...distancesSectionProps} /> }
                         { openedTab === 7 && <FramesSection /> }
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
-                        { openedTab === 9 && <TocSection {...tocSectionProps} /> }
-                        { openedTab === 10 && <ShortCutsSection {...shortCutsSectionProps} /> }
+                        { openedTab === 9 && <TocSection /> }
+                        { openedTab === 10 && <ShortCutsSection /> }
                         { openedTab === 11 && <TestSection {...typographySectionProps} /> }
                     </div>
                 </DialogContent>
