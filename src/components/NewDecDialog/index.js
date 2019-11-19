@@ -142,13 +142,6 @@ const NewDecDialog = props => {
     } = formState;
     console.log(0);
 
-    const changeMarginTop = setNumber("marginTop");
-    const changeMarginBottom = setNumber("marginBottom");
-    const changeFirstRowIndent = setNumber("firstRowIndent");
-    const changeOtherRowsIndent = setNumber("otherRowsIndent");
-    const changeLineSpacing = setValue("lineSpacing");
-    const changeCustomLineSpacing = setNumber("customLineSpacing");
-    const changeWordSpacing = setNumber("wordSpacing");
     const changeLeftBorder = toggleValue("leftBorder");
     const changeRightBorder = toggleValue("rightBorder");
     const changeTopBorder = toggleValue("topBorder");
@@ -250,13 +243,6 @@ const NewDecDialog = props => {
 
     const distancesSectionProps = {
         previewProps,
-        marginTop, changeMarginTop,
-        marginBottom, changeMarginBottom,
-        firstRowIndent, changeFirstRowIndent,
-        otherRowsIndent, changeOtherRowsIndent,
-        lineSpacing, changeLineSpacing,
-        customLineSpacing, changeCustomLineSpacing,
-        wordSpacing, changeWordSpacing,
     };
 
     const framesSectionProps = { 

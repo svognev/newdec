@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import TextField from "@material-ui/core/TextField";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -6,9 +7,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 import CustomInputShort from "../common/CustomInputShort";
 import Preview from "../common/Preview";
+import { setValue, setNumber } from "../actions";
 import { selectAllOnClick } from "../helpers";
 
-const DistancesSection = (props) => {
+const DistancesSection = props => {
     const {
         previewProps,
         marginTop, changeMarginTop,
@@ -88,9 +90,7 @@ const DistancesSection = (props) => {
                         <option value="3.0">3.0</option>
                         <option value="custom">Custom</option>
                     </NativeSelect> 
-                    {
-                    lineSpacing === "custom" && 
-                    (
+                    { lineSpacing === "custom" && (
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
@@ -98,10 +98,8 @@ const DistancesSection = (props) => {
                             value={customLineSpacing}
                             onChange={changeCustomLineSpacing}
                         />                                            
-                    )
-                }
+                    ) }
                 </div>
-                   
                     
                 <span>Word spacing</span>
                 <div className="inputWithAdornment">
@@ -123,4 +121,28 @@ const DistancesSection = (props) => {
     );
 };
 
-export default DistancesSection;
+const mapStateToProps = ({ decoratorDialog: { form }}) => {
+    return { 
+        marginTop: form.marginTop,
+        marginBottom: form.marginBottom,
+        firstRowIndent: form.firstRowIndent,
+        otherRowsIndent: form.otherRowsIndent,
+        lineSpacing: form.lineSpacing,
+        customLineSpacing: form.customLineSpacing,
+        wordSpacing: form.wordSpacing,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeMarginTop: setNumber(dispatch)("marginTop"),
+        changeMarginBottom: setNumber(dispatch)("marginBottom"),
+        changeFirstRowIndent: setNumber(dispatch)("firstRowIndent"),
+        changeOtherRowsIndent: setNumber(dispatch)("otherRowsIndent"),
+        changeLineSpacing: setValue(dispatch)("lineSpacing"),
+        changeCustomLineSpacing: setNumber(dispatch)("customLineSpacing"),
+        changeWordSpacing: setNumber(dispatch)("wordSpacing"),
+    };
+};
+  
+export default (connect(mapStateToProps, mapDispatchToProps)(DistancesSection));
