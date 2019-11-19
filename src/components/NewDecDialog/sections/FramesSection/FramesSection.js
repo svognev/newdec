@@ -9,7 +9,7 @@ import Select from "@material-ui/core/Select";
 
 import FrameTypeInput from "../../sections/FramesSection/FrameTypeInput";
 import ColorField from "../../common/ColorField";
-import {  setValue, toggleValue, setNumber, setColor, } from "../../actions";
+import {  setValue, toggleValue, setNumber, setColor } from "../../actions";
 import { selectAllOnClick, getBorderPreviewStyle } from "../../helpers";
 
 import "./style.css";
@@ -35,6 +35,7 @@ class FramesSection extends React.Component {
             borderColor, changeBorderColor,
             borderThickness, changeBorderThickness,
             borderType,
+            borderConnectToPrevious, changeBorderConnectToPrevious,
          } = this.props;
 
         const previewStyle = getBorderPreviewStyle(formState)
@@ -129,7 +130,11 @@ class FramesSection extends React.Component {
     
                     <span>Connect to previous</span>
                     <div>
-                        <Checkbox color="primary" />
+                        <Checkbox 
+                            checked={borderConnectToPrevious}
+                            onChange={changeBorderConnectToPrevious}
+                            color="primary" 
+                        />
                     </div>
                 </div>
             </div>
@@ -148,6 +153,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         borderColor: form.borderColor,
         borderThickness: form.borderThickness,
         borderType: form.borderType,
+        borderConnectToPrevious: form.borderConnectToPrevious,
     };
 };
 
@@ -161,6 +167,7 @@ const mapDispatchToProps = dispatch => {
         changeBorderColor: setColor(dispatch)("borderColor"),
         changeBorderThickness: setNumber(dispatch)("borderThickness"),
         changeBorderType: setValue(dispatch)("borderType"),
+        changeBorderConnectToPrevious: toggleValue(dispatch)("borderConnectToPrevious"),
     };
 };
   

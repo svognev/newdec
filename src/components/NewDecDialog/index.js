@@ -135,7 +135,7 @@ const NewDecDialog = props => {
         borderType,
         fillingColorName,
         fillingColor,
-        connectToPrevious,
+        fillingConnectToPrevious,
         tocIndentation,
         shortCutWinView,
         shortCutMacView,
@@ -151,7 +151,7 @@ const NewDecDialog = props => {
     const changeBorderThickness = setNumber("borderThickness");
     const changeFillingColorName = setValue("fillingColorName");
     const changeFillingColor = setColor("fillingColor");
-    const changeConnectToPrevious = toggleValue("connectToPrevious");
+    const changefillingConnectToPrevious = toggleValue("fillingConnectToPrevious");
     const changeTocIndentation = setValue("tocIndentation");
     const changeShortCutWin = setShortCut("shortCutWin", "shortCutWinView");
     const changeShortCutMac = setShortCut("shortCutMac", "shortCutMacView", true);
@@ -167,7 +167,7 @@ const NewDecDialog = props => {
 
     const previewFontColor = getCorrectColor(fontColor, "f5f5f5");
     const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
-    const previewAdditionalFillingColor = connectToPrevious ? previewFillingColor : "f5f5f5";
+    const previewAdditionalFillingColor = fillingConnectToPrevious ? previewFillingColor : "f5f5f5";
     const indentsDifference = (firstRowIndent || 0) - (otherRowsIndent || 0);
     const previewMarginLeft = otherRowsIndent ? `${otherRowsIndent >= 12 ? 12 : otherRowsIndent}cm` : 0;
     const previewTextIndent = indentsDifference ? `${indentsDifference >= 12 ? 12 : indentsDifference}cm` : 0;
@@ -239,7 +239,7 @@ const NewDecDialog = props => {
         previewProps,
         fillingColorName, changeFillingColorName,
         fillingColor, changeFillingColor,
-        connectToPrevious, changeConnectToPrevious,
+        fillingConnectToPrevious, changefillingConnectToPrevious,
     };
 
     const tocSectionProps = {

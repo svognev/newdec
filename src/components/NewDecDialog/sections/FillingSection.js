@@ -11,7 +11,7 @@ const  FillingSection = (props) => {
         previewProps,
         fillingColorName, changeFillingColorName,
         fillingColor, changeFillingColor,
-        connectToPrevious, changeConnectToPrevious,
+        fillingConnectToPrevious, changefillingConnectToPrevious,
      } = props;
 
     return (
@@ -38,8 +38,8 @@ const  FillingSection = (props) => {
                 <div>
                     <Checkbox 
                         color="primary" 
-                        checked={connectToPrevious} 
-                        onChange={changeConnectToPrevious} 
+                        checked={fillingConnectToPrevious} 
+                        onChange={changefillingConnectToPrevious} 
                     />
                 </div>
             </div>
