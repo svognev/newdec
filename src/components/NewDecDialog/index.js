@@ -165,16 +165,6 @@ const NewDecDialog = props => {
         }
     };
 
-    const changeBorderType = e => {
-        setValue("borderType")(e);
-        if (e.target.value === "double" && borderThickness === "2") {
-            setValue("borderThickness")(null, "3");
-        }
-        if (e.target.value !== "double" && borderThickness === "3") {
-            setValue("borderThickness")(null, "2");
-        }
-    };
-
     const previewFontColor = getCorrectColor(fontColor, "f5f5f5");
     const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
     const previewAdditionalFillingColor = connectToPrevious ? previewFillingColor : "f5f5f5";
@@ -243,17 +233,6 @@ const NewDecDialog = props => {
 
     const distancesSectionProps = {
         previewProps,
-    };
-
-    const framesSectionProps = { 
-        leftBorder, changeLeftBorder, 
-        rightBorder, changeRightBorder,
-        topBorder, changeTopBorder, 
-        bottomBorder, changeBottomBorder, 
-        borderColorName, changeBorderColorName,
-        borderColor, changeBorderColor,
-        borderThickness, changeBorderThickness,
-        borderType, changeBorderType,
     };
 
     const fillingSectionProps = { 
@@ -350,7 +329,7 @@ const NewDecDialog = props => {
                         { openedTab === 4 && <ReferencingSection /> }
                         { openedTab === 5 && <TypographySection {...typographySectionProps} /> }
                         { openedTab === 6 && <DistancesSection {...distancesSectionProps} /> }
-                        { openedTab === 7 && <FramesSection {...framesSectionProps} /> }
+                        { openedTab === 7 && <FramesSection /> }
                         { openedTab === 8 && <FillingSection {...fillingSectionProps} /> }
                         { openedTab === 9 && <TocSection {...tocSectionProps} /> }
                         { openedTab === 10 && <ShortCutsSection {...shortCutsSectionProps} /> }

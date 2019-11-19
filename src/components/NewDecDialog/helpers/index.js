@@ -1,6 +1,7 @@
 import DecDataParser from "./DecDataParser";
 import getShortCutUtils from "./getShortCutUtils";
 import isFontAvailable from "./isFontAvailable";
+import { getBorderPreviewStyle, } from "./getPreviewStyle";
 import {
     getTabsErrorState, 
     getNamesSectionErrorState,
@@ -30,6 +31,7 @@ export {
     DecDataParser,
     getShortCutUtils,
     isFontAvailable,
+    getBorderPreviewStyle,
     getTabsErrorState,
     getNamesSectionErrorState,
     getWordExportSectionErrorState,
