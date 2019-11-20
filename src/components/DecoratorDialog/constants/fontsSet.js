@@ -1,11 +1,12 @@
 const fontSet = [ 
-    "Source Sans Pro", 
-    "Dejavu Sans", 
-    "Dejavu Serif", 
-    "Open Sans", 
-    "Georgia", 
-    "Arial", 
-    "Verdana", 
+    "Source Sans Pro",
+    "Dejavu Sans",
+    "Dejavu Serif",
+    "Open Sans",
+    "Montserrat",
+    "Arial",
+    "Georgia",
+    "Verdana",
     "Times New Roman",
 ];
 
