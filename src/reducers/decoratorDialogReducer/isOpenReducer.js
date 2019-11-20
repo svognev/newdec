@@ -1,4 +1,4 @@
-import { SHOW_DEC_DIALOG, HIDE_DEC_DIALOG } from "../../components/NewDecDialog/actions";
+import { SHOW_DEC_DIALOG, HIDE_DEC_DIALOG } from "../../components/DecoratorDialog/actions";
 
 const isOpenReducer = (state = true, action) => {
     switch (action.type) {

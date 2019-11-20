@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 class NewGroupDialog extends React.Component {
-
     state = this.props.currentGroup 
           ? this.props.currentGroup 
           : this.props.groupType !== "xref" 
@@ -131,6 +130,6 @@ class NewGroupDialog extends React.Component {
             </Dialog>
         );
     }
-};
+}
 
 export default NewGroupDialog;

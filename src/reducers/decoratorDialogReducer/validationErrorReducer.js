@@ -1,9 +1,9 @@
 import { 
     UPDATE_VALIDATION_ERROR, 
     REMOVE_VALIDATION_ERROR, 
-} from "../../components/NewDecDialog/actions";
+} from "../../components/DecoratorDialog/actions";
 
-import { tabsErrorInitialState } from "../../components/NewDecDialog/constants";
+import { tabsErrorInitialState } from "../../components/DecoratorDialog/constants";
 
 const validationErrorReducer = (state = tabsErrorInitialState, action) => {
     switch (action.type) {

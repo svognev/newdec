@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { ThemeProvider } from "@material-ui/styles";
 
-import NewDecDialog from "./components/NewDecDialog";
-import { openDialog, closeDialog } from "./components/NewDecDialog/actions";
+import DecoratorDialog from "./components/DecoratorDialog";
+import { openDialog, closeDialog } from "./components/DecoratorDialog/actions";
 import { clearSavedDecoratorForm } from "./actions";
-import { DecDataParser } from "./components/NewDecDialog/helpers";
-import theme from "./components/NewDecDialog/theme";
+import { DecDataParser } from "./components/DecoratorDialog/helpers";
+import theme from "./components/DecoratorDialog/theme";
 
 import "./App.css";
 
@@ -40,7 +40,7 @@ const App = props => {
                         </>
                     )}
                 </div>
-                <NewDecDialog { ...{isOpen, closeDialog}} />
+                <DecoratorDialog { ...{isOpen, closeDialog}} />
             </div>
         </ThemeProvider>
     );

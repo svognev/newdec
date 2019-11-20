@@ -27,7 +27,6 @@ class ColorField extends React.Component {
 
     render() {
         const { colorCode, changeColorCode, defaultColorCode, required, bottomAligned } = this.props;
-        const { showColorPicker, hideColorPicker, colorPickerHandler } = this;
         const correctColor = getCorrectColor(colorCode);
         const colorError = correctColor !== colorCode;
         const inputError = colorError && (required || !!colorCode);
@@ -55,7 +54,7 @@ class ColorField extends React.Component {
                     error={inputError}
                 />
                 <div
-                    onClick={showColorPicker}
+                    onClick={this.showColorPicker}
                     className="colorSample" 
                     style={colorSampleStyle}
                 />
@@ -63,12 +62,12 @@ class ColorField extends React.Component {
                     <div className={colorPickerClassName}>
                         <div className="colorPicker-chromeBox">
                             <ChromePicker
-                                onChangeComplete={colorPickerHandler(changeColorCode)}
+                                onChangeComplete={this.colorPickerHandler(changeColorCode)}
                                 color={pickerColor}
                                 disableAlpha
                             />
                         </div>
-                        <div className="colorPicker-popOver"  onClick={hideColorPicker}></div>
+                        <div className="colorPicker-popOver"  onClick={this.hideColorPicker}></div>
                     </div>
                 ) }
             </div>

@@ -1,5 +1,5 @@
-import { UPDATE_DEC_FORM, CLEAR_DEC_FORM } from "../../components/NewDecDialog/actions";
-import getInitialState from "../../components/NewDecDialog/getInitialState";
+import { UPDATE_DEC_FORM, CLEAR_DEC_FORM } from "../../components/DecoratorDialog/actions";
+import getInitialState from "../../components/DecoratorDialog/getInitialState";
 
 const initialState = getInitialState();
 

@@ -1,7 +1,7 @@
 import { 
     SWITCH_ON_DEC_DIALOG_EDIT_MODE, 
     SWITCH_OFF_DEC_DIALOG_EDIT_MODE, 
-} from "../../components/NewDecDialog/actions";
+} from "../../components/DecoratorDialog/actions";
 
 const isEditModeReducer = (state = false, action) => {
     switch (action.type) {

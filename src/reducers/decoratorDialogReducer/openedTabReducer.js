@@ -1,7 +1,7 @@
 import { 
     SWITCH_DEC_DIALOG_TAB,
     RESET_DEC_DIALOG_TAB, 
-} from "../../components/NewDecDialog/actions";
+} from "../../components/DecoratorDialog/actions";
 
 const initialState = 0;
 

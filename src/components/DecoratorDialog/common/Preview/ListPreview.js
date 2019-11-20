@@ -45,7 +45,7 @@ const ListPreview = props => {
             <div className="preview-content">
                 <div className="demonstrationElement">
                     <div
-                        className={"demonstrationElement"+"-text"}
+                        className="demonstrationElement-text"
                         style={previewStyle}
                     >
                         <div>

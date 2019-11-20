@@ -35,6 +35,7 @@ export const getTabsErrorState = form => {
         tabsState.listSection = true;
     }
 
+    // eslint-disable-next-line no-unused-vars
     for (let tabName in tabsState) {
         if (tabsState[tabName]) {
             return tabsState;
@@ -45,6 +46,7 @@ export const getTabsErrorState = form => {
 };
 
 export const getTabNumberToSwitch = tabsErrorState => {
+    // eslint-disable-next-line no-unused-vars
     for (const { tabName, tabNumber } of sectionsTabNumbers) {
         if (tabsErrorState[tabName]) {
             return tabNumber;

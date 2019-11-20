@@ -31,7 +31,7 @@ class Preview extends React.Component {
                 >
                     <div className="demonstrationElement">
                         <ContentEditable
-                            className={"demonstrationElement"+"-text"}
+                            className="demonstrationElement-text"
                             onChange={this.onPreviewTextChange} 
                             html={previewText}
                             style={previewStyle}

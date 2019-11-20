@@ -3,7 +3,6 @@ import {
     bulletNamesMap, 
     autoFillingRequiredFields, 
     DEFAULT_FONT, 
-    sectionsTabNumbers,
 } from "../constants";
 import isFontAvailable from "./isFontAvailable";
 
