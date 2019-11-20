@@ -83,12 +83,12 @@ const DistancesSection = props => {
                         onChange={changeLineSpacing} 
                     >
                         <option value="1.0">1.0</option>
-                        <option className="highlightedOption" value="1.15">1.15</option>
+                        <option value="1.15">1.15</option>
                         <option value="1.5">1.5</option>
                         <option value="2.0">2.0</option>
                         <option value="2.5">2.5</option>
                         <option value="3.0">3.0</option>
-                        <option value="custom">Custom</option>
+                        <option value="custom" className="highlightedOption">Custom</option>
                     </NativeSelect> 
                     { lineSpacing === "custom" && (
                         <TextField 
