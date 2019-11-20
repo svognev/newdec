@@ -48,7 +48,9 @@ class ColorField extends React.Component {
                     value={colorCode}
                     onChange={changeColorCode}
                     onClick={e => { 
-                        selectAllOnClick(defaultColorCode || "000")(e); 
+                        if (defaultColorCode) {
+                            selectAllOnClick(defaultColorCode)(e);
+                        }
                         // this.showColorPicker(); 
                     }}
                     error={inputError}

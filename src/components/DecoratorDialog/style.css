@@ -232,14 +232,38 @@
     display: flex;
 }
 
-.fontSettingsGrid {
+.paragraphDecorators-dialog .flexibleGrid {
     width: 100%;
     display: grid;
-    grid-template-rows: minmax(3.5rem, min-content) minmax(0, min-content);
-    grid-auto-rows: minmax(3.5rem, min-content);
+    grid-template-rows: minmax(0, min-content);
+    grid-auto-rows: minmax(0, min-content);
     grid-gap: 0px 1.5rem;
     grid-auto-flow: row;
     align-items: center;
     align-content: center;
     grid-template-columns: min-content min-content; 
+}
+
+.paragraphDecorators-dialog .flexibleGrid>span {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.paragraphDecorators-dialog .optionalField {
+    display: inline-flex;
+    width: 100%;
+    transition: all 0.4s ease-out;
+    align-items: center;
+}
+
+.paragraphDecorators-dialog .optionalField_hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.paragraphDecorators-dialog .optionalField_shown {
+    opacity: 1;
+    height: 3.5rem;
 }

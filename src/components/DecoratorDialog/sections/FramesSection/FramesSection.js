@@ -10,8 +10,13 @@ import Select from "@material-ui/core/Select";
 import FrameTypeInput from "../../sections/FramesSection/FrameTypeInput";
 import ColorField from "../../common/ColorField";
 import generateBorderPreviewStyle from "./generateBorderPreviewStyle";
-import {  setValue, toggleValue, setNumber, setColor } from "../../actions";
+import { setValue, toggleValue, setNumber, setColor } from "../../actions";
 import { selectAllOnClick } from "../../helpers";
+import { 
+    DEFAULT_BORDER_COLOR, 
+    DEFAULT_BORDER_COLOR_NAME,
+    DEFAULT_BORDER_THICKNESS,
+} from "../../constants";
 
 import "./style.css";
 
@@ -92,13 +97,14 @@ class FramesSection extends React.Component {
                         margin="dense" 
                         value={borderColorName}
                         onChange={changeBorderColorName}
-                        onClick={selectAllOnClick("Red")}
+                        onClick={selectAllOnClick(DEFAULT_BORDER_COLOR_NAME)}
                     />
     
                     <span>Frame color HEX</span>
                     <ColorField 
                         colorCode={borderColor} 
                         changeColorCode={changeBorderColor}
+                        defaultColorCode={DEFAULT_BORDER_COLOR}
                         required
                     />
     
@@ -110,7 +116,7 @@ class FramesSection extends React.Component {
                             className="numberInput"
                             value={borderThickness}
                             onChange={changeBorderThickness}
-                            onClick={selectAllOnClick("2")}
+                            onClick={selectAllOnClick(DEFAULT_BORDER_THICKNESS)}
                          />                                            
                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
                     </div>                        

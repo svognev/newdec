@@ -1,4 +1,3 @@
-import { emptyDecFormState, autoFillingRequiredFields, HOLDER, DEFAULT_FONT } from "./emptyDecFormState";
 import decoratorsList from "./decoratorsList";
 import fontSet from "./fontsSet";
 import {
@@ -17,12 +16,28 @@ import {
     numberingSets,
     sampleText,
 } from "./constants";
-
-export {
+import { 
     emptyDecFormState, 
     autoFillingRequiredFields, 
-    HOLDER,
+    HOLDER, 
     DEFAULT_FONT,
+    DEFAULT_FONT_SIZE,
+    DEFAULT_SIDE_NUMBER_FONT_COLOR,
+    DEFAULT_SIDE_NUMBER_FILLING_COLOR,
+    DEFAULT_SIDE_NUMBER_WIDTH,
+    DEFAULT_SIDE_NUMBER_RADIUS,
+    DEFAULT_FONT_COLOR,
+    DEFAULT_ROW_INDENT,
+    DEFAULT_MARGIN,
+    DEFAULT_WORD_SPACING,
+    DEFAULT_LINE_SPACING,
+    DEFAULT_BORDER_COLOR,
+    DEFAULT_BORDER_THICKNESS,
+    DEFAULT_FONT_COLOR_NAME,
+    DEFAULT_BORDER_COLOR_NAME,
+} from "./emptyDecFormState";
+
+export {
     decoratorsList,
     alignmentsMap,
     backSpaceActions,
@@ -37,4 +52,22 @@ export {
     sectionsTabNumbers,
     sampleText,
     fontSet,
+    emptyDecFormState, 
+    autoFillingRequiredFields, 
+    HOLDER, 
+    DEFAULT_FONT,
+    DEFAULT_FONT_SIZE,
+    DEFAULT_SIDE_NUMBER_FONT_COLOR,
+    DEFAULT_SIDE_NUMBER_FILLING_COLOR,
+    DEFAULT_SIDE_NUMBER_WIDTH,
+    DEFAULT_SIDE_NUMBER_RADIUS,
+    DEFAULT_FONT_COLOR,
+    DEFAULT_ROW_INDENT,
+    DEFAULT_MARGIN,
+    DEFAULT_WORD_SPACING,
+    DEFAULT_LINE_SPACING,
+    DEFAULT_BORDER_COLOR,
+    DEFAULT_BORDER_THICKNESS,
+    DEFAULT_FONT_COLOR_NAME,
+    DEFAULT_BORDER_COLOR_NAME,
 };

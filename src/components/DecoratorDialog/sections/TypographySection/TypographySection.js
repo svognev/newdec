@@ -13,12 +13,13 @@ import Preview from "../../common/Preview";
 import CustomInput from "../../common/CustomInput";
 import ColorField from "../../common/ColorField";
 import FontSelectFields from "../../common/FontSelectFields";
-import {  setValue, toggleValue, setNumber, setColor, } from "../../actions";
+import {  setValue, toggleValue, setNumber, setColor } from "../../actions";
+import { DEFAULT_FONT_SIZE, DEFAULT_FONT_COLOR, DEFAULT_FONT_COLOR_NAME } from "../../constants";
 import { selectAllOnClick } from "../../helpers";
 
 import "./style.css";
 
-const TypographySection = (props) => {
+const TypographySection = props => {
     const { 
         previewProps,
         font, changeFont,
@@ -38,7 +39,7 @@ const TypographySection = (props) => {
     return (
         <>
         <div className="dialogGrid dialogGrid_2cols">
-            <div className="fontSettingsGrid">
+            <div className="flexibleGrid">
                 <FontSelectFields { ...{ font, changeFont, customFont, changeCustomFont }} />
                 
                 <span>Alignment</span>
@@ -61,7 +62,7 @@ const TypographySection = (props) => {
                         className="numberInput"
                         value={fontSize}
                         onChange={changeFontSize}
-                        onClick={selectAllOnClick("12")}
+                        onClick={selectAllOnClick(DEFAULT_FONT_SIZE)}
                     />                                            
                     <InputAdornment variant="filled" position="end">pt</InputAdornment>
                 </div>      
@@ -72,13 +73,14 @@ const TypographySection = (props) => {
                     margin="dense"
                     value={fontColorName}
                     onChange={changeFontColorName}
-                    onClick={selectAllOnClick("Black")}
+                    onClick={selectAllOnClick(DEFAULT_FONT_COLOR_NAME)}
                 />
 
                 <span>Font color HEX</span>
                 <ColorField 
                     colorCode={fontColor} 
                     changeColorCode={changeFontColor}
+                    defaultColorCode={DEFAULT_FONT_COLOR}
                     required
                 />
             </div>

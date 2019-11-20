@@ -13,7 +13,16 @@ import CustomInputShort from "../../common/CustomInputShort";
 import ColorField from "../../common/ColorField";
 import LabelWithAsterisk from "../../common/LabelWithAsterisk";
 import FontSelectFields from "../../common/FontSelectFields";
-import { listStyleTypes, bulletNamesMap, HOLDER } from "../../constants";
+import { 
+    listStyleTypes, 
+    bulletNamesMap, 
+    HOLDER, 
+    DEFAULT_FONT_SIZE,
+    DEFAULT_SIDE_NUMBER_FONT_COLOR,
+    DEFAULT_SIDE_NUMBER_FILLING_COLOR,
+    DEFAULT_SIDE_NUMBER_WIDTH,
+    DEFAULT_SIDE_NUMBER_RADIUS,
+ } from "../../constants";
 import { 
     updateValidationError,
     setValue,
@@ -24,7 +33,6 @@ import {
 } from "../../actions";
 import { 
     selectAllOnClick, 
-    scrollToBottom, 
     changeAndScroll, 
     getListSectionErrorState,
     focusInput,
@@ -307,13 +315,12 @@ class ListSection extends React.Component {
                             </div> 
     
                             <div className={`optionalSettings optionalSettings_main optionalSettings_${sideNumberSettingsState}`}>
-                                <div className="fontSettingsGrid listTypeSettings">
+                                <div className="flexibleGrid listTypeSettings">
                                     <FontSelectFields 
                                         font={sideNumberFont}
                                         changeFont={changeSideNumberFont}
                                         customFont={customSideNumberFont}
                                         changeCustomFont={changeCustomSideNumberFont}
-                                        extraFunction={() => { scrollToBottom("content-rightSide"); }}
                                     />
                             
                                     <span>Alignment</span>
@@ -332,7 +339,7 @@ class ListSection extends React.Component {
                                         <TextField 
                                             value={sideNumberFontSize}
                                             onChange={changeSideNumberFontSize}
-                                            onClick={selectAllOnClick("12")}
+                                            onClick={selectAllOnClick(DEFAULT_FONT_SIZE)}
                                             variant="outlined" 
                                             margin="dense" 
                                             className="numberInput"
@@ -344,7 +351,7 @@ class ListSection extends React.Component {
                                     <ColorField 
                                         colorCode={sideNumberFontColor} 
                                         changeColorCode={changeSideNumberFontColor}
-                                        defaultColorCode={"FFF"}
+                                        defaultColorCode={DEFAULT_SIDE_NUMBER_FONT_COLOR}
                                         bottomAligned
                                     />
                                         
@@ -352,7 +359,7 @@ class ListSection extends React.Component {
                                     <ColorField 
                                         colorCode={sideNumberFillingColor} 
                                         changeColorCode={changeSideNumberFillingColor}
-                                        defaultColorCode={"1E88E5"}
+                                        defaultColorCode={DEFAULT_SIDE_NUMBER_FILLING_COLOR}
                                         bottomAligned
                                     />
     
@@ -361,7 +368,7 @@ class ListSection extends React.Component {
                                         <TextField 
                                             value={sideNumberWidth}
                                             onChange={changeSideNumberWidth}
-                                            onClick={selectAllOnClick("20")}
+                                            onClick={selectAllOnClick(DEFAULT_SIDE_NUMBER_WIDTH)}
                                             variant="outlined" 
                                             margin="dense" 
                                             className="numberInput"
@@ -374,7 +381,7 @@ class ListSection extends React.Component {
                                         <TextField 
                                             value={sideNumberRadius}
                                             onChange={changeSideNumberRadius}
-                                            onClick={selectAllOnClick("10")}
+                                            onClick={selectAllOnClick(DEFAULT_SIDE_NUMBER_RADIUS)}
                                             variant="outlined" 
                                             margin="dense" 
                                             className="numberInput"

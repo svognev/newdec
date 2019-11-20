@@ -45,9 +45,15 @@ export const scrollToBottom = className => {
     })}, 0);
 };
 
-export const changeAndScroll = changeFunction => (...args) => {
+export const changeAndScroll = (changeFunction, timeOut) => (...args) => {
     changeFunction(...args);
-    scrollToBottom("content-rightSide");
+    if (!timeOut) {
+        scrollToBottom("content-rightSide");
+    } else {
+        setTimeout(() => {
+            scrollToBottom("content-rightSide");
+        }, timeOut);
+    }
 };
 
 export const selectAllEditableContent = className => e => {
@@ -98,15 +104,23 @@ export const getPreviewFont = (font, customFont) => {
 }
 
 export const fillMissedFields = currentFormState => {
-    const formStateWithoutMissedFields = { ...currentFormState }; 
+    const { 
+        font, customFont,
+        sideNumberFont, customSideNumberFont,
+        lineSpacing, customLineSpacing,
+    } = currentFormState;
+
+    const formStateWithoutMissedFields = { ...currentFormState };
     
-    if (currentFormState.font === "custom" && !currentFormState.customFont) {
-        formStateWithoutMissedFields.font = DEFAULT_FONT;
-    };
-    
-    if (currentFormState.sideNumberFont === "custom" && !currentFormState.customSideNumberFont) {
-        formStateWithoutMissedFields.sideNumberFont = DEFAULT_FONT;
-    };
+    [
+        [font, customFont],
+        [sideNumberFont, customSideNumberFont], 
+        [lineSpacing, customLineSpacing],
+    ].forEach(([option, customOption]) => {
+        if (option === "custom" && !customOption) {
+            formStateWithoutMissedFields[option] = null;
+        }
+    });
 
     // eslint-disable-next-line
     for (let fieldName in autoFillingRequiredFields) {

@@ -1,21 +1,38 @@
 export const HOLDER = "HOLDER-POLDER";
 export const DEFAULT_FONT = "Helvetica";
+export const DEFAULT_FONT_SIZE = "11";
+export const DEFAULT_SIDE_NUMBER_FONT_COLOR = "FFF";
+export const DEFAULT_SIDE_NUMBER_FILLING_COLOR = "1E88E5";
+export const DEFAULT_SIDE_NUMBER_WIDTH = "20";
+export const DEFAULT_SIDE_NUMBER_RADIUS = "10";
+export const DEFAULT_FONT_COLOR = "000";
+export const DEFAULT_ROW_INDENT = "0";
+export const DEFAULT_MARGIN = "6";
+export const DEFAULT_WORD_SPACING = "0";
+export const DEFAULT_LINE_SPACING = "1.5";
+export const DEFAULT_BORDER_COLOR = "F00";
+export const DEFAULT_BORDER_THICKNESS = "2";
+export const DEFAULT_FONT_COLOR_NAME = "Black";
+export const DEFAULT_BORDER_COLOR_NAME = "Red";
 
 export const autoFillingRequiredFields = {
-    sideNumberFontSize: "11",
-    sideNumberFontColor: "FFF",
-    sideNumberFillingColor: "1E88E5",
-    sideNumberWidth: "20",
-    sideNumberRadius: "10",
-    fontSize: "11",
-    fontColor: "000",
-    marginTop: "6",
-    marginBottom: "6",
-    firstRowIndent: "0",
-    otherRowsIndent: "0",
-    wordSpacing: "0",   
-    borderColor: "f00",
-    borderThickness: "2",
+    sideNumberFont: DEFAULT_FONT,
+    sideNumberFontSize: DEFAULT_FONT_SIZE,
+    sideNumberFontColor: DEFAULT_SIDE_NUMBER_FONT_COLOR,
+    sideNumberFillingColor: DEFAULT_SIDE_NUMBER_FILLING_COLOR,
+    sideNumberWidth: DEFAULT_SIDE_NUMBER_WIDTH,
+    sideNumberRadius: DEFAULT_SIDE_NUMBER_RADIUS,
+    font: DEFAULT_FONT,
+    fontSize: DEFAULT_FONT_SIZE,
+    fontColor: DEFAULT_FONT_COLOR,
+    marginTop: DEFAULT_MARGIN,
+    marginBottom: DEFAULT_MARGIN,
+    firstRowIndent: DEFAULT_ROW_INDENT,
+    otherRowsIndent: DEFAULT_ROW_INDENT,
+    wordSpacing: DEFAULT_WORD_SPACING,   
+    lineSpacing: DEFAULT_LINE_SPACING,
+    borderColor: DEFAULT_BORDER_COLOR,
+    borderThickness: DEFAULT_BORDER_THICKNESS,
 };
 
 export const emptyDecFormState = {
@@ -55,28 +72,25 @@ export const emptyDecFormState = {
     allowRestartNumbering: false,
     includePreviousFrom: "",
     sideNumber: false,
-    sideNumberFont: DEFAULT_FONT,
     customSideNumberFont: "",
     sideNumberAlignment: "center",
     referenceGroup: "",
     referenceGroupToCreate: "",
-    font: DEFAULT_FONT,
     customFont: "",
     alignment: "left",
-    fontColorName: "Black",
+    fontColorName: DEFAULT_FONT_COLOR_NAME,
     bold: false,
     italic: false,
     underlined: false,
     stroke: false,
     textTransform: "none",
     verticalAlign: "baseline",
-    lineSpacing: "1.5",
     customLineSpacing: "",
     leftBorder: false,
     rightBorder: false,
     topBorder: false,
     bottomBorder: false,
-    borderColorName: "Red",
+    borderColorName: DEFAULT_BORDER_COLOR_NAME,
     borderType: "solid",
     borderConnectToPrevious: false,
     fillingColorName: "",

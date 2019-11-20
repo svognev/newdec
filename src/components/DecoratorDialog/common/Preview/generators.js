@@ -1,5 +1,5 @@
 import { getOffset, getCorrectColor, getPreviewFont } from "../../helpers";
-import { alignmentsMap } from "../../constants";
+import { alignmentsMap, DEFAULT_FONT_SIZE, DEFAULT_LINE_SPACING } from "../../constants";
 
 export const generatePreviewStyle = formState => {
     const {
@@ -31,9 +31,10 @@ export const generatePreviewStyle = formState => {
     const indentsDifference = (firstRowIndent || 0) - (otherRowsIndent || 0);
     const previewMarginLeft = otherRowsIndent ? `${otherRowsIndent >= 12 ? 12 : otherRowsIndent}cm` : 0;
     const previewTextIndent = indentsDifference ? `${indentsDifference >= 12 ? 12 : indentsDifference}cm` : 0;
+    const previewLineSpacing = lineSpacing !== "custom" ? lineSpacing : (customLineSpacing || DEFAULT_LINE_SPACING);
 
     const previewStyle = {
-        fontSize: !fontSize ? "0" : `${fontSize <= 120 ? fontSize : 120}pt`,
+        fontSize: !fontSize ? `${DEFAULT_FONT_SIZE}pt` : `${fontSize <= 120 ? fontSize : 120}pt`,
         color: `#${previewFontColor}`,
         fontFamily: getPreviewFont(font, customFont),
         alignItems: alignmentsMap[alignment],
@@ -49,7 +50,7 @@ export const generatePreviewStyle = formState => {
         marginLeft: previewMarginLeft,
         textIndent: previewTextIndent,
         wordSpacing: `${wordSpacing || 0}pt`,
-        lineHeight: (lineSpacing !== "custom" ? lineSpacing : (!customLineSpacing ? "1.15" : `${customLineSpacing || 0}`)),
+        lineHeight: previewLineSpacing,
         marginTop: `${parseFloat(marginTop) + getOffset(verticalAlign, fontSize)}pt`,
         marginBottom: `${parseFloat(marginBottom) - getOffset(verticalAlign, fontSize)}pt`,
         outline: "none",
@@ -79,7 +80,7 @@ export const generateSideNumberStyle = formState => {
     const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
         fontFamily: getPreviewFont(sideNumberFont, customSideNumberFont),
         textAlign: sideNumberAlignment,
-        fontSize: !sideNumberFontSize ? "0" : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
+        fontSize: !sideNumberFontSize ? `${DEFAULT_FONT_SIZE}pt` : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
         color: `#${previewSideNumberFontColor}`,
         backgroundColor: `#${previewSideNumberFillingColor}`,
         minWidth: `${sideNumberWidth || 0}pt`,
