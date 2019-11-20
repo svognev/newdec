@@ -24,8 +24,13 @@ import CustomTab from "./common/CustomTab";
 import CustomErrorTab from "./common/CustomErrorTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { clearDecoratorForm, switchDecDialogTab, updateValidationError } from "./actions";
-import { saveDecoratorForm } from "../../actions"
+import { saveDecoratorForm } from "../../actions";
+import { 
+    closeDialog, 
+    clearDecoratorForm, 
+    switchDecDialogTab, 
+    updateValidationError 
+} from "./actions";
 import { 
     fillMissedFields, 
     DecDataParser, 
@@ -42,14 +47,14 @@ class DecoratorDialog extends React.Component {
     };
 
     onSaveButtonClick = () => {
-        const { formState, updateValidationError, switchTab, saveForm } = this.props;
+        const { formState, updateValidationError, switchTab, sendForm } = this.props;
         const tabsErrorState = getTabsErrorState(formState);
         if (tabsErrorState) {
             updateValidationError(tabsErrorState);
             switchTab(getTabNumberToSwitch(tabsErrorState));
         } else {
-            const formToSave = DecDataParser.parseToSend(fillMissedFields(formState));
-            saveForm(formToSave);
+            const formToSend = DecDataParser.parseToSend(fillMissedFields(formState));
+            sendForm(formToSend);
             this.onClose();
         }
     };
@@ -157,9 +162,10 @@ class DecoratorDialog extends React.Component {
     }
 }
 
-const mapStateToProps = ({ decoratorDialog: { form, openedTab, validationError, isEditMode }}) => {
+const mapStateToProps = ({ decoratorDialog: { form, isOpen, openedTab, validationError, isEditMode }}) => {
     return { 
         formState: form,
+        isOpen,
         openedTab,
         validationError, 
         isEditMode,
@@ -168,6 +174,7 @@ const mapStateToProps = ({ decoratorDialog: { form, openedTab, validationError, 
 
 const mapDispatchToProps = dispatch => {
     return {
+        closeDialog: closeDialog(dispatch),
         clearForm: () => dispatch(clearDecoratorForm()),
         switchTab: payload => dispatch(switchDecDialogTab(payload)),
         updateValidationError: payload => dispatch(updateValidationError(payload)),

@@ -5,15 +5,15 @@ import Button from "@material-ui/core/Button";
 import { ThemeProvider } from "@material-ui/styles";
 
 import DecoratorDialog from "./components/DecoratorDialog";
-import { openDialog, closeDialog } from "./components/DecoratorDialog/actions";
-import { clearSavedDecoratorForm } from "./actions";
+import { openDialog } from "./components/DecoratorDialog/actions";
+import { clearSavedDecoratorForm,  saveDecoratorForm } from "./actions";
 import { DecDataParser } from "./components/DecoratorDialog/helpers";
 import theme from "./components/DecoratorDialog/theme";
 
 import "./App.css";
 
 const App = props => {
-    const { isOpen, openDialog, closeDialog, savedForm, clearSavedForm } = props;
+    const { openDialog, saveForm, clearSavedForm, savedForm } = props;
 
     const openEditDialog = () => {
         openDialog(DecDataParser.parseToEdit(savedForm || {}));
@@ -40,20 +40,20 @@ const App = props => {
                         </>
                     )}
                 </div>
-                <DecoratorDialog { ...{isOpen, closeDialog}} />
+                <DecoratorDialog sendForm={saveForm} />
             </div>
         </ThemeProvider>
     );
 };
 
-const mapStateToProps = ({ savedForm, decoratorDialog: { isOpen }}) => {
-    return { isOpen, savedForm };
+const mapStateToProps = ({ savedForm }) => {
+    return { savedForm };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         openDialog: openDialog(dispatch),
-        closeDialog: closeDialog(dispatch),
+        saveForm: payload => dispatch(saveDecoratorForm(payload)),
         clearSavedForm: () => dispatch(clearSavedDecoratorForm()),
     };
 };
