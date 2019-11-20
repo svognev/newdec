@@ -21,7 +21,7 @@ const WordExportSection = props => {
     }
 
     return (
-        <div className="dialogGrid dialogGrid_2cols">
+        <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
             <LabelWithAsterisk>Style name in WORD</LabelWithAsterisk>
             <TextField 
                 value={wordStyleName}
@@ -33,7 +33,7 @@ const WordExportSection = props => {
             />
             
             <span>Soft return</span>
-            <div>
+            <div className="unlabeledCheckbox">
                 <Checkbox 
                     checked={softReturn}
                     onChange={changeSoftReturn}

@@ -136,7 +136,7 @@ class FramesSection extends React.Component {
                     </div>
     
                     <span>Connect to previous</span>
-                    <div>
+                    <div className="unlabeledCheckbox">
                         <Checkbox 
                             checked={borderConnectToPrevious}
                             onChange={changeBorderConnectToPrevious}

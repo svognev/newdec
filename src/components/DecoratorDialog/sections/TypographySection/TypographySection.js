@@ -88,7 +88,7 @@ const TypographySection = props => {
                 <Preview {...previewProps} />
             </div>
         </div>
-        <div className="dialogGrid dialogGrid_2cols dialogGrid_indented">
+        <div className="dialogGrid dialogGrid_2cols dialogGrid_topIndented">
             <span>Stylings</span>
             <div className="checkBoxesSet">
                 <div className="labeledCheckbox labeledCheckbox_bold">
@@ -135,7 +135,7 @@ const TypographySection = props => {
                 onChange={changeTextTransform} 
                 row
             >
-                <div className="labeledCheckbox labeledCheckbox_topIndented">
+                <div className="labeledCheckbox">
                     <FormControlLabel
                         value="none"
                         control={<Radio color="primary" />}

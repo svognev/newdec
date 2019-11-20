@@ -37,7 +37,7 @@ const  FillingSection = props => {
                 />
 
                 <span>Connect to previous</span>
-                <div>
+                <div className="unlabeledCheckbox">
                     <Checkbox 
                         color="primary" 
                         checked={fillingConnectToPrevious} 

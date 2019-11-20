@@ -73,7 +73,7 @@
     display: grid;
     grid-template-rows: minmax(3.5rem, min-content);
     grid-auto-rows: minmax(3.5rem, min-content);
-    grid-gap: 0px 1.5rem;
+    gap: 0px 1.5rem;
     grid-auto-flow: row;
     align-items: center;
 }
@@ -224,6 +224,10 @@
     padding-right: 10px;
 }
 
+.paragraphDecorators-dialog .unlabeledCheckbox {
+    margin-left: -11px;
+}
+
 .paragraphDecorators-dialog .labeledCheckbox {
     margin-right: 1.3rem;
 }
@@ -237,7 +241,7 @@
     display: grid;
     grid-template-rows: minmax(0, min-content);
     grid-auto-rows: minmax(0, min-content);
-    grid-gap: 0px 1.5rem;
+    gap: 0px 1.5rem;
     grid-auto-flow: row;
     align-items: center;
     align-content: center;

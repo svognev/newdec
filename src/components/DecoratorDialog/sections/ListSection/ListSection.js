@@ -5,6 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import Fade from '@material-ui/core/Fade';
 
 import ListPreview from "../../common/Preview/ListPreview";
@@ -158,7 +161,7 @@ class ListSection extends React.Component {
                                 <div className="listSection-firstSpan">
                                     <span>Is it a list?</span>
                                 </div>
-                                <div>
+                                <div className="unlabeledCheckbox">
                                     <Checkbox 
                                         color="primary" 
                                         checked={isList} 
@@ -232,7 +235,7 @@ class ListSection extends React.Component {
                                     </div>
     
                                     <span>Magic Tabs</span>
-                                    <div>
+                                    <div className="unlabeledCheckbox">
                                         <Checkbox 
                                             color="primary" 
                                             checked={magicTabs} 
@@ -241,16 +244,28 @@ class ListSection extends React.Component {
                                     </div>
     
                                     <span>Type of list</span>
-                                    <div>
-                                        <NativeSelect 
-                                            value={listType} 
-                                            onChange={changeAndScroll(this.onListTypeChange(suffix))} 
-                                            input={ <CustomInput /> }
-                                        >
-                                            <option value={"unordered"}>Unordered</option>
-                                            <option value={"ordered"}>Ordered</option>
-                                        </NativeSelect>
-                                    </div>
+                                    <RadioGroup 
+                                        value={listType} 
+                                        onChange={changeAndScroll(this.onListTypeChange(suffix))}
+                                        row
+                                    >
+                                        <div className="labeledCheckbox">
+                                            <FormControlLabel
+                                                value="unordered"
+                                                control={<Radio color="primary" />}
+                                                label="Unordered"
+                                                labelPlacement="end"
+                                            />
+                                        </div>
+                                        <div className="labeledCheckbox">
+                                            <FormControlLabel
+                                                value="ordered"
+                                                control={<Radio color="primary" />}
+                                                label="Ordered"
+                                                labelPlacement="end"
+                                            />
+                                        </div>
+                                    </RadioGroup>
                                 </div>
                             </div>
                         </div>
@@ -270,7 +285,7 @@ class ListSection extends React.Component {
                                 </div>
                                         
                                 <span>Continue numbering after interruption</span>
-                                <div>
+                                <div className="unlabeledCheckbox">
                                     <Checkbox
                                         checked={continueNumbering}
                                         onChange={changeContinueNumbering}
@@ -279,7 +294,7 @@ class ListSection extends React.Component {
                                 </div>
                                         
                                 <span>Allow restart numbering</span>
-                                <div>
+                                <div className="unlabeledCheckbox">
                                     <Checkbox
                                         checked={allowRestartNumbering} 
                                         onChange={changeAllowRestartNumbering}
@@ -305,7 +320,7 @@ class ListSection extends React.Component {
                                 </div>
                                         
                                 <span>Side number</span>
-                                <div>
+                                <div className="unlabeledCheckbox">
                                     <Checkbox
                                         checked={sideNumber}
                                         onChange={changeAndScroll(this.onSideNumberChange(suffix))}

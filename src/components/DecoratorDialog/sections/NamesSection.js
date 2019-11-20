@@ -105,7 +105,7 @@ class NamesSection extends React.Component {
                 </div>
 
                 <span>Active</span>
-                <div>
+                <div className="unlabeledCheckbox">
                     <Checkbox
                         checked={active}
                         onChange={changeActive} 
