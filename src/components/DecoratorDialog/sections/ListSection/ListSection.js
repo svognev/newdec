@@ -49,7 +49,8 @@ class ListSection extends React.Component {
     listNameInputRef = React.createRef();
     unicodeCharInputRef = React.createRef();
 
-    onIsListChange = listName => e => {
+    onIsListChange = e => {
+        const { listName } = this.props;
         if (e.target.checked) {
             if (listName === HOLDER) {
                 this.props.changeListName(null, "");
@@ -64,7 +65,8 @@ class ListSection extends React.Component {
         }       
     };
 
-    onListTypeChange = suffix => e => {
+    onListTypeChange = e => {
+        const { suffix } = this.props;
         const { value } = e.target;
         this.props.changeListType(null, value);
         if (value === "ordered" && suffix === "") {
@@ -74,9 +76,9 @@ class ListSection extends React.Component {
         }
     };
 
-    onListItemChange = unicodeChar => e => {
+    onListItemChange = e => {
         this.props.changeListItem(e);
-        if (e.target.value === "custom" && !unicodeChar) {
+        if (e.target.value === "custom" && !this.props.unicodeChar) {
             focusInput(this.unicodeCharInputRef);
         }
     };
@@ -93,7 +95,8 @@ class ListSection extends React.Component {
         this.props.changeUnicodeNumber(null, newUnicodeNumber);
     };
 
-    onSideNumberChange = suffix => e => {
+    onSideNumberChange = e => {
+        const { suffix } = this.props;
         this.props.changeSideNumber(e);
         if (e.target.checked && suffix === ".") {
             this.props.changeSuffix(null, "");
@@ -165,7 +168,7 @@ class ListSection extends React.Component {
                                     <Checkbox 
                                         color="primary" 
                                         checked={isList} 
-                                        onChange={changeAndScroll(this.onIsListChange(listName))} 
+                                        onChange={changeAndScroll(this.onIsListChange)} 
                                     />
                                 </div>
                             </div>
@@ -246,7 +249,7 @@ class ListSection extends React.Component {
                                     <span>Type of list</span>
                                     <RadioGroup 
                                         value={listType} 
-                                        onChange={changeAndScroll(this.onListTypeChange(suffix))}
+                                        onChange={changeAndScroll(this.onListTypeChange)}
                                         row
                                     >
                                         <div className="labeledCheckbox">
@@ -323,7 +326,7 @@ class ListSection extends React.Component {
                                 <div className="unlabeledCheckbox">
                                     <Checkbox
                                         checked={sideNumber}
-                                        onChange={changeAndScroll(this.onSideNumberChange(suffix))}
+                                        onChange={changeAndScroll(this.onSideNumberChange)}
                                         color="primary" 
                                     />
                                 </div>
@@ -419,7 +422,7 @@ class ListSection extends React.Component {
                             <div className="listItemSelect">
                                 <NativeSelect 
                                     value={listItem} 
-                                    onChange={this.onListItemChange(unicodeChar)} 
+                                    onChange={this.onListItemChange} 
                                     input={ <CustomInputShort /> }
                                 >
                                     { 

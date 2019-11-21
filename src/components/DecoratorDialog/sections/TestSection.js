@@ -1,6 +1,6 @@
 import React from "react";
 
-const TypographySection = () => {
+const TestSection = () => {
 
     return (
         <div className="dialogGrid dialogGrid_2cols">
@@ -9,4 +9,4 @@ const TypographySection = () => {
     );
 };
 
-export default TypographySection;
+export default TestSection;
