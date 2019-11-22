@@ -29,9 +29,11 @@ export const generatePreviewStyle = formState => {
     const previewFillingColor = getCorrectColor(fillingColor, "f5f5f5");
     const previewAdditionalFillingColor = fillingConnectToPrevious ? previewFillingColor : "f5f5f5";
     const indentsDifference = (firstRowIndent || 0) - (otherRowsIndent || 0);
-    const previewMarginLeft = otherRowsIndent ? `${otherRowsIndent >= 12 ? 12 : otherRowsIndent}cm` : 0;
-    const previewTextIndent = indentsDifference ? `${indentsDifference >= 12 ? 12 : indentsDifference}cm` : 0;
+    const previewMarginLeft = `${!otherRowsIndent ? 0 : (otherRowsIndent >= 6 ? 6 : otherRowsIndent)}cm`;
+    const previewTextIndent = `${!indentsDifference ? 0 : (indentsDifference >= 6 ? 6 : indentsDifference)}cm`;
     const previewLineSpacing = lineSpacing !== "custom" ? lineSpacing : (customLineSpacing || DEFAULT_LINE_SPACING);
+
+    console.log(previewMarginLeft, previewTextIndent);
 
     const previewStyle = {
         fontSize: !fontSize ? `${DEFAULT_FONT_SIZE}pt` : `${fontSize <= 120 ? fontSize : 120}pt`,
@@ -83,7 +85,7 @@ export const generateSideNumberStyle = formState => {
         fontSize: !sideNumberFontSize ? `${DEFAULT_FONT_SIZE}pt` : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
         color: `#${previewSideNumberFontColor}`,
         backgroundColor: `#${previewSideNumberFillingColor}`,
-        minWidth: `${sideNumberWidth || 0}pt`,
+        minWidth: `${!sideNumberWidth ? 0 : (sideNumberWidth < 150 ? sideNumberWidth : 150)}pt`,
         borderRadius: `${sideNumberRadius || 0}pt`,
         marginRight: `${suffixDistance || 0}cm`,
     };
