@@ -475,9 +475,9 @@ class ListSection extends React.Component {
 }
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
-    return { 
-        formState: form,
+    return {
         validationError: validationError.listSection,
+        formState: form,
         isList: form.isList,
         listName: form.listName, 
         orderLevel: form.orderLevel,

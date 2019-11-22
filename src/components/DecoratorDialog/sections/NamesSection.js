@@ -180,6 +180,7 @@ class NamesSection extends React.Component {
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
         validationError: validationError.namesSection,
+        formState: form,
         decKey: form.decKey,
         group: form.group,
         active: form.active,

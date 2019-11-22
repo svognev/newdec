@@ -10,14 +10,14 @@ import { setValue, toggleValue, updateValidationError } from "../actions";
 
 const WordExportSection = props => {
     const { 
-        validationError,
+        validationError, updateValidationError,
         formState,
         wordStyleName, changeWordStyleName,
         softReturn, changeSoftReturn,
     } = props;
 
     if (validationError && !getWordExportSectionErrorState(formState)) {
-        this.props.updateValidationError({ wordExportSection: false });
+        updateValidationError({ wordExportSection: false });
     }
 
     return (
@@ -46,10 +46,10 @@ const WordExportSection = props => {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
+        validationError: validationError.wordExportSection,
         formState: form,
         wordStyleName: form.wordStyleName, 
         softReturn: form.softReturn,
-        validationError: validationError.wordExportSection,
     };
 };
 
