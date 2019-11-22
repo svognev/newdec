@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 import NativeSelect from "@material-ui/core/NativeSelect";
-import Fade from '@material-ui/core/Fade';
 
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
@@ -22,6 +21,8 @@ const PositioningSection = props => {
         tabAction, changeTabAction,
         shiftTabAction, changeShiftTabAction,
     } = props;
+
+    const backSpaceActionStyleSettingsState = backspaceActionWithContent === "apply_other_pd" ? "shown" : "hidden";
 
     return (
         <div className="dialogGrid dialogGrid_positioning">
@@ -61,7 +62,7 @@ const PositioningSection = props => {
                         ))}
                     </NativeSelect>
                 </div>
-                <Fade in={backspaceActionWithContent === "apply_other_pd"}>
+                <div className={`optionalSettings optionalSettings_${backSpaceActionStyleSettingsState}`}>
                     <NativeSelect
                         value={backspaceActionWithContentStyle}
                         onChange={changeBackspaceActionWithContentStyle}
@@ -70,7 +71,7 @@ const PositioningSection = props => {
                         <option value="default">Global Fallback Style</option>
                         { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                     </NativeSelect>
-                </Fade>
+                </div>
             </div>
 
             <div id="r4" className="sectionTitle">

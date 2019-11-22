@@ -8,7 +8,6 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import Fade from '@material-ui/core/Fade';
 
 import ListPreview from "../../common/Preview/ListPreview";
 import CustomInput from "../../common/CustomInput";
@@ -152,6 +151,7 @@ class ListSection extends React.Component {
         
         const mainListSettingsState = isList ? "shown" : "hidden";
         const unorderedListSettingsState = (isList && listType === "unordered") ? "shown" : "hidden";
+        const customListItemSettingsState = (isList && listType === "unordered" && listItem === "custom") ? "shown" : "hidden";
         const orderedListSettingsState = (isList && listType === "ordered") ? "shown" : "hidden";
         const sideNumberSettingsState = (isList && listType === "ordered" && sideNumber) ? "shown" : "hidden";
     
@@ -434,7 +434,7 @@ class ListSection extends React.Component {
                                 </NativeSelect>
                             </div>
                         </div>
-                        <Fade in={listItem === "custom"}>
+                        <div className={`optionalSettings optionalSettings_${customListItemSettingsState}`}>
                             <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
                                     <span>Unicode number</span>
@@ -466,7 +466,7 @@ class ListSection extends React.Component {
                                     </div>
                                 </div>
                             </div> 
-                        </Fade>
+                        </div>
                     </div> 
                 </div>
             </>
