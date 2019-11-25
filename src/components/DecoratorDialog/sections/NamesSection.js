@@ -25,14 +25,11 @@ class NamesSection extends React.Component {
         }
     };
 
-    onGroupChange = group => (e, secondArg) => {
-        const value = e ? e.target.value : secondArg;
-        if (group.nameEn && value === group.nameEn) {
+    onGroupChange = (e, groupName, group) => {
+        if (group) {
             this.props.changeGroupToCreate(null, group);
-        } else {
-            this.props.changeGroupToCreate(null, "");
         }
-        this.props.changeGroup(e, secondArg);
+        this.props.changeGroup(e, groupName);
     };
 
     componentDidMount() {
@@ -52,12 +49,14 @@ class NamesSection extends React.Component {
 
     render() {
         const { 
+            groupToCreate, 
+            isGroupDialogOpen,
+            hasGroupDialogValidationError,
+            openGroupDialog, 
+            closeGroupDialog, 
+            showGroupDialogValidationError, 
+            hideGroupDialogValidationError,
             validationError,
-            onSave,
-            newGroup, 
-            isOpen, 
-            hideDialog, 
-            handleClick, 
             decKey, changeDecKey,
             group,
             active, changeActive,
@@ -69,7 +68,7 @@ class NamesSection extends React.Component {
             decNameEs, changeDecNameEs,
         } = this.props;
 
-        const newGroupName = newGroup.nameEn;
+        const newGroupName = groupToCreate.nameEn;
         const isEditMode = !!newGroupName;
 
         return (
@@ -88,7 +87,7 @@ class NamesSection extends React.Component {
                 <div>
                     <NativeSelect 
                         value={group} 
-                        onChange={this.onGroupChange(newGroup)}
+                        onChange={this.onGroupChange}
                         input={ <CustomInput /> }  
                     >
                         <option value="">...</option>
@@ -98,7 +97,7 @@ class NamesSection extends React.Component {
                         <option value="2">Heading Heading Heading Heading</option>
                     </NativeSelect>
                     { !(isEditMode && group !== newGroupName) && (
-                        <Button color="primary" className="textButton" onClick={handleClick}>
+                        <Button color="primary" className="textButton" onClick={openGroupDialog}>
                             { isEditMode ? "Edit new group" : "+New" }
                         </Button>
                     ) }
@@ -164,13 +163,18 @@ class NamesSection extends React.Component {
                 />
 
                 <NewGroupDialog 
-                    isOpen={isOpen}
-                    hideDialog={hideDialog}
-                    onSave={onSave}
-                    isEditMode={isEditMode}
-                    currentGroup={newGroup}
-                    changeGroupSelect={this.onGroupChange}
+                    isOpen={isGroupDialogOpen}
+                    saveGroup={this.onGroupChange}
+                    savedGroup={groupToCreate}
                     groupType="decorators"
+                    { ...{ 
+                        isGroupDialogOpen,
+                        isEditMode,
+                        hasGroupDialogValidationError,
+                        closeGroupDialog, 
+                        showGroupDialogValidationError, 
+                        hideGroupDialogValidationError, 
+                    } } 
                 />
             </div>
         );
@@ -190,7 +194,7 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         decNameFr: form.decNameFr,
         decNameFrCa: form.decNameFrCa,
         decNameEs: form.decNameEs,
-        savedNewGroup: form.groupToCreate,
+        groupToCreate: form.groupToCreate,
     };
 };
 

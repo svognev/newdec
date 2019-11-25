@@ -7,28 +7,40 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
+import LabelWithAsterisk from "./LabelWithAsterisk";
+import { focusInput } from "../helpers";
+
 class NewGroupDialog extends React.Component {
-    state = this.props.currentGroup 
-          ? this.props.currentGroup 
-          : this.props.groupType !== "xref" 
-          ? { nameEn: "", nameDe: "", nameRu: "", nameFr: "", nameFrCa: "", nameEs: "", }
-          : { nameEn: "", nameDe: "", nameRu: "", nameFr: "", nameFrCa: "", nameEs: "", groupKey: "", };
-    
+    isXref = this.props.groupType === "xref";
+
+    emptyGroup = {
+        nameEn: "",
+        nameDe: "",
+        nameRu: "",
+        nameFr: "",
+        nameFrCa: "",
+        nameEs: "",
+        ...this.isXref && { groupKey: "" },
+    };
+
+    getInitialState = () => ({ ...this.emptyGroup, ...this.props.savedGroup });
+
+    state = this.getInitialState();
+
+    requiredFieldRef = React.createRef();
+
     onInputChange = inputName => e => {
-        this.setState({ 
-            [inputName]: e.target.value 
-        });
+        this.setState({ [inputName]: e.target.value });
     };
 
     onClose = () => {
-        const {currentGroup, hideDialog } = this.props;
-        this.setState({ ...currentGroup });
-        hideDialog()
+        this.setState(this.getInitialState());
+        this.props.hideGroupDialogValidationError();
+        this.props.closeGroupDialog();
     };
 
     onGroupSave = () => {
-        const { onSave, changeGroupSelect, hideDialog, groupType } = this.props;
-        if (this.state.nameEn.trim().length && (groupType !== "xref" || this.state.groupKey.trim().length)) {
+        if ((!this.isXref && this.state.nameEn.trim().length) || (this.isXref && this.state.groupKey.trim().length)) {
             const groupToSave = {
                 nameEn: this.state.nameEn.trim(),
                 nameDe: this.state.nameDe.trim(),
@@ -37,20 +49,24 @@ class NewGroupDialog extends React.Component {
                 nameFrCa: this.state.nameFrCa.trim(),
                 nameEs: this.state.nameEs.trim(),
             };
-            if (groupType === "xref") {
+            if (this.isXref) {
                 groupToSave.groupKey = this.state.groupKey.trim();
             }
-            onSave(groupToSave);
-            changeGroupSelect(groupToSave)(null, this.state.nameEn.trim());
-            hideDialog();
+            this.props.hideGroupDialogValidationError();
+            this.props.saveGroup(null, (groupToSave.nameEn || groupToSave.groupKey), groupToSave);
+            this.props.closeGroupDialog();
+        } else {
+            this.props.showGroupDialogValidationError();
+            focusInput(this.requiredFieldRef);
         }
     };
 
     render() {
-        const { isOpen, isEditMode } = this.props;
-        const { onInputChange, onGroupSave, onClose } = this;
-        const titleText = `${isEditMode ? "Edit" : "Create"} new ${this.props.groupType === "xref" ? "reference " : ""}group`
+        const { isOpen, isEditMode, hasGroupDialogValidationError } = this.props;
+        const { onInputChange, onGroupSave, onClose, isXref } = this;
+        const titleText = `${isEditMode ? "Edit" : "Create"} new ${isXref ? "reference " : ""}group`
         const buttonText = isEditMode ? "Save" : "Create";
+
         return (
             <Dialog
                 className="paragraphDecorators-dialog"
@@ -62,60 +78,76 @@ class NewGroupDialog extends React.Component {
                 <DialogTitle>{titleText}</DialogTitle>
                 <DialogContent>
                     <div className="dialogGrid dialogGrid_2cols">
-                        {
-                            this.props.groupType === "xref" 
-                            &&
+                        { isXref && (
                             <>
-                                <span>Group Key</span>
-                                <TextField 
+                                <LabelWithAsterisk>Group Key</LabelWithAsterisk>
+                                <TextField
+                                    value={this.state.groupKey}
+                                    onChange={onInputChange("groupKey")}
+                                    inputRef={this.requiredFieldRef}
+                                    error={hasGroupDialogValidationError && !this.state.groupKey}
                                     variant="outlined" 
                                     margin="dense" 
-                                    onChange={onInputChange("groupKey")}
-                                    value={this.state.groupKey}
                                 />
                             </>
-                        }
-                        <span>Name EN</span>
-                        <TextField 
-                            variant="outlined" 
-                            margin="dense" 
-                            onChange={onInputChange("nameEn")}
-                            value={this.state.nameEn}
-                        />
+                        ) }
+                        { isXref ? (
+                            <>
+                                <span>Name EN</span>
+                                <TextField
+                                    value={this.state.nameEn}
+                                    onChange={onInputChange("nameEn")}
+                                    variant="outlined" 
+                                    margin="dense" 
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <LabelWithAsterisk>Name EN</LabelWithAsterisk>
+                                <TextField
+                                    value={this.state.nameEn}
+                                    onChange={onInputChange("nameEn")}
+                                    inputRef={this.requiredFieldRef}
+                                    error={hasGroupDialogValidationError && !this.state.nameEn}
+                                    variant="outlined" 
+                                    margin="dense" 
+                                />
+                            </>
+                        ) }
                         <span>Name DE</span>
-                        <TextField 
+                        <TextField
+                            value={this.state.nameDe}
+                            onChange={onInputChange("nameDe")} 
                             variant="outlined" 
                             margin="dense" 
-                            onChange={onInputChange("nameDe")} 
-                            value={this.state.nameDe}
                         />                        
                         <span>Name RU</span>
-                        <TextField 
-                            variant="outlined" 
-                            margin="dense" 
-                            onChange={onInputChange("nameRu")} 
+                        <TextField
                             value={this.state.nameRu}
+                            onChange={onInputChange("nameRu")} 
+                            variant="outlined" 
+                            margin="dense"
                         />                        
                         <span>Name FR<br/><span className="smallText">France</span></span>
-                        <TextField 
+                        <TextField
+                            value={this.state.nameFr}
+                            onChange={onInputChange("nameFr")} 
                             variant="outlined" 
                             margin="dense" 
-                            onChange={onInputChange("nameFr")} 
-                            value={this.state.nameFr}
                         />
                         <span>Name FR<br/><span className="smallText">Canada</span></span>
                         <TextField 
-                            variant="outlined" 
-                            margin="dense" 
-                            onChange={onInputChange("nameFrCa")} 
                             value={this.state.nameFrCa}
+                            onChange={onInputChange("nameFrCa")} 
+                            variant="outlined" 
+                            margin="dense"
                         />
                         <span>Name ES</span>
-                        <TextField 
-                            variant="outlined" 
-                            margin="dense" 
-                            onChange={onInputChange("nameEs")} 
+                        <TextField
                             value={this.state.nameEs}
+                            onChange={onInputChange("nameEs")} 
+                            variant="outlined" 
+                            margin="dense"
                         />                  
                     </div>
                 </DialogContent>

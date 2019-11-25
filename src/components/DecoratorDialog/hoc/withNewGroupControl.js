@@ -3,36 +3,41 @@ import React from "react";
 const withNewGroupControl = (ViewComponent) => {
     return class extends React.Component {
         state = {
-            isOpen: false,
-            groupSelect: "",
-            newGroup: this.props.savedNewGroup || "",
-        }
+            isGroupDialogOpen: false,
+            hasGroupDialogValidationError: false,
+        };
         
-        handleClick = () => {
-            this.setState(({ isOpen }) => {
-                return {
-                    isOpen: !isOpen
-                };
-            });
-        }
-    
-        onSave = newGroup => {
-            this.setState({ newGroup });
-        }
-    
-        changeGroupSelect = (newValue) => {
-            this.setState({
-                groupSelect: newValue,
-            });
-        }
+        openGroupDialog = () => {
+            this.setState({ isGroupDialogOpen: true });
+        };
 
-        hideDialog = () => {
-            this.setState({ isOpen: false });
-        }
-        
+        closeGroupDialog = () => {
+            this.setState({ isGroupDialogOpen: false });
+        };
+
+        showGroupDialogValidationError = () => {
+            this.setState({ hasGroupDialogValidationError: true });
+        };
+
+        hideGroupDialogValidationError = () => {
+            this.setState({ hasGroupDialogValidationError: false });
+        };
+
         render() {
-            const { handleClick, onSave, changeGroupSelect, hideDialog } = this; 
-            return ( <ViewComponent {...this.props} {...this.state} {...{ handleClick, onSave, changeGroupSelect, hideDialog }} /> );
+            const { 
+                openGroupDialog, 
+                closeGroupDialog, 
+                showGroupDialogValidationError, 
+                hideGroupDialogValidationError 
+            } = this; 
+
+            return ( 
+                <ViewComponent 
+                    {...this.props} 
+                    {...this.state} 
+                    {...{ openGroupDialog, closeGroupDialog, showGroupDialogValidationError, hideGroupDialogValidationError }} 
+                /> 
+            );
         }
     }
 };

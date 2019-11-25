@@ -10,27 +10,26 @@ import withNewGroupControl from "../hoc/withNewGroupControl";
 import { setValue } from "../actions";
 
 class ReferencingSection extends React.Component {
-    onXrefChange = xref => (e, secondArg) => {
-        const value = e ? e.target.value : secondArg;
-        if (xref.groupKey && xref.nameEn && value === xref.nameEn) {
+    onXrefChange = (e, xrefName, xref) => {
+        if (xref) {
             this.props.changeReferenceGroupToCreate(null, xref);
-        } else {
-            this.props.changeReferenceGroupToCreate(null, "");
         }
-        this.props.changeReferenceGroup(e, secondArg);
+        this.props.changeReferenceGroup(e, xrefName);
     };
 
     render() {
         const { 
-            newGroup, 
-            isOpen, 
-            hideDialog, 
-            handleClick, 
-            onSave,
-            referenceGroup, 
+            referenceGroupToCreate, 
+            isGroupDialogOpen,
+            hasGroupDialogValidationError,  
+            openGroupDialog, 
+            closeGroupDialog, 
+            showGroupDialogValidationError, 
+            hideGroupDialogValidationError,
+            referenceGroup,
         } = this.props;
         
-        const newGroupName = newGroup.nameEn;
+        const newGroupName = referenceGroupToCreate.nameEn || referenceGroupToCreate.groupKey;
         const isEditMode = !!newGroupName;
     
         return (
@@ -40,7 +39,7 @@ class ReferencingSection extends React.Component {
                     <NativeSelect 
                         input={ <CustomInput /> } 
                         value={referenceGroup} 
-                        onChange={this.onXrefChange(newGroup)} 
+                        onChange={this.onXrefChange} 
                     >
                         { isEditMode && <option className="highlightedOption" value={newGroupName}>{newGroupName}</option> }
                         <option value="">none</option>
@@ -49,19 +48,23 @@ class ReferencingSection extends React.Component {
                     </NativeSelect>
                     {
                         !(isEditMode && referenceGroup !== newGroupName) &&
-                        <Button color="primary" className="textButton" onClick={handleClick}>
+                        <Button color="primary" className="textButton" onClick={openGroupDialog}>
                             { isEditMode ? "Edit new group" : "+New" }
                         </Button>
                      }
                 </div>
-                <NewGroupDialog 
-                    isOpen={isOpen}
-                    hideDialog={hideDialog}
-                    onSave={onSave}
-                    isEditMode={isEditMode}
-                    currentGroup={newGroup}
-                    changeGroupSelect={this.onXrefChange}
-                    groupType="xref"
+                <NewGroupDialog
+                    isOpen={isGroupDialogOpen}
+                    saveGroup={this.onXrefChange}
+                    savedGroup={referenceGroupToCreate}
+                    groupType="xref" 
+                    { ...{ 
+                        isEditMode,
+                        hasGroupDialogValidationError,
+                        closeGroupDialog, 
+                        showGroupDialogValidationError, 
+                        hideGroupDialogValidationError, 
+                    } }
                 />
             </div>
         );
@@ -71,7 +74,7 @@ class ReferencingSection extends React.Component {
 const mapStateToProps = ({ decoratorDialog: { form }}) => {
     return { 
         referenceGroup: form.referenceGroup,
-        savedNewGroup: form.referenceGroupToCreate,
+        referenceGroupToCreate: form.referenceGroupToCreate,
     };
 };
 
