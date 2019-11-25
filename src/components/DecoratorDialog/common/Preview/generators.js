@@ -33,8 +33,6 @@ export const generatePreviewStyle = formState => {
     const previewTextIndent = `${!indentsDifference ? 0 : (indentsDifference >= 6 ? 6 : indentsDifference)}cm`;
     const previewLineSpacing = lineSpacing !== "custom" ? lineSpacing : (customLineSpacing || DEFAULT_LINE_SPACING);
 
-    console.log(previewMarginLeft, previewTextIndent);
-
     const previewStyle = {
         fontSize: !fontSize ? `${DEFAULT_FONT_SIZE}pt` : `${fontSize <= 120 ? fontSize : 120}pt`,
         color: `#${previewFontColor}`,
