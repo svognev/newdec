@@ -141,8 +141,8 @@ export const setNumber = dispatch => propName => (e, secondArg) => {
     return filteredInput;
 };
 
-export const setShortCut = dispatch => (valuePropName, viewPropName, isMac) => e => {
-    const systemName = isMac ? "MacOS" : "Windows";
+export const setShortCut = dispatch => (valuePropName, viewPropName) => e => {
+    const systemName = valuePropName.search(/mac/gi) !== -1 ? "MacOS" : "Windows";
     const shortCut = getShortCutUtils(systemName).convertEventToShortCut(e);
     if (shortCut && shortCut.deleteKey) {
         setTimeout(() => {
