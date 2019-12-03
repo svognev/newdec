@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import LabelWithAsterisk from "./LabelWithAsterisk";
 import { focusInput } from "../helpers";
 
-class NewGroupDialog extends React.Component {
+class NewGroupDialog extends React.PureComponent {
     isXref = this.props.groupType === "xref";
 
     emptyGroup = {

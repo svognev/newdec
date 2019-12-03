@@ -1,5 +1,6 @@
 import decoratorsList from "./decoratorsList";
 import fontSet from "./fontsSet";
+import { LANGS } from "./localeConstants";
 import {
     requiredFields,
     namesSectionRequiredFields,
@@ -70,4 +71,5 @@ export {
     DEFAULT_BORDER_THICKNESS,
     DEFAULT_FONT_COLOR_NAME,
     DEFAULT_BORDER_COLOR_NAME,
+    LANGS,
 };

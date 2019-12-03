@@ -8,7 +8,7 @@ import { getCorrectColor, selectAllOnClick } from "../../helpers";
 
 import "./style.css";
 
-class ColorField extends React.Component {
+class ColorField extends React.PureComponent {
     state = {
         isOpen: this.props.isOpen,
     };

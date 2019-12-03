@@ -7,7 +7,7 @@ import CustomInput from "./CustomInput";
 import { fontSet, DEFAULT_FONT } from "../constants";
 import { isFontAvailable, focusInput, changeAndScroll } from "../helpers";
 
-class FontSelectFields extends React.Component {
+class FontSelectFields extends React.PureComponent {
     customFontInputRef = React.createRef();
 
     onFontChange = e => {
