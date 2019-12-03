@@ -1,17 +1,5 @@
-import React from "react";
-
 import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
-
-class CustomTabs extends React.Component {
-    shouldComponentUpdate(nextProps) {
-        return nextProps.value !== this.props.value;
-    }
-
-    render() {
-        return (<Tabs {...this.props}/>);
-    }
-}
 
 const styles = {
     indicator: {
@@ -23,4 +11,4 @@ const styles = {
     }
 };
 
-export default withStyles(styles)(CustomTabs);
+export default withStyles(styles)(Tabs);

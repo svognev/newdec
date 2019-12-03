@@ -10,20 +10,14 @@ import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
-import { getNamesSectionErrorState, focusInput } from "../helpers";
+import { hasErrorInSection, focusOnEmptyField } from "../helpers";
 import { setValue, toggleValue, updateValidationError } from "../actions";
+import { MAIN_LANG_KEY, ADDITIONAL_LANGS } from "../constants";
 
 class NamesSection extends React.Component {
     decKeyInputRef = React.createRef();
     decNameEnInputRef = React.createRef();
-
-    focusOnEmptyField = () => {
-        if (!this.props.decKey) {
-            focusInput(this.decKeyInputRef);
-        } else if (!this.props.decNameEn) {
-            focusInput(this.decNameEnInputRef);
-        }
-    };
+    inputRefs = [this.decKeyInputRef, this.decNameEnInputRef];
 
     onGroupChange = (e, groupName, group) => {
         if (group) {
@@ -32,17 +26,25 @@ class NamesSection extends React.Component {
         this.props.changeGroup(e, groupName);
     };
 
+    onNameChange = langKey => e => {
+        const newValue = {
+            ...this.props.name,
+            [langKey]: e.target.value,
+        };
+        this.props.changeName(null, newValue);
+    }
+
     componentDidMount() {
-        if (this.props.validationError) {
-            this.focusOnEmptyField();
+        if (this.props.validationErrorInSection) {
+            focusOnEmptyField(this.inputRefs);
         }
     }
 
     componentDidUpdate(prevprops) {
-        if (this.props.validationError && !prevprops.validationError) {
-            this.focusOnEmptyField();
+        if (this.props.validationErrorInSection && !prevprops.validationErrorInSection) {
+            focusOnEmptyField(this.inputRefs);
         }
-        if (this.props.validationError && !getNamesSectionErrorState(this.props.formState)) {
+        if (this.props.validationErrorInSection && !hasErrorInSection(this.inputRefs)) {
             this.props.updateValidationError({ namesSection: false });
         }
     }
@@ -56,19 +58,14 @@ class NamesSection extends React.Component {
             closeGroupDialog, 
             showGroupDialogValidationError, 
             hideGroupDialogValidationError,
-            validationError,
+            validationErrorInSection,
             decKey, changeDecKey,
             group,
             active, changeActive,
-            decNameEn, changeDecNameEn,
-            decNameDe, changeDecNameDe,
-            decNameRu, changeDecNameRu,
-            decNameFr, changeDecNameFr,
-            decNameFrCa, changeDecNameFrCa,
-            decNameEs, changeDecNameEs,
+            name,
         } = this.props;
 
-        const newGroupName = groupToCreate.nameEn;
+        const newGroupName = groupToCreate[MAIN_LANG_KEY];
         const isEditMode = !!newGroupName;
 
         return (
@@ -77,7 +74,7 @@ class NamesSection extends React.Component {
                 <TextField 
                     value={decKey}
                     onChange={changeDecKey}
-                    error={validationError && !decKey}
+                    error={validationErrorInSection && !decKey}
                     inputRef={this.decKeyInputRef}
                     variant="outlined" 
                     margin="dense" 
@@ -114,53 +111,25 @@ class NamesSection extends React.Component {
 
                 <LabelWithAsterisk>Name EN</LabelWithAsterisk>
                 <TextField 
-                    value={decNameEn}
-                    onChange={changeDecNameEn}
-                    error={validationError && !decNameEn}
+                    value={name[MAIN_LANG_KEY]}
+                    onChange={this.onNameChange(MAIN_LANG_KEY)}
+                    error={validationErrorInSection && !name[MAIN_LANG_KEY]}
                     inputRef={this.decNameEnInputRef}
                     variant="outlined" 
                     margin="dense" 
                 />
 
-                <span>Name DE</span>
-                <TextField 
-                    value={decNameDe}
-                    onChange={changeDecNameDe}
-                    variant="outlined" 
-                    margin="dense" 
-                />
-
-                <span>Name RU</span>
-                <TextField 
-                    value={decNameRu}
-                    onChange={changeDecNameRu}
-                    variant="outlined" 
-                    margin="dense" 
-                />
-
-                <span>Name FR<br/><span className="smallText">France</span></span>
-                <TextField 
-                    value={decNameFr}
-                    onChange={changeDecNameFr}
-                    variant="outlined" 
-                    margin="dense" 
-                />
-
-                <span>Name FR<br/><span className="smallText">Canada</span></span>
-                <TextField 
-                    value={decNameFrCa}
-                    onChange={changeDecNameFrCa}
-                    variant="outlined" 
-                    margin="dense" 
-                />
-
-                <span>Name ES</span>
-                <TextField 
-                    value={decNameEs}
-                    onChange={changeDecNameEs}
-                    variant="outlined" 
-                    margin="dense" 
-                />
+                { ADDITIONAL_LANGS.map(({ langKey, langName, regionFullName }) => (
+                  <React.Fragment key={langKey}>
+                    <span>Name {langName}{regionFullName && <span className="smallText"><br/>{regionFullName}</span>}</span>
+                    <TextField 
+                        value={name[langKey]}
+                        onChange={this.onNameChange(langKey)}
+                        variant="outlined" 
+                        margin="dense" 
+                    />
+                  </React.Fragment>  
+                )) }
 
                 <NewGroupDialog 
                     isOpen={isGroupDialogOpen}
@@ -183,17 +152,12 @@ class NamesSection extends React.Component {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
-        validationError: validationError.namesSection,
+        validationErrorInSection: validationError.namesSection,
         formState: form,
         decKey: form.decKey,
         group: form.group,
         active: form.active,
-        decNameEn: form.decNameEn,
-        decNameDe: form.decNameDe,
-        decNameRu: form.decNameRu,
-        decNameFr: form.decNameFr,
-        decNameFrCa: form.decNameFrCa,
-        decNameEs: form.decNameEs,
+        name: form.name,
         groupToCreate: form.groupToCreate,
     };
 };
@@ -205,12 +169,7 @@ const mapDispatchToProps = dispatch => {
         changeGroup: setValue(dispatch)("group"),
         changeGroupToCreate: setValue(dispatch)("groupToCreate"),
         changeActive: toggleValue(dispatch)("active"),
-        changeDecNameEn: setValue(dispatch)("decNameEn"),
-        changeDecNameDe: setValue(dispatch)("decNameDe"),
-        changeDecNameRu: setValue(dispatch)("decNameRu"),
-        changeDecNameFr: setValue(dispatch)("decNameFr"),
-        changeDecNameFrCa: setValue(dispatch)("decNameFrCa"),
-        changeDecNameEs: setValue(dispatch)("decNameEs"),
+        changeName: setValue(dispatch)("name"),
     };
 };
   

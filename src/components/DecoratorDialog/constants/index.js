@@ -1,14 +1,7 @@
 import decoratorsList from "./decoratorsList";
 import fontSet from "./fontsSet";
-import { LANGS } from "./localeConstants";
-import {
-    requiredFields,
-    namesSectionRequiredFields,
-    wordExportSectionRequiredFields,
-    listSectionRequiredFields,
-    tabsErrorInitialState,
-    sectionsTabNumbers,
-} from "./validationData";
+import { LANGS, MAIN_LANG_KEY, ADDITIONAL_LANGS } from "./localeConstants";
+import { tabsErrorInitialState, sectionsTabNumbers } from "./validationData";
 import {
     alignmentsMap,
     backSpaceActions,
@@ -45,10 +38,6 @@ export {
     bulletNamesMap,
     listStyleTypes,
     numberingSets,
-    requiredFields,
-    namesSectionRequiredFields,
-    wordExportSectionRequiredFields,
-    listSectionRequiredFields,
     tabsErrorInitialState,
     sectionsTabNumbers,
     sampleText,
@@ -72,4 +61,6 @@ export {
     DEFAULT_FONT_COLOR_NAME,
     DEFAULT_BORDER_COLOR_NAME,
     LANGS,
+    MAIN_LANG_KEY,
+    ADDITIONAL_LANGS,
 };

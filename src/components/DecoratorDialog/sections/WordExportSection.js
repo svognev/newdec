@@ -5,18 +5,16 @@ import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
-import { getWordExportSectionErrorState } from "../helpers";
 import { setValue, toggleValue, updateValidationError } from "../actions";
 
 const WordExportSection = props => {
     const { 
-        validationError, updateValidationError,
-        formState,
+        validationErrorInSection, updateValidationError,
         wordStyleName, changeWordStyleName,
         softReturn, changeSoftReturn,
     } = props;
 
-    if (validationError && !getWordExportSectionErrorState(formState)) {
+    if (validationErrorInSection && wordStyleName) {
         updateValidationError({ wordExportSection: false });
     }
 
@@ -26,7 +24,7 @@ const WordExportSection = props => {
             <TextField 
                 value={wordStyleName}
                 onChange={changeWordStyleName}
-                error={validationError && !wordStyleName}
+                error={validationErrorInSection && !wordStyleName}
                 autoFocus={!wordStyleName}
                 variant="outlined" 
                 margin="dense" 
@@ -46,7 +44,7 @@ const WordExportSection = props => {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
-        validationError: validationError.wordExportSection,
+        validationErrorInSection: validationError.wordExportSection,
         formState: form,
         wordStyleName: form.wordStyleName, 
         softReturn: form.softReturn,

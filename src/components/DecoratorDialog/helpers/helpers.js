@@ -86,12 +86,13 @@ export const focusInput = (inputRef, timeout = 300) => {
     }, timeout);
 };
 
-export const getErrorSections = (requiredFields = [], ...sectionPropsSets) => {
-    return sectionPropsSets.map(sectionProps => {
-        return requiredFields.some(fieldName => {
-            return sectionProps.hasOwnProperty(fieldName) && !sectionProps[fieldName]
-        });
-    });
+export const focusOnEmptyField = refs => {
+    for (let i = 0; i < refs.length; i++) {
+        if (!refs[i].current.value) {
+            focusInput(refs[i]);
+            return;
+        }
+    }
 };
 
 export const getPreviewFont = (font, customFont) => {

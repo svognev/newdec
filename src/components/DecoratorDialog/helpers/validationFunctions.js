@@ -1,47 +1,26 @@
-import { clone } from "lodash";
+import { tabsErrorInitialState, sectionsTabNumbers, MAIN_LANG_KEY } from "../constants";
 
-import {
-    namesSectionRequiredFields,
-    wordExportSectionRequiredFields,
-    listSectionRequiredFields,
-    tabsErrorInitialState,
-    sectionsTabNumbers,
-} from "../constants";
-
-export const getNamesSectionErrorState = form => {
-    return !namesSectionRequiredFields.every(fieldName => form[fieldName]);
-};
-
-export const getWordExportSectionErrorState = form => {
-    return !wordExportSectionRequiredFields.every(fieldName => form[fieldName]);
-}
-
-export const getListSectionErrorState = form => {
-    return !listSectionRequiredFields.every(fieldName => form[fieldName]);
-}
+export const hasErrorInSection = refs => !refs.every(ref => ref.current.value);
 
 export const getTabsErrorState = form => {
-    const tabsState = clone(tabsErrorInitialState);
+    const tabsErrorState = { ...tabsErrorInitialState };
+    const { name, decKey, wordStyleName, listName } = form;
 
-    if (getNamesSectionErrorState(form)) {
-        tabsState.namesSection = true;
+    if (!name[MAIN_LANG_KEY] || !decKey) {
+        tabsErrorState.namesSection = true;
     }
-
-    if (getWordExportSectionErrorState(form)) {
-        tabsState.wordExportSection = true;
+    if (!wordStyleName) {
+        tabsErrorState.wordExportSection = true;
     }
-
-    if (getListSectionErrorState(form)) {
-        tabsState.listSection = true;
+    if (!listName) {
+        tabsErrorState.listSection = true;
     }
-
     // eslint-disable-next-line no-unused-vars
-    for (let tabName in tabsState) {
-        if (tabsState[tabName]) {
-            return tabsState;
+    for (let tabName in tabsErrorState) {
+        if (tabsErrorState[tabName]) {
+            return tabsErrorState;
         }
     }
-
     return false;
 };
 

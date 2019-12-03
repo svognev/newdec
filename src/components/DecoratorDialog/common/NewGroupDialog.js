@@ -9,17 +9,13 @@ import TextField from "@material-ui/core/TextField";
 
 import LabelWithAsterisk from "./LabelWithAsterisk";
 import { focusInput } from "../helpers";
+import { LANGS, MAIN_LANG_KEY, ADDITIONAL_LANGS } from "../constants";
 
 class NewGroupDialog extends React.PureComponent {
     isXref = this.props.groupType === "xref";
 
     emptyGroup = {
-        nameEn: "",
-        nameDe: "",
-        nameRu: "",
-        nameFr: "",
-        nameFrCa: "",
-        nameEs: "",
+        ...LANGS.reduce((acc, { langKey }) => ({ ...acc, [langKey]: "" }), {}),
         ...this.isXref && { groupKey: "" },
     };
 
@@ -40,20 +36,15 @@ class NewGroupDialog extends React.PureComponent {
     };
 
     onGroupSave = () => {
-        if ((!this.isXref && this.state.nameEn.trim().length) || (this.isXref && this.state.groupKey.trim().length)) {
+        if ((!this.isXref && this.state[MAIN_LANG_KEY].trim().length) || (this.isXref && this.state.groupKey.trim().length)) {
             const groupToSave = {
-                nameEn: this.state.nameEn.trim(),
-                nameDe: this.state.nameDe.trim(),
-                nameRu: this.state.nameRu.trim(),
-                nameFr: this.state.nameFr.trim(),
-                nameFrCa: this.state.nameFrCa.trim(),
-                nameEs: this.state.nameEs.trim(),
+                ...LANGS.reduce((acc, { langKey }) => ({ ...acc, [langKey]: this.state[langKey].trim() }), {}),
             };
             if (this.isXref) {
                 groupToSave.groupKey = this.state.groupKey.trim();
             }
             this.props.hideGroupDialogValidationError();
-            this.props.saveGroup(null, (groupToSave.nameEn || groupToSave.groupKey), groupToSave);
+            this.props.saveGroup(null, (groupToSave[MAIN_LANG_KEY] || groupToSave.groupKey), groupToSave);
             this.props.closeGroupDialog();
         } else {
             this.props.showGroupDialogValidationError();
@@ -95,8 +86,8 @@ class NewGroupDialog extends React.PureComponent {
                             <>
                                 <span>Name EN</span>
                                 <TextField
-                                    value={this.state.nameEn}
-                                    onChange={onInputChange("nameEn")}
+                                    value={this.state[MAIN_LANG_KEY]}
+                                    onChange={onInputChange(MAIN_LANG_KEY)}
                                     variant="outlined" 
                                     margin="dense" 
                                 />
@@ -105,50 +96,26 @@ class NewGroupDialog extends React.PureComponent {
                             <>
                                 <LabelWithAsterisk>Name EN</LabelWithAsterisk>
                                 <TextField
-                                    value={this.state.nameEn}
-                                    onChange={onInputChange("nameEn")}
+                                    value={this.state[MAIN_LANG_KEY]}
+                                    onChange={onInputChange(MAIN_LANG_KEY)}
                                     inputRef={this.requiredFieldRef}
-                                    error={hasGroupDialogValidationError && !this.state.nameEn}
+                                    error={hasGroupDialogValidationError && !this.state[MAIN_LANG_KEY]}
                                     variant="outlined" 
                                     margin="dense" 
                                 />
                             </>
                         ) }
-                        <span>Name DE</span>
-                        <TextField
-                            value={this.state.nameDe}
-                            onChange={onInputChange("nameDe")} 
-                            variant="outlined" 
-                            margin="dense" 
-                        />                        
-                        <span>Name RU</span>
-                        <TextField
-                            value={this.state.nameRu}
-                            onChange={onInputChange("nameRu")} 
-                            variant="outlined" 
-                            margin="dense"
-                        />                        
-                        <span>Name FR<br/><span className="smallText">France</span></span>
-                        <TextField
-                            value={this.state.nameFr}
-                            onChange={onInputChange("nameFr")} 
-                            variant="outlined" 
-                            margin="dense" 
-                        />
-                        <span>Name FR<br/><span className="smallText">Canada</span></span>
-                        <TextField 
-                            value={this.state.nameFrCa}
-                            onChange={onInputChange("nameFrCa")} 
-                            variant="outlined" 
-                            margin="dense"
-                        />
-                        <span>Name ES</span>
-                        <TextField
-                            value={this.state.nameEs}
-                            onChange={onInputChange("nameEs")} 
-                            variant="outlined" 
-                            margin="dense"
-                        />                  
+                        { ADDITIONAL_LANGS.map(({ langKey, langName, regionFullName }) => (
+                            <React.Fragment key={langKey}>
+                                <span>Name {langName}{regionFullName && <span className="smallText"><br/>{regionFullName}</span>}</span>
+                                <TextField
+                                    value={this.state[langKey]}
+                                    onChange={onInputChange(langKey)} 
+                                    variant="outlined" 
+                                    margin="dense" 
+                                />
+                            </React.Fragment>
+                        )) }                 
                     </div>
                 </DialogContent>
                 <DialogActions>

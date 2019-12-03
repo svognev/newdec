@@ -8,6 +8,7 @@ import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import withNewGroupControl from "../hoc/withNewGroupControl";
 import { setValue } from "../actions";
+import { MAIN_LANG_KEY } from "../constants";
 
 class ReferencingSection extends React.Component {
     onXrefChange = (e, xrefName, xref) => {
@@ -29,7 +30,7 @@ class ReferencingSection extends React.Component {
             referenceGroup,
         } = this.props;
         
-        const newGroupName = referenceGroupToCreate.nameEn || referenceGroupToCreate.groupKey;
+        const newGroupName = referenceGroupToCreate[MAIN_LANG_KEY] || referenceGroupToCreate.groupKey;
         const isEditMode = !!newGroupName;
     
         return (

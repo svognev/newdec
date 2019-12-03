@@ -36,7 +36,6 @@ import {
 import { 
     selectAllOnClick, 
     changeAndScroll, 
-    getListSectionErrorState,
     focusInput,
     unicodeNumberToChar, 
     unicodeCharToNumber, 
@@ -105,23 +104,23 @@ class ListSection extends React.Component {
     };
 
     componentDidMount() {
-        if (this.props.validationError) {
+        if (this.props.validationErrorInSection) {
             focusInput(this.listNameInputRef);
         }
     }
 
     componentDidUpdate(prevprops) {
-        if (this.props.validationError && !prevprops.validationError) {
+        if (this.props.validationErrorInSection && !prevprops.validationErrorInSection) {
             focusInput(this.listNameInputRef);
         }
-        if (this.props.validationError && !getListSectionErrorState(this.props.formState)) {
+        if (this.props.validationErrorInSection && this.props.listName) {
             this.props.updateValidationError({ listSection: false });
         }
     }
 
     render() {
         const {
-            validationError,
+            validationErrorInSection,
             listPreviewProps,
             isList,
             listName, changeListName,
@@ -178,7 +177,7 @@ class ListSection extends React.Component {
                                     <TextField
                                         value={listName}
                                         onChange={changeListName} 
-                                        error={validationError && !listName}
+                                        error={validationErrorInSection && !listName}
                                         inputRef={this.listNameInputRef}
                                         variant="outlined" 
                                         margin="dense" 
@@ -476,7 +475,7 @@ class ListSection extends React.Component {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return {
-        validationError: validationError.listSection,
+        validationErrorInSection: validationError.listSection,
         formState: form,
         isList: form.isList,
         listName: form.listName, 

@@ -48,3 +48,7 @@ export const LANGS = [
     regionFullName: "Belgium"
   },
 ];
+
+export const ADDITIONAL_LANGS = LANGS.slice(1);
+
+export const MAIN_LANG_KEY = LANGS[0].langKey;

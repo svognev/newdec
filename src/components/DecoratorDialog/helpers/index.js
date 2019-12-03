@@ -2,11 +2,9 @@ import DecDataParser from "./DecDataParser";
 import getShortCutUtils from "./getShortCutUtils";
 import isFontAvailable from "./isFontAvailable";
 import {
-    getTabsErrorState, 
-    getNamesSectionErrorState,
-    getWordExportSectionErrorState,
-    getListSectionErrorState,
+    getTabsErrorState,
     getTabNumberToSwitch,
+    hasErrorInSection,
 } from "./validationFunctions";
 import {
     getCorrectColor,
@@ -21,9 +19,9 @@ import {
     selectAllEditableContent,
     getListChars,
     detectOS,
-    getErrorSections,
     fillMissedFields,
     focusInput,
+    focusOnEmptyField,
 } from "./helpers.js";
 
 export {
@@ -31,10 +29,8 @@ export {
     getShortCutUtils,
     isFontAvailable,
     getTabsErrorState,
-    getNamesSectionErrorState,
-    getWordExportSectionErrorState,
-    getListSectionErrorState,
     getTabNumberToSwitch,
+    hasErrorInSection,
     getCorrectColor,
     getPreviewFont,
     selectAllOnClick,
@@ -47,7 +43,7 @@ export {
     selectAllEditableContent,
     getListChars,
     detectOS,
-    getErrorSections,
     fillMissedFields,
     focusInput,
+    focusOnEmptyField,
 };

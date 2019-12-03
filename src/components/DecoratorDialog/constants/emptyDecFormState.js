@@ -1,3 +1,5 @@
+import { LANGS } from "./localeConstants";
+
 export const HOLDER = "HOLDER-POLDER";
 export const DEFAULT_FONT = "Helvetica";
 export const DEFAULT_FONT_SIZE = "11";
@@ -41,12 +43,7 @@ export const emptyDecFormState = {
     group: "",
     groupToCreate: "",
     active: true,
-    decNameEn: "",
-    decNameDe: "",
-    decNameRu: "",
-    decNameFr: "",
-    decNameFrCa: "",
-    decNameEs: "",
+    name: { ...LANGS.reduce((acc, { langKey }) => ({ ...acc, [langKey]: "" }), {}) },
     wordStyleName: "",
     softReturn: false,
     indentationalLevel: "",
