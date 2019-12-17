@@ -27,11 +27,11 @@ export const listStyleTypes = [
 ];
 
 export const numberingSets = {
-    decimal: ["1", "2", "3", "4"],
-    "upper-alpha": ["A", "B", "C", "D"],
-    "lower-alpha": ["a", "b", "c", "d"],
-    "upper-roman": ["I", "II", "III", "IV"],
-    "lower-roman": ["i", "ii", "iii", "iv"],
+    decimal: ["1", "2", "3", "88", "888"],
+    "upper-alpha": ["A", "B", "C", "XX", "XXX"],
+    "lower-alpha": ["a", "b", "c", "xx", "xxx"],
+    "upper-roman": ["I", "II", "III", "XX", "XXX"],
+    "lower-roman": ["i", "ii", "iii", "xx", "xxx"],
 };
 
 export const sampleText = `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`;

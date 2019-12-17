@@ -33,7 +33,8 @@ const ListPreview = props => {
     });
 
     const previewStyle = generatePreviewStyle(formState);
-    const sideNumberStyle = isOrderedList && sideNumber ? generateSideNumberStyle(formState) : {};
+    const isSideNumber = isOrderedList && sideNumber;
+    const sideNumberStyle = isSideNumber ? generateSideNumberStyle(formState) : {};
     const listItemBeginningStyle = {
         marginRight: `${suffixDistance || 0}cm`,
         ...sideNumberStyle,
@@ -66,6 +67,22 @@ const ListPreview = props => {
                                 style={listItemBeginningStyle}
                             >{`${listItemBeginnings[2]}`}</span><span>The third list item</span>
                         </div>
+                        { isSideNumber && (
+                            <>
+                                <div>
+                                    <span 
+                                        className="listItemBeginning"
+                                        style={listItemBeginningStyle}
+                                    >{`${listItemBeginnings[3]}`}</span><span>One more list item</span>
+                                </div>
+                                <div>
+                                    <span 
+                                        className="listItemBeginning"
+                                        style={listItemBeginningStyle}
+                                    >{`${listItemBeginnings[4]}`}</span><span>And one more</span>
+                                </div>
+                            </>
+                        ) }
                     </div>
                 </div>
             </div>
