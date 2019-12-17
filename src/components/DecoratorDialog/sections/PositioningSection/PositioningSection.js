@@ -86,6 +86,7 @@ const PositioningSection = props => {
                     id="r5c2" 
                     input={ <CustomInput /> }
                 >
+                    <option value="">Nothing</option>
                     <option value="default">Global Fallback Style</option>
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
@@ -100,6 +101,7 @@ const PositioningSection = props => {
                     id="r6c2" 
                     input={ <CustomInput /> }
                 >
+                    <option value="">Nothing</option>
                     <option value="default">Global Fallback Style</option>
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
@@ -117,6 +119,7 @@ const PositioningSection = props => {
                     id="r8c2" 
                     input={ <CustomInput /> }
                 >
+                    <option value="">Nothing</option>
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
             </div>
@@ -129,6 +132,7 @@ const PositioningSection = props => {
                     id="r9c2" 
                     input={ <CustomInput /> }
                 >
+                    <option value="">Nothing</option>
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
             </div>

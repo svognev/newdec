@@ -1,5 +1,4 @@
 const decoratorsList = [
-    { name: "...", value: "" },
     { name: "Text 1", value: "quick_text_1" },
     { name: "Text 2", value: "quick_text_2" },
     { name: "Text 3", value: "quick_text_3" },
