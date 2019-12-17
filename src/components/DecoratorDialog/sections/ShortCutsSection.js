@@ -7,22 +7,22 @@ import { setShortCut } from "../actions";
 
 const ShortCutSection = ({ shortCutWinView, shortCutMacView, changeShortCutWin, changeShortCutMac }) => {
     return (
-        <div className="dialogGrid dialogGrid_2cols">
-            <span>Windows</span>
-            <div className="largeTextField">
-                <TextField
-                    value={shortCutWinView}
-                    onKeyDown={changeShortCutWin}
-                    variant="outlined"
-                    margin="dense"
-                />
-            </div>
-
+        <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
             <span>Mac</span>
             <div className="largeTextField">
                 <TextField
                     value={shortCutMacView}
                     onKeyDown={changeShortCutMac}
+                    variant="outlined"
+                    margin="dense"
+                />
+            </div>
+
+            <span>Windows</span>
+            <div className="largeTextField">
+                <TextField
+                    value={shortCutWinView}
+                    onKeyDown={changeShortCutWin}
                     variant="outlined"
                     margin="dense"
                 />
