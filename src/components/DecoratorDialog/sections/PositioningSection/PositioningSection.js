@@ -160,7 +160,7 @@ const mapDispatchToProps = dispatch => {
         changeBackspaceActionWithoutContent: setValue(dispatch)("backspaceActionWithoutContent"),
         changeBackspaceActionWithoutContentStyle: setValue(dispatch)("backspaceActionWithoutContentStyle"),
         changeReturnActionNextSection: setValue(dispatch)("returnActionNextSection"),
-        changeReturnActionEmptySection: setValue(dispatch)("returnActionEmptySectionStyle"),
+        changeReturnActionEmptySection: setValue(dispatch)("returnActionEmptySection"),
         changeTabAction: setValue(dispatch)("tabAction"),
         changeShiftTabAction: setValue(dispatch)("shiftTabAction"),
     };
