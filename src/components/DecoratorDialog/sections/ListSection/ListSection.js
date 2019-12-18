@@ -160,7 +160,7 @@ class ListSection extends React.Component {
                     <div>
                         <div>
                             <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth">
-                                <div className="listSection-firstSpan">
+                                <div className="listItemSpan">
                                     <span>Is it a list?</span>
                                 </div>
                                 <div className="unlabeledCheckbox">
@@ -417,7 +417,7 @@ class ListSection extends React.Component {
                 <div className={`optionalSettings optionalSettings_${unorderedListSettingsState}`}>
                     <div className="dialogGrid dialogGrid_2cols listTypeSettings">
                         <div className="dialogGrid dialogGrid_2cols">
-                            <span className="listSection-firstSpan">List item</span>
+                            <span className="listItemSpan">List item</span>
                             <div className="listItemSelect">
                                 <NativeSelect 
                                     value={listItem} 

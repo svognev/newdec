@@ -62,7 +62,7 @@ const PositioningSection = props => {
                         ))}
                     </NativeSelect>
                 </div>
-                <div className={`optionalSettings optionalSettings_${backSpaceActionStyleSettingsState}`}>
+                <div className={`optionalSettings optionalSettings_${backSpaceActionStyleSettingsState} wideSelectBox`}>
                     <NativeSelect
                         value={backspaceActionWithContentStyle}
                         onChange={changeBackspaceActionWithContentStyle}
@@ -79,7 +79,7 @@ const PositioningSection = props => {
             </div>
 
             <span id="r5c1">Style of next section</span>
-            <div className="positioning-styleInputBox">
+            <div className="wideSelectBox">
                 <NativeSelect
                     value={returnActionNextSection}
                     onChange={changeReturnActionNextSection}
@@ -94,7 +94,7 @@ const PositioningSection = props => {
             
 
             <span id="r6c1">In empty section change current style to</span>
-            <div className="positioning-styleInputBox">
+            <div className="wideSelectBox">
                 <NativeSelect 
                     value={returnActionEmptySection}
                     onChange={changeReturnActionEmptySection}
@@ -112,7 +112,7 @@ const PositioningSection = props => {
             </div>
 
             <span id="r8c1">TAB – change current style to</span>
-            <div className="positioning-styleInputBox">
+            <div className="wideSelectBox">
                 <NativeSelect
                     value={tabAction}
                     onChange={changeTabAction}
@@ -125,7 +125,7 @@ const PositioningSection = props => {
             </div>
 
             <span id="r9c1">SHIFT+TAB – change current style to</span>
-            <div className="positioning-styleInputBox">
+            <div className="wideSelectBox">
                 <NativeSelect
                     value={shiftTabAction}
                     onChange={changeShiftTabAction} 
