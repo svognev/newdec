@@ -1,10 +1,10 @@
-.paragraphDecorators-dialog .header {
+.decoratorDialog .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.paragraphDecorators-dialog .header-title {
+.decoratorDialog .header-title {
     font-weight: bold;
     font-size: 22px;
     height: 3rem !important;
@@ -12,21 +12,21 @@
     align-items: center;
 }
 
-.paragraphDecorators-dialog .header-buttons {
+.decoratorDialog .header-buttons {
     display: flex;
 }
 
-.paragraphDecorators-dialog .topNavButton {
+.decoratorDialog .topNavButton {
     margin-left: 1rem !important;
     height: 2rem;
     flex-wrap: nowrap;
 }
 
-.paragraphDecorators-dialog .topNavButton:last-child {
+.decoratorDialog .topNavButton:last-child {
     margin-right: 1.5rem;
 }
 
-.paragraphDecorators-dialog .content {
+.decoratorDialog .content {
     display: flex;
     min-height: 450px;
     width: 100%;
@@ -35,11 +35,11 @@
     box-sizing: border-box;
 }
 
-.paragraphDecorators-dialog .content-leftSide {
+.decoratorDialog .content-leftSide {
     width: 235px;
 }
 
-.paragraphDecorators-dialog .content-rightSide {
+.decoratorDialog .content-rightSide {
     margin: 0px 0px 0px 40px;
     display: block;
     width: 100%;
@@ -49,13 +49,13 @@
     overflow: auto;
 }
 
-.paragraphDecorators-dialog .dialogTabs {
+.decoratorDialog .dialogTabs {
     display: flex;
     width: 190px;
     box-shadow:  1px 0px 0px 0px gainsboro;
 }
 
-.paragraphDecorators-dialog .dialogTab {
+.decoratorDialog .dialogTab {
     display: flex;
     flex-direction: column;
     align-items: flex-start !important;
@@ -64,11 +64,11 @@
     font-size: 14px !important;
 }
 
-.paragraphDecorators-dialog .dialogTab_error {
+.decoratorDialog .dialogTab_error {
     text-decoration: red underline;
 }
 
-.paragraphDecorators-dialog .dialogGrid {
+.decoratorDialog .dialogGrid {
     width: 100%;
     display: grid;
     grid-template-rows: minmax(3.5rem, min-content);
@@ -78,93 +78,93 @@
     align-items: center;
 }
 
-.paragraphDecorators-dialog .dialogGrid_2cols {
+.decoratorDialog .dialogGrid_2cols {
     grid-template-columns: auto 1fr; 
 }
 
-.paragraphDecorators-dialog .dialogGrid_2minCols {
+.decoratorDialog .dialogGrid_2minCols {
     grid-template-columns: min-content min-content; 
 }
 
-.paragraphDecorators-dialog .dialogGrid_flexStartAligned {
+.decoratorDialog .dialogGrid_flexStartAligned {
     align-items: flex-start;
 }
 
-.paragraphDecorators-dialog .dialogGrid_topIndented {
+.decoratorDialog .dialogGrid_topIndented {
     margin-top: 12px;
 }
 
-.paragraphDecorators-dialog .dialogGrid_leftIndented {
+.decoratorDialog .dialogGrid_leftIndented {
     padding-left: 15px;
     box-sizing: border-box;
 }
 
-.paragraphDecorators-dialog .dialogGrid_mediumWidth {
+.decoratorDialog .dialogGrid_mediumWidth {
     min-width: 500px;
 }
 
-.paragraphDecorators-dialog .dialogGrid_rightAlignedLabels span {
+.decoratorDialog .dialogGrid_rightAlignedLabels span {
     text-align: right;
 }
 
-.paragraphDecorators-dialog .textButton {
+.decoratorDialog .textButton {
     margin-left: 1rem !important;
 }
 
-.paragraphDecorators-dialog span {
+.decoratorDialog span {
     white-space: nowrap;
 }
 
-.paragraphDecorators-dialog .smallText {
+.decoratorDialog .smallText {
     font-size: 14px;
     color: dimgrey;
 }
 
-.paragraphDecorators-dialog .sectionTitle {
+.decoratorDialog .sectionTitle {
     height: 100%;
     display: flex;
     align-items: flex-end;
 }
 
-.paragraphDecorators-dialog .sectionTitle span {
+.decoratorDialog .sectionTitle span {
     font-weight: bold;
     color: #444;
     font-size: 18px;
     margin-bottom: 8px;
 }
 
-.paragraphDecorators-dialog .sectionTitle_rightAligned {
+.decoratorDialog .sectionTitle_rightAligned {
     justify-content: flex-end;
 }
 
-.paragraphDecorators-dialog .highlightedOption {
+.decoratorDialog .highlightedOption {
     font-weight: bold;
 }
 
-.paragraphDecorators-dialog .labelWithAsterisk {
+.decoratorDialog .labelWithAsterisk {
     display: flex;
     width: 100%;
 }
 
-.paragraphDecorators-dialog .labelWithAsterisk-asteriskBox {
+.decoratorDialog .labelWithAsterisk-asteriskBox {
     position: relative;
     width: 0px;
 }
 
-.paragraphDecorators-dialog .labelWithAsterisk-asteriskBox {
+.decoratorDialog .labelWithAsterisk-asteriskBox {
     position: relative;
     width: 0px;
 }
 
-.paragraphDecorators-dialog .dialogGrid_rightAlignedLabels .labelWithAsterisk-labelBox {
+.decoratorDialog .dialogGrid_rightAlignedLabels .labelWithAsterisk-labelBox {
     text-align: right;
 }
 
-.paragraphDecorators-dialog .dialogGrid_rightAlignedLabels .labelWithAsterisk-labelBox {
+.decoratorDialog .dialogGrid_rightAlignedLabels .labelWithAsterisk-labelBox {
     width: 100%;
 }
 
-.paragraphDecorators-dialog .labelWithAsterisk-asteriskMark {
+.decoratorDialog .labelWithAsterisk-asteriskMark {
     color: tomato;
     font-weight: bold;
     margin-top: -5px;
@@ -172,34 +172,34 @@
     position: absolute;
 }
 
-.paragraphDecorators-dialog .inputWithAdornment {
+.decoratorDialog .inputWithAdornment {
     display: flex;
     align-items: center;
 }
 
-.paragraphDecorators-dialog .numberInput {
+.decoratorDialog .numberInput {
     width: 110px;
 }
 
-.paragraphDecorators-dialog .unicodeInput {
+.decoratorDialog .unicodeInput {
     width: 120px;
 }
 
-.paragraphDecorators-dialog .bulletInput {
+.decoratorDialog .bulletInput {
     min-width: 50px;
     max-width: 50px;
 }
 
-.paragraphDecorators-dialog .mediumTextField {
+.decoratorDialog .mediumTextField {
     width: 223px;
 }
 
-.paragraphDecorators-dialog .largeTextField {
+.decoratorDialog .largeTextField {
     width: 400px;
     display: inherit;
 }
 
-.paragraphDecorators-dialog .colorSample {
+.decoratorDialog .colorSample {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 100%;
@@ -210,12 +210,12 @@
     box-shadow: 1px 1px 9px 0px grey;
 }
 
-.paragraphDecorators-dialog .colorField {
+.decoratorDialog .colorField {
     display: flex;
     align-items: center;
 }
 
-.paragraphDecorators-dialog .previewSide {
+.decoratorDialog .previewSide {
     align-self: flex-start;
     display: flex;
     flex-direction: column;
@@ -224,19 +224,19 @@
     padding-right: 10px;
 }
 
-.paragraphDecorators-dialog .unlabeledCheckbox {
+.decoratorDialog .unlabeledCheckbox {
     margin-left: -11px;
 }
 
-.paragraphDecorators-dialog .labeledCheckbox {
+.decoratorDialog .labeledCheckbox {
     margin-right: 1.3rem;
 }
 
-.paragraphDecorators-dialog .checkBoxesSet {
+.decoratorDialog .checkBoxesSet {
     display: flex;
 }
 
-.paragraphDecorators-dialog .flexibleGrid {
+.decoratorDialog .flexibleGrid {
     width: 100%;
     display: grid;
     grid-template-rows: minmax(0, min-content);
@@ -248,26 +248,26 @@
     grid-template-columns: min-content min-content; 
 }
 
-.paragraphDecorators-dialog .flexibleGrid>span {
+.decoratorDialog .flexibleGrid>span {
     height: 3.5rem;
     display: flex;
     align-items: center;
 }
 
-.paragraphDecorators-dialog .optionalField {
+.decoratorDialog .optionalField {
     display: inline-flex;
     width: 100%;
     transition: all 0.4s ease-out;
     align-items: center;
 }
 
-.paragraphDecorators-dialog .optionalField_hidden {
+.decoratorDialog .optionalField_hidden {
     opacity: 0;
     height: 0;
     overflow: hidden;
 }
 
-.paragraphDecorators-dialog .optionalField_shown {
+.decoratorDialog .optionalField_shown {
     opacity: 1;
     height: 3.5rem;
 }

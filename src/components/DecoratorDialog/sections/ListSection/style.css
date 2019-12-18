@@ -1,8 +1,8 @@
-.paragraphDecorators-dialog .listSection-firstSpan {
+.decoratorDialog .listSection-firstSpan {
     min-width: 105px;
 }
 
-.paragraphDecorators-dialog .optionalSettings {
+.decoratorDialog .optionalSettings {
     transition: all 0.3s ease-out;
 }
 
@@ -10,18 +10,18 @@
     transition: all 0.4s ease-out !important;
 }
 
-.paragraphDecorators-dialog .optionalSettings_hidden {
+.decoratorDialog .optionalSettings_hidden {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
 }
 
-.paragraphDecorators-dialog .optionalSettings_shown {
+.decoratorDialog .optionalSettings_shown {
     max-height: none;
     opacity: 1;
 }
 
-.paragraphDecorators-dialog .listTypeSettings {
+.decoratorDialog .listTypeSettings {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid lightgrey;

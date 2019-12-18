@@ -78,7 +78,7 @@ class DecoratorDialog extends React.Component {
                     onClose={this.onClose}
                     aria-labelledby="form-dialog-title"
                     scroll="body"
-                    className="paragraphDecorators-dialog"
+                    className="decoratorDialog"
                     fullWidth={true}
                     maxWidth={false}
                     id="dialog"

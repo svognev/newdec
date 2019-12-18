@@ -1,5 +1,5 @@
 
-.paragraphDecorators-dialog .dialogGrid_positioning {
+.decoratorDialog .dialogGrid_positioning {
     grid-template-areas: "r1c1 r1c2"
                          "r2 r2"
                          "r3c1 r3c2"
@@ -12,66 +12,66 @@
     grid-template-columns: min-content 1fr;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r1c1 {
+.decoratorDialog .dialogGrid_positioning #r1c1 {
     grid-area: r1c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r1c2 {
+.decoratorDialog .dialogGrid_positioning #r1c2 {
     grid-area: r1c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r2 {
+.decoratorDialog .dialogGrid_positioning #r2 {
     grid-area: r2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r3c1 {
+.decoratorDialog .dialogGrid_positioning #r3c1 {
     grid-area: r3c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r3c2 {
+.decoratorDialog .dialogGrid_positioning #r3c2 {
     grid-area: r3c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r4 {
+.decoratorDialog .dialogGrid_positioning #r4 {
     grid-area: r4;    
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r5c1 {
+.decoratorDialog .dialogGrid_positioning #r5c1 {
     grid-area: r5c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r5c2 {
+.decoratorDialog .dialogGrid_positioning #r5c2 {
     grid-area: r5c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r6c1 {
+.decoratorDialog .dialogGrid_positioning #r6c1 {
     grid-area: r6c1;         
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r6c2 {
+.decoratorDialog .dialogGrid_positioning #r6c2 {
     grid-area: r6c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r7 {
+.decoratorDialog .dialogGrid_positioning #r7 {
     grid-area: r7;    
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r8c1 {
+.decoratorDialog .dialogGrid_positioning #r8c1 {
     grid-area: r8c1;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r8c2 {
+.decoratorDialog .dialogGrid_positioning #r8c2 {
     grid-area: r8c2;
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r9c1 {
+.decoratorDialog .dialogGrid_positioning #r9c1 {
     grid-area: r9c1;         
 }
 
-.paragraphDecorators-dialog .dialogGrid_positioning #r9c2 {
+.decoratorDialog .dialogGrid_positioning #r9c2 {
     grid-area: r9c2;
 }
 
-.paragraphDecorators-dialog .positioning-styleInputBox {
+.decoratorDialog .positioning-styleInputBox {
     display: inherit;
 }

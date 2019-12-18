@@ -60,7 +60,7 @@ class NewGroupDialog extends React.PureComponent {
 
         return (
             <Dialog
-                className="paragraphDecorators-dialog"
+                className="decoratorDialog"
                 open={isOpen}
                 onClose={onClose}
                 fullWidth={true}
