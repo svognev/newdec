@@ -25,3 +25,7 @@
 .paragraphDecorators-dialog .labeledCheckbox_smallCaps span {
     font-variant: small-caps;
 }
+
+.paragraphDecorators-dialog .stylingsSpan {
+    min-width: 115px;
+}

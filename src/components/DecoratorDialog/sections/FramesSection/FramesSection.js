@@ -12,11 +12,7 @@ import ColorField from "../../common/ColorField";
 import generateBorderPreviewStyle from "./generateBorderPreviewStyle";
 import { setValue, toggleValue, setNumber, setColor } from "../../actions";
 import { selectAllOnClick } from "../../helpers";
-import { 
-    DEFAULT_BORDER_COLOR, 
-    DEFAULT_BORDER_COLOR_NAME,
-    DEFAULT_BORDER_THICKNESS,
-} from "../../constants";
+import { DEFAULT_BORDER_COLOR, DEFAULT_BORDER_THICKNESS } from "../../constants";
 
 import "./style.css";
 
@@ -37,7 +33,6 @@ class FramesSection extends React.Component {
             rightBorder, changeRightBorder,
             topBorder, changeTopBorder, 
             bottomBorder, changeBottomBorder, 
-            borderColorName, changeBorderColorName,
             borderColor, changeBorderColor,
             borderThickness, changeBorderThickness,
             borderType,
@@ -91,16 +86,7 @@ class FramesSection extends React.Component {
                     </div>
                 </div>
                 <div className="dialogGrid dialogGrid_2cols">
-                    <span>Frame color name</span>
-                    <TextField 
-                        variant="outlined" 
-                        margin="dense" 
-                        value={borderColorName}
-                        onChange={changeBorderColorName}
-                        onClick={selectAllOnClick(DEFAULT_BORDER_COLOR_NAME)}
-                    />
-    
-                    <span>Frame color HEX</span>
+                    <span>Frame color</span>
                     <ColorField 
                         colorCode={borderColor} 
                         changeColorCode={changeBorderColor}
@@ -156,7 +142,6 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         rightBorder: form.rightBorder,
         topBorder: form.topBorder,
         bottomBorder: form.bottomBorder,
-        borderColorName: form.borderColorName,
         borderColor: form.borderColor,
         borderThickness: form.borderThickness,
         borderType: form.borderType,
@@ -170,7 +155,6 @@ const mapDispatchToProps = dispatch => {
         changeRightBorder: toggleValue(dispatch)("rightBorder"),
         changeTopBorder: toggleValue(dispatch)("topBorder"),
         changeBottomBorder: toggleValue(dispatch)("bottomBorder"),
-        changeBorderColorName: setValue(dispatch)("borderColorName"),
         changeBorderColor: setColor(dispatch)("borderColor"),
         changeBorderThickness: setNumber(dispatch)("borderThickness"),
         changeBorderType: setValue(dispatch)("borderType"),

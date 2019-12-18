@@ -1,17 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import Preview from "../common/Preview";
 import ColorField from "../common/ColorField";
-import { setValue, toggleValue, setColor } from "../actions";
+import { toggleValue, setColor } from "../actions";
 
 const  FillingSection = props => {
     const { 
         previewProps,
-        fillingColorName, changeFillingColorName,
         fillingColor, changeFillingColor,
         fillingConnectToPrevious, changefillingConnectToPrevious,
     } = props;
@@ -19,18 +17,7 @@ const  FillingSection = props => {
     return (
         <div className="dialogGrid dialogGrid_2cols dialogGrid_flexStartAligned">
             <div className="dialogGrid dialogGrid_2minCols">
-                <span>Filling color name</span>
-                <div>
-                    <TextField 
-                        variant="outlined" 
-                        margin="dense"
-                        className="mediumTextField" 
-                        value={fillingColorName}
-                        onChange={changeFillingColorName}
-                    />
-                </div>
-
-                <span>Filling color HEX</span>
+                <span>Filling color</span>
                 <ColorField 
                     colorCode={fillingColor} 
                     changeColorCode={changeFillingColor}
@@ -55,7 +42,6 @@ const  FillingSection = props => {
 
 const mapStateToProps = ({ decoratorDialog: { form }}) => {
     return { 
-        fillingColorName: form.fillingColorName,
         fillingColor: form.fillingColor,
         fillingConnectToPrevious: form.fillingConnectToPrevious,
     };
@@ -63,7 +49,6 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
 
 const mapDispatchToProps = dispatch => {
     return {       
-        changeFillingColorName: setValue(dispatch)("fillingColorName"),
         changeFillingColor: setColor(dispatch)("fillingColor"),
         changefillingConnectToPrevious: toggleValue(dispatch)("fillingConnectToPrevious"),
     };

@@ -14,7 +14,7 @@ import CustomInput from "../../common/CustomInput";
 import ColorField from "../../common/ColorField";
 import FontSelectFields from "../../common/FontSelectFields";
 import {  setValue, toggleValue, setNumber, setColor } from "../../actions";
-import { DEFAULT_FONT_SIZE, DEFAULT_FONT_COLOR, DEFAULT_FONT_COLOR_NAME } from "../../constants";
+import { DEFAULT_FONT_SIZE, DEFAULT_FONT_COLOR } from "../../constants";
 import { selectAllOnClick } from "../../helpers";
 
 import "./style.css";
@@ -26,7 +26,6 @@ const TypographySection = props => {
         customFont, changeCustomFont,
         alignment, changeAlignment,
         fontSize, changeFontSize,
-        fontColorName, changeFontColorName,
         fontColor, changeFontColor,
         bold, changeBold,
         italic, changeItalic,
@@ -67,29 +66,33 @@ const TypographySection = props => {
                     <InputAdornment variant="filled" position="end">pt</InputAdornment>
                 </div>      
 
-                <span>Font color name</span>
-                <TextField 
-                    variant="outlined" 
-                    margin="dense"
-                    value={fontColorName}
-                    onChange={changeFontColorName}
-                    onClick={selectAllOnClick(DEFAULT_FONT_COLOR_NAME)}
-                />
-
-                <span>Font color HEX</span>
+                <span>Font color</span>
                 <ColorField 
                     colorCode={fontColor} 
                     changeColorCode={changeFontColor}
                     defaultColorCode={DEFAULT_FONT_COLOR}
                     required
                 />
+
+                <span>Sub/Superscript</span>
+                <div>
+                    <NativeSelect 
+                        value={verticalAlign} 
+                        onChange={changeVerticalAlign}
+                        input={ <CustomInput /> } 
+                    >
+                        <option value="baseline">None</option>
+                        <option value="sub">Subscript</option>
+                        <option value="super">Superscript</option>
+                    </NativeSelect>
+                </div>
             </div>
             <div className="previewSide">
                 <Preview {...previewProps} />
             </div>
         </div>
         <div className="dialogGrid dialogGrid_2cols dialogGrid_topIndented">
-            <span>Stylings</span>
+            <span className="stylingsSpan">Stylings</span>
             <div className="checkBoxesSet">
                 <div className="labeledCheckbox labeledCheckbox_bold">
                     <FormControlLabel
@@ -168,19 +171,6 @@ const TypographySection = props => {
                     />
                 </div>
             </RadioGroup>
-
-            <span>Sub/Superscript</span>
-            <div>
-                <NativeSelect 
-                value={verticalAlign} 
-                onChange={changeVerticalAlign}
-                    input={ <CustomInput /> } 
-                >
-                    <option value="baseline">None</option>
-                    <option value="sub">Subscript</option>
-                    <option value="super">Superscript</option>
-                </NativeSelect>
-            </div>
         </div>
         </>
     );
@@ -192,7 +182,6 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         customFont: form.customFont,
         alignment: form.alignment,
         fontSize: form.fontSize,
-        fontColorName: form.fontColorName,
         fontColor: form.fontColor,
         bold: form.bold,
         italic: form.italic,
@@ -209,7 +198,6 @@ const mapDispatchToProps = dispatch => {
         changeCustomFont: setValue(dispatch)("customFont"),
         changeAlignment: setValue(dispatch)("alignment"),
         changeFontSize: setNumber(dispatch)("fontSize"),
-        changeFontColorName: setValue(dispatch)("fontColorName"),
         changeFontColor: setColor(dispatch)("fontColor"),
         changeBold: toggleValue(dispatch)("bold"),
         changeItalic: toggleValue(dispatch)("italic"),

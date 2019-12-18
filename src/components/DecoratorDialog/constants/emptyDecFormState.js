@@ -14,8 +14,6 @@ export const DEFAULT_WORD_SPACING = "0";
 export const DEFAULT_LINE_SPACING = "1.5";
 export const DEFAULT_BORDER_COLOR = "F00";
 export const DEFAULT_BORDER_THICKNESS = "2";
-export const DEFAULT_FONT_COLOR_NAME = "Black";
-export const DEFAULT_BORDER_COLOR_NAME = "Red";
 
 export const autoFillingRequiredFields = {
     sideNumberFont: DEFAULT_FONT,
@@ -75,7 +73,6 @@ export const emptyDecFormState = {
     referenceGroupToCreate: "",
     customFont: "",
     alignment: "left",
-    fontColorName: DEFAULT_FONT_COLOR_NAME,
     bold: false,
     italic: false,
     underlined: false,
@@ -87,10 +84,8 @@ export const emptyDecFormState = {
     rightBorder: false,
     topBorder: false,
     bottomBorder: false,
-    borderColorName: DEFAULT_BORDER_COLOR_NAME,
     borderType: "solid",
     borderConnectToPrevious: false,
-    fillingColorName: "",
     fillingColor: "",
     fillingfillingConnectToPrevious: false,
     tocIndentation: "",
