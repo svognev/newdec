@@ -72,6 +72,10 @@ export const generateSideNumberStyle = formState => {
         sideNumberFillingColor,
         sideNumberWidth,
         sideNumberRadius,
+        sideNumberBold,
+        sideNumberItalic,
+        sideNumberUnderlined,
+        sideNumberLineHeight,
     } = formState;
 
     const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "f5f5f5");
@@ -85,6 +89,10 @@ export const generateSideNumberStyle = formState => {
         backgroundColor: `#${previewSideNumberFillingColor}`,
         minWidth: `${!sideNumberWidth ? 0 : (sideNumberWidth < 150 ? sideNumberWidth : 150)}pt`,
         borderRadius: `${sideNumberRadius || 0}pt`,
+        fontWeight: sideNumberBold ? "bold" : "normal",
+        fontStyle: sideNumberItalic ? "italic" : "normal",
+        textDecoration: sideNumberUnderlined ? "underline" : "none",
+        ...sideNumberLineHeight && { lineHeight: `${sideNumberLineHeight}pt`},
         marginRight: `${suffixDistance || 0}cm`,
     };
 

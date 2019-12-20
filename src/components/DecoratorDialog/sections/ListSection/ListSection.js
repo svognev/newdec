@@ -146,6 +146,10 @@ class ListSection extends React.Component {
             sideNumberFillingColor, changeSideNumberFillingColor,
             sideNumberWidth, changeSideNumberWidth,
             sideNumberRadius, changeSideNumberRadius,
+            sideNumberBold, changeSideNumberBold,
+            sideNumberItalic, changeSideNumberItalic,
+            sideNumberUnderlined, changeSideNumberUnderlined,
+            sideNumberLineHeight, changeSideNumberLineHeight,
         } = this.props;
         
         const mainListSettingsState = isList ? "shown" : "hidden";
@@ -391,7 +395,19 @@ class ListSection extends React.Component {
                                             className="numberInput"
                                         />                                            
                                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                                    </div>    
+                                    </div>
+
+                                    <span>Line height</span>
+                                    <div className="inputWithAdornment">
+                                        <TextField 
+                                            value={sideNumberLineHeight}
+                                            onChange={changeSideNumberLineHeight}
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            className="numberInput"
+                                        />                                            
+                                        <InputAdornment variant="filled" position="end">pt</InputAdornment>
+                                    </div>  
                                         
                                     <span>Radius</span>
                                     <div className="inputWithAdornment">
@@ -404,8 +420,39 @@ class ListSection extends React.Component {
                                             className="numberInput"
                                         />                                            
                                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
-                                    </div>    
-                                </div> 
+                                    </div>
+
+                                    <span className="stylingsSpan">Stylings</span>
+                                    <div className="checkBoxesSet">
+                                        <div className="labeledCheckbox labeledCheckbox_bold">
+                                            <FormControlLabel
+                                                checked={sideNumberBold}
+                                                onChange={changeSideNumberBold}
+                                                label="Bold"
+                                                control={<Checkbox color="primary" />}
+                                                labelPlacement="end"
+                                            />
+                                        </div>
+                                        <div className="labeledCheckbox labeledCheckbox_italic">
+                                            <FormControlLabel
+                                                checked={sideNumberItalic}
+                                                onChange={changeSideNumberItalic}
+                                                label="Italic"
+                                                control={<Checkbox color="primary" />}
+                                                labelPlacement="end"
+                                            />
+                                        </div>
+                                        <div className="labeledCheckbox labeledCheckbox_underlined">
+                                            <FormControlLabel
+                                                control={<Checkbox color="primary" />}
+                                                label="Underlined"
+                                                labelPlacement="end"
+                                                checked={sideNumberUnderlined}
+                                                onChange={changeSideNumberUnderlined}
+                                            />
+                                        </div>
+                                    </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -501,6 +548,10 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         sideNumberFillingColor: form.sideNumberFillingColor,
         sideNumberWidth: form.sideNumberWidth,
         sideNumberRadius: form.sideNumberRadius,
+        sideNumberBold: form.sideNumberBold,
+        sideNumberItalic: form.sideNumberItalic,
+        sideNumberUnderlined: form.sideNumberUnderlined,
+        sideNumberLineHeight: form.sideNumberLineHeight,
     };
 };
 
@@ -531,6 +582,10 @@ const mapDispatchToProps = dispatch => {
         changeSideNumberFillingColor: setColor(dispatch)("sideNumberFillingColor"),
         changeSideNumberWidth: setNumber(dispatch)("sideNumberWidth"),
         changeSideNumberRadius: setNumber(dispatch)("sideNumberRadius"),
+        changeSideNumberBold: toggleValue(dispatch)("sideNumberBold"),
+        changeSideNumberItalic: toggleValue(dispatch)("sideNumberItalic"),
+        changeSideNumberUnderlined: toggleValue(dispatch)("sideNumberUnderlined"),
+        changeSideNumberLineHeight: setNumber(dispatch)("sideNumberLineHeight"),
     };
 };
   
