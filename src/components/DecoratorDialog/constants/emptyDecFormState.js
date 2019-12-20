@@ -45,6 +45,7 @@ export const emptyDecFormState = {
     wordStyleName: "",
     softReturn: false,
     indentationalLevel: "",
+    fixedIndentation: true,
     backspaceActionWithContent: "merge",
     backspaceActionWithContentStyle: "default",
     returnActionNextSection: "default",

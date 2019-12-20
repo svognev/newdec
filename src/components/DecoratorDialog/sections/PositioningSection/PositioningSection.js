@@ -2,18 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 
 import NativeSelect from "@material-ui/core/NativeSelect";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
 import { backSpaceActions, decoratorsList } from "../../constants";
 import BackSpaceActionInput from "./BackSpaceActionInput";
-import { setValue } from "../../actions";
+import { setValue, toggleValue } from "../../actions";
 
 import "./style.css";
 
 const PositioningSection = props => {
     const {
         indentationalLevel, changeIndentationalLevel,
+        fixedIndentation, changeisFixedIndentation,
         backspaceActionWithContent, changeBackspaceActionWithContent,
         backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
         returnActionNextSection, changeReturnActionNextSection,
@@ -43,18 +45,27 @@ const PositioningSection = props => {
                     <option value="5">5</option>
                 </NativeSelect>
             </div>
+
+            <span id="r2c1">Fixed indentation</span>
+            <div id="r2c2" className="unlabeledCheckbox">
+                <Checkbox 
+                    checked={fixedIndentation}
+                    onChange={changeisFixedIndentation}
+                    color="primary" 
+                />
+            </div>
             
-            <div id="r2" className="sectionTitle">
+            <div id="r3" className="sectionTitle">
                 <span>BACKSPACE</span>
             </div>
 
-            <span id="r3c1">At the beginning of a section with content</span>
+            <span id="r4c1">At the beginning of a section with content</span>
             <div className="dialogGrid dialogGrid_2cols">
                 <div>
                     <NativeSelect 
                         value={backspaceActionWithContent}
                         onChange={changeBackspaceActionWithContent}
-                        id="r3c2" 
+                        id="r4c2" 
                         input={ <BackSpaceActionInput /> }
                     >
                         {backSpaceActions.map(action => (
@@ -74,16 +85,16 @@ const PositioningSection = props => {
                 </div>
             </div>
 
-            <div id="r4" className="sectionTitle">
+            <div id="r5" className="sectionTitle">
                 <span>RETURN</span>
             </div>
 
-            <span id="r5c1">Style of next section</span>
+            <span id="r6c1">Style of next section</span>
             <div className="wideSelectBox">
                 <NativeSelect
                     value={returnActionNextSection}
                     onChange={changeReturnActionNextSection}
-                    id="r5c2" 
+                    id="r6c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -93,12 +104,12 @@ const PositioningSection = props => {
             </div>
             
 
-            <span id="r6c1">In empty section change current style to</span>
+            <span id="r7c1">In empty section change current style to</span>
             <div className="wideSelectBox">
                 <NativeSelect 
                     value={returnActionEmptySection}
                     onChange={changeReturnActionEmptySection}
-                    id="r6c2" 
+                    id="r7c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -107,16 +118,16 @@ const PositioningSection = props => {
                 </NativeSelect>
             </div>
 
-            <div id="r7" className="sectionTitle">
+            <div id="r8" className="sectionTitle">
                 <span>TAB / SHIFT+TAB</span>
             </div>
 
-            <span id="r8c1">TAB – change current style to</span>
+            <span id="r9c1">TAB – change current style to</span>
             <div className="wideSelectBox">
                 <NativeSelect
                     value={tabAction}
                     onChange={changeTabAction}
-                    id="r8c2" 
+                    id="r9c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -124,12 +135,12 @@ const PositioningSection = props => {
                 </NativeSelect>
             </div>
 
-            <span id="r9c1">SHIFT+TAB – change current style to</span>
+            <span id="r10c1">SHIFT+TAB – change current style to</span>
             <div className="wideSelectBox">
                 <NativeSelect
                     value={shiftTabAction}
                     onChange={changeShiftTabAction} 
-                    id="r9c2" 
+                    id="r10c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -149,6 +160,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         returnActionEmptySection: form.returnActionEmptySection,
         tabAction: form.tabAction,
         shiftTabAction: form.shiftTabAction,
+        fixedIndentation: form.fixedIndentation,
     };
 };
 
@@ -163,6 +175,7 @@ const mapDispatchToProps = dispatch => {
         changeReturnActionEmptySection: setValue(dispatch)("returnActionEmptySection"),
         changeTabAction: setValue(dispatch)("tabAction"),
         changeShiftTabAction: setValue(dispatch)("shiftTabAction"),
+        changeisFixedIndentation: toggleValue(dispatch)("fixedIndentation"),
     };
 };
   
