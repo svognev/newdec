@@ -67,6 +67,10 @@
     background-color: inherit;
     margin-top: inherit;
     margin-bottom: inherit;
+    border: inherit;
+    border-image: none;
+    padding: inherit;
+    width: 100%;
 }
 
 .decoratorDialog .demonstrationElement-text span {

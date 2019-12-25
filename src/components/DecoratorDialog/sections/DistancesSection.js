@@ -10,6 +10,7 @@ import Preview from "../common/Preview";
 import { setValue, setNumber } from "../actions";
 import { DEFAULT_MARGIN, DEFAULT_WORD_SPACING } from "../constants";
 import { selectAllOnClick, focusInput, changeAndScroll } from "../helpers";
+import ConnectToPreviousField from "../common/ConnectToPreviousField";
 
 class DistancesSection extends React.Component {
     customLineSpacingInputRef = React.createRef();
@@ -24,6 +25,7 @@ class DistancesSection extends React.Component {
     render() {
         const {
             previewProps,
+            connectToPrevious,
             marginTop, changeMarginTop,
             marginBottom, changeMarginBottom,
             firstRowIndent, changeFirstRowIndent,
@@ -33,13 +35,17 @@ class DistancesSection extends React.Component {
             wordSpacing, changeWordSpacing,
         } = this.props;
 
-        const optionalFieldState = lineSpacing === "custom" ? "optionalField_shown" : "optionalField_hidden";
-        
+        const customLineSpacingFieldState = lineSpacing === "custom" ? "optionalField_shown" : "optionalField_hidden";
+        const marginFieldsState = !connectToPrevious ? "optionalField_shown" : "optionalField_hidden";
+
         return (
             <div className="dialogGrid dialogGrid_2cols dialogGrid_flexStartAligned">
                 <div className="flexibleGrid">
-                    <span>Margin top</span>
-                    <div className="inputWithAdornment">
+                    <ConnectToPreviousField />
+                    <div className={`optionalField optionalField ${marginFieldsState}`}>
+                      <span>Margin top</span>
+                    </div>
+                    <div className={`inputWithAdornment optionalField ${marginFieldsState}`}>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
@@ -51,8 +57,11 @@ class DistancesSection extends React.Component {
                         <InputAdornment variant="filled" position="end">pt</InputAdornment>
                     </div> 
     
-                    <span>Margin bottom</span>
-                    <div className="inputWithAdornment">
+                    <div className={`optionalField ${marginFieldsState}`}>
+                        <span>Margin bottom</span>
+                    </div>
+
+                    <div className={`inputWithAdornment optionalField ${marginFieldsState}`}>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
@@ -105,9 +114,9 @@ class DistancesSection extends React.Component {
                         </NativeSelect> 
                     </div>
 
-                    <div className={`optionalField ${optionalFieldState}`}>
+                    <div className={`optionalField ${customLineSpacingFieldState}`}>
                     </div>
-                    <div className={`optionalField ${optionalFieldState}`}>
+                    <div className={`optionalField ${customLineSpacingFieldState}`}>
                         <TextField 
                             variant="outlined" 
                             margin="dense" 
@@ -142,6 +151,7 @@ class DistancesSection extends React.Component {
 
 const mapStateToProps = ({ decoratorDialog: { form }}) => {
     return { 
+        connectToPrevious: form.connectToPrevious,
         marginTop: form.marginTop,
         marginBottom: form.marginBottom,
         firstRowIndent: form.firstRowIndent,

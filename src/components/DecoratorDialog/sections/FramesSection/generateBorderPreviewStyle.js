@@ -2,10 +2,10 @@ import { getCorrectColor } from "../../helpers";
 
 const generateBorderPreviewStyle = formState => {
     const { 
-        leftBorder,
-        rightBorder,
-        topBorder,
-        bottomBorder,
+        borderLeft,
+        borderRight,
+        borderTop,
+        borderBottom,
         borderColor,
         borderThickness,
         borderType,
@@ -17,14 +17,14 @@ const generateBorderPreviewStyle = formState => {
                                 : "0";
 
     const previewStyle = {
-        borderLeft: leftBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
-        marginLeft: leftBorder ? "0" : previewBorderWidth, 
-        borderRight: rightBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
-        marginRight: rightBorder ? "0" : previewBorderWidth, 
-        borderTop: topBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
-        marginTop: topBorder ? "0" : previewBorderWidth, 
-        borderBottom: bottomBorder ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
-        marginBottom: bottomBorder ? "0" : previewBorderWidth, 
+        borderLeft: borderLeft ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
+        marginLeft: borderLeft ? "0" : previewBorderWidth, 
+        borderRight: borderRight ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
+        marginRight: borderRight ? "0" : previewBorderWidth, 
+        borderTop: borderTop ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
+        marginTop: borderTop ? "0" : previewBorderWidth, 
+        borderBottom: borderBottom ? `${previewBorderWidth} ${borderType} #${correctColor}` : "none",
+        marginBottom: borderBottom ? "0" : previewBorderWidth, 
     };
 
     return previewStyle;

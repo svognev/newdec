@@ -75,7 +75,7 @@ export default class ContentEditable extends React.Component {
   }
   render() {
       const _a = this.props, { tagName, html, innerRef } = _a, props = __rest(_a, ["tagName", "html", "innerRef"]);
-      return React.createElement(tagName || "div", Object.assign({}, props, { ref: typeof innerRef === "function" ? (current) => {
+      return React.createElement(tagName || "table", Object.assign({}, props, { ref: typeof innerRef === "function" ? (current) => {
               innerRef(current);
               this.el.current = current;
           } : innerRef || this.el, onInput: this.emitChange, onBlur: this.props.onBlur || this.emitChange, onKeyUp: this.props.onKeyUp || this.emitChange, onKeyDown: this.props.onKeyDown || this.emitChange, contentEditable: !this.props.disabled, dangerouslySetInnerHTML: { __html: html } }), this.props.children);
