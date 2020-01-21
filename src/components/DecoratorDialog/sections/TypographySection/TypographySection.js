@@ -32,7 +32,8 @@ const TypographySection = props => {
         underlined, changeUnderlined,         
         stroke, changeStroke,
         textTransform, changeTextTransform,
-        verticalAlign, changeVerticalAlign, 
+        verticalAlign, changeVerticalAlign,
+        readOnly, changeReadOnly,
     } = props;
 
     return (
@@ -171,6 +172,15 @@ const TypographySection = props => {
                     />
                 </div>
             </RadioGroup>
+
+            <span>Read only</span>
+            <div className="unlabeledCheckbox">
+                <Checkbox 
+                    checked={readOnly}
+                    onChange={changeReadOnly}
+                    color="primary" 
+                />
+            </div>
         </div>
         </>
     );
@@ -189,6 +199,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         stroke: form.stroke,
         textTransform: form.textTransform,
         verticalAlign: form.verticalAlign,
+        readOnly: form.readOnly,
     };
 };
 
@@ -206,6 +217,7 @@ const mapDispatchToProps = dispatch => {
         changeTextTransform: setValue(dispatch)("textTransform"),
         changeVerticalAlign: setValue(dispatch)("verticalAlign"),
         changeMarginTop: setNumber(dispatch)("marginTop"),
+        changeReadOnly: toggleValue(dispatch)("readOnly"),
     };
 };
   

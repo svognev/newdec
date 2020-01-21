@@ -118,8 +118,8 @@ class DecoratorDialog extends React.Component {
                                 indicatorColor="primary"
                             >
                                 { validationError.namesSection 
-                                    ? ( <CustomErrorTab className="dialogTab" label="Names" /> )
-                                    :  ( <CustomTab className="dialogTab" label="Names" /> ) }
+                                    ? ( <CustomErrorTab className="dialogTab" label="Decorator's name" /> )
+                                    :  ( <CustomTab className="dialogTab" label="Decorator's name" /> ) }
     
                                 { validationError.wordExportSection 
                                     ? ( <CustomErrorTab className="dialogTab" label="WORD export" /> ) 

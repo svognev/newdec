@@ -35,7 +35,7 @@ export const autoFillingRequiredFields = {
     borderThickness: DEFAULT_BORDER_THICKNESS,
 };
 
-export const emptyDecFormState = {
+export const initialFormState = {
     ...autoFillingRequiredFields,
     decKey: "",
     group: "",
@@ -83,6 +83,7 @@ export const emptyDecFormState = {
     underlined: false,
     stroke: false,
     textTransform: "none",
+    readOnly: false,
     connectToPrevious: false,
     verticalAlign: "baseline",
     customLineSpacing: "",

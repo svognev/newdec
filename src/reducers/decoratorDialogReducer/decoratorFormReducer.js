@@ -1,9 +1,9 @@
 import { UPDATE_DEC_FORM, CLEAR_DEC_FORM } from "../../components/DecoratorDialog/actions";
-import { sampleText, emptyDecFormState } from "../../components/DecoratorDialog/constants";
+import { sampleText, initialFormState } from "../../components/DecoratorDialog/constants";
 
 const initialState = { 
     previewText: sampleText,
-    ...emptyDecFormState,
+    ...initialFormState,
 };
 
 const decoratorFormReducer = (state = initialState, action) =>  {

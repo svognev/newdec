@@ -11,7 +11,7 @@ import {
     sampleText,
 } from "./constants";
 import { 
-    emptyDecFormState, 
+    initialFormState, 
     autoFillingRequiredFields, 
     HOLDER, 
     DEFAULT_FONT,
@@ -27,7 +27,7 @@ import {
     DEFAULT_LINE_SPACING,
     DEFAULT_BORDER_COLOR,
     DEFAULT_BORDER_THICKNESS,
-} from "./emptyDecFormState";
+} from "./initialFormState";
 
 export {
     decoratorsList,
@@ -40,7 +40,7 @@ export {
     sectionsTabNumbers,
     sampleText,
     fontSet,
-    emptyDecFormState, 
+    initialFormState, 
     autoFillingRequiredFields, 
     HOLDER, 
     DEFAULT_FONT,
