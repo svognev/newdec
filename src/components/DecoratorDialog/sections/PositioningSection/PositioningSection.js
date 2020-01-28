@@ -6,6 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
+import SectionTitle from "../../common/SectionTitle";
 import { backSpaceActions, decoratorsList } from "../../constants";
 import BackSpaceActionInput from "./BackSpaceActionInput";
 import { setValue, toggleValue } from "../../actions";
@@ -16,6 +17,7 @@ const PositioningSection = props => {
     const {
         indentationalLevel, changeIndentationalLevel,
         fixedIndentation, changeisFixedIndentation,
+        softReturn, changeSoftReturn,
         backspaceActionWithContent, changeBackspaceActionWithContent,
         backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
         returnActionNextSection, changeReturnActionNextSection,
@@ -27,13 +29,12 @@ const PositioningSection = props => {
     const backSpaceActionStyleSettingsState = backspaceActionWithContent === "apply_other_pd" ? "shown" : "hidden";
 
     return (
-        <div className="dialogGrid dialogGrid_positioning">
-            <span id="r1c1">Identational level</span>
+        <div className="dialogGrid dialogGrid_2cols">
+            <span>Identational level</span>
             <div>
                 <NativeSelect
                     value={indentationalLevel}
                     onChange={changeIndentationalLevel}
-                    id="r1c2" 
                     input={ <CustomInputShort /> }
                 >
                     <option value="">...</option>
@@ -46,26 +47,32 @@ const PositioningSection = props => {
                 </NativeSelect>
             </div>
 
-            <span id="r2c1">Fixed indentation</span>
-            <div id="r2c2" className="unlabeledCheckbox">
+            <span>Fixed indentation</span>
+            <div className="unlabeledCheckbox">
                 <Checkbox 
                     checked={fixedIndentation}
                     onChange={changeisFixedIndentation}
                     color="primary" 
                 />
             </div>
-            
-            <div id="r3" className="sectionTitle">
-                <span>BACKSPACE</span>
-            </div>
 
-            <span id="r4c1">At the beginning of a section with content</span>
+            <span>Soft return</span>
+            <div className="unlabeledCheckbox">
+                <Checkbox 
+                    checked={softReturn}
+                    onChange={changeSoftReturn}
+                    color="primary" 
+                />
+            </div>
+            
+            <SectionTitle text="BACKSPACE" />
+
+            <span>At the beginning of a section with content</span>
             <div className="dialogGrid dialogGrid_2cols">
                 <div>
                     <NativeSelect 
                         value={backspaceActionWithContent}
                         onChange={changeBackspaceActionWithContent}
-                        id="r4c2" 
                         input={ <BackSpaceActionInput /> }
                     >
                         {backSpaceActions.map(action => (
@@ -85,16 +92,14 @@ const PositioningSection = props => {
                 </div>
             </div>
 
-            <div id="r5" className="sectionTitle">
-                <span>RETURN</span>
-            </div>
+            <SectionTitle text="RETURN" />
 
-            <span id="r6c1">Style of next section</span>
+
+            <span>Style of next section</span>
             <div className="wideSelectBox">
                 <NativeSelect
                     value={returnActionNextSection}
                     onChange={changeReturnActionNextSection}
-                    id="r6c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -104,12 +109,11 @@ const PositioningSection = props => {
             </div>
             
 
-            <span id="r7c1">In empty section change current style to</span>
+            <span>In empty section change current style to</span>
             <div className="wideSelectBox">
                 <NativeSelect 
                     value={returnActionEmptySection}
                     onChange={changeReturnActionEmptySection}
-                    id="r7c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -118,16 +122,13 @@ const PositioningSection = props => {
                 </NativeSelect>
             </div>
 
-            <div id="r8" className="sectionTitle">
-                <span>TAB / SHIFT+TAB</span>
-            </div>
+            <SectionTitle text="TAB / SHIFT+TAB" />
 
-            <span id="r9c1">TAB – change current style to</span>
+            <span>TAB – change current style to</span>
             <div className="wideSelectBox">
                 <NativeSelect
                     value={tabAction}
                     onChange={changeTabAction}
-                    id="r9c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -135,12 +136,11 @@ const PositioningSection = props => {
                 </NativeSelect>
             </div>
 
-            <span id="r10c1">SHIFT+TAB – change current style to</span>
+            <span>SHIFT+TAB – change current style to</span>
             <div className="wideSelectBox">
                 <NativeSelect
                     value={shiftTabAction}
                     onChange={changeShiftTabAction} 
-                    id="r10c2" 
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
@@ -161,6 +161,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         tabAction: form.tabAction,
         shiftTabAction: form.shiftTabAction,
         fixedIndentation: form.fixedIndentation,
+        softReturn: form.softReturn,
     };
 };
 
@@ -176,6 +177,7 @@ const mapDispatchToProps = dispatch => {
         changeTabAction: setValue(dispatch)("tabAction"),
         changeShiftTabAction: setValue(dispatch)("shiftTabAction"),
         changeisFixedIndentation: toggleValue(dispatch)("fixedIndentation"),
+        changeSoftReturn: toggleValue(dispatch)("softReturn"),
     };
 };
   

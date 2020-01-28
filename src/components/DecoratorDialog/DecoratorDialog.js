@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import { ThemeProvider } from "@material-ui/styles";
 
 import NamesSection from "./sections/NamesSection";
-import WordExportSection from "./sections/WordExportSection";
 import PositioningSection from "./sections/PositioningSection";
 import ListSection from "./sections/ListSection";
 import ReferencingSection from "./sections/ReferencingSection";
@@ -121,10 +120,6 @@ class DecoratorDialog extends React.Component {
                                     ? ( <CustomErrorTab className="dialogTab" label="Decorator's name" /> )
                                     :  ( <CustomTab className="dialogTab" label="Decorator's name" /> ) }
     
-                                { validationError.wordExportSection 
-                                    ? ( <CustomErrorTab className="dialogTab" label="WORD export" /> ) 
-                                    : ( <CustomTab className="dialogTab" label="WORD export" /> ) }
-    
                                 <CustomTab className="dialogTab" label="Positioning" />
     
                                 { validationError.listSection 
@@ -143,17 +138,16 @@ class DecoratorDialog extends React.Component {
                         </div>
                         <div className="content-rightSide">
                             { openedTab === 0 && <NamesSection /> }
-                            { openedTab === 1 && <WordExportSection /> }
-                            { openedTab === 2 && <PositioningSection /> }
-                            { openedTab === 3 && <ListSection /> }
-                            { openedTab === 4 && <ReferencingSection /> }
-                            { openedTab === 5 && <TypographySection /> }
-                            { openedTab === 6 && <DistancesSection /> }
-                            { openedTab === 7 && <FramesSection /> }
-                            { openedTab === 8 && <FillingSection /> }
-                            { openedTab === 9 && <TocSection /> }
-                            { openedTab === 10 && <ShortCutsSection /> }
-                            {/* openedTab === 11 && <TestSection /> */}
+                            { openedTab === 1 && <PositioningSection /> }
+                            { openedTab === 2 && <ListSection /> }
+                            { openedTab === 3 && <ReferencingSection /> }
+                            { openedTab === 4 && <TypographySection /> }
+                            { openedTab === 5 && <DistancesSection /> }
+                            { openedTab === 6 && <FramesSection /> }
+                            { openedTab === 7 && <FillingSection /> }
+                            { openedTab === 8 && <TocSection /> }
+                            { openedTab === 9 && <ShortCutsSection /> }
+                            {/* openedTab === 10 && <TestSection /> */}
                         </div>
                     </DialogContent>
                 </CustomDialog>

@@ -1,0 +1,16 @@
+.decoratorDialog .sectionTitle {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.decoratorDialog .dialogGrid_rightAlignedLabels .sectionTitle {
+    justify-content: flex-end;
+}
+
+.decoratorDialog .sectionTitle span {
+    font-weight: bold;
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 8px;
+}

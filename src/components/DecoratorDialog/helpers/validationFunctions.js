@@ -4,13 +4,10 @@ export const hasErrorInSection = refs => !refs.every(ref => ref.current.value);
 
 export const getTabsErrorState = form => {
     const tabsErrorState = { ...tabsErrorInitialState };
-    const { name, decKey, wordStyleName, listName } = form;
+    const { name, decKey, listName } = form;
 
     if (!name[MAIN_LANG_KEY] || !decKey) {
         tabsErrorState.namesSection = true;
-    }
-    if (!wordStyleName) {
-        tabsErrorState.wordExportSection = true;
     }
     if (!listName) {
         tabsErrorState.listSection = true;
