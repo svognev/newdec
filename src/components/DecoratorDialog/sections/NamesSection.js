@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
@@ -12,7 +13,7 @@ import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
 import { hasErrorInSection, focusOnEmptyField } from "../helpers";
 import { setValue, toggleValue, updateValidationError } from "../actions";
-import { MAIN_LANG_KEY, ADDITIONAL_LANGS } from "../constants";
+import { MAIN_LANG_KEY, ADDITIONAL_LANGS, sectionTypesMap } from "../constants";
 
 class NamesSection extends React.Component {
     decKeyInputRef = React.createRef();
@@ -32,7 +33,15 @@ class NamesSection extends React.Component {
             [langKey]: e.target.value,
         };
         this.props.changeName(null, newValue);
-    }
+    };
+
+    onSectionTypesChange = typeName => e => {
+        const newValue = {
+            ...this.props.sectionTypes,
+            [typeName]: e.target.checked,
+        };
+        this.props.changeSectionTypes(null, newValue);
+    };
 
     componentDidMount() {
         if (this.props.validationErrorInSection) {
@@ -60,6 +69,7 @@ class NamesSection extends React.Component {
             hideGroupDialogValidationError,
             validationErrorInSection,
             decKey, changeDecKey,
+            sectionTypes,
             group,
             active, changeActive,
             name,
@@ -79,6 +89,21 @@ class NamesSection extends React.Component {
                     variant="outlined" 
                     margin="dense" 
                 />
+
+                <span>Section types</span>
+                <div className="checkBoxesSet">
+                    { sectionTypesMap.map(({ key, value }) => (
+                        <div className="labeledCheckbox">
+                            <FormControlLabel
+                                control={<Checkbox color="primary" />}
+                                label={value}
+                                labelPlacement="end"
+                                checked={sectionTypes[key]}
+                                onChange={this.onSectionTypesChange(key)}
+                            />
+                        </div>
+                    ))}
+                </div>
 
                 <span>Group</span>
                 <div>
@@ -159,6 +184,7 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         active: form.active,
         name: form.name,
         groupToCreate: form.groupToCreate,
+        sectionTypes: form.sectionTypes,
     };
 };
 
@@ -170,6 +196,7 @@ const mapDispatchToProps = dispatch => {
         changeGroupToCreate: setValue(dispatch)("groupToCreate"),
         changeActive: toggleValue(dispatch)("active"),
         changeName: setValue(dispatch)("name"),
+        changeSectionTypes: setValue(dispatch)("sectionTypes"),
     };
 };
   

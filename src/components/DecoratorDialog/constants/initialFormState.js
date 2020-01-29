@@ -1,4 +1,5 @@
 import { LANGS } from "./localeConstants";
+import { sectionTypesMap } from "./constants";
 
 export const HOLDER = "HOLDER-POLDER";
 export const DEFAULT_FONT = "Helvetica";
@@ -38,6 +39,7 @@ export const autoFillingRequiredFields = {
 export const initialFormState = {
     ...autoFillingRequiredFields,
     decKey: "",
+    sectionTypes: { ...sectionTypesMap.reduce((acc, { key }, i) => ({ ...acc, [key]: !i }), {})},
     group: "",
     groupToCreate: "",
     active: true,

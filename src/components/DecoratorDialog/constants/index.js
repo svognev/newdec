@@ -8,6 +8,7 @@ import {
     bulletNamesMap,
     listStyleTypes,
     numberingSets,
+    sectionTypesMap,
     sampleText,
 } from "./constants";
 import { 
@@ -38,6 +39,7 @@ export {
     numberingSets,
     tabsErrorInitialState,
     sectionsTabNumbers,
+    sectionTypesMap,
     sampleText,
     fontSet,
     initialFormState, 
