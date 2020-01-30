@@ -2,6 +2,7 @@ import { LANGS } from "./localeConstants";
 import { sectionTypesMap } from "./constants";
 
 export const HOLDER = "HOLDER-POLDER";
+export const GLOBAL_FALLBACK_MARK = "GLOBAL FALLBACK";
 export const DEFAULT_FONT = "Helvetica";
 export const DEFAULT_FONT_SIZE = "11";
 export const DEFAULT_SIDE_NUMBER_FONT_COLOR = "FFF";
@@ -48,9 +49,9 @@ export const initialFormState = {
     fixedIndentation: true,
     softReturn: false,
     backspaceActionWithContent: "merge",
-    backspaceActionWithContentStyle: "default",
-    returnActionNextSection: "default",
-    returnActionEmptySection: "default",
+    backspaceActionWithContentStyle: "",
+    returnActionNextSection: GLOBAL_FALLBACK_MARK,
+    returnActionEmptySection: GLOBAL_FALLBACK_MARK,
     tabAction: "",
     shiftTabAction: "",
     isList: false,
@@ -61,7 +62,7 @@ export const initialFormState = {
     suffixDistance: "0.25",
     magicTabs: false,
     listType: "unordered",
-    listItem: "bulletpoint",
+    listItem: "\\2022",
     unicodeNumber: "",
     unicodeChar: "",
     numberingStyle: "decimal",

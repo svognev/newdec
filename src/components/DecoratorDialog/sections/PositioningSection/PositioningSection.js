@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
 import SectionTitle from "../../common/SectionTitle";
-import { backSpaceActions, decoratorsList } from "../../constants";
+import { backSpaceActions, decoratorsList, GLOBAL_FALLBACK_MARK } from "../../constants";
 import BackSpaceActionInput from "./BackSpaceActionInput";
 import { setValue, toggleValue } from "../../actions";
 
@@ -25,6 +25,15 @@ const PositioningSection = props => {
         tabAction, changeTabAction,
         shiftTabAction, changeShiftTabAction,
     } = props;
+
+    const onBackspaceActionChange = e => {
+        if (e.target.value === "apply_other_pd") {
+            changeBackspaceActionWithContentStyle(null, GLOBAL_FALLBACK_MARK);
+        } else if (backspaceActionWithContentStyle) {
+            changeBackspaceActionWithContentStyle(null, "");
+        }
+        changeBackspaceActionWithContent(e);
+    };
 
     const backSpaceActionStyleSettingsState = backspaceActionWithContent === "apply_other_pd" ? "shown" : "hidden";
 
@@ -72,7 +81,7 @@ const PositioningSection = props => {
                 <div>
                     <NativeSelect 
                         value={backspaceActionWithContent}
-                        onChange={changeBackspaceActionWithContent}
+                        onChange={onBackspaceActionChange}
                         input={ <BackSpaceActionInput /> }
                     >
                         {backSpaceActions.map(action => (
@@ -86,7 +95,7 @@ const PositioningSection = props => {
                         onChange={changeBackspaceActionWithContentStyle}
                         input={ <CustomInput /> }
                     >
-                        <option value="default">Global Fallback Style</option>
+                        <option value={GLOBAL_FALLBACK_MARK}>Global Fallback Style</option>
                         { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                     </NativeSelect>
                 </div>
@@ -103,7 +112,7 @@ const PositioningSection = props => {
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
-                    <option value="default">Global Fallback Style</option>
+                    <option value={GLOBAL_FALLBACK_MARK}>Global Fallback Style</option>
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
             </div>
@@ -117,7 +126,7 @@ const PositioningSection = props => {
                     input={ <CustomInput /> }
                 >
                     <option value="">Nothing</option>
-                    <option value="default">Global Fallback Style</option>
+                    <option value={GLOBAL_FALLBACK_MARK}>Global Fallback Style</option>
                     { decoratorsList.map(dec => <option value={dec.value} key={dec.value}>{dec.name}</option>) }
                 </NativeSelect>
             </div>

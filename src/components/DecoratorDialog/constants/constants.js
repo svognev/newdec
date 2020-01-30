@@ -13,9 +13,9 @@ export const backSpaceActions = [
 ];
 
 export const bulletNamesMap = {
-    bulletpoint: "•",
-    dash: "—",
-    star: "★",
+    "2022": "•",
+    "2014": "—",
+    "2605": "★",
 };
 
 export const listStyleTypes = [
@@ -37,7 +37,7 @@ export const numberingSets = {
 export const sectionTypesMap = [
  { key: "text", value: "Text" },
  { key: "table", value: "Table" },
- { key: "img", value: "Image" },
+ { key: "image", value: "Image" },
 ];
 
 export const sampleText = `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`;

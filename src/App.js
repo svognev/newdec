@@ -7,7 +7,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import DecoratorDialog from "./components/DecoratorDialog";
 import { openDialog } from "./components/DecoratorDialog/actions";
 import { clearSavedDecoratorForm,  saveDecoratorForm } from "./actions";
-import { DecDataParser } from "./components/DecoratorDialog/helpers";
+import { DecDataConverter } from "./components/DecoratorDialog/helpers";
 import theme from "./components/DecoratorDialog/theme";
 
 import "./App.css";
@@ -16,7 +16,7 @@ const App = props => {
     const { openDialog, saveForm, clearSavedForm, savedForm } = props;
 
     const openEditDialog = () => {
-        openDialog(DecDataParser.parseToEdit(savedForm || {}));
+        openDialog(DecDataConverter.convertToEdit(savedForm || {}));
     };
 
     return (

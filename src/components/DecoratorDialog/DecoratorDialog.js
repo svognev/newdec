@@ -32,7 +32,7 @@ import {
 } from "./actions";
 import { 
     fillMissedFields, 
-    DecDataParser, 
+    DecDataConverter, 
     getTabsErrorState,
     getTabNumberToSwitch,
 } from "./helpers";
@@ -52,7 +52,7 @@ class DecoratorDialog extends React.Component {
             updateValidationError(tabsErrorState);
             switchTab(getTabNumberToSwitch(tabsErrorState));
         } else {
-            const formToSend = DecDataParser.parseToSend(fillMissedFields(formState));
+            const formToSend = DecDataConverter.convertToSend(fillMissedFields(formState));
             sendForm(formToSend);
             this.onClose();
         }

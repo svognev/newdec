@@ -93,7 +93,7 @@ class NamesSection extends React.Component {
                 <span>Section types</span>
                 <div className="checkBoxesSet">
                     { sectionTypesMap.map(({ key, value }) => (
-                        <div className="labeledCheckbox">
+                        <div className="labeledCheckbox" key={key}>
                             <FormControlLabel
                                 control={<Checkbox color="primary" />}
                                 label={value}

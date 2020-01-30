@@ -1,4 +1,4 @@
-import DecDataParser from "./DecDataParser";
+import DecDataConverter from "./DecDataConverter";
 import getShortCutUtils from "./getShortCutUtils";
 import isFontAvailable from "./isFontAvailable";
 import {
@@ -25,7 +25,7 @@ import {
 } from "./helpers.js";
 
 export {
-    DecDataParser,
+    DecDataConverter,
     getShortCutUtils,
     isFontAvailable,
     getTabsErrorState,
