@@ -40,7 +40,7 @@ export const autoFillingRequiredFields = {
 export const initialFormState = {
     ...autoFillingRequiredFields,
     decKey: "",
-    sectionTypes: { ...sectionTypesMap.reduce((acc, { key }, i) => ({ ...acc, [key]: !i }), {})},
+    sectionTypes: { ...Array.from(sectionTypesMap).reduce((acc, [ key ], i) => ({ ...acc, [key]: !i }), {})},
     group: "",
     groupToCreate: "",
     active: true,
@@ -62,7 +62,7 @@ export const initialFormState = {
     suffixDistance: "0.25",
     magicTabs: false,
     listType: "unordered",
-    listItem: "\\2022",
+    listItem: "2022",
     unicodeNumber: "",
     unicodeChar: "",
     numberingStyle: "decimal",

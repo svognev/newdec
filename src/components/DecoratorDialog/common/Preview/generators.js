@@ -1,5 +1,5 @@
 import { getOffset, getCorrectColor, getPreviewFont } from "../../helpers";
-import { alignmentsMap, DEFAULT_FONT_SIZE, DEFAULT_LINE_SPACING } from "../../constants";
+import { alignmentList, DEFAULT_FONT_SIZE, DEFAULT_LINE_SPACING } from "../../constants";
 
 export const generatePreviewStyle = formState => {
     const {
@@ -52,7 +52,7 @@ export const generatePreviewStyle = formState => {
         fontSize: !fontSize ? `${DEFAULT_FONT_SIZE}pt` : `${correctFontSize}pt`,
         color: `#${previewFontColor}`,
         fontFamily: getPreviewFont(font, customFont),
-        alignItems: alignmentsMap[alignment],
+        alignItems: alignmentList[alignment],
         textAlign: alignment,
         fontWeight: bold ? "bold" : "normal",
         fontStyle: italic ? "italic" : "normal",

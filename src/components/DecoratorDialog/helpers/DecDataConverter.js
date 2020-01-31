@@ -21,7 +21,8 @@
 //    list_key: "listName",
 //
 //}
-import { sectionTypesMap, GLOBAL_FALLBACK_MARK } from "../constants";
+import { sectionTypesMap, bulletNamesMap, GLOBAL_FALLBACK_MARK } from "../constants";
+import { unicodeNumberToChar } from "./helpers";
 
 const replaceDecNameIfDefault = decName => {
     if (decName === DEFAULT_DECORATOR) {
@@ -65,10 +66,11 @@ class DecDataConverter {
         res.list_key = dec.listKey;
         res.item_order = getNumber(dec.orderLevel);
         // res.numerated_list_format, dec.prefix, dec.suffix, dec.OrderLevel
-        res.extra_hanging_indentation = dec.suffixDistance === "0.25" ? null : `${dec.suffixDistance}cm`;
+        res.extra_hanging_indentation = dec.suffixDistance === "0.5" ? null : `${dec.suffixDistance}cm`;
         res.extra_hanging_indentation_at_grid = dec.magicTabs;
-        //const hasCustomBulletButEmpty = dec.listItem === "custom" && !dec.unicodeNumber;
-        //res.bullet_list_format = hasCustomBulletButEmpty ? null : `\\${dec.unicodeNumber || dec.listItem}`;
+        
+        const hasCustomBulletButEmpty = dec.listItem === "custom" && !dec.unicodeNumber;
+        res.bullet_list_format = hasCustomBulletButEmpty ? null : `\\${dec.unicodeNumber || dec.listItem}`;
 
         console.log(res);
 
@@ -84,7 +86,7 @@ class DecDataConverter {
 
         const res = {};
         res.decKey = dec.key;
-        res.sectionTypes = sectionTypesMap.map(({ key }) => key).reduce((acc, cur) => ({
+        res.sectionTypes = Array.from(sectionTypesMap).map(([ key ]) => key).reduce((acc, cur) => ({
             ...acc,
             [cur]: dec.section_types.includes(cur),
         }), {});
@@ -101,9 +103,16 @@ class DecDataConverter {
         res.tabAction = dec.on_tab_key;
         res.shiftTabAction = dec.on_shift_tab_key;
         // res.numerated_list_format, dec.prefix, dec.suffix, dec.OrderLevel
-        const suffixDistanceMatch = `${(dec.extra_hanging_indentation||"0.25cm")}`.match(/[\d.]*/);
-        res.suffixDistance = suffixDistanceMatch ? suffixDistanceMatch[0] : "0.25";
-        //res.listItem = bullet_list_format
+        const suffixDistanceMatch = `${(dec.extra_hanging_indentation||"0.5cm")}`.match(/[\d.]*/);
+        res.suffixDistance = suffixDistanceMatch ? suffixDistanceMatch[0] : "0.5";
+        
+        const hasBullet = !!(dec.bullet_list_format || "").match(/^\\/);
+        const bullet = (hasBullet ? dec.bullet_list_format.slice(1) : "");
+        const isCustomBullet = !bullet || !bulletNamesMap.has(bullet);
+        res.listItem = isCustomBullet ? "custom" : bullet;
+        res.unicodeNumber = isCustomBullet ? bullet : "";
+        res.unicodeChar = isCustomBullet && bullet ? unicodeNumberToChar(bullet) : "";
+
         console.log(res);
 
         return { ...rawDec, ...res };

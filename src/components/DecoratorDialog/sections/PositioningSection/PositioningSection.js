@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CustomInput from "../../common/CustomInput";
 import CustomInputShort from "../../common/CustomInputShort";
 import SectionTitle from "../../common/SectionTitle";
-import { backSpaceActions, decoratorsList, GLOBAL_FALLBACK_MARK } from "../../constants";
+import { backSpaceActionsMap, decoratorsList, GLOBAL_FALLBACK_MARK } from "../../constants";
 import BackSpaceActionInput from "./BackSpaceActionInput";
 import { setValue, toggleValue } from "../../actions";
 
@@ -84,8 +84,8 @@ const PositioningSection = props => {
                         onChange={onBackspaceActionChange}
                         input={ <BackSpaceActionInput /> }
                     >
-                        {backSpaceActions.map(action => (
-                            <option value={action.key} key={`backSpace ${action.key}`}>{action.value}</option>
+                        {Array.from(backSpaceActionsMap).map(([key, value]) => (
+                            <option value={key} key={key}>{value}</option>
                         ))}
                     </NativeSelect>
                 </div>

@@ -16,7 +16,7 @@ import ColorField from "../../common/ColorField";
 import LabelWithAsterisk from "../../common/LabelWithAsterisk";
 import FontSelectFields from "../../common/FontSelectFields";
 import { 
-    listStyleTypes, 
+    orderedListStylesMap, 
     bulletNamesMap, 
     HOLDER, 
     DEFAULT_FONT_SIZE,
@@ -284,8 +284,8 @@ class ListSection extends React.Component {
                                         onChange={changeNumberingStyle}
                                         input={ <CustomInputShort /> }
                                     >
-                                        {listStyleTypes.map(style => (
-                                            <option value={style.value} key={style.value}>{style.name}</option>
+                                        {Array.from(orderedListStylesMap).map(([key, value]) => (
+                                            <option value={key} key={key}>{value}</option>
                                         ))}                                    
                                     </NativeSelect>
                                 </div>
@@ -472,7 +472,7 @@ class ListSection extends React.Component {
                                     input={ <CustomInputShort /> }
                                 >
                                     { 
-                                        Object.entries(bulletNamesMap).map(([key, value]) => {
+                                        Array.from(bulletNamesMap).map(([key, value]) => {
                                             return (<option key={key} value={key}>{value}</option>) 
                                         })
                                     }

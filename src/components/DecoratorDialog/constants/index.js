@@ -3,10 +3,10 @@ import fontSet from "./fontsSet";
 import { LANGS, MAIN_LANG_KEY, ADDITIONAL_LANGS } from "./localeConstants";
 import { tabsErrorInitialState, sectionsTabNumbers } from "./validationData";
 import {
-    alignmentsMap,
-    backSpaceActions,
+    alignmentList,
+    backSpaceActionsMap,
     bulletNamesMap,
-    listStyleTypes,
+    orderedListStylesMap,
     numberingSets,
     sectionTypesMap,
     sampleText,
@@ -33,10 +33,10 @@ import {
 
 export {
     decoratorsList,
-    alignmentsMap,
-    backSpaceActions,
+    alignmentList,
+    backSpaceActionsMap,
     bulletNamesMap,
-    listStyleTypes,
+    orderedListStylesMap,
     numberingSets,
     tabsErrorInitialState,
     sectionsTabNumbers,

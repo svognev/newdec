@@ -66,7 +66,7 @@ export const getListChars = ({ isOrderedList, numberingStyle, listItem, unicodeC
     if (isOrderedList) {
         return numberingSets[numberingStyle];
     }
-    const newBullet = bulletNamesMap[listItem] || unicodeChar;
+    const newBullet = bulletNamesMap.get(listItem) || unicodeChar;
     return Array(4).fill(newBullet);
 };
 
