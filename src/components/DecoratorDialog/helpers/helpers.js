@@ -1,6 +1,5 @@
 import { 
     numberingSets, 
-    bulletNamesMap, 
     autoFillingRequiredFields, 
     DEFAULT_FONT, 
 } from "../constants";
@@ -62,13 +61,9 @@ export const selectAllEditableContent = className => e => {
     }
 };
 
-export const getListChars = ({ isOrderedList, numberingStyle, listItem, unicodeChar }) => {
-    if (isOrderedList) {
-        return numberingSets[numberingStyle];
-    }
-    const newBullet = bulletNamesMap.get(listItem) || unicodeChar;
-    return Array(4).fill(newBullet);
-};
+export const getListChars = (isOrderedList, numberingStyle, bullet) => (
+    isOrderedList ? numberingSets[numberingStyle] : Array(4).fill(bullet)
+);
 
 export const detectOS = () => {
     if (navigator && navigator.appVersion) {

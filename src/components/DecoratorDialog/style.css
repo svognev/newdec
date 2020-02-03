@@ -82,6 +82,10 @@
     grid-template-columns: auto 1fr; 
 }
 
+.decoratorDialog .dialogGrid_1col {
+    grid-template-columns: 1fr; 
+}
+
 .decoratorDialog .dialogGrid_2minCols {
     grid-template-columns: min-content min-content; 
 }

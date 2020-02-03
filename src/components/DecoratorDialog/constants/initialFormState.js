@@ -65,6 +65,7 @@ export const initialFormState = {
     listItem: "2022",
     unicodeNumber: "",
     unicodeChar: "",
+    listItemString: "",
     numberingStyle: "decimal",
     continueNumbering: false,
     allowRestartNumbering: false,

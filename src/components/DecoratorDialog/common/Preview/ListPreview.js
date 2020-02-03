@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { generatePreviewStyle, generateSideNumberStyle } from "./generators";
-import { getListChars } from "../../helpers"
+import { getListChars } from "../../helpers";
+import { bulletNamesMap } from "../../constants";
 
 import "./style.css";
 
@@ -15,18 +16,24 @@ const ListPreview = props => {
         listType,
         listItem, 
         unicodeChar,
+        listItemString,
         numberingStyle,
         sideNumber,
     } = props;
 
     const isOrderedList = listType === "ordered";
 
-    const listChars = getListChars({ 
-        isOrderedList, 
-        numberingStyle, 
-        listItem, 
-        unicodeChar 
-    });
+    let currentBullet;
+
+    if (listItem === "custom") {
+        currentBullet = unicodeChar;
+    } else if (listItem === "string") {
+        currentBullet = listItemString;
+    } else {
+        currentBullet = bulletNamesMap.get(listItem);
+    }
+
+    const listChars = getListChars(isOrderedList, numberingStyle, currentBullet);
 
     const listItemBeginnings = listChars.map(listChar => {
         return (`${prefix}${listChar}${suffix}`);
@@ -102,6 +109,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         unicodeChar: form.unicodeChar,
         numberingStyle: form.numberingStyle,
         sideNumber: form.sideNumber,
+        listItemString: form.listItemString,
     };
 };
 

@@ -77,12 +77,16 @@ class DecDataConverter {
                 res.numerated_list_style = "styles settings";
             } else {
                 // for unordered list
-                const hasCustomBulletButEmpty = dec.listItem === "custom" && !dec.unicodeNumber;
-                res.bullet_list_format = hasCustomBulletButEmpty ? null : `\\${dec.unicodeNumber || dec.listItem}`;
+                if ((dec.listItem === "custom" && !dec.unicodeNumber)) {
+                    res.bullet_list_format = null;
+                } else if (dec.listItem === "string") {
+                    res.bullet_list_format = dec.listItemString;
+                } else {
+                    res.bullet_list_format = `\\${dec.unicodeNumber || dec.listItem}`;
+                }
             }
         }
                 
-
         console.log(res);
 
         return { ...rawDec, ...decToSendDefaultProps, ...res };
@@ -137,12 +141,20 @@ class DecDataConverter {
             } else {
                 // for unordered list
                 res.listType = "unordered";
-                const hasBullet = !!(dec.bullet_list_format || "").match(/^\\/);
-                const bullet = (hasBullet ? dec.bullet_list_format.slice(1) : "");
-                const isCustomBullet = !bullet || !bulletNamesMap.has(bullet);
-                res.listItem = isCustomBullet ? "custom" : bullet;
-                res.unicodeNumber = isCustomBullet ? bullet : "";
-                res.unicodeChar = isCustomBullet && bullet ? unicodeNumberToChar(bullet) : "";
+                if ((dec.bullet_list_format || "").match(/^\\[\da-f]+/i)) {
+                    const bullet = dec.bullet_list_format.slice(1);
+                    if (bulletNamesMap.has(bullet)) {
+                        res.listItem = bullet;
+                    } else {
+                        res.listItem = "custom";
+                        res.unicodeNumber = bullet;
+                        res.unicodeChar = unicodeNumberToChar(bullet);
+                    }
+                } else {
+                    // strings or empty bullets
+                    res.listItem = dec.bullet_list_format ? "string" : "custom";
+                    res.listItemString = dec.bullet_list_format;
+                }
             }
         }
 

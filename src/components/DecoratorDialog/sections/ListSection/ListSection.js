@@ -133,6 +133,7 @@ class ListSection extends React.Component {
             listItem,
             unicodeNumber,
             unicodeChar,
+            listItemString, changeListItemString,
             numberingStyle, changeNumberingStyle,
             continueNumbering, changeContinueNumbering,
             allowRestartNumbering, changeAllowRestartNumbering,
@@ -155,6 +156,7 @@ class ListSection extends React.Component {
         const mainListSettingsState = isList ? "shown" : "hidden";
         const unorderedListSettingsState = (isList && listType === "unordered") ? "shown" : "hidden";
         const customListItemSettingsState = (isList && listType === "unordered" && listItem === "custom") ? "shown" : "hidden";
+        const customListItemSettingsState2 = (isList && listType === "unordered" && listItem === "string") ? "shown" : "hidden";
         const orderedListSettingsState = (isList && listType === "ordered") ? "shown" : "hidden";
         const sideNumberSettingsState = (isList && listType === "ordered" && sideNumber) ? "shown" : "hidden";
     
@@ -203,24 +205,7 @@ class ListSection extends React.Component {
                                             <option value="5">5</option>
                                         </NativeSelect>
                                     </div>
-    
-                                    <span>Prefix</span>
-                                    <TextField
-                                        value={prefix}
-                                        onChange={changePrefix} 
-                                        variant="outlined" 
-                                        margin="dense" 
-                                    />
-    
-                                    <span>Suffix</span>
-                                    <TextField
-                                        value={suffix}
-                                        onChange={changeSuffix} 
-                                        variant="outlined" 
-                                        margin="dense" 
-                                        onClick={selectAllOnClick(".")}
-                                    />
-    
+
                                     <span>Suffix distance</span>
                                     <div className="inputWithAdornment">
                                         <NativeSelect
@@ -324,6 +309,23 @@ class ListSection extends React.Component {
                                         <option value="5">5</option>
                                     </NativeSelect>
                                 </div>
+
+                                <span>Prefix</span>
+                                    <TextField
+                                        value={prefix}
+                                        onChange={changePrefix} 
+                                        variant="outlined" 
+                                        margin="dense" 
+                                    />
+    
+                                <span>Suffix</span>
+                                <TextField
+                                    value={suffix}
+                                    onChange={changeSuffix} 
+                                    variant="outlined" 
+                                    margin="dense" 
+                                    onClick={selectAllOnClick(".")}
+                                />
                                         
                                 <span>Side number</span>
                                 <div className="unlabeledCheckbox">
@@ -476,42 +478,57 @@ class ListSection extends React.Component {
                                             return (<option key={key} value={key}>{value}</option>) 
                                         })
                                     }
-                                    <option value={"custom"} className="highlightedOption">Custom</option>
+                                    <option value={"custom"} className="highlightedOption">Custom bullet</option>
+                                    <option value={"string"} className="highlightedOption">Custom string</option>
                                 </NativeSelect>
                             </div>
                         </div>
-                        <div className={`optionalSettings optionalSettings_${customListItemSettingsState}`}>
-                            <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
+                        <div>
+                            <div className={`optionalSettings optionalSettings_${customListItemSettingsState}`}>
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
-                                    <span>Unicode number</span>
-                                    <div>
-                                        <TextField  
-                                            value={unicodeNumber}
-                                            onChange={this.onUnicodeNumberChange}
+                                    <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
+                                        <span>Unicode number</span>
+                                        <div>
+                                            <TextField  
+                                                value={unicodeNumber}
+                                                onChange={this.onUnicodeNumberChange}
+                                                variant="outlined" 
+                                                margin="dense" 
+                                                className="unicodeInput" 
+                                                InputProps={{
+                                                    startAdornment: <InputAdornment position="start">u+</InputAdornment>
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
+                                        <span>Char</span>
+                                        <div>
+                                            <TextField 
+                                                value={unicodeChar}
+                                                onChange={this.onUnicodeCharChange}
+                                                onClick={selectAllOnClick()}
+                                                inputRef={this.unicodeCharInputRef}
+                                                variant="outlined" 
+                                                margin="dense" 
+                                                className="bulletInput" 
+                                            />
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div className={`optionalSettings optionalSettings_${customListItemSettingsState2}`}>
+                                <div className="listItemCustomString">
+                                    <div className="dialogGrid dialogGrid_1col dialogGrid_leftIndented">
+                                        <TextField
+                                            value={listItemString}
+                                            onChange={changeListItemString}
                                             variant="outlined" 
                                             margin="dense" 
-                                            className="unicodeInput" 
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">u+</InputAdornment>
-                                            }}
                                         />
                                     </div>
                                 </div>
-                                <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
-                                    <span>Char</span>
-                                    <div>
-                                        <TextField 
-                                            value={unicodeChar}
-                                            onChange={this.onUnicodeCharChange}
-                                            onClick={selectAllOnClick()}
-                                            inputRef={this.unicodeCharInputRef}
-                                            variant="outlined" 
-                                            margin="dense" 
-                                            className="bulletInput" 
-                                        />
-                                    </div>
-                                </div>
-                            </div> 
+                            </div>
                         </div>
                     </div> 
                 </div>
@@ -535,6 +552,7 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         listItem: form.listItem,
         unicodeNumber: form.unicodeNumber,
         unicodeChar: form.unicodeChar,
+        listItemString: form.listItemString,
         numberingStyle: form.numberingStyle,
         continueNumbering: form.continueNumbering,
         allowRestartNumbering: form.allowRestartNumbering,
@@ -569,6 +587,7 @@ const mapDispatchToProps = dispatch => {
         changeListItem: setValue(dispatch)("listItem"),
         changeUnicodeNumber: setColor(dispatch)("unicodeNumber"),
         changeUnicodeChar: setBullet(dispatch)("unicodeChar"),
+        changeListItemString: setValue(dispatch)("listItemString"),
         changeNumberingStyle: setValue(dispatch)("numberingStyle"),
         changeContinueNumbering: toggleValue(dispatch)("continueNumbering"),
         changeAllowRestartNumbering: toggleValue(dispatch)("allowRestartNumbering"),
