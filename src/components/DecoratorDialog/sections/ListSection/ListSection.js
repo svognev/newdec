@@ -18,7 +18,6 @@ import FontSelectFields from "../../common/FontSelectFields";
 import { 
     orderedListStylesMap, 
     bulletNamesMap, 
-    HOLDER, 
     DEFAULT_FONT_SIZE,
     DEFAULT_SIDE_NUMBER_FONT_COLOR,
     DEFAULT_SIDE_NUMBER_FILLING_COLOR,
@@ -35,7 +34,8 @@ import {
 } from "../../actions";
 import { 
     selectAllOnClick, 
-    changeAndScroll, 
+    changeAndScroll,
+    scrollToBottom,
     focusInput,
     unicodeNumberToChar, 
     unicodeCharToNumber, 
@@ -49,24 +49,22 @@ class ListSection extends React.Component {
 
     onIsListChange = e => {
         const { listName } = this.props;
-        if (e.target.checked) {
-            if (listName === HOLDER) {
-                this.props.changeListName(null, "");
-            }
-        } else if (listName === "") {
-            setTimeout(() => this.props.changeListName(null, HOLDER), 200);
-        }
         this.props.changeIsList(e);
 
-        if (e.target.checked && listName === HOLDER) {
+        if (e.target.checked && !listName) {
             focusInput(this.listNameInputRef);
         }       
     };
 
     onListTypeChange = e => {
-        const { suffix } = this.props;
+        const { suffix, listName } = this.props;
         const { value } = e.target;
         this.props.changeListType(null, value);
+        if (value === "ordered" && !listName) {
+            focusInput(this.listNameInputRef);
+        } else {
+            scrollToBottom("content-rightSide");
+        }
         if (value === "ordered" && suffix === "") {
             this.props.changeSuffix(null, ".");
         } else if (value === "unordered" && suffix === ".") {
@@ -110,10 +108,11 @@ class ListSection extends React.Component {
     }
 
     componentDidUpdate(prevprops) {
+        const { isList, listType, listName } = this.props;
         if (this.props.validationErrorInSection && !prevprops.validationErrorInSection) {
             focusInput(this.listNameInputRef);
         }
-        if (this.props.validationErrorInSection && this.props.listName) {
+        if (this.props.validationErrorInSection && (!isList || listType === "unordered" || listName)) {
             this.props.updateValidationError({ listSection: false });
         }
     }
@@ -179,7 +178,11 @@ class ListSection extends React.Component {
                             </div>
                             <div className={`optionalSettings optionalSettings_main optionalSettings_${mainListSettingsState}`}>
                                 <div className="dialogGrid dialogGrid_2cols dialogGrid_mediumWidth optionalSettings">
-                                    <LabelWithAsterisk>List name</LabelWithAsterisk>
+                                    { listType === "unordered" ? (
+                                        <span>List name</span>
+                                    ) : (
+                                        <LabelWithAsterisk>List name</LabelWithAsterisk>
+                                    )}
                                     <TextField
                                         value={listName}
                                         onChange={changeListName} 
@@ -237,7 +240,7 @@ class ListSection extends React.Component {
                                     <span>Type of list</span>
                                     <RadioGroup 
                                         value={listType} 
-                                        onChange={changeAndScroll(this.onListTypeChange)}
+                                        onChange={this.onListTypeChange}
                                         row
                                     >
                                         <div className="labeledCheckbox">

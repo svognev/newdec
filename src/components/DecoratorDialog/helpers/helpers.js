@@ -84,6 +84,7 @@ export const focusInput = (inputRef, timeout = 300) => {
 export const focusOnEmptyField = refs => {
     for (let i = 0; i < refs.length; i++) {
         if (!refs[i].current.value) {
+            console.log(refs[i].current.value, i)
             focusInput(refs[i]);
             return;
         }

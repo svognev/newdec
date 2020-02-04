@@ -1,7 +1,6 @@
 import { LANGS } from "./localeConstants";
 import { sectionTypesMap } from "./constants";
 
-export const HOLDER = "HOLDER-POLDER";
 export const GLOBAL_FALLBACK_MARK = "GLOBAL FALLBACK";
 export const DEFAULT_FONT = "Helvetica";
 export const DEFAULT_FONT_SIZE = "11";
@@ -55,11 +54,11 @@ export const initialFormState = {
     tabAction: "",
     shiftTabAction: "",
     isList: false,
-    listName: HOLDER,
+    listName: "",
     orderLevel: "",
     prefix: "",
     suffix: "",
-    suffixDistance: "0.25",
+    suffixDistance: "0.5",
     magicTabs: false,
     listType: "unordered",
     listItem: "2022",

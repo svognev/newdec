@@ -14,7 +14,6 @@ import {
 import { 
     initialFormState, 
     autoFillingRequiredFields, 
-    HOLDER,
     GLOBAL_FALLBACK_MARK,
     DEFAULT_FONT,
     DEFAULT_FONT_SIZE,
@@ -45,7 +44,6 @@ export {
     fontSet,
     initialFormState, 
     autoFillingRequiredFields, 
-    HOLDER,
     GLOBAL_FALLBACK_MARK,
     DEFAULT_FONT,
     DEFAULT_FONT_SIZE,

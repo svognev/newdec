@@ -4,12 +4,12 @@ export const hasErrorInSection = refs => !refs.every(ref => ref.current.value);
 
 export const getTabsErrorState = form => {
     const tabsErrorState = { ...tabsErrorInitialState };
-    const { name, decKey, listName } = form;
+    const { name, decKey, listName, isList, listType } = form;
 
     if (!name[MAIN_LANG_KEY] || !decKey) {
         tabsErrorState.namesSection = true;
     }
-    if (!listName) {
+    if (isList && listType === "ordered" && !listName) {
         tabsErrorState.listSection = true;
     }
     // eslint-disable-next-line no-unused-vars
