@@ -19,6 +19,7 @@ const ListPreview = props => {
         listItemString,
         numberingStyle,
         sideNumber,
+        patternMode,
     } = props;
 
     const isOrderedList = listType === "ordered";
@@ -35,9 +36,7 @@ const ListPreview = props => {
 
     const listChars = getListChars(isOrderedList, numberingStyle, currentBullet);
 
-    const listItemBeginnings = listChars.map(listChar => {
-        return (`${prefix}${listChar}${suffix}`);
-    });
+    let listItemBeginnings = (listType === "ordered" && patternMode) ? listChars : listChars.map(li => (`${prefix}${li}${suffix}`));
 
     const previewStyle = generatePreviewStyle(formState);
     const isSideNumber = isOrderedList && sideNumber;
@@ -103,6 +102,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         previewText: form.previewText,
         prefix: form.prefix, 
         suffix: form.suffix,
+        patternMode: form.patternMode,
         suffixDistance: form.suffixDistance,
         listType: form.listType,
         listItem: form.listItem, 

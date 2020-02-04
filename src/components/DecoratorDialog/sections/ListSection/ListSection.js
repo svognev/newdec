@@ -8,6 +8,7 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import Switch from "@material-ui/core/Switch";
 
 import ListPreview from "../../common/Preview/ListPreview";
 import CustomInput from "../../common/CustomInput";
@@ -124,6 +125,8 @@ class ListSection extends React.Component {
             isList,
             listName, changeListName,
             orderLevel, changeOrderLevel,
+            patternMode, changePatternMode,
+            listPattern, changeListPattern,
             prefix, changePrefix,
             suffix, changeSuffix,
             suffixDistance, changeSuffixDistance,
@@ -172,7 +175,7 @@ class ListSection extends React.Component {
                                     <Checkbox 
                                         color="primary" 
                                         checked={isList} 
-                                        onChange={changeAndScroll(this.onIsListChange)} 
+                                        onChange={this.onIsListChange} 
                                     />
                                 </div>
                             </div>
@@ -312,23 +315,47 @@ class ListSection extends React.Component {
                                         <option value="5">5</option>
                                     </NativeSelect>
                                 </div>
-
-                                <span>Prefix</span>
-                                    <TextField
-                                        value={prefix}
-                                        onChange={changePrefix} 
-                                        variant="outlined" 
-                                        margin="dense" 
+                                
+                                <span>Advanced list pattern settings</span>
+                                <div className="unlabeledCheckbox">
+                                    <Switch
+                                        checked={patternMode}
+                                        onChange={changePatternMode}
+                                        color="primary" 
                                     />
-    
-                                <span>Suffix</span>
-                                <TextField
-                                    value={suffix}
-                                    onChange={changeSuffix} 
-                                    variant="outlined" 
-                                    margin="dense" 
-                                    onClick={selectAllOnClick(".")}
-                                />
+                                </div>
+                                { !patternMode ? (
+                                    <>
+                                        <span>Prefix</span>
+                                        <TextField
+                                            value={prefix}
+                                            onChange={changePrefix} 
+                                            variant="outlined" 
+                                            margin="dense" 
+                                        />
+        
+                                        <span>Suffix</span>
+                                        <TextField
+                                            value={suffix}
+                                            onChange={changeSuffix} 
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            onClick={selectAllOnClick(".")}
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        <span>Ordered list pattern</span>
+                                        <TextField
+                                            value={listPattern}
+                                            onChange={changeListPattern} 
+                                            variant="outlined" 
+                                            margin="dense" 
+                                            onClick={selectAllOnClick(".")}
+                                        />
+                                    </>
+                                )}
+                                
                                         
                                 <span>Side number</span>
                                 <div className="unlabeledCheckbox">
@@ -547,8 +574,6 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         isList: form.isList,
         listName: form.listName, 
         orderLevel: form.orderLevel,
-        prefix: form.prefix,
-        suffix: form.suffix,
         suffixDistance: form.suffixDistance,
         magicTabs: form.magicTabs,
         listType: form.listType,
@@ -560,6 +585,10 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         continueNumbering: form.continueNumbering,
         allowRestartNumbering: form.allowRestartNumbering,
         includePreviousFrom: form.includePreviousFrom,
+        patternMode: form.patternMode,
+        listPattern: form.listPattern,
+        prefix: form.prefix,
+        suffix: form.suffix,
         sideNumber: form.sideNumber,
         sideNumberFont: form.sideNumberFont,
         customSideNumberFont: form.customSideNumberFont,
@@ -582,8 +611,6 @@ const mapDispatchToProps = dispatch => {
         changeListName: setValue(dispatch)("listName"),
         changeIsList: toggleValue(dispatch)("isList"),
         changeOrderLevel: setValue(dispatch)("orderLevel"),
-        changePrefix: setValue(dispatch)("prefix"),
-        changeSuffix: setValue(dispatch)("suffix"),
         changeSuffixDistance: setValue(dispatch)("suffixDistance"),
         changeMagicTabs: toggleValue(dispatch)("magicTabs"),
         changeListType: setValue(dispatch)("listType"),
@@ -595,6 +622,10 @@ const mapDispatchToProps = dispatch => {
         changeContinueNumbering: toggleValue(dispatch)("continueNumbering"),
         changeAllowRestartNumbering: toggleValue(dispatch)("allowRestartNumbering"),
         changeIncludePreviousFrom: setValue(dispatch)("includePreviousFrom"),
+        changeListPattern: setValue(dispatch)("listPattern"),
+        changePrefix: setValue(dispatch)("prefix"),
+        changeSuffix: setValue(dispatch)("suffix"),
+        changePatternMode: toggleValue(dispatch)("patternMode"),
         changeSideNumber: toggleValue(dispatch)("sideNumber"),
         changeSideNumberFont: setValue(dispatch)("sideNumberFont"),
         changeCustomSideNumberFont: setValue(dispatch)("customSideNumberFont"),
