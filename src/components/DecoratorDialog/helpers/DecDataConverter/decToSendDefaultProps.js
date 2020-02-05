@@ -1,7 +1,12 @@
 const decToSendDefaultProps = {
     item_type: "style",
     style_properties: {},
+    keyboard_shortcut: {},
+    xref_target_type_group_key: null,
     is_possible_xref_target: false,
+    show_in_editor_toc: false,
+    editor_toc_indentation: null,
+    editor_toc_filter_level: null,
     list_key: null,
     item_order: null,
     extra_hanging_indentation: null,

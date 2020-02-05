@@ -1,26 +1,3 @@
-//const decProps = {
-//    key: "decKey",
-//    name: "name",
-//    initial_indentation: "indentationalLevel",
-//    backspace_action: "backspaceActionWithContent",
-//    item_order: "orderLevel",
-//    numerated_list_format: "numberingStyle",
-//};
-//
-//
-//
-//const modification = {
-//    hidden: "active",
-//    backspace_action_value: "backspaceActionWithContentStyle",
-//    create_new_section_on_return_if_empty: "returnActionNextSection", 
-//    pd_for_new_section_on_return_if_empty: "returnActionNextSection",
-//    change_pd_on_return_if_empty: "change_pd_on_return_if_empty",
-//    pd_for_current_section_on_return_if_empty: "pd_for_current_section_on_return_if_empty",
-//    on_tab_key: "tabAction",
-//    on_shift_tab_key: "shiftTabAction",
-//    list_key: "listName",
-//
-//}
 import { 
     sectionTypesMap, 
     bulletNamesMap, 
@@ -34,7 +11,7 @@ import {
     getNumeratedListPattern,
 } from "./converterUtils";
 import decToSendDefaultProps from "./decToSendDefaultProps";
-import { unicodeNumberToChar } from "../helpers";
+import { unicodeNumberToChar, getShortCutUtils } from "../index";
 
 class DecDataConverter {
     static convertToSend(rawDec) {
@@ -92,6 +69,26 @@ class DecDataConverter {
                 }
             }
         }
+
+        if (dec.referenceGroup) {
+            res.xref_target_type_group_key = dec.referenceGroup;
+            res.is_possible_xref_target = true;
+        }
+
+        if (dec.alignment && dec.alignment !== "left") {
+            res.style_properties = { alignment: dec.alignment };
+        }
+        res.read_only = dec.readOnly;
+
+        if (dec.tocIndentation) {
+            res.show_in_editor_toc = true;
+            res.editor_toc_indentation = +dec.tocIndentation;
+            res.editor_toc_filter_level = +dec.tocIndentation;
+        }
+
+        if (dec.shortCutMac) {
+            res.keyboard_shortcut = dec.shortCutMac;
+        }
                 
         console.log(res);
 
@@ -125,10 +122,10 @@ class DecDataConverter {
         res.shiftTabAction = dec.on_shift_tab_key;
 
         // res.numerated_list_format, dec.prefix, dec.suffix, dec.OrderLevel
-        if (dec.list_key) {
+        if (dec.list_key || dec.bullet_list_format) {
             res.isList = true;
             res.listName = dec.list_key;
-            res.orderLevel = dec.item_order ? getNumber(dec.orderLevel) : "";
+            res.orderLevel = dec.item_order ? getNumber(dec.orderLevel) : "0";
             const suffixDistanceMatch = `${(dec.extra_hanging_indentation||"0.5cm")}`.match(/[\d.]*/);
             res.suffixDistance = suffixDistanceMatch ? suffixDistanceMatch[0] : "0.5";
             res.magicTabs = dec.extra_hanging_indentation_at_grid;
@@ -169,6 +166,19 @@ class DecDataConverter {
                     res.listItemString = dec.bullet_list_format;
                 }
             }
+        }
+
+        res.referenceGroup = dec.xref_target_type_group_key || "";
+
+        if (dec.style_properties.alignment) {
+            res.alignment = dec.style_properties.alignment;
+        }
+        res.readOnly = !!dec.read_only;
+        res.tocIndentation = getNumberString(dec.editor_toc_indentation);
+
+        if ((dec.keyboard_shortcut||{}).hasOwnProperty("keyCode")) {
+            res.shortCutMac = dec.keyboard_shortcut;
+            res.shortCutMacView = getShortCutUtils("MacOS").convertShortcutToString(dec.keyboard_shortcut);
         }
 
         console.log(res);
