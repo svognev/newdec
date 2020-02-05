@@ -371,7 +371,7 @@ class ListSection extends React.Component {
                                         color="primary" 
                                     />
                                 </div>
-                                { patternMode && (<div />)}
+                                { (patternMode && !sideNumber) && (<div />)}
                             </div> 
     
                             <div className={`optionalSettings optionalSettings_main optionalSettings_${sideNumberSettingsState}`}>
