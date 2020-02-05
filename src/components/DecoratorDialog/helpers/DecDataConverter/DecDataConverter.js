@@ -70,7 +70,13 @@ class DecDataConverter {
             if (dec.listType === "ordered") {
                 // for ordered list
                 res.numerated_list_format = dec.numberingStyle;
-                res.numerated_list_pattern = getNumeratedListPattern(dec.orderLevel, dec.prefix, dec.suffix);
+                if (dec.patternMode) {
+                    // for composite numbering
+                    res.numerated_list_pattern = dec.listPattern;
+                } else {
+                    // for simple numbering
+                    res.numerated_list_pattern = getNumeratedListPattern(dec.orderLevel, dec.prefix, dec.suffix);
+                }
                 res.is_auto_restart_numbering = !dec.continueNumbering;
                 res.allow_restart_numbering = dec.allowRestartNumbering;
                 res.numerated_list_start = dec.includePreviousFrom;
@@ -129,10 +135,17 @@ class DecDataConverter {
             if (dec.numerated_list_pattern) {
                 // for ordered list
                 res.listType = "ordered";
-                const prefixAndSuffixMatch = dec.numerated_list_pattern.match(/(.*?){.*}(.*)/);
-                if (prefixAndSuffixMatch) {
-                    res.prefix = prefixAndSuffixMatch[1] || "";
-                    res.suffix = prefixAndSuffixMatch[2] || "";
+                if (/{.*?{/.test(dec.numerated_list_pattern)) {
+                    // for composite numbering
+                    res.patternMode = true;
+                    res.listPattern = dec.numerated_list_pattern;
+                } else {
+                    // for simple numbering
+                    const prefixAndSuffixMatch = dec.numerated_list_pattern.match(/(.*?){.*}(.*)/);
+                    if (prefixAndSuffixMatch) {
+                        res.prefix = prefixAndSuffixMatch[1] || "";
+                        res.suffix = prefixAndSuffixMatch[2] || "";
+                    }
                 }
                 res.numberingStyle = orderedListStylesMap.has(dec.numerated_list_format) ? dec.numerated_list_format : "decimal";
                 res.continueNumbering = !dec.is_auto_restart_numbering;

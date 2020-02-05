@@ -58,9 +58,15 @@ class ListSection extends React.Component {
     };
 
     onListTypeChange = e => {
-        const { suffix, listName } = this.props;
+        const { suffix, listName, orderLevel } = this.props;
         const { value } = e.target;
+
+        if (value === "ordered" && !orderLevel) {
+            this.props.changeOrderLevel(null, "0")
+        }
+
         this.props.changeListType(null, value);
+
         if (value === "ordered" && !listName) {
             focusInput(this.listNameInputRef);
         } else {
@@ -202,7 +208,7 @@ class ListSection extends React.Component {
                                             onChange={changeOrderLevel}
                                             input={ <CustomInputShort /> }
                                         >
-                                            <option value="">...</option>
+                                            { listType !== "ordered" && (<option value="">...</option>)}
                                             <option value="0">0</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>

@@ -16,6 +16,6 @@ export const getNumber = val => val ? +val : null;
 
 export const getNumberString = val => typeof val === "number" ? `${val}` : "";
 
-export const getNumeratedListPattern = (order = 0, prefix = "", suffix = "") => {
-    return `${prefix || ""}{${order}}${suffix || ""}`;
+export const getNumeratedListPattern = (order, prefix, suffix) => {
+    return `${prefix || ""}{${order || 0}}${suffix || ""}`;
 };
