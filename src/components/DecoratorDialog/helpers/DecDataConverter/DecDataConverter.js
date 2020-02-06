@@ -9,6 +9,8 @@ import {
     getNumber,
     getNumberString,
     getNumeratedListPattern,
+    getStyleString,
+    getSideNumberStyleString,
 } from "./converterUtils";
 import decToSendDefaultProps from "./decToSendDefaultProps";
 import { unicodeNumberToChar, getShortCutUtils } from "../index";
@@ -89,6 +91,9 @@ class DecDataConverter {
         if (dec.shortCutMac) {
             res.keyboard_shortcut = dec.shortCutMac;
         }
+
+        res.editor_style = getStyleString(rawDec, initialFormState);
+        res.numerated_list_style = dec.sideNumber ? getSideNumberStyleString(rawDec) : "";
                 
         console.log(res);
 
