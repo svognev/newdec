@@ -1,9 +1,10 @@
 import decoratorsList from "./decoratorsList";
-import fontSet from "./fontsSet";
+import fontsSet from "./fontsSet";
 import { LANGS, MAIN_LANG_KEY, ADDITIONAL_LANGS } from "./localeConstants";
 import { tabsErrorInitialState, sectionsTabNumbers } from "./validationData";
 import {
     alignmentList,
+    lineSpacings,
     backSpaceActionsMap,
     bulletNamesMap,
     orderedListStylesMap,
@@ -33,6 +34,7 @@ import {
 export {
     decoratorsList,
     alignmentList,
+    lineSpacings,
     backSpaceActionsMap,
     bulletNamesMap,
     orderedListStylesMap,
@@ -41,7 +43,7 @@ export {
     sectionsTabNumbers,
     sectionTypesMap,
     sampleText,
-    fontSet,
+    fontsSet,
     initialFormState, 
     autoFillingRequiredFields, 
     GLOBAL_FALLBACK_MARK,

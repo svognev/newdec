@@ -102,7 +102,7 @@ export const generateSideNumberStyle = formState => {
         sideNumberLineHeight,
     } = formState;
 
-    const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "f5f5f5");
+    const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "000");
     const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
 
     const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {

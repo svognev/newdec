@@ -13,6 +13,8 @@ export const numberingSets = {
     "lower-roman": ["i", "ii", "iii", "xx", "xxx"],
 };
 
+export const lineSpacings = ["1.0", "1.15", "1.5", "2.0", "2.5", "3.0"];
+
 export const orderedListStylesMap = new Map([
     ["decimal", "1, 2, 3"],
     ["upper-alpha", "A, B, C"],

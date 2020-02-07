@@ -1,4 +1,4 @@
-import { GLOBAL_FALLBACK_MARK } from "../../constants";
+import { GLOBAL_FALLBACK_MARK, fontsSet, lineSpacings } from "../../constants";
 
 const DEFAULT_DECORATOR = "Text 2000";
 
@@ -53,8 +53,8 @@ export const getStyleString = (rawDec, initialState) => {
         styles["padding-top"] = "1px";
         styles["padding-bottom"] = "1px";
     } else {
-        dec.marginTop && (styles["margin-top"] = dec.marginTop);
-        dec.marginBottom && (styles["margin-bottom"] = dec.marginBottom);
+        dec.marginTop && (styles["margin-top"] = `${dec.marginTop}pt`);
+        dec.marginBottom && (styles["margin-bottom"] = `${dec.marginBottom}pt`);
     }
 
     if (dec.firstRowIndent || dec.otherRowsIndent) {
@@ -109,4 +109,133 @@ export const getSideNumberStyleString = dec => {
     dec.sideNumberUnderline && (styles["text-decoration"] = "underline");
 
     return Object.entries(styles).reduce((acc, [key, value]) => (`${acc} ${key}:${value};`), "").trim();
+};
+
+export const getStylesObject = (stylesString = "", sideNumberStylesString = "") => {
+    const res = {};
+    if (stylesString) {
+        const keyValueStringsArray = stylesString.split(";");
+        if (keyValueStringsArray.length) {
+            const stylesArray = keyValueStringsArray.map(keyValueStr => keyValueStr.split(":"))
+                .map(([key, value]) => [(key || "").trim(), (value || "").trim()])
+                .filter(([key, value]) => key && value);
+            
+            if (stylesArray.length) {
+                const styles = stylesArray.reduce((acc, [key, value]) => ({...acc, [key]: value }), {});
+                
+                if (styles["font-family"]) {
+                    if (fontsSet.includes(styles["font-family"])) {
+                        res.font = styles["font-family"];
+                    } else {
+                        res.font = "custom";
+                        res.customFont = styles["font-family"];
+                    }
+                }
+
+                styles["font-size"] && (res.fontSize = styles["font-size"].slice(0, -2));
+                styles.color && (res.fontColor = styles.color.slice(1));
+                styles["vertical-align"] && (res.verticalAlign = styles["vertical-align"]);
+                
+                if (styles["font-weight"] === "bold" || +styles["font-weight"] >= 700) {
+                    res.bold = true;
+                }
+
+                styles["font-style"] === "italic" && (res.italic = true);
+
+                if (styles["text-decoration"]) {
+                    styles["text-decoration"].includes("underline") && (res.underlined = true);
+                    styles["text-decoration"].includes("line-through") && (res.stroke = true);
+                }
+
+                if (styles["text-transform"] === "lowercase" || styles["text-transform"] ===  "uppercase") {
+                    res.textTransform = styles["text-transform"];
+                }
+                
+                styles["font-variant"] === "small-caps" && (res.textTransform = styles["font-variant"]);
+                
+                if (
+                    styles["margin-top"] === "-1px" && 
+                    styles["margin-bottom"] === "-1px" && 
+                    styles["padding-top"] === "1px" && 
+                    styles["padding-bottom"] === "1px"
+                ) {
+                    res.connectToPrevious = true;
+                } else {
+                    styles["margin-top"] && (res.marginTop = styles["margin-top"].slice(0, -2));
+                    styles["margin-bottom"] && (res.marginBottom = styles["margin-bottom"].slice(0, -2));
+                }
+
+                if (styles["margin-left"] && !styles["text-indent"]) {
+                    res.firstRowIndent = styles["margin-left"].slice(0, -2);
+                    res.otherRowsIndent = res.firstRowIndent;
+                } else if (styles["text-indent"] && !styles["margin-left"]) {
+                    res.firstRowIndent = styles["text-indent"].slice(0, -2); 
+                } else if (styles["margin-left"] && styles["text-indent"]) {
+                    const margin = +(styles["margin-left"].slice(0, -2));
+                    const indent = +(styles["text-indent"].slice(0, -2));
+                    res.otherRowsIndent = `${margin}`;
+                    res.firstRowIndent = `${margin + indent}`;
+                }
+
+                if (styles["line-height"]) {
+                    if (lineSpacings.includes(styles["line-height"])) {
+                        res.lineSpacing = styles["line-height"];
+                    } else {
+                        res.lineSpacing = "custom";
+                        res.customLineSpacing = styles["line-height"];
+                    }
+                }
+
+                styles["word-spacing"] && (res.wordSpacing = styles["word-spacing"].slice(0, -2));
+                styles["background-color"] && (res.fillingColor = styles["background-color"].slice(1));
+                console.log("style props from editor_style", styles);
+            }
+        }
+    }
+
+    if (sideNumberStylesString) {
+        const keyValueStringsArray = sideNumberStylesString.split(";");
+        if (keyValueStringsArray.length) {
+            const stylesArray = keyValueStringsArray.map(keyValueStr => keyValueStr.split(":"))
+                .map(([key, value]) => [(key || "").trim(), (value || "").trim()])
+                .filter(([key, value]) => key && value);
+            
+            if (stylesArray.length) {
+                res.sideNumber = true;
+
+                const styles = stylesArray.reduce((acc, [key, value]) => ({...acc, [key]: value }), {});
+                if (styles["font-family"]) {
+                    if (fontsSet.includes(styles["font-family"])) {
+                        res.sideNumberFont = styles["font-family"];
+                    } else {
+                        res.sideNumberFont = "custom";
+                        res.sideNumberCustomFont = styles["font-family"];
+                    }
+                }
+
+                styles["text-align"] && (res.sideNumberAlignment = styles["text-align"]);
+                styles["font-size"] && (res.sideNumberFontSize = styles["font-size"].slice(0, -2));
+                styles.color && (res.sideNumberFontColor = styles.color.slice(1));
+                styles["background-color"] && (res.sideNumberFillingColor = styles["background-color"].slice(1));
+                styles["min-width"] && (res.sideNumberWidth = styles["min-width"].slice(0, -2));
+                styles["line-height"] && (res.sideNumberLineHeight = styles["line-height"].slice(0, -2));
+                styles["border-radius"] && (res.sideNumberRadius = styles["border-radius"].slice(0, -2));
+
+                if (styles["font-weight"] === "bold" || +styles["font-weight"] >= 700) {
+                    res.sideNumberBold = true;
+                }
+
+                styles["font-style"] === "italic" && (res.sideNumberItalic = true);
+                styles["text-decoration"] && styles["text-decoration"].includes("underline") && (res.sideNumberUnderline = true);
+                console.log("style props from numerated_list_style", styles);
+            }
+        }
+    }
+
+    if (!res.lineSpacing && !res.customLineSpacing) {
+        res.lineSpacing = "custom";
+        res.customLineSpacing = "1.4em";
+    }
+
+    return res;
 };

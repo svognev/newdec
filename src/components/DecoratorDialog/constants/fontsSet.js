@@ -1,4 +1,8 @@
-const fontSet = [ 
+import { DEFAULT_FONT } from "./initialFormState";
+import isFontAvailable from "../helpers/isFontAvailable";
+
+const standartFonts = [
+    DEFAULT_FONT,
     "Source Sans Pro",
     "Dejavu Sans",
     "Dejavu Serif",
@@ -10,4 +14,6 @@ const fontSet = [
     "Times New Roman",
 ];
 
-export default fontSet;
+const fontsSet = standartFonts.filter(font => (font === DEFAULT_FONT || isFontAvailable(font)));
+
+export default fontsSet;

@@ -11,6 +11,7 @@ import {
     getNumeratedListPattern,
     getStyleString,
     getSideNumberStyleString,
+    getStylesObject,
 } from "./converterUtils";
 import decToSendDefaultProps from "./decToSendDefaultProps";
 import { unicodeNumberToChar, getShortCutUtils } from "../index";
@@ -95,9 +96,9 @@ class DecDataConverter {
         res.editor_style = getStyleString(rawDec, initialFormState);
         res.numerated_list_style = dec.sideNumber ? getSideNumberStyleString(rawDec) : "";
                 
-        console.log(res);
+        console.log("send", {...decToSendDefaultProps, ...res});
 
-        return { ...rawDec, ...decToSendDefaultProps, ...res };
+        return { ...decToSendDefaultProps, ...res };
     }
 
     static convertToEdit(rawDec) {
@@ -186,9 +187,11 @@ class DecDataConverter {
             res.shortCutMacView = getShortCutUtils("MacOS").convertShortcutToString(dec.keyboard_shortcut);
         }
 
-        console.log(res);
+        const stylesProps = getStylesObject(dec.editor_style, dec.numerated_list_style);
 
-        return { ...rawDec, ...initialFormState, ...res };
+        console.log("recieve", { ...initialFormState, ...res, ...stylesProps });
+
+        return { ...initialFormState, ...res, ...stylesProps };
     }
 
     static mapDecFields = {};

@@ -8,7 +8,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import CustomInputShort from "../common/CustomInputShort";
 import Preview from "../common/Preview";
 import { setValue, setNumber } from "../actions";
-import { DEFAULT_MARGIN, DEFAULT_WORD_SPACING } from "../constants";
+import { DEFAULT_MARGIN, DEFAULT_WORD_SPACING, lineSpacings } from "../constants";
 import { selectAllOnClick, focusInput, changeAndScroll } from "../helpers";
 import ConnectToPreviousField from "../common/ConnectToPreviousField";
 
@@ -103,13 +103,10 @@ class DistancesSection extends React.Component {
                             input={ <CustomInputShort /> } 
                             value={lineSpacing} 
                             onChange={changeAndScroll(this.onLineSpacingChange, 500)} 
-                        >
-                            <option value="1.0">1.0</option>
-                            <option value="1.15">1.15</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2.0">2.0</option>
-                            <option value="2.5">2.5</option>
-                            <option value="3.0">3.0</option>
+                        >   
+                            { lineSpacings.map(value => (
+                                <option value={value} key={value}>{value}</option>
+                            ))}
                             <option value="custom" className="highlightedOption">Custom</option>
                         </NativeSelect> 
                     </div>
@@ -169,7 +166,7 @@ const mapDispatchToProps = dispatch => {
         changeFirstRowIndent: setNumber(dispatch)("firstRowIndent"),
         changeOtherRowsIndent: setNumber(dispatch)("otherRowsIndent"),
         changeLineSpacing: setValue(dispatch)("lineSpacing"),
-        changeCustomLineSpacing: setNumber(dispatch)("customLineSpacing"),
+        changeCustomLineSpacing: setValue(dispatch)("customLineSpacing"),
         changeWordSpacing: setNumber(dispatch)("wordSpacing"),
     };
 };
