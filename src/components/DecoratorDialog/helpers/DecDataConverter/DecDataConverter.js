@@ -131,7 +131,7 @@ class DecDataConverter {
         if (dec.list_key || dec.bullet_list_format) {
             res.isList = true;
             res.listName = dec.list_key;
-            res.orderLevel = dec.item_order ? getNumber(dec.orderLevel) : "0";
+            res.orderLevel = dec.item_order ? getNumberString(dec.item_order) : "0";
             const suffixDistanceMatch = `${(dec.extra_hanging_indentation||"0.5cm")}`.match(/[\d.]*/);
             res.suffixDistance = suffixDistanceMatch ? suffixDistanceMatch[0] : "0.5";
             res.magicTabs = dec.extra_hanging_indentation_at_grid;

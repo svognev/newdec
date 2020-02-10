@@ -84,7 +84,6 @@ export const focusInput = (inputRef, timeout = 300) => {
 export const focusOnEmptyField = refs => {
     for (let i = 0; i < refs.length; i++) {
         if (!refs[i].current.value) {
-            console.log(refs[i].current.value, i)
             focusInput(refs[i]);
             return;
         }
@@ -100,30 +99,25 @@ export const getPreviewFont = (font, customFont) => {
     return `'${DEFAULT_FONT}', 'Roboto', sans-serif`;
 }
 
-export const fillMissedFields = currentFormState => {
-    const { 
-        font, customFont,
-        sideNumberFont, customSideNumberFont,
-        lineSpacing, customLineSpacing,
-    } = currentFormState;
-
-    const formStateWithoutMissedFields = { ...currentFormState };
+export const fillMissedFields = formState => {
+    const res = { ...formState };
     
     [
-        [font, customFont],
-        [sideNumberFont, customSideNumberFont], 
-        [lineSpacing, customLineSpacing],
+        ["font", "customFont"],
+        ["sideNumberFont", "customSideNumberFont"], 
+        ["lineSpacing", "customLineSpacing"],
     ].forEach(([option, customOption]) => {
-        if (option === "custom" && !customOption) {
-            formStateWithoutMissedFields[option] = null;
+        if (formState[option] === "custom" && !formState[customOption]) {
+            res[option] = null;
         }
     });
 
     // eslint-disable-next-line
     for (let fieldName in autoFillingRequiredFields) {
-        if (!currentFormState[fieldName] && autoFillingRequiredFields[fieldName]) {
-            formStateWithoutMissedFields[fieldName] = autoFillingRequiredFields[fieldName];
+        if (!res[fieldName]) {
+            res[fieldName] = autoFillingRequiredFields[fieldName];
         }
     }
-    return formStateWithoutMissedFields;
+
+    return res;
 };

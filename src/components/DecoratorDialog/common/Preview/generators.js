@@ -100,18 +100,24 @@ export const generateSideNumberStyle = formState => {
         sideNumberItalic,
         sideNumberUnderlined,
         sideNumberLineHeight,
+        fontSize,
+        fontColor,
+        fillingColor,
     } = formState;
 
-    const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, "000");
-    const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, "f5f5f5");
+    const previewSideNumberFontColor = getCorrectColor(sideNumberFontColor, getCorrectColor(fontColor ,"000"));
+    const previewSideNumberFillingColor = getCorrectColor(sideNumberFillingColor, getCorrectColor(fillingColor ,"f5f5f5"));
+    const fontSizeNumber = +(sideNumberFontSize || fontSize || DEFAULT_FONT_SIZE);
+    const previewFontSize = `${fontSizeNumber <= 120 ? fontSizeNumber : 120}pt`;
+
 
     const sideNumberStyle = (!sideNumber || listType === "unordered") ? {} : {
         fontFamily: getPreviewFont(sideNumberFont, customSideNumberFont),
         textAlign: sideNumberAlignment,
-        fontSize: !sideNumberFontSize ? `${DEFAULT_FONT_SIZE}pt` : `${sideNumberFontSize <= 120 ? sideNumberFontSize : 120}pt`,
+        fontSize: previewFontSize,
         color: `#${previewSideNumberFontColor}`,
         backgroundColor: `#${previewSideNumberFillingColor}`,
-        minWidth: `${!sideNumberWidth ? 0 : (sideNumberWidth < 150 ? sideNumberWidth : 150)}pt`,
+        minWidth: `${!sideNumberWidth ? 0 : (+sideNumberWidth < 150 ? sideNumberWidth : 150)}pt`,
         borderRadius: `${sideNumberRadius || 0}pt`,
         fontWeight: sideNumberBold ? "bold" : "normal",
         fontStyle: sideNumberItalic ? "italic" : "normal",

@@ -1,4 +1,5 @@
 import { GLOBAL_FALLBACK_MARK, fontsSet, lineSpacings } from "../../constants";
+import prepareColorCode from "../prepareColorCode";
 
 const DEFAULT_DECORATOR = "Text 2000";
 
@@ -22,6 +23,7 @@ export const getNumeratedListPattern = (order, prefix, suffix) => {
 
 export const getStyleString = (rawDec, initialState) => {
     const dec = {};
+    // eslint-disable-next-line
     for (let propName in rawDec) {
         if (rawDec[propName] !== initialState[propName]) {
             dec[propName] = rawDec[propName];
@@ -94,11 +96,14 @@ export const getSideNumberStyleString = dec => {
     const styles = {};
 
     if (dec.font !== dec.sideNumberFont || dec.customFont !== dec.customSideNumberFont) {
-        styles.font = dec.customSideNumberFont || dec.customFont;
+        styles["font-family"] = dec.customSideNumberFont || dec.sideNumberFont;
     }
 
-    styles["text-align"] = dec.sideNumberAlignment;
-    dec.fontSize !== dec.sideNumberFontSize && (styles["font-size"] = `${dec.sideNumberFontSize}pt`);
+    styles["text-align"] = dec.sideNumberAlignment || "center";
+    if (dec.sideNumberFontSize && dec.fontSize !== dec.sideNumberFontSize) {
+        styles["font-size"] = `${dec.sideNumberFontSize}pt`;
+    }
+    
     dec.sideNumberFontColor && (styles.color = `#${dec.sideNumberFontColor}`);
     dec.sideNumberFillingColor && (styles["background-color"] = `#${dec.sideNumberFillingColor}`);
     dec.sideNumberWidth && (styles["min-width"] = `${dec.sideNumberWidth}pt`);
@@ -106,7 +111,7 @@ export const getSideNumberStyleString = dec => {
     dec.sideNumberRadius && (styles["border-radius"] = `${dec.sideNumberRadius}pt`);
     dec.sideNumberBold && (styles["font-weight"] = "bold");
     dec.sideNumberItalic && (styles["font-style"] = "italic");
-    dec.sideNumberUnderline && (styles["text-decoration"] = "underline");
+    dec.sideNumberUnderlined && (styles["text-decoration"] = "underline");
 
     return Object.entries(styles).reduce((acc, [key, value]) => (`${acc} ${key}:${value};`), "").trim();
 };
@@ -186,9 +191,30 @@ export const getStylesObject = (stylesString = "", sideNumberStylesString = "") 
                     }
                 }
 
+                const borderStyle = styles["border-top"] 
+                    || styles["border-bottom"] 
+                    || styles["border-left"] 
+                    || styles["border-right"];
+
+                if (borderStyle) {
+                    const colorCodeMatch = borderStyle.match(/#[\da-f]{6}|#[\da-f]{3}|\(.*?\)/i);
+                    const thicknessMatch = borderStyle.match(/\d+(?:\.\d+)?(?:px|pt)/i);
+                    const lineTypeMatch = borderStyle.match(/solid|dotted|dashed|double|groove|ridge|inset|outset/);
+
+                    if (colorCodeMatch && thicknessMatch && lineTypeMatch) {
+                        res.borderColor = prepareColorCode(colorCodeMatch[0]);
+                        res.borderThickness = thicknessMatch[0].slice(0, -2);
+                        res.borderType = lineTypeMatch[0];
+                    }
+
+                    styles["border-top"] && (res.borderTop = true);
+                    styles["border-bottom"] && (res.borderBottom = true);
+                    styles["border-left"] && (res.borderLeft = true);
+                    styles["border-right"] && (res.borderRight = true);
+                }
+
                 styles["word-spacing"] && (res.wordSpacing = styles["word-spacing"].slice(0, -2));
                 styles["background-color"] && (res.fillingColor = styles["background-color"].slice(1));
-                console.log("style props from editor_style", styles);
             }
         }
     }
@@ -204,6 +230,7 @@ export const getStylesObject = (stylesString = "", sideNumberStylesString = "") 
                 res.sideNumber = true;
 
                 const styles = stylesArray.reduce((acc, [key, value]) => ({...acc, [key]: value }), {});
+                
                 if (styles["font-family"]) {
                     if (fontsSet.includes(styles["font-family"])) {
                         res.sideNumberFont = styles["font-family"];
@@ -211,23 +238,27 @@ export const getStylesObject = (stylesString = "", sideNumberStylesString = "") 
                         res.sideNumberFont = "custom";
                         res.sideNumberCustomFont = styles["font-family"];
                     }
+                } else if (res.font) {
+                    res.sideNumberFont = res.font;
+                    res.sideNumberCustomFont = res.customFont;
                 }
 
-                styles["text-align"] && (res.sideNumberAlignment = styles["text-align"]);
-                styles["font-size"] && (res.sideNumberFontSize = styles["font-size"].slice(0, -2));
-                styles.color && (res.sideNumberFontColor = styles.color.slice(1));
-                styles["background-color"] && (res.sideNumberFillingColor = styles["background-color"].slice(1));
-                styles["min-width"] && (res.sideNumberWidth = styles["min-width"].slice(0, -2));
+                res.sideNumberAlignment = styles["text-align"] || "center";
+                res.sideNumberFontSize = styles["font-size"] ? styles["font-size"].slice(0, -2) : "";
+                res.sideNumberFontColor = styles.color ? styles.color.slice(1) : "";
+                res.sideNumberFillingColor = styles["background-color"] ? styles["background-color"].slice(1) : "";
+                res.sideNumberWidth = styles["min-width"] ? styles["min-width"].slice(0, -2) : "";
+
                 styles["line-height"] && (res.sideNumberLineHeight = styles["line-height"].slice(0, -2));
-                styles["border-radius"] && (res.sideNumberRadius = styles["border-radius"].slice(0, -2));
+
+                res.sideNumberRadius = styles["border-radius"] ? styles["border-radius"].slice(0, -2) : "";
 
                 if (styles["font-weight"] === "bold" || +styles["font-weight"] >= 700) {
                     res.sideNumberBold = true;
                 }
 
                 styles["font-style"] === "italic" && (res.sideNumberItalic = true);
-                styles["text-decoration"] && styles["text-decoration"].includes("underline") && (res.sideNumberUnderline = true);
-                console.log("style props from numerated_list_style", styles);
+                styles["text-decoration"] && styles["text-decoration"].includes("underline") && (res.sideNumberUnderlined = true);
             }
         }
     }

@@ -1,6 +1,7 @@
 import DecDataConverter from "./DecDataConverter";
 import getShortCutUtils from "./getShortCutUtils";
 import isFontAvailable from "./isFontAvailable";
+import prepareColorCode from "./prepareColorCode";
 import {
     getTabsErrorState,
     getTabNumberToSwitch,
@@ -28,6 +29,7 @@ export {
     DecDataConverter,
     getShortCutUtils,
     isFontAvailable,
+    prepareColorCode,
     getTabsErrorState,
     getTabNumberToSwitch,
     hasErrorInSection,

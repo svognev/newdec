@@ -12,7 +12,7 @@ export const getTabsErrorState = form => {
     if (isList && listType === "ordered" && !listName) {
         tabsErrorState.listSection = true;
     }
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line
     for (let tabName in tabsErrorState) {
         if (tabsErrorState[tabName]) {
             return tabsErrorState;
@@ -22,7 +22,7 @@ export const getTabsErrorState = form => {
 };
 
 export const getTabNumberToSwitch = tabsErrorState => {
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line
     for (const { tabName, tabNumber } of sectionsTabNumbers) {
         if (tabsErrorState[tabName]) {
             return tabNumber;

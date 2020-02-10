@@ -18,7 +18,6 @@ export const DEFAULT_BORDER_THICKNESS = "2";
 
 export const autoFillingRequiredFields = {
     sideNumberFont: DEFAULT_FONT,
-    sideNumberFontSize: DEFAULT_FONT_SIZE,
     font: DEFAULT_FONT,
     fontSize: DEFAULT_FONT_SIZE,
     fontColor: DEFAULT_FONT_COLOR,
@@ -70,6 +69,7 @@ export const initialFormState = {
     sideNumber: false,
     customSideNumberFont: "",
     sideNumberAlignment: "center",
+    sideNumberFontSize: DEFAULT_FONT_SIZE,
     sideNumberFontColor: DEFAULT_SIDE_NUMBER_FONT_COLOR,
     sideNumberFillingColor: DEFAULT_SIDE_NUMBER_FILLING_COLOR,
     sideNumberWidth: DEFAULT_SIDE_NUMBER_WIDTH,
