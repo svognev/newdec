@@ -23,7 +23,6 @@ import CustomTab from "./common/CustomTab";
 import CustomErrorTab from "./common/CustomErrorTab";
 import CustomTabs from "./common/CustomTabs";
 import CustomDialog from "./common/CustomDialog";
-import { saveDecoratorForm } from "../../actions";
 import { 
     closeDialog, 
     clearDecoratorForm, 
@@ -172,7 +171,6 @@ const mapDispatchToProps = dispatch => {
         clearForm: () => dispatch(clearDecoratorForm()),
         switchTab: payload => dispatch(switchDecDialogTab(payload)),
         updateValidationError: payload => dispatch(updateValidationError(payload)),
-        saveForm: payload => dispatch(saveDecoratorForm(payload)),
     };
 };
   

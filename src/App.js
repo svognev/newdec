@@ -25,13 +25,13 @@ const App = props => {
                 <div className="startButtons">
                     { !savedForm ? (
                         <Button 
-                            onClick={() => openDialog()}
+                            onClick={openDialog}
                             color="primary"
                         >Create new</Button>
                     ) : (
                         <>
                             <Button 
-                                onClick={() => openEditDialog()}
+                                onClick={openEditDialog}
                             >Edit saved</Button>
                             <Button 
                                 onClick={clearSavedForm}

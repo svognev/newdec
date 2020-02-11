@@ -98,7 +98,7 @@ class DecDataConverter {
                 
         console.log("send", {...decToSendDefaultProps, ...res});
 
-        return { ...decToSendDefaultProps, ...res };
+        return { ...rawDec, ...decToSendDefaultProps, ...res };
     }
 
     static convertToEdit(rawDec) {
@@ -191,7 +191,7 @@ class DecDataConverter {
 
         console.log("recieve", { ...initialFormState, ...res, ...stylesProps });
 
-        return { ...initialFormState, ...res, ...stylesProps };
+        return { ...rawDec, ...initialFormState, ...res, ...stylesProps };
     }
 
     static mapDecFields = {};
