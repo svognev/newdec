@@ -95,10 +95,19 @@ class DecDataConverter {
 
         res.editor_style = getStyleString(rawDec, initialFormState);
         res.numerated_list_style = dec.sideNumber ? getSideNumberStyleString(rawDec) : "";
+
+        const unchangingProps = {
+            group: rawDec.group,
+            groupToCreate: rawDec.groupToCreate,
+            referenceGroup: rawDec.referenceGroup,
+            referenceGroupToCreate: rawDec.referenceGroupToCreate,
+            shortCutWin: rawDec.shortCutWin,
+            shortCutWinView: rawDec.shortCutWinView,
+        };
                 
         console.log("send", {...decToSendDefaultProps, ...res});
 
-        return { ...rawDec, ...decToSendDefaultProps, ...res };
+        return { ...rawDec, ...decToSendDefaultProps, ...res,  ...unchangingProps };
     }
 
     static convertToEdit(rawDec) {
@@ -189,9 +198,18 @@ class DecDataConverter {
 
         const stylesProps = getStylesObject(dec.editor_style, dec.numerated_list_style);
 
+        const unchangingProps = {
+            group: rawDec.group,
+            groupToCreate: rawDec.groupToCreate,
+            referenceGroup: rawDec.referenceGroup,
+            referenceGroupToCreate: rawDec.referenceGroupToCreate,
+            shortCutWin: rawDec.shortCutWin,
+            shortCutWinView: rawDec.shortCutWinView,
+        };
+
         console.log("recieve", { ...initialFormState, ...res, ...stylesProps });
 
-        return { ...rawDec, ...initialFormState, ...res, ...stylesProps };
+        return { ...rawDec, ...initialFormState, ...res, ...stylesProps, ...unchangingProps };
     }
 
     static mapDecFields = {};

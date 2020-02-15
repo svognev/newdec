@@ -25,7 +25,7 @@ const App = props => {
                 <div className="startButtons">
                     { !savedForm ? (
                         <Button 
-                            onClick={openDialog}
+                            onClick={() => openDialog()}
                             color="primary"
                         >Create new</Button>
                     ) : (
