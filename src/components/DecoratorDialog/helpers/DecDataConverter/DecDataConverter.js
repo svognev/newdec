@@ -35,10 +35,10 @@ class DecDataConverter {
         res.content_in_second_line = dec.softReturn;
         res.backspace_action = dec.backspaceActionWithContent;
         res.backspace_action_value = replaceDecNameIfDefault(dec.backspaceActionWithContentStyle);
-        res.create_new_section_on_return_if_empty = !!dec.returnActionNextSection;
-        res.pd_for_new_section_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionNextSection);
-        res.pd_for_current_section_on_return_if_empty = !!dec.returnActionEmptySection;
-        res.change_pd_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionEmptySection);
+        res.create_new_section_on_return_if_empty = !!dec.returnActionEmptySection;
+        res.pd_for_new_section_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionEmptySection);
+        res.change_pd_on_return_if_empty = !!dec.returnActionNextSection;
+        res.pd_for_current_section_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionNextSection);
         res.on_tab_key = dec.tabAction;
         res.on_shift_tab_key = dec.shiftTabAction;
 
