@@ -37,8 +37,8 @@ class DecDataConverter {
         res.backspace_action_value = replaceDecNameIfDefault(dec.backspaceActionWithContentStyle);
         res.create_new_section_on_return_if_empty = !!dec.returnActionNextSection;
         res.pd_for_new_section_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionNextSection);
-        res.change_pd_on_return_if_empty = !!dec.returnActionEmptySection;
-        res.pd_for_current_section_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionEmptySection);
+        res.pd_for_current_section_on_return_if_empty = !!dec.returnActionEmptySection;
+        res.change_pd_on_return_if_empty = replaceDecNameIfDefault(dec.returnActionEmptySection);
         res.on_tab_key = dec.tabAction;
         res.on_shift_tab_key = dec.shiftTabAction;
 
@@ -131,8 +131,8 @@ class DecDataConverter {
         res.softReturn = dec.content_in_second_line;
         res.backspaceActionWithContent = dec.backspace_action;
         res.backspaceActionWithContentStyle = replaceDecNameIfDefault(dec.backspace_action_value);
-        res.returnActionNextSection = replaceDecNameIfDefault(dec.pd_for_new_section_on_return_if_empty);
-        res.returnActionEmptySection = replaceDecNameIfDefault(dec.pd_for_current_section_on_return_if_empty);
+        res.returnActionNextSection = replaceDecNameIfDefault(dec.pd_for_current_section_on_return_if_empty);
+        res.returnActionEmptySection = replaceDecNameIfDefault(dec.pd_for_new_section_on_return_if_empty);
         res.tabAction = dec.on_tab_key;
         res.shiftTabAction = dec.on_shift_tab_key;
 

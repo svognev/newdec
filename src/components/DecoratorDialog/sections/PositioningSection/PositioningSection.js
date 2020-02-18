@@ -17,7 +17,6 @@ const PositioningSection = props => {
     const {
         indentationalLevel, changeIndentationalLevel,
         fixedIndentation, changeisFixedIndentation,
-        softReturn, changeSoftReturn,
         backspaceActionWithContent, changeBackspaceActionWithContent,
         backspaceActionWithContentStyle, changeBackspaceActionWithContentStyle,
         returnActionNextSection, changeReturnActionNextSection,
@@ -61,15 +60,6 @@ const PositioningSection = props => {
                 <Checkbox 
                     checked={fixedIndentation}
                     onChange={changeisFixedIndentation}
-                    color="primary" 
-                />
-            </div>
-
-            <span>Soft return</span>
-            <div className="unlabeledCheckbox">
-                <Checkbox 
-                    checked={softReturn}
-                    onChange={changeSoftReturn}
                     color="primary" 
                 />
             </div>
@@ -170,7 +160,6 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         tabAction: form.tabAction,
         shiftTabAction: form.shiftTabAction,
         fixedIndentation: form.fixedIndentation,
-        softReturn: form.softReturn,
     };
 };
 
@@ -186,7 +175,6 @@ const mapDispatchToProps = dispatch => {
         changeTabAction: setValue(dispatch)("tabAction"),
         changeShiftTabAction: setValue(dispatch)("shiftTabAction"),
         changeisFixedIndentation: toggleValue(dispatch)("fixedIndentation"),
-        changeSoftReturn: toggleValue(dispatch)("softReturn"),
     };
 };
   

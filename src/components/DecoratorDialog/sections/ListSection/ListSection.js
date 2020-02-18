@@ -146,6 +146,7 @@ class ListSection extends React.Component {
             continueNumbering, changeContinueNumbering,
             allowRestartNumbering, changeAllowRestartNumbering,
             includePreviousFrom, changeIncludePreviousFrom,
+            softReturn, changeSoftReturn,
             sideNumber,
             sideNumberFont, changeSideNumberFont,
             customSideNumberFont, changeCustomSideNumberFont,
@@ -285,6 +286,15 @@ class ListSection extends React.Component {
                                             <option value={key} key={key}>{value}</option>
                                         ))}                                    
                                     </NativeSelect>
+                                </div>
+
+                                <span>Soft return</span>
+                                <div className="unlabeledCheckbox">
+                                    <Checkbox 
+                                        checked={softReturn}
+                                        onChange={changeSoftReturn}
+                                        color="primary" 
+                                    />
                                 </div>
                                         
                                 <span>Continue numbering after interruption</span>
@@ -539,7 +549,7 @@ class ListSection extends React.Component {
                                         </div>
                                     </div>
                                     <div className="dialogGrid dialogGrid_2cols dialogGrid_leftIndented">
-                                        <span>Char</span>
+                                        <span>Symbol</span>
                                         <div>
                                             <TextField 
                                                 value={unicodeChar}
@@ -596,6 +606,7 @@ const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
         listPattern: form.listPattern,
         prefix: form.prefix,
         suffix: form.suffix,
+        softReturn: form.softReturn,
         sideNumber: form.sideNumber,
         sideNumberFont: form.sideNumberFont,
         customSideNumberFont: form.customSideNumberFont,
@@ -633,6 +644,7 @@ const mapDispatchToProps = dispatch => {
         changePrefix: setValue(dispatch)("prefix"),
         changeSuffix: setValue(dispatch)("suffix"),
         changePatternMode: toggleValue(dispatch)("patternMode"),
+        changeSoftReturn: toggleValue(dispatch)("softReturn"),
         changeSideNumber: toggleValue(dispatch)("sideNumber"),
         changeSideNumberFont: setValue(dispatch)("sideNumberFont"),
         changeCustomSideNumberFont: setValue(dispatch)("customSideNumberFont"),
