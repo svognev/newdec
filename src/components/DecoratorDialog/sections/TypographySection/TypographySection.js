@@ -32,6 +32,7 @@ const TypographySection = props => {
         underlined, changeUnderlined,         
         stroke, changeStroke,
         textTransform, changeTextTransform,
+        verticalAlign, changeVerticalAlign,
         readOnly, changeReadOnly,
     } = props;
 
@@ -74,6 +75,18 @@ const TypographySection = props => {
                     required
                 />
 
+                <span>Sub/Superscript</span>
+                <div>
+                    <NativeSelect 
+                        value={verticalAlign} 
+                        onChange={changeVerticalAlign}
+                        input={ <CustomInput /> } 
+                    >
+                        <option value="baseline">None</option>
+                        <option value="sub">Subscript</option>
+                        <option value="super">Superscript</option>
+                    </NativeSelect>
+                </div>
             </div>
             <div className="previewSide">
                 <Preview {...previewProps} />
@@ -185,6 +198,7 @@ const mapStateToProps = ({ decoratorDialog: { form }}) => {
         underlined: form.underlined,
         stroke: form.stroke,
         textTransform: form.textTransform,
+        verticalAlign: form.verticalAlign,
         readOnly: form.readOnly,
     };
 };
@@ -201,6 +215,7 @@ const mapDispatchToProps = dispatch => {
         changeUnderlined: toggleValue(dispatch)("underlined"),
         changeStroke: toggleValue(dispatch)("stroke"),
         changeTextTransform: setValue(dispatch)("textTransform"),
+        changeVerticalAlign: setValue(dispatch)("verticalAlign"),
         changeMarginTop: setNumber(dispatch)("marginTop"),
         changeReadOnly: toggleValue(dispatch)("readOnly"),
     };

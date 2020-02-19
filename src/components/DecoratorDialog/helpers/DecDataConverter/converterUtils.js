@@ -34,6 +34,7 @@ export const getStyleString = (rawDec, initialState) => {
     dec.font && (styles["font-family"] = dec.customFont || dec.font);
     dec.fontSize && (styles["font-size"] = `${dec.fontSize}pt`);
     dec.fontColor && dec.fontColor !== "000000" && (styles.color = `#${dec.fontColor}`);
+    dec.verticalAlign && (styles["vertical-align"] = dec.verticalAlign);
     dec.bold && (styles["font-weight"] = "bold");
     dec.italic && (styles["font-style"] = "italic");
 
@@ -138,6 +139,7 @@ export const getStylesObject = (stylesString = "", sideNumberStylesString = "") 
 
                 styles["font-size"] && (res.fontSize = styles["font-size"].slice(0, -2));
                 styles.color && (res.fontColor = styles.color.slice(1));
+                styles["vertical-align"] && (res.verticalAlign = styles["vertical-align"]);
                 
                 if (styles["font-weight"] === "bold" || +styles["font-weight"] >= 700) {
                     res.bold = true;

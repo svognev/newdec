@@ -89,6 +89,7 @@ export const initialFormState = {
     textTransform: "none",
     readOnly: false,
     connectToPrevious: false,
+    verticalAlign: "baseline",
     customLineSpacing: "",
     borderLeft: false,
     borderRight: false,
