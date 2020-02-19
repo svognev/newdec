@@ -38,7 +38,7 @@ const PositioningSection = props => {
 
     return (
         <div className="dialogGrid dialogGrid_2cols">
-            <span>Identational level</span>
+            <span>Indentational level</span>
             <div>
                 <NativeSelect
                     value={indentationalLevel}

@@ -13,7 +13,6 @@ export const generatePreviewStyle = formState => {
         underlined,
         stroke,
         textTransform,
-        verticalAlign,
         marginTop,
         marginBottom,
         firstRowIndent,
@@ -40,9 +39,8 @@ export const generatePreviewStyle = formState => {
     const previewMarginLeft = `${!otherRowsIndent ? 0 : (otherRowsIndent >= 6 ? 6 : otherRowsIndent)}cm`;
     const previewTextIndent = `${!indentsDifference ? 0 : (indentsDifference >= 6 ? 6 : indentsDifference)}cm`;
     const previewLineSpacing = lineSpacing !== "custom" ? lineSpacing : (customLineSpacing || DEFAULT_LINE_SPACING);
-    const offset = getOffset(verticalAlign, fontSize);
-    const previewMarginTop = `${(!connectToPrevious ? parseFloat(marginTop) : 0) + offset}pt`;
-    const previewMarginBottom = `${(!connectToPrevious ? parseFloat(marginBottom) : 0) - offset}pt`;
+    const previewMarginTop = `${!connectToPrevious ? parseFloat(marginTop) : 0}pt`;
+    const previewMarginBottom = `${!connectToPrevious ? parseFloat(marginBottom) : 0}pt`;
     const previewBorderLeft = borderLeft ? `${borderThickness}pt ${borderType} #${borderColor}` : "none";
     const previewBorderRight = borderRight ? `${borderThickness}pt ${borderType} #${borderColor}` : "none";
     const previewBorderTop = borderTop ? `${borderThickness}pt ${borderType} #${borderColor}` : "none";
@@ -57,7 +55,6 @@ export const generatePreviewStyle = formState => {
         fontWeight: bold ? "bold" : "normal",
         fontStyle: italic ? "italic" : "normal",
         textDecoration: `${underlined ? "underline" : ""}${stroke ? " line-through" : ""}`.trim() || "none",
-        verticalAlign,
         textTransform: textTransform !== "small-caps" ? textTransform : "none",
         fontVariant: textTransform === "small-caps" ? textTransform : "normal",
         backgroundColor: `#${previewFillingColor}`,

@@ -287,15 +287,6 @@ class ListSection extends React.Component {
                                         ))}                                    
                                     </NativeSelect>
                                 </div>
-
-                                <span>Soft return</span>
-                                <div className="unlabeledCheckbox">
-                                    <Checkbox 
-                                        checked={softReturn}
-                                        onChange={changeSoftReturn}
-                                        color="primary" 
-                                    />
-                                </div>
                                         
                                 <span>Continue numbering after interruption</span>
                                 <div className="unlabeledCheckbox">
@@ -372,6 +363,14 @@ class ListSection extends React.Component {
                                     </>
                                 )}
                                 
+                                <span>Soft return</span>
+                                <div className="unlabeledCheckbox">
+                                    <Checkbox 
+                                        checked={softReturn}
+                                        onChange={changeSoftReturn}
+                                        color="primary" 
+                                    />
+                                </div>
                                         
                                 <span>Side number</span>
                                 <div className="unlabeledCheckbox">
