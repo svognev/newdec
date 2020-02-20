@@ -69,7 +69,7 @@ export const initialFormState = {
     sideNumber: false,
     customSideNumberFont: "",
     sideNumberAlignment: "center",
-    sideNumberFontSize: DEFAULT_FONT_SIZE,
+    sideNumberFontSize: "",
     sideNumberFontColor: DEFAULT_SIDE_NUMBER_FONT_COLOR,
     sideNumberFillingColor: DEFAULT_SIDE_NUMBER_FILLING_COLOR,
     sideNumberWidth: DEFAULT_SIDE_NUMBER_WIDTH,
