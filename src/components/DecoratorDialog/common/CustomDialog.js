@@ -9,7 +9,10 @@ const CustomDialog = withStyles(theme => ({
     },
     container: {
         height: "100vh",
-        display: "block",
+        display: "flex",
+        width: "100vw",
+        justifyContent: "center",
+        minWidth: "700px",
     },
     scrollBody: {
         "&:after": {
@@ -20,7 +23,8 @@ const CustomDialog = withStyles(theme => ({
         maxWidth: "1280px",
         maxHeight: "850px",
         minHeight: "550px",
-        width: "calc(100% - 96px)",
+        width: "calc(100vw - 150px)",
+        minWidth: "600px",
         height: "calc(100% - 96px)",
         display: "inline-flex",
         flexDirection: "column",
