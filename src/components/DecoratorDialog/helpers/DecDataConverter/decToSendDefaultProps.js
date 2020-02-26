@@ -20,7 +20,8 @@ const decToSendDefaultProps = {
     bullet_list_format: null,
     movable: true,
     content_required: false,
-    on_return_style_key: null,
+    change_pd_on_return_if_empty: false,
+    pd_for_current_section_on_return_if_empty: null,
     on_return_indentation: null,
     item_order_allow_tab: false,
 };

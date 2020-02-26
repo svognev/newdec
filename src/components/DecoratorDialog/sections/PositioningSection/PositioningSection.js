@@ -108,7 +108,7 @@ const PositioningSection = props => {
             </div>
             
 
-            <span>In empty section change current style to</span>
+            <span>PD for new section on return if empty</span>
             <div className="wideSelectBox">
                 <NativeSelect 
                     value={returnActionEmptySection}
