@@ -6,7 +6,6 @@ import {
 const initialState = 0;
 
 const openedTabReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
         case SWITCH_DEC_DIALOG_TAB:
             return action.payload;

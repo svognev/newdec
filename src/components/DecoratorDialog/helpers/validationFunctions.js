@@ -34,7 +34,8 @@ const getValidationChecks = (form, isEditMode) => {
 export const getErrorState = (form, isEditMode) => {
     const errorState = {};
     const validationChecks = getValidationChecks(form, isEditMode);
-
+    
+    // eslint-disable-next-line
     for (let propName in validationChecks) {
         const errorFields = validationChecks[propName].filter(({ check }) => !check()).map(({ field }) => field);
         if (errorFields.length) {
