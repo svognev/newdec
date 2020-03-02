@@ -121,3 +121,9 @@ export const fillMissedFields = formState => {
 
     return res;
 };
+
+export const trimOnTextFieldBlur = changeFunc => e => {
+    if (e.target.value) {
+        changeFunc({ target: { value: e.target.value.trim()}});
+    }
+};

@@ -11,7 +11,7 @@ import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
-import { hasErrorInSection, focusOnEmptyField } from "../helpers";
+import { hasErrorInSection, focusOnEmptyField, trimOnTextFieldBlur } from "../helpers";
 import { setValue, toggleValue, updateValidationError } from "../actions";
 import { MAIN_LANG_KEY, ADDITIONAL_LANGS, sectionTypesMap } from "../constants";
 
@@ -84,6 +84,7 @@ class NamesSection extends React.Component {
                 <TextField 
                     value={decKey}
                     onChange={changeDecKey}
+                    onBlur={trimOnTextFieldBlur(changeDecKey)}
                     error={validationErrorInSection && !decKey}
                     inputRef={this.decKeyInputRef}
                     variant="outlined" 
@@ -138,6 +139,7 @@ class NamesSection extends React.Component {
                 <TextField 
                     value={name[MAIN_LANG_KEY]}
                     onChange={this.onNameChange(MAIN_LANG_KEY)}
+                    onBlur={trimOnTextFieldBlur(this.onNameChange(MAIN_LANG_KEY))}
                     error={validationErrorInSection && !name[MAIN_LANG_KEY]}
                     inputRef={this.decNameEnInputRef}
                     variant="outlined" 
@@ -150,6 +152,7 @@ class NamesSection extends React.Component {
                     <TextField 
                         value={name[langKey]}
                         onChange={this.onNameChange(langKey)}
+                        onBlur={trimOnTextFieldBlur(this.onNameChange(langKey))}
                         variant="outlined" 
                         margin="dense" 
                     />

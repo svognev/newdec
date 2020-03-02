@@ -39,7 +39,8 @@ import {
     scrollToBottom,
     focusInput,
     unicodeNumberToChar, 
-    unicodeCharToNumber, 
+    unicodeCharToNumber,
+    trimOnTextFieldBlur,
 } from "../../helpers";
 
 import "./style.css";
@@ -195,7 +196,8 @@ class ListSection extends React.Component {
                                     )}
                                     <TextField
                                         value={listName}
-                                        onChange={changeListName} 
+                                        onChange={changeListName}
+                                        onBlur={trimOnTextFieldBlur(changeListName)}
                                         error={validationErrorInSection && !listName}
                                         inputRef={this.listNameInputRef}
                                         variant="outlined" 

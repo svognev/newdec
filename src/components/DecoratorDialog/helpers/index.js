@@ -23,6 +23,7 @@ import {
     fillMissedFields,
     focusInput,
     focusOnEmptyField,
+    trimOnTextFieldBlur,
 } from "./helpers.js";
 
 export {
@@ -48,4 +49,5 @@ export {
     fillMissedFields,
     focusInput,
     focusOnEmptyField,
+    trimOnTextFieldBlur,
 };
