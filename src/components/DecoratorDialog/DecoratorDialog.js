@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { isEmpty, isEqual } from "lodash";
 
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -32,7 +33,7 @@ import {
 import { 
     fillMissedFields, 
     DecDataConverter, 
-    getTabsErrorState,
+    getErrorState,
     getTabNumberToSwitch,
 } from "./helpers";
 
@@ -46,10 +47,10 @@ class DecoratorDialog extends React.Component {
 
     onSaveButtonClick = () => {
         const { formState, updateValidationError, switchTab, sendForm } = this.props;
-        const tabsErrorState = getTabsErrorState(formState);
-        if (tabsErrorState) {
-            updateValidationError(tabsErrorState);
-            switchTab(getTabNumberToSwitch(tabsErrorState));
+        const errorState = getErrorState(formState);
+        if (Object.values(errorState).some(item => item.length)) {
+            updateValidationError(errorState);
+            switchTab(getTabNumberToSwitch(errorState));
         } else {
             const formToSend = DecDataConverter.convertToSend(fillMissedFields(formState));
             sendForm(formToSend);
@@ -60,6 +61,17 @@ class DecoratorDialog extends React.Component {
     onTabSwitch = (e, tabNumber) => {
         this.props.switchTab(tabNumber);
     }
+
+    componentDidUpdate(prevprops) {
+        if (!isEmpty(this.props.validationError)) {
+            const { formState, updateValidationError, isEditMode } = this.props;
+            const errorState = getErrorState(formState, isEditMode);
+            if (!isEqual(errorState, this.props.validationError)) {
+                updateValidationError(errorState);
+            }
+        }
+    }
+
 
     render() {
         const { 

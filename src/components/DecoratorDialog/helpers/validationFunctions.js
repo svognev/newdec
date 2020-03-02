@@ -1,31 +1,55 @@
-import { tabsErrorInitialState, sectionsTabNumbers, MAIN_LANG_KEY } from "../constants";
+import { sections } from "../constants";
 
-export const hasErrorInSection = refs => !refs.every(ref => ref.current.value);
-
-export const getTabsErrorState = form => {
-    const tabsErrorState = { ...tabsErrorInitialState };
-    const { name, decKey, listName, isList, listType } = form;
-
-    if (!name[MAIN_LANG_KEY] || !decKey) {
-        tabsErrorState.namesSection = true;
+export const checkNames = ({ name }) => !!name.en_EN;
+export const checkDecKey = ({ decKey }, isEditMode) => (isEditMode || !!decKey);
+export const checkListName = ({ isList, listType, listName }) => {
+    if (!isList || (isList && listType === "unordered")) {
+        return true;
+    } else {
+        return !!listName;
     }
-    if (isList && listType === "ordered" && !listName) {
-        tabsErrorState.listSection = true;
-    }
-    // eslint-disable-next-line
-    for (let tabName in tabsErrorState) {
-        if (tabsErrorState[tabName]) {
-            return tabsErrorState;
+};
+
+const getValidationChecks = (form, isEditMode) => {
+    return { 
+        namesSection: [
+            {
+                field: "name",
+                check: () => checkNames(form),
+            },
+            {
+                field: "decKey",
+                check: () => checkDecKey(form, isEditMode),
+            },
+        ],
+        listSection: [
+            {
+                field: "listName",
+                check: () => checkListName(form),
+            },
+        ],
+    };
+};
+
+export const getErrorState = (form, isEditMode) => {
+    const errorState = {};
+    const validationChecks = getValidationChecks(form, isEditMode);
+
+    for (let propName in validationChecks) {
+        const errorFields = validationChecks[propName].filter(({ check }) => !check()).map(({ field }) => field);
+        if (errorFields.length) {
+            errorState[propName] = errorFields;
         }
     }
-    return false;
+
+    return errorState;
 };
 
 export const getTabNumberToSwitch = tabsErrorState => {
     // eslint-disable-next-line
-    for (const { tabName, tabNumber } of sectionsTabNumbers) {
-        if (tabsErrorState[tabName]) {
-            return tabNumber;
+    for (const { name, number } of sections) {
+        if (tabsErrorState[name]) {
+            return number;
         }
     }
 };

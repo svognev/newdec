@@ -110,24 +110,20 @@ class ListSection extends React.Component {
     };
 
     componentDidMount() {
-        if (this.props.validationErrorInSection) {
+        if (this.props.sectionErrors) {
             focusInput(this.listNameInputRef);
         }
     }
 
     componentDidUpdate(prevprops) {
-        const { isList, listType, listName } = this.props;
-        if (this.props.validationErrorInSection && !prevprops.validationErrorInSection) {
+        if (this.props.sectionErrors && !prevprops.sectionErrors) {
             focusInput(this.listNameInputRef);
-        }
-        if (this.props.validationErrorInSection && (!isList || listType === "unordered" || listName)) {
-            this.props.updateValidationError({ listSection: false });
         }
     }
 
     render() {
         const {
-            validationErrorInSection,
+            sectionErrors,
             listPreviewProps,
             isList,
             listName, changeListName,
@@ -198,7 +194,7 @@ class ListSection extends React.Component {
                                         value={listName}
                                         onChange={changeListName}
                                         onBlur={trimOnTextFieldBlur(changeListName)}
-                                        error={validationErrorInSection && !listName}
+                                        error={!!(sectionErrors && sectionErrors.includes("listName"))}
                                         inputRef={this.listNameInputRef}
                                         variant="outlined" 
                                         margin="dense" 
@@ -587,7 +583,7 @@ class ListSection extends React.Component {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return {
-        validationErrorInSection: validationError.listSection,
+        sectionErrors: validationError.listSection,
         formState: form,
         isList: form.isList,
         listName: form.listName, 

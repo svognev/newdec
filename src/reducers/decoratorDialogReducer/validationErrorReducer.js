@@ -3,14 +3,14 @@ import {
     REMOVE_VALIDATION_ERROR, 
 } from "../../components/DecoratorDialog/actions";
 
-import { tabsErrorInitialState } from "../../components/DecoratorDialog/constants";
+const initialErrorState = {};
 
-const validationErrorReducer = (state = tabsErrorInitialState, action) => {
+const validationErrorReducer = (state = initialErrorState, action) => {
     switch (action.type) {
         case UPDATE_VALIDATION_ERROR:
-            return { ...state, ...action.payload };
+            return action.payload;
         case REMOVE_VALIDATION_ERROR:
-            return tabsErrorInitialState;
+            return initialErrorState;
         default:
             return state;
     }

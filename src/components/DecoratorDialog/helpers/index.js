@@ -2,11 +2,13 @@ import DecDataConverter from "./DecDataConverter";
 import getShortCutUtils from "./getShortCutUtils";
 import isFontAvailable from "./isFontAvailable";
 import prepareColorCode from "./prepareColorCode";
-import {
-    getTabsErrorState,
+import { 
+    getErrorState, 
     getTabNumberToSwitch,
-    hasErrorInSection,
-} from "./validationFunctions";
+    checkNames,
+    checkDecKey,
+    checkListName,
+ } from "./validationFunctions";
 import {
     getCorrectColor,
     selectAllOnClick,
@@ -31,9 +33,11 @@ export {
     getShortCutUtils,
     isFontAvailable,
     prepareColorCode,
-    getTabsErrorState,
+    getErrorState,
     getTabNumberToSwitch,
-    hasErrorInSection,
+    checkNames,
+    checkDecKey,
+    checkListName,
     getCorrectColor,
     getPreviewFont,
     selectAllOnClick,

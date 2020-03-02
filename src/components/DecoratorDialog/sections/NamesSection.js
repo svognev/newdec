@@ -11,7 +11,7 @@ import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
-import { hasErrorInSection, focusOnEmptyField, trimOnTextFieldBlur } from "../helpers";
+import { trimOnTextFieldBlur, focusInput } from "../helpers";
 import { setValue, toggleValue, updateValidationError } from "../actions";
 import { MAIN_LANG_KEY, ADDITIONAL_LANGS, sectionTypesMap } from "../constants";
 
@@ -43,18 +43,24 @@ class NamesSection extends React.Component {
         this.props.changeSectionTypes(null, newValue);
     };
 
+    onValidationError = () => {
+        const sectionErrors = this.props.sectionErrors || [];
+        if (sectionErrors.includes("decKey")) {
+            focusInput(this.decKeyInputRef);
+        } else if (sectionErrors.includes("name")) {
+            focusInput(this.decNameEnInputRef);
+        }
+    };
+
     componentDidMount() {
-        if (this.props.validationErrorInSection) {
-            focusOnEmptyField(this.inputRefs);
+        if (this.props.sectionErrors) {
+            this.onValidationError();
         }
     }
 
     componentDidUpdate(prevprops) {
-        if (this.props.validationErrorInSection && !prevprops.validationErrorInSection) {
-            focusOnEmptyField(this.inputRefs);
-        }
-        if (this.props.validationErrorInSection && !hasErrorInSection(this.inputRefs)) {
-            this.props.updateValidationError({ namesSection: false });
+        if (this.props.sectionErrors && !prevprops.sectionErrors) {
+            this.onValidationError();
         }
     }
 
@@ -67,7 +73,7 @@ class NamesSection extends React.Component {
             closeGroupDialog, 
             showGroupDialogValidationError, 
             hideGroupDialogValidationError,
-            validationErrorInSection,
+            sectionErrors,
             decKey, changeDecKey,
             sectionTypes,
             group,
@@ -80,16 +86,31 @@ class NamesSection extends React.Component {
 
         return (
             <div className="dialogGrid dialogGrid_2cols dialogGrid_rightAlignedLabels">
-                <LabelWithAsterisk>Key</LabelWithAsterisk>
-                <TextField 
-                    value={decKey}
-                    onChange={changeDecKey}
-                    onBlur={trimOnTextFieldBlur(changeDecKey)}
-                    error={validationErrorInSection && !decKey}
-                    inputRef={this.decKeyInputRef}
-                    variant="outlined" 
-                    margin="dense" 
-                />
+                { isEditMode ? (
+                    <React.Fragment>
+                        <span>Key</span>
+                        <TextField 
+                            value={decKey}
+                            inputRef={this.decKeyInputRef}
+                            variant="outlined" 
+                            margin="dense" 
+                            disabled
+                        />
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <LabelWithAsterisk>Key</LabelWithAsterisk>
+                        <TextField 
+                            value={decKey}
+                            onChange={changeDecKey}
+                            onBlur={trimOnTextFieldBlur(changeDecKey)}
+                            error={!!(sectionErrors && sectionErrors.includes("decKey"))}
+                            inputRef={this.decKeyInputRef}
+                            variant="outlined" 
+                            margin="dense" 
+                        />
+                    </React.Fragment>
+                )}
 
                 <span>Section types</span>
                 <div className="checkBoxesSet">
@@ -140,7 +161,7 @@ class NamesSection extends React.Component {
                     value={name[MAIN_LANG_KEY]}
                     onChange={this.onNameChange(MAIN_LANG_KEY)}
                     onBlur={trimOnTextFieldBlur(this.onNameChange(MAIN_LANG_KEY))}
-                    error={validationErrorInSection && !name[MAIN_LANG_KEY]}
+                    error={!!(sectionErrors && sectionErrors.includes("name"))}
                     inputRef={this.decNameEnInputRef}
                     variant="outlined" 
                     margin="dense" 
@@ -180,7 +201,7 @@ class NamesSection extends React.Component {
 
 const mapStateToProps = ({ decoratorDialog: { form, validationError }}) => {
     return { 
-        validationErrorInSection: validationError.namesSection,
+        sectionErrors: validationError.namesSection,
         formState: form,
         decKey: form.decKey,
         group: form.group,

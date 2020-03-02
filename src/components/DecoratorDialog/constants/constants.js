@@ -43,3 +43,47 @@ export const backSpaceActionsMap = new Map([
 ]);
 
 export const sampleText = `<div>Sample Text. You can change it.</div><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare maximus vehicula. Duis nisi velit, dictum id mauris vitae, lobortis pretium quam.</div>`;
+
+
+export const sections = [
+    { 
+        name: "namesSection", 
+        number: 0 
+    },
+    { 
+        name: "positioningSection", 
+        number: 1 
+    },
+    { 
+        name: "listSection", 
+        number: 2 
+    },
+    { 
+        name: "referencingSection", 
+        number: 2 
+    },
+    { 
+        name: "typographySection", 
+        number: 3 
+    },
+    { 
+        name: "distancesSection", 
+        number: 4 
+    },
+    { 
+        name: "framesSection", 
+        number: 5 
+    },
+    { 
+        name: "fillingSection", 
+        number: 6 
+    },
+    { 
+        name: "tocSection", 
+        number: 7 
+    },
+    { 
+        name: "shortCutsSection", 
+        number: 8 
+    },
+];
