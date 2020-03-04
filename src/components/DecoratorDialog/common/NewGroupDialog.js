@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 import LabelWithAsterisk from "./LabelWithAsterisk";
-import { focusInput } from "../helpers";
+import { focusInput, trimOnTextFieldBlur } from "../helpers";
 import { LANGS, MAIN_LANG_KEY, ADDITIONAL_LANGS } from "../constants";
 
 class NewGroupDialog extends React.PureComponent {
@@ -75,6 +75,7 @@ class NewGroupDialog extends React.PureComponent {
                                 <TextField
                                     value={this.state.groupKey}
                                     onChange={onInputChange("groupKey")}
+                                    onBlur={trimOnTextFieldBlur(onInputChange("groupKey"))}
                                     inputRef={this.requiredFieldRef}
                                     error={hasGroupDialogValidationError && !this.state.groupKey}
                                     variant="outlined" 
@@ -88,6 +89,7 @@ class NewGroupDialog extends React.PureComponent {
                                 <TextField
                                     value={this.state[MAIN_LANG_KEY]}
                                     onChange={onInputChange(MAIN_LANG_KEY)}
+                                    onBlur={trimOnTextFieldBlur(onInputChange(MAIN_LANG_KEY))}
                                     variant="outlined" 
                                     margin="dense" 
                                 />
@@ -98,6 +100,7 @@ class NewGroupDialog extends React.PureComponent {
                                 <TextField
                                     value={this.state[MAIN_LANG_KEY]}
                                     onChange={onInputChange(MAIN_LANG_KEY)}
+                                    onBlur={trimOnTextFieldBlur(onInputChange(MAIN_LANG_KEY))}
                                     inputRef={this.requiredFieldRef}
                                     error={hasGroupDialogValidationError && !this.state[MAIN_LANG_KEY]}
                                     variant="outlined" 
@@ -110,7 +113,8 @@ class NewGroupDialog extends React.PureComponent {
                                 <span>Name {langName}{regionFullName && <span className="smallText"><br/>{regionFullName}</span>}</span>
                                 <TextField
                                     value={this.state[langKey]}
-                                    onChange={onInputChange(langKey)} 
+                                    onChange={onInputChange(langKey)}
+                                    onBlur={trimOnTextFieldBlur(onInputChange(langKey))}
                                     variant="outlined" 
                                     margin="dense" 
                                 />
