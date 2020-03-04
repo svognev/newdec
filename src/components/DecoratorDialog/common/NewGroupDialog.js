@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 import LabelWithAsterisk from "./LabelWithAsterisk";
+import CustomInnerDialog from "./CustomInnerDialog";
 import { focusInput, trimOnTextFieldBlur } from "../helpers";
 import { LANGS, MAIN_LANG_KEY, ADDITIONAL_LANGS } from "../constants";
 
@@ -59,7 +60,7 @@ class NewGroupDialog extends React.PureComponent {
         const buttonText = isEditMode ? "Save" : "Create";
 
         return (
-            <Dialog
+            <CustomInnerDialog
                 className="decoratorDialog"
                 open={isOpen}
                 onClose={onClose}
@@ -130,7 +131,7 @@ class NewGroupDialog extends React.PureComponent {
                         {buttonText}
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </CustomInnerDialog>
         );
     }
 }
