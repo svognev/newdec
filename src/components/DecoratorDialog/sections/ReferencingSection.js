@@ -29,9 +29,10 @@ class ReferencingSection extends React.Component {
             hideGroupDialogValidationError,
             referenceGroup,
         } = this.props;
-        
-        const newGroupName = referenceGroupToCreate[MAIN_LANG_KEY] || referenceGroupToCreate.groupKey;
-        const isEditMode = !!newGroupName;
+
+        const newGroupKey = referenceGroupToCreate.groupKey;
+        const newGroupName = referenceGroupToCreate[MAIN_LANG_KEY];
+        const isEditMode = !!newGroupKey;
     
         return (
             <div className="dialogGrid dialogGrid_2cols">
@@ -42,13 +43,13 @@ class ReferencingSection extends React.Component {
                         value={referenceGroup} 
                         onChange={this.onXrefChange} 
                     >
-                        { isEditMode && <option className="highlightedOption" value={newGroupName}>{newGroupName}</option> }
+                        { isEditMode && <option className="highlightedOption" value={newGroupKey}>{newGroupName || newGroupKey}</option> }
                         <option value="">none</option>
                         <option value="0">Reference group 1</option>
                         <option value="1">Reference group 2</option>
                     </NativeSelect>
                     {
-                        !(isEditMode && referenceGroup !== newGroupName) &&
+                        !(isEditMode && referenceGroup !== newGroupKey) &&
                         <Button color="primary" className="textButton" onClick={openGroupDialog}>
                             { isEditMode ? "Edit new group" : "+New" }
                         </Button>

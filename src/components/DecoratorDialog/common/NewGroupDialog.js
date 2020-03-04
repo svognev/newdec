@@ -44,7 +44,7 @@ class NewGroupDialog extends React.PureComponent {
                 groupToSave.groupKey = this.state.groupKey.trim();
             }
             this.props.hideGroupDialogValidationError();
-            this.props.saveGroup(null, (groupToSave[MAIN_LANG_KEY] || groupToSave.groupKey), groupToSave);
+            this.props.saveGroup(null, (this.isXref ? groupToSave.groupKey : groupToSave[MAIN_LANG_KEY]), groupToSave);
             this.props.closeGroupDialog();
         } else {
             this.props.showGroupDialogValidationError();
