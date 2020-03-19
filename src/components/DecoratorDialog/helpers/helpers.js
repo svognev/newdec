@@ -1,3 +1,5 @@
+import { snakeCase } from "lodash";
+
 import { 
     numberingSets, 
     autoFillingRequiredFields, 
@@ -126,4 +128,14 @@ export const trimOnTextFieldBlur = changeFunc => e => {
     if (e.target.value) {
         changeFunc({ target: { value: e.target.value.trim()}});
     }
+};
+
+export const snakeCaseOnTextFieldBlur = changeFunc => e => {
+    if (e.target.value) {
+        changeFunc({ target: { value: snakeCase(e.target.value)}});
+    }
+};
+
+export const filterKeyInput = changeFunc => e => {
+    changeFunc({ target: { value: (e.target.value || "").toLowerCase().replace(/[^a-z_\s]/gm, "").replace(/\s/gm, "_") }});
 };

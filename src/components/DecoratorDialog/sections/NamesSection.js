@@ -11,7 +11,7 @@ import CustomInput from "../common/CustomInput";
 import NewGroupDialog from "../common/NewGroupDialog";
 import LabelWithAsterisk from "../common/LabelWithAsterisk";
 import withNewGroupControl from "../hoc/withNewGroupControl";
-import { trimOnTextFieldBlur, focusInput } from "../helpers";
+import { trimOnTextFieldBlur, focusInput, filterKeyInput, snakeCaseOnTextFieldBlur } from "../helpers";
 import { setValue, toggleValue, updateValidationError } from "../actions";
 import { MAIN_LANG_KEY, ADDITIONAL_LANGS, sectionTypesMap } from "../constants";
 
@@ -102,8 +102,8 @@ class NamesSection extends React.Component {
                         <LabelWithAsterisk>Key</LabelWithAsterisk>
                         <TextField 
                             value={decKey}
-                            onChange={changeDecKey}
-                            onBlur={trimOnTextFieldBlur(changeDecKey)}
+                            onChange={filterKeyInput(changeDecKey)}
+                            onBlur={snakeCaseOnTextFieldBlur(changeDecKey)}
                             error={!!(sectionErrors && sectionErrors.includes("decKey"))}
                             inputRef={this.decKeyInputRef}
                             variant="outlined" 
